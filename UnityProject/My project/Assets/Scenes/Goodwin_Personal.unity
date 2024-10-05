@@ -121,7 +121,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: 82c32e4bebe5b3948bd04705e5ca4d33, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 3746a2852a993d74facb4bdeb645b6aa, type: 2}
 --- !u!1 &72219128
 GameObject:
   m_ObjectHideFlags: 0
@@ -3170,63 +3170,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1061953838}
   m_CullTransparentMesh: 1
---- !u!1001 &1098958422
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 7004600302090583671, guid: 2e9589757b541184da8e9c1fc8e37a0b, type: 3}
-      propertyPath: m_Name
-      value: Soldier_Mans
-      objectReference: {fileID: 0}
-    - target: {fileID: 7602257097078688568, guid: 2e9589757b541184da8e9c1fc8e37a0b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.08670753
-      objectReference: {fileID: 0}
-    - target: {fileID: 7602257097078688568, guid: 2e9589757b541184da8e9c1fc8e37a0b, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7602257097078688568, guid: 2e9589757b541184da8e9c1fc8e37a0b, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -33.73
-      objectReference: {fileID: 0}
-    - target: {fileID: 7602257097078688568, guid: 2e9589757b541184da8e9c1fc8e37a0b, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7602257097078688568, guid: 2e9589757b541184da8e9c1fc8e37a0b, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7602257097078688568, guid: 2e9589757b541184da8e9c1fc8e37a0b, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7602257097078688568, guid: 2e9589757b541184da8e9c1fc8e37a0b, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7602257097078688568, guid: 2e9589757b541184da8e9c1fc8e37a0b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7602257097078688568, guid: 2e9589757b541184da8e9c1fc8e37a0b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7602257097078688568, guid: 2e9589757b541184da8e9c1fc8e37a0b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 2e9589757b541184da8e9c1fc8e37a0b, type: 3}
 --- !u!1001 &1205924175
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4587,8 +4530,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5198133842c8b514095d2727a8096825, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHpBar: {fileID: 1366393359}
+  menuActive: {fileID: 0}
+  menuPause: {fileID: 436361504}
+  menuWin: {fileID: 1947522048}
+  menuLose: {fileID: 896072424}
   flashDamageScreen: {fileID: 589507561}
+  playerHpBar: {fileID: 1366393359}
+  enemyCountText: {fileID: 460738913}
   player: {fileID: 0}
   playerScript: {fileID: 0}
   isPaused: 0
@@ -5630,4 +5578,3 @@ SceneRoots:
   - {fileID: 1205924175}
   - {fileID: 1054807301}
   - {fileID: 6462302247311392720}
-  - {fileID: 1098958422}
