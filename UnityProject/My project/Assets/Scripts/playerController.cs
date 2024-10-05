@@ -136,7 +136,8 @@ public class playerController : MonoBehaviour, IDamage
         //I'm dead :c
         if(HP <= 0)
         {
-            GameManager.instance.youLose();
+            //GameManager.instance.youLose();
+            UIManager.Instance.ShowLoseScreen();
         }
     }
 
