@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    //RECOMPILE
+
     public static UIManager Instance;
     [SerializeField] GameObject menuActive;
     [SerializeField] GameObject menuPause;
@@ -28,24 +28,23 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {// on esc key 
-        if(Input.GetButtonDown("Cancel"))
+        if (Input.GetButtonDown("Cancel"))
         {
+            Debug.Log("Escape key pressed");
             // if no menu
-        if (menuActive == null)
-        {
+            if (menuActive == null)
+            {
                 PauseGame();
-                menuActive = menuPause;
-                menuActive.SetActive(true);
 
-        }
-        else if(menuActive==menuPause) 
+
+            }
+            else if (menuActive == menuPause)
             {
                 UnpauseGame();
-                menuActive.SetActive(false);
-                menuActive = null;
+
             }
         }
-        
+
     }
     public void PauseGame()
     {
@@ -59,21 +58,28 @@ public class UIManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
         // pause state toggled to true
         isPaused = true;
+        menuActive = menuPause;
+        menuActive.SetActive(true);
     }
     public void UnpauseGame()
     { // return to original timescale
         Time.timeScale = timescale;
         // cursor off 
-        Cursor.visible=false;
+        Cursor.visible = false;
         // Lock cursor 
         Cursor.lockState = CursorLockMode.Locked;
         // toggle pause state on
-        isPaused=false;
+        isPaused = false;
+        if (menuActive != null)
+        {
+            menuActive.SetActive(isPaused);
+            menuActive = null;
+        }
     }
     public void updateEnemyCount(int count)
     {
         // updated enmey count to display to tracker 
-        enemyCountText.text= count.ToString();
+        enemyCountText.text = count.ToString();
     }
     public void UPdatePlayerHealthBar(float healthFraction)
     {
@@ -85,18 +91,29 @@ public class UIManager : MonoBehaviour
         // pause game 
         PauseGame();
         // you win 
+        if (menuActive != null)
+        {
+            menuActive.SetActive(false);
+            menuActive = null;
+        }
+
         menuActive = menuWin;
-        menuActive.SetActive(true) ;
+        menuActive.SetActive(true);
 
     }
     public void ShowLoseScreen()
     {
         // pause game 
         PauseGame();
+        if (menuActive != null)
+        {
+            menuActive.SetActive(false);
+            menuActive = null;
+        }
         // you lose 
         menuActive = menuLose;
-        menuActive.SetActive(true );
+        menuActive.SetActive(true);
 
     }
-    
+
 }
