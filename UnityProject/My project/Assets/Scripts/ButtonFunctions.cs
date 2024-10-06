@@ -7,13 +7,13 @@ public class ButtonFunctions : MonoBehaviour
 {
    public void resume()
     {
-        GameManager.instance.stateUnpuase();
+        UIManager.Instance.UnpauseGame();
     }
 
     public void restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        GameManager.instance.stateUnpuase();
+        UIManager.Instance.UnpauseGame();
     }
     public void quit()
     {

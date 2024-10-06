@@ -11,6 +11,7 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] Transform headPos;
 
     [SerializeField] int HP;
+    [SerializeField] int rotateSpeed;
     [SerializeField] int viewAngle;
 
     [SerializeField] GameObject bullet;
@@ -36,10 +37,29 @@ public class enemyAI : MonoBehaviour, IDamage
     // Update is called once per frame
     void Update()
     {
-        if (playerInRange && canSeePlayer())
+        // simple updates following along with lecture two. 
+
+        playerDir = GameManager.instance.player.transform.position - transform.position;
+        if ((playerInRange))
         {
-         
+            agent.SetDestination(GameManager.instance.player.transform.position);
+            if (agent.remainingDistance <= agent.stoppingDistance)
+            {
+                faceTarget();
+            }
+
+            if (!isShooting)
+            {
+                StartCoroutine(shoot());
+            }
         }
+
+    }
+
+    void faceTarget()
+    {
+        Quaternion rotate = Quaternion.LookRotation(new Vector3(playerDir.x, 0, playerDir.z));
+        transform.rotation = Quaternion.Lerp(transform.rotation, rotate, Time.deltaTime * rotateSpeed);
     }
 
     bool canSeePlayer()
@@ -50,9 +70,9 @@ public class enemyAI : MonoBehaviour, IDamage
         Debug.Log(angleToPlayer);
         Debug.DrawRay(headPos.position, playerDir);
         RaycastHit hit;
-        if(Physics.Raycast(headPos.position, playerDir, out hit))
+        if (Physics.Raycast(headPos.position, playerDir, out hit))
         {
-            if(hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
+            if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
             {
                 agent.SetDestination(GameManager.instance.player.transform.position);
 
@@ -62,11 +82,11 @@ public class enemyAI : MonoBehaviour, IDamage
 
 
                     return true;
-                }  
+                }
             }
         }
-            return false;
-        
+        return false;
+
     }
     //to derive from IDamage must be public void, must use the exact
     //syntax as IDamage
@@ -76,7 +96,7 @@ public class enemyAI : MonoBehaviour, IDamage
 
         StartCoroutine(flashRed());
 
-        if(HP <= 0)
+        if (HP <= 0)
         {
             GameManager.instance.updateGameGoal(-1);
             Destroy(gameObject);
@@ -101,7 +121,7 @@ public class enemyAI : MonoBehaviour, IDamage
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
             playerInRange = true;
         }
