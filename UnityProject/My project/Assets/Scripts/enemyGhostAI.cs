@@ -40,12 +40,17 @@ public class enemyGhostAI : MonoBehaviour, IDamage
         // simple updates following along with lecture two. 
 
         playerDir = GameManager.instance.player.transform.position - transform.position;
-        if ((playerInRange && canSeePlayer()))
+        if (playerInRange)
         {
-            agent.SetDestination(GameManager.instance.player.transform.position);
-            if (agent.remainingDistance <= agent.stoppingDistance)
+            if (canSeePlayer())
             {
-                faceTarget();
+
+
+                agent.SetDestination(GameManager.instance.player.transform.position);
+                if (agent.remainingDistance <= agent.stoppingDistance)
+                {
+                    faceTarget();
+                }
             }
 
         }

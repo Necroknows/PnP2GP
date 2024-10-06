@@ -121,7 +121,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: 3746a2852a993d74facb4bdeb645b6aa, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 2d184e2a2293376408866e78cf2f1cda, type: 2}
 --- !u!1 &72219128
 GameObject:
   m_ObjectHideFlags: 0
@@ -1426,6 +1426,14 @@ PrefabInstance:
     - target: {fileID: 4731041251265943480, guid: 802993c0a67c1474a8e45bec6ae1a495, type: 3}
       propertyPath: m_Name
       value: gravestone-old-cross
+      objectReference: {fileID: 0}
+    - target: {fileID: 4731041251265943480, guid: 802993c0a67c1474a8e45bec6ae1a495, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4731041251265943480, guid: 802993c0a67c1474a8e45bec6ae1a495, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5396394681957174530, guid: 802993c0a67c1474a8e45bec6ae1a495, type: 3}
       propertyPath: m_LocalScale.x
@@ -3023,6 +3031,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cube
       objectReference: {fileID: 0}
+    - target: {fileID: 7897282801470629297, guid: 8697da8f765f4c7499537ac9d115f1af, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897282801470629297, guid: 8697da8f765f4c7499537ac9d115f1af, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8699920165701260400, guid: 8697da8f765f4c7499537ac9d115f1af, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.96
@@ -3910,6 +3926,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1465914317}
   m_CullTransparentMesh: 1
+--- !u!1 &1542927509
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1542927510}
+  m_Layer: 0
+  m_Name: ShootPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1542927510
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1542927509}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6502522372392360514}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1597333522
 GameObject:
   m_ObjectHideFlags: 0
@@ -4601,7 +4648,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerHpBar: {fileID: 1366393359}
   flashDamageScreen: {fileID: 589507561}
-  player: {fileID: 0}
+  player: {fileID: 787578828}
   playerScript: {fileID: 0}
   isPaused: 0
 --- !u!114 &1882557173
@@ -5729,6 +5776,7 @@ GameObject:
   - component: {fileID: 8289121763027608370}
   - component: {fileID: 3496709723925997268}
   - component: {fileID: 8289121763027608369}
+  - component: {fileID: 8289121763027608371}
   m_Layer: 0
   m_Name: Ghost
   m_TagString: Untagged
@@ -6204,7 +6252,8 @@ Transform:
   m_LocalPosition: {x: -1.1641532e-10, y: 0.00096538465, z: 1.2340023e-10}
   m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1542927510}
   m_Father: {fileID: 2721298760776640155}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &6678159068337523882
@@ -6416,13 +6465,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 8289121763027608369}
   model: {fileID: 3496709723925997268}
-  shootPos: {fileID: 6502522372392360514}
+  shootPos: {fileID: 1542927510}
   headPos: {fileID: 1091590683546313398}
   HP: 3
-  rotateSpeed: 20
-  viewAngle: 45
-  bullet: {fileID: 0}
-  shootRate: 0
+  rotateSpeed: 600
+  viewAngle: 90
+  bullet: {fileID: 2125302551442605049, guid: 6d7f4fe89148e784a87a7c3f1188df4d, type: 3}
+  shootRate: 5
+--- !u!135 &8289121763027608371
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2406233126510684481}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 10
+  m_Center: {x: 0, y: 0.54034597, z: -0.06694923}
 --- !u!4 &8314820066115576129
 Transform:
   m_ObjectHideFlags: 0
