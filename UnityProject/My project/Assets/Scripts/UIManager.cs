@@ -38,7 +38,7 @@ public class UIManager : MonoBehaviour
 
 
             }
-            else if (menuActive == menuPause)
+            else if (menuActive !=null)
             {
                 UnpauseGame();
 
