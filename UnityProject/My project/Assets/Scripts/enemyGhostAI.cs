@@ -40,7 +40,7 @@ public class enemyGhostAI : MonoBehaviour, IDamage
         // simple updates following along with lecture two. 
 
         playerDir = GameManager.instance.player.transform.position - transform.position;
-        if ((playerInRange))
+        if ((playerInRange && canSeePlayer()))
         {
             agent.SetDestination(GameManager.instance.player.transform.position);
             if (agent.remainingDistance <= agent.stoppingDistance)
@@ -48,22 +48,20 @@ public class enemyGhostAI : MonoBehaviour, IDamage
                 faceTarget();
             }
 
-            if (!isShooting)
-            {
-                StartCoroutine(shoot());
-            }
         }
 
     }
 
     void faceTarget()
     {
+        //sets the enemy to face the target/player
         Quaternion rotate = Quaternion.LookRotation(new Vector3(playerDir.x, 0, playerDir.z));
         transform.rotation = Quaternion.Lerp(transform.rotation, rotate, Time.deltaTime * rotateSpeed);
     }
 
     bool canSeePlayer()
     {
+        //gets the player location and angle
         playerDir = GameManager.instance.player.transform.position - headPos.position;
         angleToPlayer = Vector3.Angle(playerDir, transform.forward);
 
@@ -74,6 +72,7 @@ public class enemyGhostAI : MonoBehaviour, IDamage
         {
             if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
             {
+                //sets destination to player
                 agent.SetDestination(GameManager.instance.player.transform.position);
 
                 if (!isShooting)
