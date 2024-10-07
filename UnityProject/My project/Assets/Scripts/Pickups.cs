@@ -10,16 +10,23 @@ public class Pickups : MonoBehaviour
     public int healthPickupAmount = 15;
     public int ammoPickupAmount = 30;
 
+    //animation
+    public float hoverHeight = 0.5f;
+    public float hoverSpeed = 3.0f;
+    public float hoverRange = 0.5f;
+    private Vector3 startPos;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        startPos = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        float newY = startPos.y + Mathf.Sin(Time.time * hoverSpeed) * (hoverRange / 2);
+        transform.position = new Vector3(startPos.x, newY, startPos.z);
     }
 
     //check collider/add health

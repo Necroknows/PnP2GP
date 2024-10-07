@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6210939005977369976}
+  - component: {fileID: 6360499211532556946}
   - component: {fileID: 6360402896131456828}
   - component: {fileID: 8047097911032731066}
   - component: {fileID: 6221794535432645314}
@@ -28,12 +29,30 @@ Transform:
   m_GameObject: {fileID: 46590112975434659}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.0573645, y: 0.43268585, z: -1.2474203}
+  m_LocalPosition: {x: 1.0573645, y: 1, z: -1.2474203}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6360499211532556946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 46590112975434659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6850585989e0167469be4ac61e6ee034, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupType: 0
+  healthPickupAmount: 15
+  ammoPickupAmount: 30
+  hoverHeight: 0.5
+  hoverSpeed: 3
+  hoverRange: 0.25
 --- !u!33 &6360402896131456828
 MeshFilter:
   m_ObjectHideFlags: 0
