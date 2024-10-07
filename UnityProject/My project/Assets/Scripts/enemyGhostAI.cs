@@ -13,6 +13,8 @@ public class enemyGhostAI : MonoBehaviour, IDamage
     [SerializeField] int HP;
     [SerializeField] int rotateSpeed;
     [SerializeField] int viewAngle;
+    [SerializeField] int dashMod;
+    [SerializeField] int dashTime;
 
     [SerializeField] GameObject bullet;
     [SerializeField] float shootRate;
@@ -46,7 +48,7 @@ public class enemyGhostAI : MonoBehaviour, IDamage
             {
 
 
-                agent.SetDestination(GameManager.instance.player.transform.position);
+               // agent.SetDestination(GameManager.instance.player.transform.position);
                 if (agent.remainingDistance <= agent.stoppingDistance)
                 {
                     faceTarget();
@@ -82,7 +84,7 @@ public class enemyGhostAI : MonoBehaviour, IDamage
 
                 if (!isShooting)
                 {
-                    StartCoroutine(shoot());
+                    StartCoroutine(attack());
 
 
                     return true;
@@ -113,14 +115,25 @@ public class enemyGhostAI : MonoBehaviour, IDamage
         model.material.color = colorOrig;
     }
 
-    IEnumerator shoot()
+    IEnumerator attack()
     {
         isShooting = true;
-
+        if (GameManager.instance.player.transform.position.y - headPos.position.y <= 5 || 
+            GameManager.instance.player.transform.position.z - headPos.position.z <= 5)
+        {
+            StartCoroutine(dash());
+        }
         Instantiate(bullet, shootPos.position, transform.rotation);
 
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
+    }
+
+    IEnumerator dash()
+    {
+        agent.speed *= dashMod;
+        yield return new WaitForSeconds(dashTime);
+        agent.speed /= dashMod;
     }
 
     private void OnTriggerEnter(Collider other)
