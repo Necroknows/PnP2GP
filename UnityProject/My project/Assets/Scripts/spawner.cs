@@ -76,7 +76,10 @@ public class spawner : MonoBehaviour, IDamage
         //spawns enemies
     {
         isSpawning = true;
-        Instantiate(enemy, spawnPoint.position, transform.rotation);
+        for (int numOfSpawn = 0; numOfSpawn < spawnCount; numOfSpawn++)
+        {
+            Instantiate(enemy, spawnPoint.position, transform.rotation);
+        }
         spawnCounter++;
         yield return new WaitForSeconds(spawnRate);
         isSpawning = false;
