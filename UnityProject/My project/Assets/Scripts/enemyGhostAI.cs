@@ -5,30 +5,27 @@ using UnityEngine.AI;
 
 public class enemyGhostAI : MonoBehaviour, IDamage
 {
+
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Renderer model;
     [SerializeField] Transform shootPos;
     [SerializeField] Transform headPos;
+    //[SerializeField] Animator animator;
 
     [SerializeField] int HP;
     [SerializeField] int rotateSpeed;
-    [SerializeField] int viewAngle;
-    [SerializeField] int dashMod;
-    [SerializeField] int dashTime;
+
+    Vector3 playerDir;
 
     [SerializeField] GameObject bullet;
     [SerializeField] float shootRate;
 
+   
+
     bool isShooting;
     bool playerInRange;
 
-    float angleToPlayer;
-
-    Vector3 playerDir;
-
     Color colorOrig;
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -39,68 +36,59 @@ public class enemyGhostAI : MonoBehaviour, IDamage
     // Update is called once per frame
     void Update()
     {
-        // simple updates following along with lecture two. 
-
-        playerDir = GameManager.instance.player.transform.position - transform.position;
+        playerDir = GameManager.instance.player.transform.position;
         if (playerInRange)
         {
-            if (canSeePlayer())
+            agent.SetDestination(GameManager.instance.player.transform.position);
+            if (agent.remainingDistance <= agent.stoppingDistance)
             {
+                faceTarget();
+            }
 
-
-               // agent.SetDestination(GameManager.instance.player.transform.position);
-                if (agent.remainingDistance <= agent.stoppingDistance)
-                {
-                    faceTarget();
-                }
+            if (!isShooting)
+            {
+                StartCoroutine(shoot());
             }
 
         }
-
     }
 
     void faceTarget()
     {
-        //sets the enemy to face the target/player
-        Quaternion rotate = Quaternion.LookRotation(new Vector3(playerDir.x, 0, playerDir.z));
-        transform.rotation = Quaternion.Lerp(transform.rotation, rotate, Time.deltaTime * rotateSpeed);
+        Quaternion rot = Quaternion.LookRotation(new Vector3(playerDir.x, 0, playerDir.z));
+        transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * rotateSpeed);
+
     }
 
-    bool canSeePlayer()
+    public void OnTriggerEnter(Collider other)
     {
-        //gets the player location and angle
-        playerDir = GameManager.instance.player.transform.position - headPos.position;
-        angleToPlayer = Vector3.Angle(playerDir, transform.forward);
-
-        Debug.Log(angleToPlayer);
-        Debug.DrawRay(headPos.position, playerDir);
-        RaycastHit hit;
-        if (Physics.Raycast(headPos.position, playerDir, out hit))
+        if (other.CompareTag("Player"))
         {
-            if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
-            {
-                //sets destination to player
-                agent.SetDestination(GameManager.instance.player.transform.position);
-
-                if (!isShooting)
-                {
-                    StartCoroutine(attack());
-
-
-                    return true;
-                }
-            }
+            playerInRange = true;
         }
-        return false;
+    }
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInRange = false;
+        }
+    }
+    IEnumerator shoot()
+    {
+        isShooting = true;
+        
+        Instantiate(bullet, shootPos.position, transform.rotation);
+        yield return new WaitForSeconds(shootRate);
+        isShooting = false;
 
     }
-    //to derive from IDamage must be public void, must use the exact
-    //syntax as IDamage
+
     public void takeDamage(int amount)
     {
         HP -= amount;
 
-        StartCoroutine(flashRed());
+        StartCoroutine(flashColor());
 
         if (HP <= 0)
         {
@@ -108,48 +96,12 @@ public class enemyGhostAI : MonoBehaviour, IDamage
             Destroy(gameObject);
         }
     }
-    IEnumerator flashRed()
+
+    IEnumerator flashColor()
     {
         model.material.color = Color.red;
-        yield return new WaitForSeconds(.1f);
+        yield return new WaitForSeconds(0.1f);
         model.material.color = colorOrig;
-    }
-
-    IEnumerator attack()
-    {
-        isShooting = true;
-        if (GameManager.instance.player.transform.position.y - headPos.position.y <= 5 || 
-            GameManager.instance.player.transform.position.z - headPos.position.z <= 5)
-        {
-            StartCoroutine(dash());
-        }
-        Instantiate(bullet, shootPos.position, transform.rotation);
-
-        yield return new WaitForSeconds(shootRate);
-        isShooting = false;
-    }
-
-    IEnumerator dash()
-    {
-        agent.speed *= dashMod;
-        yield return new WaitForSeconds(dashTime);
-        agent.speed /= dashMod;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            playerInRange = true;
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            playerInRange = false;
-        }
     }
 
 }

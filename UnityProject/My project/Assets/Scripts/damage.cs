@@ -24,6 +24,7 @@ public class damage : MonoBehaviour
         }
         if (type == damageType.ghostOrb)
         {
+            rb.velocity = transform.forward * speed;
             Destroy(gameObject, destroyTime);
         }
     }
