@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class damage : MonoBehaviour
 {
-    [SerializeField] enum damageType { bullet, stationary, chaser};
+    [SerializeField] enum damageType { bullet, stationary, chaser, arrow};
     [SerializeField] damageType type;
     [SerializeField] Rigidbody rb;
 
@@ -24,14 +24,16 @@ public class damage : MonoBehaviour
         {
             Destroy(gameObject, destroyTime);
         }
+        if(type==damageType.arrow)//Should just travel in a straight line.
+        {
+            rb.velocity = transform.forward * speed;
+            Destroy(gameObject, destroyTime);
+        }
     }
 
   private void OnTriggerEnter(Collider other)
     {
-        if(other.isTrigger)
-        {
-            return;
-        }
+        if (other.isTrigger) return;
 
         IDamage dmg = other.GetComponent<IDamage>();
 
@@ -39,9 +41,15 @@ public class damage : MonoBehaviour
         {
             dmg.takeDamage(damageAmount);
         }
-        else if(type==damageType.bullet||type==damageType.chaser)
+        else if(type==damageType.bullet||type==damageType.chaser || type == damageType.arrow)
         { 
         Destroy(gameObject);
+        }
+        else if(type == damageType.arrow) //Added arrow physics to allow for arrow sticking.
+        {
+            rb.isKinematic = true; //Stops physics
+            transform.parent = other.transform;
+            Destroy(gameObject, destroyTime);
         }
     }
     private void Update()
