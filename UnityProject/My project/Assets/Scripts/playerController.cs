@@ -126,6 +126,9 @@ public class playerController : MonoBehaviour, IDamage
         }
         yield return new WaitForSeconds(shootRate);
         //lr.useWorldSpace = false;
+
+        Ammo -= 1;
+
         isShooting = false;
     }
 
