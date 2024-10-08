@@ -2,15 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DestructableObject : MonoBehaviour , IDamage
+public class DestructibleObject : MonoBehaviour , IDamage
 {
+    //model for current object
     [SerializeField] Renderer model;
+    //model for prefab to replace it
+    [SerializeField] GameObject modelDestroyed;
     [SerializeField] int HP;
 
+    //gets the position and rotation of an object
+    Vector3 modelDestroyedPos;
+    Quaternion modelDestroyedRot;
+
+    //gets the color of the object for flash red function
     Color colorOrig;
     // Start is called before the first frame update
     void Start()
     {
+        modelDestroyedPos = model.transform.position;
+        modelDestroyedRot = model.transform.rotation;
         colorOrig = model.material.color;
     }
 
@@ -27,8 +37,10 @@ public class DestructableObject : MonoBehaviour , IDamage
 
         if (HP <= 0)
         {
-            GameManager.instance.updateGameGoal(-1);
+            
             Destroy(gameObject);
+            Instantiate(modelDestroyed, modelDestroyedPos, modelDestroyedRot);
+
         }
     }
 

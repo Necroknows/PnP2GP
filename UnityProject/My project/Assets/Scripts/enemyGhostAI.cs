@@ -39,14 +39,17 @@ public class enemyGhostAI : MonoBehaviour, IDamage
         playerDir = GameManager.instance.player.transform.position;
         if (playerInRange)
         {
+            //sets the destination of enemy to player 
             agent.SetDestination(GameManager.instance.player.transform.position);
             if (agent.remainingDistance <= agent.stoppingDistance)
             {
+                //calls function to update rotation towards player
                 faceTarget();
             }
 
             if (!isShooting)
             {
+                //coroutine to shoot when player is in range
                 StartCoroutine(shoot());
             }
 
@@ -55,6 +58,7 @@ public class enemyGhostAI : MonoBehaviour, IDamage
 
     void faceTarget()
     {
+        //rotates the enemy to the player smoothly
         Quaternion rot = Quaternion.LookRotation(new Vector3(playerDir.x, 0, playerDir.z));
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * rotateSpeed);
 
@@ -77,7 +81,7 @@ public class enemyGhostAI : MonoBehaviour, IDamage
     IEnumerator shoot()
     {
         isShooting = true;
-        
+        //creates ammo and shoots it 
         Instantiate(bullet, shootPos.position, transform.rotation);
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
@@ -86,12 +90,14 @@ public class enemyGhostAI : MonoBehaviour, IDamage
 
     public void takeDamage(int amount)
     {
+        //decreases health by damage amount
         HP -= amount;
 
         StartCoroutine(flashColor());
 
         if (HP <= 0)
         {
+            //updates game manager game goal and destroys the enemy
             GameManager.instance.updateGameGoal(-1);
             Destroy(gameObject);
         }
