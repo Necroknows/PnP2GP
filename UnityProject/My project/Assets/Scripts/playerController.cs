@@ -21,8 +21,9 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] int jumpSpeed;
     [SerializeField] int gravity;
     [SerializeField] int HP;
+    [SerializeField] int Ammo;
 
-    
+
     [SerializeField] int shootDamage;
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
@@ -157,5 +158,27 @@ public class playerController : MonoBehaviour, IDamage
     public void updatePlayerUI()
     {
         GameManager.instance.playerHpBar.fillAmount = (float)HP / HPOrig;
+    }
+
+    //getters/setters
+
+    public int getHP()
+    {
+        return HP;
+    }
+
+    public int getAmmo()
+    {
+        return Ammo;
+    }
+
+    public void setHP(int amount)
+    {
+        HP += amount;
+    }
+
+    public void setAmmo(int amount)
+    {
+        Ammo += amount;
     }
 }
