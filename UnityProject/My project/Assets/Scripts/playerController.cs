@@ -40,7 +40,7 @@ public class playerController : MonoBehaviour, IDamage
     {
 
         HPOrig = HP;
-        updatePlayeUI();
+        updatePlayerUI();
     }
 
     // Update is called once per frame
@@ -137,7 +137,7 @@ public class playerController : MonoBehaviour, IDamage
     public void takeDamage(int amount)
     {
         HP -= amount;
-        updatePlayeUI();
+        updatePlayerUI();
         StartCoroutine(flashDamage());
         //I'm dead :c
         if(HP <= 0)
@@ -154,7 +154,7 @@ public class playerController : MonoBehaviour, IDamage
         GameManager.instance.flashDamageScreen.SetActive(false);
     }
 
-    public void updatePlayeUI()
+    public void updatePlayerUI()
     {
         GameManager.instance.playerHpBar.fillAmount = (float)HP / HPOrig;
     }

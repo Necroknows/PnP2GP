@@ -11,9 +11,9 @@ Material:
   m_Shader: {fileID: 108, guid: 0000000000000000f000000000000000, type: 0}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _MAPPING_6_FRAMES_LAYOUT
   m_InvalidKeywords:
-  - _MAPPING_LATITUDE_LONGITUDE_LAYOUT
   - _SUNDISK_SIMPLE
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -46,7 +46,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 7df6ef34da667bc4ab309ee34b09a7b2, type: 3}
+        m_Texture: {fileID: 2800000, guid: 6846e0314fafd34438333459b4eebc5f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -74,7 +74,7 @@ Material:
     - _GlossyReflections: 1
     - _ImageType: 0
     - _Layout: 0
-    - _Mapping: 1
+    - _Mapping: 0
     - _Metallic: 0
     - _MirrorOnBack: 0
     - _Mode: 0
@@ -94,5 +94,5 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _GroundColor: {r: 0.113116086, g: 0.06852973, b: 0.3301887, a: 1}
     - _SkyTint: {r: 0, g: 0, b: 0, a: 1}
-    - _Tint: {r: 0.8773585, g: 0.3517711, b: 0.3517711, a: 1}
+    - _Tint: {r: 0.32426083, g: 0.2707369, b: 0.49056602, a: 1}
   m_BuildTextureStacks: []

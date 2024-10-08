@@ -91,16 +91,16 @@ public class damage : MonoBehaviour
             yield return new WaitForSeconds(damageInterval); // Wait for the next damage tick
             dmg.takeDamage(damageAmount);
         }
-        else if(type==damageType.bullet||type==damageType.chaser || type == damageType.arrow)
-        { 
-        Destroy(gameObject);
-        }
-        else if(type == damageType.arrow) //Added arrow physics to allow for arrow sticking.
-        {
-            rb.isKinematic = true; //Stops physics
-            transform.parent = other.transform;
-            Destroy(gameObject, destroyTime);
-        }
+        //else if(type==damageType.bullet||type==damageType.chaser || type == damageType.arrow)
+        //{ 
+        //Destroy(gameObject);
+        //}
+        //else if(type == damageType.arrow) //Added arrow physics to allow for arrow sticking.
+        //{
+        //    rb.isKinematic = true; //Stops physics
+        //    transform.parent = other.transform;
+        //    Destroy(gameObject, destroyTime);
+        //}
     }
 
     private void Update()

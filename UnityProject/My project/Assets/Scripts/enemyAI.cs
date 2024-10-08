@@ -37,21 +37,11 @@ public class enemyAI : MonoBehaviour, IDamage
     // Update is called once per frame
     void Update()
     {
-        // simple updates following along with lecture two. 
+        
 
-        playerDir = GameManager.instance.player.transform.position - transform.position;
-        if ((playerInRange))
+        if ((playerInRange&&canSeePlayer()))
         {
-            agent.SetDestination(GameManager.instance.player.transform.position);
-            if (agent.remainingDistance <= agent.stoppingDistance)
-            {
-                faceTarget();
-            }
-
-            if (!isShooting)
-            {
-                StartCoroutine(shoot());
-            }
+            
         }
 
     }
@@ -75,6 +65,10 @@ public class enemyAI : MonoBehaviour, IDamage
             if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
             {
                 agent.SetDestination(GameManager.instance.player.transform.position);
+                if (agent.remainingDistance <= agent.stoppingDistance)
+                {
+                    faceTarget();
+                }
 
                 if (!isShooting)
                 {
@@ -93,7 +87,7 @@ public class enemyAI : MonoBehaviour, IDamage
     public void takeDamage(int amount)
     {
         HP -= amount;
-
+        faceTarget();
         StartCoroutine(flashRed());
 
         if (HP <= 0)
