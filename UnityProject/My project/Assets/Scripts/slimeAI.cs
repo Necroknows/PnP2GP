@@ -7,8 +7,6 @@ public class slimeAI : MonoBehaviour, IDamage
 {
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Renderer model;
-    [SerializeField] Transform headPos;
-
     [SerializeField] int HP;
     [SerializeField] int rotateSpeed;
     [SerializeField] int viewAngle;
@@ -21,11 +19,11 @@ public class slimeAI : MonoBehaviour, IDamage
 
     Color colorOrig;
 
-    // Slime Variables ----------------------------------------------------------
+    // SlimeAI Code
 
     public enum SlimeAnimationState { Idle, Walk, Jump, Attack, Damage }
 
-    public Face faces;
+    //public Face faces;
     public GameObject SmileBody;
     public SlimeAnimationState currentState;
 
@@ -42,18 +40,21 @@ public class slimeAI : MonoBehaviour, IDamage
     public enum WalkType { Patroll, ToOrigin, Chase }
     private WalkType walkType;
 
-    // End of Slime Variables ---------------------------------------------------
+    // SlimeAI Code end
 
     // Start is called before the first frame update
     void Start()
     {
         colorOrig = model.material.color;
         GameManager.instance.updateGameGoal(1);
-        // Slime Code --------------------------------
+
+        // SlimeAI Code
+
         originPos = transform.position;
         faceMaterial = SmileBody.GetComponent<Renderer>().materials[1];
         walkType = WalkType.Patroll;
-        // Slime Code --------------------------------
+
+        // SlimeAI Code end
     }
 
     // Update is called once per frame
@@ -65,19 +66,25 @@ public class slimeAI : MonoBehaviour, IDamage
         if (playerInRange)
         {
             agent.SetDestination(GameManager.instance.player.transform.position);
-            currentState = SlimeAnimationState.Walk;
-            walkType = WalkType.Chase;
             if (agent.remainingDistance <= agent.stoppingDistance)
             {
                 faceTarget();
                 currentState = SlimeAnimationState.Attack;
             }
+            else
+            {
+                faceTarget();
+                currentState = SlimeAnimationState.Walk;
+                walkType = WalkType.Chase;
+            }
+
         }
         else
         {
             currentState = SlimeAnimationState.Idle;
         }
-        FaceSwap();
+
+        StartCoroutine(SwapFace());
 
     }
 
@@ -89,13 +96,13 @@ public class slimeAI : MonoBehaviour, IDamage
 
     bool canSeePlayer()
     {
-        playerDir = GameManager.instance.player.transform.position - headPos.position;
+        playerDir = GameManager.instance.player.transform.position - transform.position;
         angleToPlayer = Vector3.Angle(playerDir, transform.forward);
 
         Debug.Log(angleToPlayer);
-        Debug.DrawRay(headPos.position, playerDir);
+        Debug.DrawRay(transform.position, playerDir);
         RaycastHit hit;
-        if (Physics.Raycast(headPos.position, playerDir, out hit))
+        if (Physics.Raycast(transform.position, playerDir, out hit))
         {
             if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
             {
@@ -111,9 +118,10 @@ public class slimeAI : MonoBehaviour, IDamage
     public void takeDamage(int amount)
     {
         HP -= amount;
+
         currentState = SlimeAnimationState.Damage;
+        StartCoroutine(SwapFace());
         StartCoroutine(flashRed());
-        FaceSwap();
 
         if (HP <= 0)
         {
@@ -144,23 +152,36 @@ public class slimeAI : MonoBehaviour, IDamage
         }
     }
 
-    // Slime Related Animation Functions -----------------------------------------------------
+    // SlimeAI Code
 
-    private void FaceSwap()
+    public void WalkToNextDestination()
+    {
+        currentState = SlimeAnimationState.Walk;
+        m_CurrentWaypointIndex = (m_CurrentWaypointIndex + 1) % waypoints.Length;
+        agent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
+      //  SetFace(faces.WalkFace);
+    }
+    public void CancelGoNextDestination() => CancelInvoke(nameof(WalkToNextDestination));
+
+    void SetFace(Texture tex)
+    {
+        faceMaterial.SetTexture("_MainTex", tex);
+    }
+
+    IEnumerator SwapFace()
     {
 
         switch (currentState)
         {
             case SlimeAnimationState.Idle:
 
-                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle")) return;
-                StopAgent();
-                SetFace(faces.Idleface);
+                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle")) yield return null;
+             //   SetFace(faces.Idleface);
                 break;
 
             case SlimeAnimationState.Walk:
 
-                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Walk")) return;
+                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Walk")) yield return null;
 
                 agent.isStopped = false;
                 agent.updateRotation = true;
@@ -169,7 +190,7 @@ public class slimeAI : MonoBehaviour, IDamage
                 {
                     agent.SetDestination(originPos);
                     // Debug.Log("WalkToOrg");
-                    SetFace(faces.WalkFace);
+                  //  SetFace(faces.WalkFace);
                     // agent reaches the destination
                     if (agent.remainingDistance < agent.stoppingDistance)
                     {
@@ -182,15 +203,15 @@ public class slimeAI : MonoBehaviour, IDamage
                     }
 
                 }
-                else if(walkType == WalkType.Chase)
+                else if (walkType == WalkType.Chase)
                 {
-                    SetFace(faces.WalkFace);
+                  //  SetFace(faces.WalkFace);
 
                 }
                 //Patroll
                 else
                 {
-                    if (waypoints.Length == 0 || waypoints[0] == null) return;
+                    if (waypoints[0] == null || waypoints.Length == 0) yield return null;
 
                     agent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
 
@@ -212,10 +233,9 @@ public class slimeAI : MonoBehaviour, IDamage
 
             case SlimeAnimationState.Jump:
 
-                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Jump")) return;
+                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Jump")) yield return null;
 
-                StopAgent();
-                SetFace(faces.jumpFace);
+              //  SetFace(faces.jumpFace);
                 animator.SetTrigger("Jump");
 
                 //Debug.Log("Jumping");
@@ -223,9 +243,8 @@ public class slimeAI : MonoBehaviour, IDamage
 
             case SlimeAnimationState.Attack:
 
-                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack")) return;
-                StopAgent();
-                SetFace(faces.attackFace);
+                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack")) yield return null;
+               // SetFace(faces.attackFace);
                 animator.SetTrigger("Attack");
 
                 // Debug.Log("Attacking");
@@ -236,32 +255,16 @@ public class slimeAI : MonoBehaviour, IDamage
                 // Do nothing when animtion is playing
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName("Damage0")
                      || animator.GetCurrentAnimatorStateInfo(0).IsName("Damage1")
-                     || animator.GetCurrentAnimatorStateInfo(0).IsName("Damage2")) return;
+                     || animator.GetCurrentAnimatorStateInfo(0).IsName("Damage2")) yield return null;
 
-                StopAgent();
                 animator.SetTrigger("Damage");
                 animator.SetInteger("DamageType", damType);
-                SetFace(faces.damageFace);
+               // SetFace(faces.damageFace);
 
                 //Debug.Log("Take Damage");
                 break;
 
         }
-
-    }
-
-    public void WalkToNextDestination()
-    {
-        currentState = SlimeAnimationState.Walk;
-        m_CurrentWaypointIndex = (m_CurrentWaypointIndex + 1) % waypoints.Length;
-        agent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
-        SetFace(faces.WalkFace);
-    }
-    public void CancelGoNextDestination() => CancelInvoke(nameof(WalkToNextDestination));
-
-    void SetFace(Texture tex)
-    {
-        faceMaterial.SetTexture("_MainTex", tex);
     }
 
     private void StopAgent()
@@ -309,7 +312,4 @@ public class slimeAI : MonoBehaviour, IDamage
         transform.position = position;
         agent.nextPosition = transform.position;
     }
-
-
-
 }
