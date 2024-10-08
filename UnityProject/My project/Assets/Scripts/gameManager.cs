@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     //[SerializeField] GameObject menuPause;
     //[SerializeField] GameObject menuWin;
     //[SerializeField] GameObject menuLose;
-    //[SerializeField] TMP_Text enemyCountText;
+    //[SerializeField] TMP_Text enemyCount_T;
     public Image playerHpBar;
 
     public GameObject flashDamageScreen;
@@ -72,7 +72,6 @@ public class GameManager : MonoBehaviour
     public void updateGameGoal(int amount)
     {
         enemyCount += amount;
-        //enemyCountText.text = enemyCount.ToString("F0");
         if(enemyCount <= 0)
         {
             ////you win
@@ -83,6 +82,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public int GetEnemyCount()
+        {return enemyCount; }
     //public void youLose()
     //{
     //    statePause();
