@@ -41,10 +41,12 @@ public class spawner : MonoBehaviour, IDamage
     {
         if(playerInRange)
         {
+            //will continously spawn enemies until spawner is destroyed
             if(continousSpawning && !isSpawning)
             {
                 StartCoroutine(spawn());
             }
+            //will only spawn enemies once
             if(!continousSpawning && spawnCounter <= 0)
             {
                 StartCoroutine(spawn());
