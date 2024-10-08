@@ -10,7 +10,7 @@ public class damage : MonoBehaviour
     [SerializeField] int damageAmount;
     [SerializeField] int speed;
     [SerializeField] int destroyTime;
-    [SerializeField] float damageInterval = 1f; // Interval for stationary damage
+    [SerializeField] float damageInterval; // Interval for stationary damage
     private bool isPlayerinField = false;
 
     // Start is called before the first frame update
