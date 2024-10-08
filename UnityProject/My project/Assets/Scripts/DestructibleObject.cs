@@ -7,20 +7,21 @@ public class DestructibleObject : MonoBehaviour , IDamage
     //model for current object
     [SerializeField] Renderer model;
     //model for prefab to replace it
-    [SerializeField] GameObject modelDestroyed;
+    [SerializeField] GameObject modelSwitch;
+    [SerializeField] bool isUsingNewModel;
     [SerializeField] int HP;
 
     //gets the position and rotation of an object
-    Vector3 modelDestroyedPos;
-    Quaternion modelDestroyedRot;
+    Vector3 modelSwitchPos;
+    Quaternion modelSwitchRot;
 
     //gets the color of the object for flash red function
     Color colorOrig;
     // Start is called before the first frame update
     void Start()
     {
-        modelDestroyedPos = model.transform.position;
-        modelDestroyedRot = model.transform.rotation;
+        modelSwitchPos = model.transform.position;
+        modelSwitchRot = model.transform.rotation;
         colorOrig = model.material.color;
     }
 
@@ -37,10 +38,14 @@ public class DestructibleObject : MonoBehaviour , IDamage
 
         if (HP <= 0)
         {
-            
+            //destroys the model
             Destroy(gameObject);
-            Instantiate(modelDestroyed, modelDestroyedPos, modelDestroyedRot);
-
+            //if the bool isUsingNewModel is true and there is a prefab
+            //attached for modelSwitch, will replace model to modelSwitch
+            if (isUsingNewModel)
+            {
+                Instantiate(modelSwitch, modelSwitchPos, modelSwitchRot);
+            }
         }
     }
 
