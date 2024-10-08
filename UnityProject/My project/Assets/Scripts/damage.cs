@@ -35,6 +35,11 @@ public class damage : MonoBehaviour
             rb.velocity = transform.forward * speed;
             Destroy(gameObject, destroyTime);
         }
+        if (type == damageType.ghostOrb)
+        {
+            rb.velocity = transform.forward * speed;
+            Destroy(gameObject, destroyTime);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -65,4 +70,6 @@ public class damage : MonoBehaviour
             rb.velocity = (GameManager.instance.player.transform.position - transform.position).normalized * speed * Time.deltaTime;
         }
     }
+
+   
 }
