@@ -51,6 +51,7 @@ MonoBehaviour:
   damageAmount: 1
   speed: 20
   destroyTime: 3
+  damageInterval: 1
 --- !u!54 &8142902823611396971
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -70,7 +71,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
