@@ -87,7 +87,8 @@ public class enemyAI : MonoBehaviour, IDamage
     public void takeDamage(int amount)
     {
         HP -= amount;
-        faceTarget();
+        agent.SetDestination(GameManager.instance.player.transform.position);
+
         StartCoroutine(flashRed());
 
         if (HP <= 0)
