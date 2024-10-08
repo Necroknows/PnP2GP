@@ -15,6 +15,11 @@ public class ButtonFunctions : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         UIManager.Instance.UnpauseGame();
     }
+
+    public void gotIt()
+    {
+        UIManager.Instance.UnpauseGame();
+    }
     public void quit()
     {
 #if UNITY_EDITOR
