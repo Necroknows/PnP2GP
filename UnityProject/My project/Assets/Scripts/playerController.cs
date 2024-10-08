@@ -1,13 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class playerController : MonoBehaviour, IDamage
 {
     
     [SerializeField] CharacterController controller;
     [SerializeField] LayerMask ignoreMask;
+    [SerializeField] Transform shootPos;
+    [SerializeField] GameObject shootRot;
+    [SerializeField] GameObject bullet;
     //[SerializeField] LineRenderer lr;
 
     [SerializeField] int speed;
@@ -101,30 +106,31 @@ public class playerController : MonoBehaviour, IDamage
     IEnumerator shoot()
     {
         isShooting = true;
-        //lr.useWorldSpace = true;
-        //lr.SetPosition(0, Camera.main.transform.position);
+        Instantiate(bullet, shootPos.position, shootRot.transform.rotation);
+        ////lr.useWorldSpace = true;
+        ////lr.SetPosition(0, Camera.main.transform.position);
 
-        RaycastHit hit;
-        //the main camera is where we shoot from, going straigh forward,if it hit,
-        // how long it is drawn, and to ignore the player
-        if(Physics.Raycast(Camera.main.transform.position, 
-            Camera.main.transform.forward, out hit, shootDist, ~ignoreMask))
-        {
+        //// RaycastHit hit;
+        //// the main camera is where we shoot from, going straigh forward,if it hit,
+        //// how long it is drawn, and to ignore the player
+        //if(Physics.Raycast(Camera.main.transform.position, 
+        //    Camera.main.transform.forward, out hit, shootDist, ~ignoreMask))
+        //{
 
-            //lr.SetPosition(1, hit.point);
+        //    //lr.SetPosition(1, hit.point);
 
-            //returns the name of what we hit
-           // Debug.Log(hit.collider.name);
-            //check if obj derives from iDamage
-            IDamage dmg = hit.collider.GetComponent<IDamage>();
-            
-            if(dmg != null )
-            {
-                dmg.takeDamage(shootDamage);
-            }
-        }
+        //    //returns the name of what we hit
+        //   // Debug.Log(hit.collider.name);
+        //    //check if obj derives from iDamage
+        //    IDamage dmg = hit.collider.GetComponent<IDamage>();
+
+        //    if(dmg != null )
+        //    {
+        //        dmg.takeDamage(shootDamage);
+        //    }
+        //}
         yield return new WaitForSeconds(shootRate);
-        //lr.useWorldSpace = false;
+        ////lr.useWorldSpace = false;
         isShooting = false;
     }
 

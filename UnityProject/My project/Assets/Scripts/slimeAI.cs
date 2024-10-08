@@ -86,6 +86,8 @@ public class slimeAI : MonoBehaviour, IDamage
 
         StartCoroutine(SwapFace());
 
+        StartCoroutine(SwapFace());
+
     }
 
     void faceTarget()
@@ -159,7 +161,7 @@ public class slimeAI : MonoBehaviour, IDamage
         currentState = SlimeAnimationState.Walk;
         m_CurrentWaypointIndex = (m_CurrentWaypointIndex + 1) % waypoints.Length;
         agent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
-      //  SetFace(faces.WalkFace);
+        SetFace(faces.WalkFace);
     }
     public void CancelGoNextDestination() => CancelInvoke(nameof(WalkToNextDestination));
 
@@ -176,7 +178,7 @@ public class slimeAI : MonoBehaviour, IDamage
             case SlimeAnimationState.Idle:
 
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle")) yield return null;
-             //   SetFace(faces.Idleface);
+                SetFace(faces.Idleface);
                 break;
 
             case SlimeAnimationState.Walk:
@@ -235,7 +237,7 @@ public class slimeAI : MonoBehaviour, IDamage
 
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName("Jump")) yield return null;
 
-              //  SetFace(faces.jumpFace);
+                SetFace(faces.jumpFace);
                 animator.SetTrigger("Jump");
 
                 //Debug.Log("Jumping");
@@ -244,7 +246,7 @@ public class slimeAI : MonoBehaviour, IDamage
             case SlimeAnimationState.Attack:
 
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack")) yield return null;
-               // SetFace(faces.attackFace);
+                SetFace(faces.attackFace);
                 animator.SetTrigger("Attack");
 
                 // Debug.Log("Attacking");

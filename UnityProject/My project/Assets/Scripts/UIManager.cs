@@ -44,7 +44,8 @@ public class UIManager : MonoBehaviour
 
             }
         }
-
+        int count= GameManager.instance.GetEnemyCount();
+        enemyCountText.text = count.ToString();
     }
     public void PauseGame()
     {
@@ -115,5 +116,5 @@ public class UIManager : MonoBehaviour
         menuActive.SetActive(true);
 
     }
-
+    
 }
