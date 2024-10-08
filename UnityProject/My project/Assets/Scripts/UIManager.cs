@@ -13,7 +13,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
 
-    [SerializeField] TMP_Text enemyCount_T;
+    [SerializeField] TMP_Text enemyCountText;
     public Image playerHpBar;
     public bool isPaused;
 
@@ -44,8 +44,8 @@ public class UIManager : MonoBehaviour
 
             }
         }
-       // Grab the enemy count from Game Manager 
-        enemyCount_T.text = GameManager.instance.GetEnemyCount().ToString();
+        int count= GameManager.instance.GetEnemyCount();
+        enemyCountText.text = count.ToString();
     }
     public void PauseGame()
     {
@@ -80,7 +80,7 @@ public class UIManager : MonoBehaviour
     public void updateEnemyCount(int count)
     {
         // updated enmey count to display to tracker 
-        enemyCount_T.text = count.ToString();
+        enemyCountText.text = count.ToString();
     }
     public void UPdatePlayerHealthBar(float healthFraction)
     {

@@ -13,6 +13,7 @@ public class damage : MonoBehaviour
     [SerializeField] float damageInterval; // Interval for stationary damage
     private bool isPlayerinField = false;
 
+
     // Start is called before the first frame update
     void Start()
     {
