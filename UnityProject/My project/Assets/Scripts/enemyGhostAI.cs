@@ -29,6 +29,8 @@ public class enemyGhostAI : MonoBehaviour, IDamage
     [SerializeField] int dashSpeedMutliplier;
     //how long orbBullet attack lasts
     [SerializeField] int orbAttackTime;
+    //how long before next dash starts
+    [SerializeField] float delayAfterAttack;
     //how quickly the ghost rotates towards the player
     [SerializeField] int rotateSpeed;
     //how long a dash lasts
@@ -154,6 +156,8 @@ public class enemyGhostAI : MonoBehaviour, IDamage
             yield return new WaitForSeconds(orbAttackTime);
             //turns off ghost bullet
             orbBullet.gameObject.SetActive(false);
+
+            yield return new WaitForSeconds(delayAfterAttack);
             //turns off bool so dash can begin
             isAttacking = false;
         }
