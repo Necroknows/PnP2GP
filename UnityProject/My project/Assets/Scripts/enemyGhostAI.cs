@@ -8,21 +8,25 @@ public class enemyGhostAI : MonoBehaviour, IDamage
 
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Renderer model;
-    [SerializeField] Transform shootPos;
+    [SerializeField] GameObject orb;
+   // [SerializeField] Transform orbPos;
     [SerializeField] Transform headPos;
     //[SerializeField] Animator animator;
 
     [SerializeField] int HP;
+    [SerializeField] int numOfDashes;
+    [SerializeField] int secBetweenDashes;
     [SerializeField] int rotateSpeed;
+    [SerializeField] int dashSpeedMutliplier;
 
     Vector3 playerDir;
 
     [SerializeField] GameObject bullet;
-    [SerializeField] float shootRate;
+    [SerializeField] float dashTime;
 
-   
 
-    bool isShooting;
+    bool isOrbActive;
+    bool isDashing;
     bool playerInRange;
 
     Color colorOrig;
@@ -47,10 +51,11 @@ public class enemyGhostAI : MonoBehaviour, IDamage
                 faceTarget();
             }
 
-            if (!isShooting)
+            if (!isDashing)
             {
                 //coroutine to shoot when player is in range
-                StartCoroutine(shoot());
+                StartCoroutine(dash());
+                
             }
 
         }
@@ -78,14 +83,42 @@ public class enemyGhostAI : MonoBehaviour, IDamage
             playerInRange = false;
         }
     }
-    IEnumerator shoot()
+    IEnumerator dash()
     {
-        isShooting = true;
-        //creates ammo and shoots it 
-        Instantiate(bullet, shootPos.position, transform.rotation);
-        yield return new WaitForSeconds(shootRate);
-        isShooting = false;
+        isDashing = true;
+        
+        //grouping dashes together, for creating more dynamic dashes
+        for (int currDashNum = 0; currDashNum < numOfDashes; currDashNum++)
+        {
+            //increases speed of ghost
+            agent.speed *= dashSpeedMutliplier;
+            // turns on orb sheild
+            orbActiveToggle();
+            //determines time for dash
+            yield return new WaitForSeconds(dashTime);
+            //returns to original speed
+            agent.speed /= dashSpeedMutliplier;
+            //turns off orb sheild 
+            orbActiveToggle();
+            //waits for time between the next dash in loop
+            yield return new WaitForSeconds(secBetweenDashes);
+        }
+        isDashing = false;
 
+    }
+    public void orbActiveToggle()
+    //turns the orb sheild on and off
+    {
+            if (!isOrbActive)
+            {
+                isOrbActive = true;
+                orb.gameObject.SetActive(true);
+            }
+            else if (isOrbActive)
+            {
+                orb.gameObject.SetActive(false);
+                isOrbActive = false;
+            }
     }
 
     public void takeDamage(int amount)
