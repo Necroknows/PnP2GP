@@ -5,28 +5,47 @@ using UnityEngine.AI;
 
 public class enemyGhostAI : MonoBehaviour, IDamage
 {
-
+    //nav mesh for ghost
     [SerializeField] NavMeshAgent agent;
+    //ghost model
     [SerializeField] Renderer model;
-    [SerializeField] GameObject orb;
-   // [SerializeField] Transform orbPos;
+    //shield obj for defense action
+    [SerializeField] GameObject orbShield;
+    //circling orbs that do damage
+    [SerializeField] GameObject orbBullet;
+    // transform for orbBullet to rotate around
+   // [SerializeField] Transform orbAttackPos;
+    //where the ghost can see from
     [SerializeField] Transform headPos;
     //[SerializeField] Animator animator;
 
+    //ghost HP
     [SerializeField] int HP;
+    //how many dashes to do in a sequence
     [SerializeField] int numOfDashes;
+    //how long to wait between dashes in a sequence
     [SerializeField] int secBetweenDashes;
-    [SerializeField] int rotateSpeed;
+    //how much faster to make the ghost speed during dash
     [SerializeField] int dashSpeedMutliplier;
-
-    Vector3 playerDir;
-
-    [SerializeField] GameObject bullet;
+    //how long orbBullet attack lasts
+    [SerializeField] int orbAttackTime;
+    //how quickly the ghost rotates towards the player
+    [SerializeField] int rotateSpeed;
+    //how long a dash lasts
     [SerializeField] float dashTime;
 
-
-    bool isOrbActive;
+    //gets player position
+    Vector3 playerDir;
+    
+    //if the ghost attack/dash sequence
+    bool isAttacking;
+    //if orb shield active
+    bool isOrbShieldActive;
+    //if orb bullet active
+    bool isOrbBulletActive;
+    //if dashing/sheild sequence
     bool isDashing;
+    //if player is in range
     bool playerInRange;
 
     Color colorOrig;
@@ -51,13 +70,27 @@ public class enemyGhostAI : MonoBehaviour, IDamage
                 faceTarget();
             }
 
-            if (!isDashing)
+            if (!isAttacking)
             {
                 //coroutine to shoot when player is in range
-                StartCoroutine(dash());
-                
+                if (!isDashing && !isOrbBulletActive)
+                {
+                    //coroutine to shoot when player is in range
+                    StartCoroutine(dash());
+                    StartCoroutine(orbAttack());
+                }
+
             }
 
+        }
+        if (!playerInRange)
+        {
+            if(isOrbShieldActive || isOrbBulletActive)
+            {
+                orbShield.gameObject.SetActive(false);
+                orbBullet.gameObject.SetActive(false);
+            }
+            
         }
     }
 
@@ -83,6 +116,8 @@ public class enemyGhostAI : MonoBehaviour, IDamage
             playerInRange = false;
         }
     }
+    
+   
     IEnumerator dash()
     {
         isDashing = true;
@@ -93,32 +128,54 @@ public class enemyGhostAI : MonoBehaviour, IDamage
             //increases speed of ghost
             agent.speed *= dashSpeedMutliplier;
             // turns on orb sheild
-            orbActiveToggle();
+            orbShieldActiveToggle();
             //determines time for dash
             yield return new WaitForSeconds(dashTime);
             //returns to original speed
             agent.speed /= dashSpeedMutliplier;
             //turns off orb sheild 
-            orbActiveToggle();
+            orbShieldActiveToggle();
             //waits for time between the next dash in loop
             yield return new WaitForSeconds(secBetweenDashes);
         }
         isDashing = false;
 
     }
-    public void orbActiveToggle()
+    public void orbShieldActiveToggle()
     //turns the orb sheild on and off
     {
-            if (!isOrbActive)
+            if (!isOrbShieldActive)
             {
-                isOrbActive = true;
-                orb.gameObject.SetActive(true);
+                isOrbShieldActive = true;
+                orbShield.gameObject.SetActive(true);
             }
-            else if (isOrbActive)
+            else if (isOrbShieldActive)
             {
-                orb.gameObject.SetActive(false);
-                isOrbActive = false;
+                orbShield.gameObject.SetActive(false);
+                isOrbShieldActive = false;
             }
+    }
+
+    IEnumerator orbAttack()
+    {
+        orbBulletActiveToggle();
+        yield return new WaitForSeconds(orbAttackTime);
+        orbBulletActiveToggle();
+
+    }
+    public void orbBulletActiveToggle()
+    //turns the orb sheild on and off
+    {
+        if (!isOrbBulletActive)
+        {
+            isOrbShieldActive = true;
+            orbBullet.gameObject.SetActive(true);
+        }
+        else if (isOrbBulletActive)
+        {
+            orbBullet.gameObject.SetActive(false);
+            isOrbShieldActive = false;
+        }
     }
 
     public void takeDamage(int amount)
