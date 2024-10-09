@@ -18,19 +18,13 @@ public class damage : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (type == damageType.bullet || type == damageType.ghostOrb)
+        if (type == damageType.bullet || type == damageType.ghostOrb || type==damageType.arrow)
         {
             rb.velocity = transform.forward * speed;
             Destroy(gameObject, destroyTime);
         }
         else if (type == damageType.chaser)
         {
-            Destroy(gameObject, destroyTime);
-        }
-
-        if(type==damageType.arrow)
-        {
-            rb.velocity = transform.forward * speed;
             Destroy(gameObject, destroyTime);
         }
 
