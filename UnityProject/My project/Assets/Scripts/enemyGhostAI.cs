@@ -9,6 +9,9 @@ public class enemyGhostAI : MonoBehaviour, IDamage
     [SerializeField] NavMeshAgent agent;
     //ghost model
     [SerializeField] Renderer model;
+    //model for prefab to replace it
+    [SerializeField] GameObject modelSwitch;
+    [SerializeField] bool isUsingNewModel;
     //shield obj for defense action
     [SerializeField] GameObject orbShield;
     //circling orbs that do damage
@@ -38,7 +41,10 @@ public class enemyGhostAI : MonoBehaviour, IDamage
 
     //gets player position
     Vector3 playerDir;
-    
+    //gets the position and rotation of an object
+    Vector3 modelSwitchPos;
+    Quaternion modelSwitchRot;
+
     //if the ghost attack/dash sequence
     bool isAttacking;
     //if dashing/sheild sequence
@@ -175,7 +181,13 @@ public class enemyGhostAI : MonoBehaviour, IDamage
         {
             //updates game manager game goal and destroys the enemy
             GameManager.instance.updateGameGoal(-1);
+            modelSwitchPos = model.transform.position;
+            modelSwitchRot = model.transform.rotation;
             Destroy(gameObject);
+            if (isUsingNewModel)
+            {
+                Instantiate(modelSwitch, modelSwitchPos, modelSwitchRot);
+            }
         }
     }
 
