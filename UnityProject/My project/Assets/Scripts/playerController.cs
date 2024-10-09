@@ -175,7 +175,7 @@ public class playerController : MonoBehaviour, IDamage
 
     public void setHP(int amount)
     {
-        HP += amount;
+        HP = amount;
     }
 
     public void setAmmo(int amount)

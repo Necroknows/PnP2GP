@@ -41,7 +41,9 @@ public class Pickups : MonoBehaviour
             switch (pickupType)
             {
                 case PickUpType.Health:
+                    
                     player.setHP(healthPickupAmount);
+                    UIManager.Instance.UPdatePlayerHealthBar(healthPickupAmount);
                     break;
                 case PickUpType.Ammo:
                     player.setAmmo(ammoPickupAmount);
