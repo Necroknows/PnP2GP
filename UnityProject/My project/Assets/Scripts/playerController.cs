@@ -145,6 +145,7 @@ public class playerController : MonoBehaviour, IDamage
         {
             //GameManager.instance.youLose();
             UIManager.Instance.ShowLoseScreen();
+            StopAllCoroutines();
         }
     }
 
