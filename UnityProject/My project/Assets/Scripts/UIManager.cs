@@ -14,6 +14,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject menuLose;
 
     [SerializeField] TMP_Text enemyCountText;
+    [SerializeField] TMP_Text ammoCountText;
+
+    private playerController playerCont;
+
     public Image playerHpBar;
     public bool isPaused;
 
@@ -23,6 +27,10 @@ public class UIManager : MonoBehaviour
     {
     
         Instance = this;
+    }
+    private void Start()
+    {
+        playerCont=FindObjectOfType<playerController>();
     }
 
     // Update is called once per frame
@@ -46,6 +54,12 @@ public class UIManager : MonoBehaviour
         }
         int count= GameManager.instance.GetEnemyCount();
         enemyCountText.text = count.ToString();
+        if(playerCont !=null)
+        {
+            int ammoCount = playerCont.getAmmo();
+            ammoCountText.text = ammoCount.ToString();
+        }
+        
     }
     public void PauseGame()
     {

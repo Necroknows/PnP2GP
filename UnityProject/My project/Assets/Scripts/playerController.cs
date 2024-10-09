@@ -39,7 +39,6 @@ public class playerController : MonoBehaviour, IDamage
     // Start is called before the first frame update
     void Start()
     {
-
         HPOrig = HP;
         updatePlayerUI();
     }
@@ -106,30 +105,15 @@ public class playerController : MonoBehaviour, IDamage
 
     IEnumerator shoot()
     {
+        if(getAmmo()>0)
+        {
+
         isShooting = true;
         Instantiate(bullet, shootPos.position, shootRot.transform.rotation);
-        ////lr.useWorldSpace = true;
-        ////lr.SetPosition(0, Camera.main.transform.position);
 
-        //// RaycastHit hit;
-        //// the main camera is where we shoot from, going straigh forward,if it hit,
-        //// how long it is drawn, and to ignore the player
-        //if(Physics.Raycast(Camera.main.transform.position, 
-        //    Camera.main.transform.forward, out hit, shootDist, ~ignoreMask))
-        //{
+        setAmmo(-1);
 
-        //    //lr.SetPosition(1, hit.point);
-
-        //    //returns the name of what we hit
-        //   // Debug.Log(hit.collider.name);
-        //    //check if obj derives from iDamage
-        //    IDamage dmg = hit.collider.GetComponent<IDamage>();
-
-        //    if(dmg != null )
-        //    {
-        //        dmg.takeDamage(shootDamage);
-        //    }
-        //}
+        }
         yield return new WaitForSeconds(shootRate);
         ////lr.useWorldSpace = false;
         isShooting = false;
