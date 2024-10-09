@@ -50,6 +50,7 @@ MonoBehaviour:
   damageAmount: 2
   speed: 0
   destroyTime: 0
+  damageInterval: 0.75
 --- !u!136 &4825682930202468930
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -284,7 +285,6 @@ MonoBehaviour:
   HP: 3
   rotateSpeed: 10
   viewAngle: 100
-  faces: {fileID: 11400000, guid: 8b8a7554fceb39841840f45a2d8da540, type: 2}
   SmileBody: {fileID: 3421705117012888872}
   currentState: 0
   animator: {fileID: 4750455612190446687}
@@ -455,7 +455,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4515929227717104909}
-  - component: {fileID: 5829376537728306486}
   - component: {fileID: 138603090522906187}
   m_Layer: 0
   m_Name: PlayerDetection
@@ -479,29 +478,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8245208399409965635}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5829376537728306486
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6114085963113337320}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0c3725f473b46b4a94c3210b5a15106, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agent: {fileID: 2067463307045395659}
-  model: {fileID: 3312074908932168655}
-  HP: 3
-  rotateSpeed: 20
-  viewAngle: 100
-  faces: {fileID: 11400000, guid: 8b8a7554fceb39841840f45a2d8da540, type: 2}
-  SmileBody: {fileID: 3421705117012888872}
-  currentState: 0
-  animator: {fileID: 4750455612190446687}
-  waypoints: []
-  damType: 0
 --- !u!135 &138603090522906187
 SphereCollider:
   m_ObjectHideFlags: 0
