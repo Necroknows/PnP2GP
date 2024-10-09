@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class damage : MonoBehaviour
 {
-    [SerializeField] enum damageType { bullet, stationary, chaser, arrow, ghostOrb};
+    [SerializeField] enum damageType { bullet, stationary, chaser, arrow, ghostOrb };
 
     [SerializeField] damageType type;
     [SerializeField] Rigidbody rb;
@@ -13,12 +13,12 @@ public class damage : MonoBehaviour
     [SerializeField] int destroyTime;
     [SerializeField] float damageInterval; // Interval for stationary damage
     private bool isPlayerinField = false;
-
+    private Coroutine statDmgCoroutine;
 
     // Start is called before the first frame update
     void Start()
     {
-        if (type == damageType.bullet || type == damageType.ghostOrb || type==damageType.arrow)
+        if (type == damageType.bullet || type == damageType.ghostOrb || type == damageType.arrow)
         {
             rb.velocity = transform.forward * speed;
             Destroy(gameObject, destroyTime);
@@ -46,7 +46,7 @@ public class damage : MonoBehaviour
             if (type == damageType.stationary)
             {
                 isPlayerinField = true;
-                StartCoroutine(DealStationaryDamage(dmg));
+                statDmgCoroutine = StartCoroutine(DealStationaryDamage(dmg));
             }
             else
             {
@@ -66,15 +66,12 @@ public class damage : MonoBehaviour
             return;
         }
 
-        if (type == damageType.stationary)
+        if (type == damageType.stationary && statDmgCoroutine != null)
         {
-            IDamage dmg = other.GetComponent<IDamage>();
-            if (dmg != null)
-            {
-                isPlayerinField = false;
-                StopAllCoroutines(); // Stop dealing poison damage when the player exits
-            }
+            isPlayerinField = false;
+            StopCoroutine(statDmgCoroutine); // Stop dealing poison damage when the player exits
         }
+
     }
 
     private IEnumerator DealStationaryDamage(IDamage dmg)

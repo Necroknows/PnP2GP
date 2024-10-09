@@ -18,10 +18,10 @@ public class UIManager : MonoBehaviour
     public bool isPaused;
 
     float timescale;
-
     // Start is called before the first frame update
     void Awake()
     {
+    
         Instance = this;
     }
 
@@ -73,7 +73,7 @@ public class UIManager : MonoBehaviour
         isPaused = false;
         if (menuActive != null)
         {
-            menuActive.SetActive(isPaused);
+            menuActive.SetActive(false);
             menuActive = null;
         }
     }
