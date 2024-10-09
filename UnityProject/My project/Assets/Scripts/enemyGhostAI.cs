@@ -39,10 +39,6 @@ public class enemyGhostAI : MonoBehaviour, IDamage
     
     //if the ghost attack/dash sequence
     bool isAttacking;
-    //if orb shield active
-    bool isOrbShieldActive;
-    //if orb bullet active
-    bool isOrbBulletActive;
     //if dashing/sheild sequence
     bool isDashing;
     //if player is in range
@@ -73,25 +69,16 @@ public class enemyGhostAI : MonoBehaviour, IDamage
             if (!isAttacking)
             {
                 //coroutine to shoot when player is in range
-                if (!isDashing && !isOrbBulletActive)
+                if (!isDashing)
                 {
                     //coroutine to shoot when player is in range
-                    StartCoroutine(dash());
-                    StartCoroutine(orbAttack());
+                    StartCoroutine(beginAttack());
                 }
 
             }
 
         }
-        if (!playerInRange)
-        {
-            if(isOrbShieldActive || isOrbBulletActive)
-            {
-                orbShield.gameObject.SetActive(false);
-                orbBullet.gameObject.SetActive(false);
-            }
-            
-        }
+        
     }
 
     void faceTarget()
@@ -118,64 +105,59 @@ public class enemyGhostAI : MonoBehaviour, IDamage
     }
     
    
-    IEnumerator dash()
+    IEnumerator beginAttack()
     {
-        isDashing = true;
-        
-        //grouping dashes together, for creating more dynamic dashes
-        for (int currDashNum = 0; currDashNum < numOfDashes; currDashNum++)
+       
+        if (!isAttacking)
         {
-            //increases speed of ghost
-            agent.speed *= dashSpeedMutliplier;
-            // turns on orb sheild
-            orbShieldActiveToggle();
-            //determines time for dash
-            yield return new WaitForSeconds(dashTime);
-            //returns to original speed
-            agent.speed /= dashSpeedMutliplier;
-            //turns off orb sheild 
-            orbShieldActiveToggle();
-            //waits for time between the next dash in loop
-            yield return new WaitForSeconds(secBetweenDashes);
-        }
-        isDashing = false;
-
-    }
-    public void orbShieldActiveToggle()
-    //turns the orb sheild on and off
-    {
-            if (!isOrbShieldActive)
+            isDashing = true;
+            //grouping dashes together, for creating more dynamic dashes
+            for (int currDashNum = 0; currDashNum < numOfDashes; currDashNum++)
             {
-                isOrbShieldActive = true;
+                // turns on orb sheild
                 orbShield.gameObject.SetActive(true);
-            }
-            else if (isOrbShieldActive)
-            {
+                //increases speed of ghost
+                agent.speed *= dashSpeedMutliplier;
+                
+               
+                //determines time for dash
+                yield return new WaitForSeconds(dashTime);
+                //returns to original speed
+                agent.speed /= dashSpeedMutliplier;
+
+                //turns off orb sheild 
                 orbShield.gameObject.SetActive(false);
-                isOrbShieldActive = false;
+                //waits for time between the next dash in loop
+                yield return new WaitForSeconds(secBetweenDashes);
+                
+
+
+
+
             }
+            //allows for orbAttack to begin
+            isDashing = false;
+        }
+        //after dashes starts coroutine for Attack
+        StartCoroutine(orbAttack());
     }
 
     IEnumerator orbAttack()
     {
-        orbBulletActiveToggle();
-        yield return new WaitForSeconds(orbAttackTime);
-        orbBulletActiveToggle();
-
-    }
-    public void orbBulletActiveToggle()
-    //turns the orb sheild on and off
-    {
-        if (!isOrbBulletActive)
+        if (!isDashing)
         {
-            isOrbShieldActive = true;
+            //sets bool to true so dashing doesn't happen at the same time
+            isAttacking = true;
+            //turns on ghost bullet
             orbBullet.gameObject.SetActive(true);
-        }
-        else if (isOrbBulletActive)
-        {
+            //keeps active for set time
+            yield return new WaitForSeconds(orbAttackTime);
+            //turns off ghost bullet
             orbBullet.gameObject.SetActive(false);
-            isOrbShieldActive = false;
+            //turns off bool so dash can begin
+            isAttacking = false;
         }
+
     }
 
     public void takeDamage(int amount)
