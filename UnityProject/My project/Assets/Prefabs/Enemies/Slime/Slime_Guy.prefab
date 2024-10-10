@@ -237,7 +237,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8245208399409965635}
-  - component: {fileID: 7004311648762822831}
+  - component: {fileID: 933659800839248529}
   - component: {fileID: 2067463307045395659}
   - component: {fileID: 4750455612190446687}
   - component: {fileID: 4696500636015075480}
@@ -268,7 +268,7 @@ Transform:
   - {fileID: 8246516440144534209}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7004311648762822831
+--- !u!114 &933659800839248529
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -285,6 +285,7 @@ MonoBehaviour:
   HP: 3
   rotateSpeed: 10
   viewAngle: 100
+  faces: {fileID: 11400000, guid: 8b8a7554fceb39841840f45a2d8da540, type: 2}
   SmileBody: {fileID: 3421705117012888872}
   currentState: 0
   animator: {fileID: 4750455612190446687}
@@ -343,7 +344,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 192
@@ -352,10 +353,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1.25
+  m_Radius: 0.3
+  m_Height: 0
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.2, z: 0}
 --- !u!54 &2938165708318876366
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -455,6 +456,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4515929227717104909}
+  - component: {fileID: 6017857017470184136}
   - component: {fileID: 138603090522906187}
   m_Layer: 0
   m_Name: PlayerDetection
@@ -478,6 +480,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8245208399409965635}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6017857017470184136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6114085963113337320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 530ca0d41b267004bb4b22481f746f92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 2067463307045395659}
+  model: {fileID: 3312074908932168655}
+  HP: 3
+  rotateSpeed: 10
+  viewAngle: 100
+  faces: {fileID: 11400000, guid: 8b8a7554fceb39841840f45a2d8da540, type: 2}
+  SmileBody: {fileID: 3421705117012888872}
+  currentState: 0
+  animator: {fileID: 4750455612190446687}
+  waypoints: []
+  damType: 0
 --- !u!135 &138603090522906187
 SphereCollider:
   m_ObjectHideFlags: 0
