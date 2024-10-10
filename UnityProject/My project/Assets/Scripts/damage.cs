@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class damage : MonoBehaviour
 {
-    [SerializeField] enum damageType { bullet, stationary, chaser, arrow, ghostOrb };
+    [SerializeField] enum damageType { bullet, stationary, chaser, arrow };
 
     [SerializeField] damageType type;
     [SerializeField] Rigidbody rb;
@@ -18,7 +18,7 @@ public class damage : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (type == damageType.bullet || type == damageType.ghostOrb || type == damageType.arrow)
+        if (type == damageType.bullet || type == damageType.arrow)
         {
             rb.velocity = transform.forward * speed;
             Destroy(gameObject, destroyTime);
@@ -28,11 +28,7 @@ public class damage : MonoBehaviour
             Destroy(gameObject, destroyTime);
         }
 
-        if (type == damageType.ghostOrb)
-        {
-            rb.velocity = transform.forward * speed;
-            Destroy(gameObject, destroyTime);
-        }
+      
     }
 
     private void OnTriggerEnter(Collider other)
@@ -82,16 +78,6 @@ public class damage : MonoBehaviour
             yield return new WaitForSeconds(damageInterval); // Wait for the next damage tick
             dmg.takeDamage(damageAmount);
         }
-        //else if(type==damageType.bullet||type==damageType.chaser || type == damageType.arrow)
-        //{ 
-        //Destroy(gameObject);
-        //}
-        //else if(type == damageType.arrow) //Added arrow physics to allow for arrow sticking.
-        //{
-        //    rb.isKinematic = true; //Stops physics
-        //    transform.parent = other.transform;
-        //    Destroy(gameObject, destroyTime);
-        //}
     }
 
     private void Update()
