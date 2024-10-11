@@ -43,13 +43,10 @@ public class UIManager : MonoBehaviour
             if (menuActive == null)
             {
                 PauseGame();
-
-
             }
             else if (menuActive !=null)
             {
                 UnpauseGame();
-
             }
         }
         int count= GameManager.instance.GetEnemyCount();

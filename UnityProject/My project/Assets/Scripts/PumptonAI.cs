@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 //Lastest push -
 // * Updated with range check to stop archer from firing arrows continuously.
@@ -9,92 +10,89 @@ using UnityEngine;
 // * Pumpton the Pumpkin.
 public class PumptonAI : MonoBehaviour
 {
+    [SerializeField] Renderer model;
+    [SerializeField] GameObject pumptonShot; //Prefab
+    [SerializeField] Transform shootPOS;
+
+    [SerializeField] int HP;
+    [SerializeField] float chargedShotForce;
+    [SerializeField] float chargedDuration;
+    [SerializeField] float delayAfterAttack;
+    [SerializeField] float shootCD;
     [SerializeField] int rotateSpeed;
-    [SerializeField] private int dmgToPlayer = 1; //Dmg Modifier
-    [SerializeField] float chargedShotForce = 1000f; //Dmg Multiplier Modifier
-    public Transform player;
-    public GameObject arrowPrefab;
-    public Transform shootPOS;
+    [SerializeField] int dmgToPlayer;
 
-    public float attackRange = 15f;
-    public float shootCD = 2f;
-    private float shootTimer;
-
-    public int maxHP = 3;
-    private int currentHP;
-    private Renderer pumptonRenderer;
-    private Color originalColor;
-    public Color dmgColor = Color.red;
-    public float dmgBlinkDuration = 0.2f;
-    bool playerInRange;
+    private Vector3 playerDir;
+    private bool isChargingShot;
+    private bool playerInRange;
+    private bool canShoot = true;
+    private Color colorOrig;
+    private float shootTimer = 0f;
 
     // Start is called before the first frame update
     void Start()
     {
-        currentHP = maxHP;
-        shootTimer = shootCD;
-
-        pumptonRenderer = GetComponent<Renderer>();
-        if( pumptonRenderer != null )
-        {
-            originalColor = pumptonRenderer.material.color;
-        }
-
+        colorOrig = model.material.color;
         GameManager.instance.updateGameGoal(1);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(playerInRange && player != null)
+        playerDir = GameManager.instance.player.transform.position;
+
+        if (playerInRange)
         {
-            float distanceToPlayer = Vector3.Distance(player.position, transform.position);
-            
-            if(distanceToPlayer <= attackRange)
+            faceTarget();
+
+            if (!isChargingShot && canShoot)
             {
-                AimAtPlayer();
-                shootTimer -= Time.deltaTime;
-                if (shootTimer <= 0f)
-                {
-                    ShootArrow(500f);
-                    shootTimer = shootCD;
-                    chargedShotForce = 0;
-                }
+                StartCoroutine(beginChargedShot());
             }
-            else
+        }
+
+        if (!canShoot)
+        {
+            shootTimer -= Time.deltaTime;
+            if (shootTimer <= 0f)
             {
-                ChargeShot();
+                canShoot = true;
             }
         }
     }
 
-    void AimAtPlayer()
+    void faceTarget()
     {
-        Vector3 direction = (player.position - transform.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-        transform.rotation = lookRotation;//Sets rotation.
-    }
-    void ChargeShot()
-    {
-        if (shootTimer <= 0f)
+        Vector3 directionToPlayer = (GameManager.instance.player.transform.position - transform.position).normalized;
+        if (directionToPlayer != Vector3.zero)
         {
-            ShootArrow(chargedShotForce);
-            shootTimer = shootCD;
+            Quaternion rot = Quaternion.LookRotation(new Vector3(directionToPlayer.x, 0, directionToPlayer.z));
+            transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * rotateSpeed);
         }
+            //Debugging...
+        Debug.DrawLine(transform.position, transform.position + directionToPlayer * 5, Color.red);
+        Debug.DrawLine(transform.position, transform.position + transform.forward * 5, Color.green);
     }
-    void ShootArrow(float shootForce)
+
+    void PumptonShot(float shootForce)
     {
-        if(arrowPrefab != null && shootPOS != null)
+        if (pumptonShot != null && shootPOS != null)
         {
-            GameObject arrow = Instantiate(arrowPrefab, shootPOS.position, shootPOS.rotation);
+            GameObject bullet = Instantiate(pumptonShot, shootPOS.position, shootPOS.rotation);
 
-            Rigidbody arrowRb = arrow.GetComponent<Rigidbody>();
+            Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
 
-            if(arrowRb != null)
+            if (bulletRb != null)
             {
-                arrowRb.AddForce(shootPOS.forward * shootForce);
+                bulletRb.AddForce(shootPOS.forward * shootForce, ForceMode.Impulse);
             }
         }
+    }
+
+    void ResetChargedShot()
+    {
+        shootTimer = shootCD;
+        chargedShotForce = 0;
     }
     //Player Detection
     private void OnTriggerEnter(Collider other)
@@ -114,37 +112,35 @@ public class PumptonAI : MonoBehaviour
     }
     public void takeDmg(int damage)
     {
-        currentHP -= damage;
-        StartCoroutine(BlinkRed());
-        
-        if(currentHP <= 0)
+        HP -= damage;
+        StartCoroutine(flashColor());
+
+        if (HP <= 0)
         {
-            Die();
+            GameManager.instance.updateGameGoal(-1);
+            Destroy(gameObject);
         }
     }
 
-    IEnumerator BlinkRed()
+    IEnumerator beginChargedShot()
     {
-        pumptonRenderer.material.color = dmgColor;
+        isChargingShot = true;
+        yield return new WaitForSeconds(chargedDuration);
 
-        yield return new WaitForSeconds(dmgBlinkDuration);
-        pumptonRenderer.material.color = originalColor;
+        GameObject bullet = Instantiate(pumptonShot, shootPOS.position, shootPOS.rotation);
+        Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
+        bulletRb.AddForce(transform.forward * chargedShotForce, ForceMode.Impulse);
+
+        yield return new WaitForSeconds(delayAfterAttack);
+        //CD Reset
+        canShoot = false;
+        shootTimer = shootCD;
+        isChargingShot = false;
     }
-
-    void Die()
+    IEnumerator flashColor()
     {
-        Destroy(gameObject);
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.CompareTag("Player"))
-        {
-            playerController playerController = collision.gameObject.GetComponent<playerController>();
-            if (playerController != null)
-            {
-                playerController.takeDamage(dmgToPlayer);
-            }
-        }
+        model.material.color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+        model.material.color = colorOrig;
     }
 }

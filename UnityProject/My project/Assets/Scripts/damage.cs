@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class damage : MonoBehaviour
 {
-    [SerializeField] enum damageType { bullet, stationary, chaser, arrow };
+    [SerializeField] enum damageType { bullet, stationary, chaser, arrow, };
 
     [SerializeField] damageType type;
     [SerializeField] Rigidbody rb;
@@ -57,11 +57,8 @@ public class damage : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.isTrigger)
-        {
-            return;
-        }
-
+        if (other.isTrigger) return;
+    
         if (type == damageType.stationary && statDmgCoroutine != null)
         {
             isPlayerinField = false;
