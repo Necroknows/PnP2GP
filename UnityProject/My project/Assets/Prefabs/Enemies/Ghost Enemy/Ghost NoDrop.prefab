@@ -691,12 +691,13 @@ MonoBehaviour:
   isUsingNewModel: 0
   orbShield: {fileID: 6961837787188466745}
   orbBullet: {fileID: 6954138339586484841}
+  orbAttackPos: {fileID: 0}
   headPos: {fileID: 2319289924068425960}
   HP: 3
-  numOfDashes: 2
+  numOfDashes: 1
   secBetweenDashes: 1
-  dashSpeedMutliplier: 3
-  orbAttackTime: 3
+  dashSpeedMutliplier: 2
+  orbAttackTime: 2
   delayAfterAttack: 3
   rotateSpeed: 600
   dashTime: 2
@@ -939,6 +940,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6871336022564566008}
   - component: {fileID: 1568191034462211292}
+  - component: {fileID: 3181974103692928594}
   - component: {fileID: 7878084966374173544}
   - component: {fileID: 8427538135708706662}
   m_Layer: 7
@@ -972,6 +974,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6954138339586484841}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &3181974103692928594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6954138339586484841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f319b26ffe0b97040a6dc199c5f5d482, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 1
+  damageInterval: 1
 --- !u!23 &7878084966374173544
 MeshRenderer:
   m_ObjectHideFlags: 0

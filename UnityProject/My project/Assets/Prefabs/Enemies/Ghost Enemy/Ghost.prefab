@@ -199,9 +199,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7118841354511963136}
   - component: {fileID: 4990681090613908211}
+  - component: {fileID: 5407500712445906812}
   - component: {fileID: 2494621875075798759}
   - component: {fileID: 1075051458308606014}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: OrbBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -232,6 +233,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2492872261089402742}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &5407500712445906812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2492872261089402742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f319b26ffe0b97040a6dc199c5f5d482, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 1
+  damageInterval: 1
 --- !u!23 &2494621875075798759
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -284,12 +299,12 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 320
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -746,9 +761,10 @@ MonoBehaviour:
   isUsingNewModel: 1
   orbShield: {fileID: 3982250025267998148}
   orbBullet: {fileID: 2492872261089402742}
+  orbAttackPos: {fileID: 0}
   headPos: {fileID: 975183397149214020}
   HP: 3
-  numOfDashes: 2
+  numOfDashes: 1
   secBetweenDashes: 1
   dashSpeedMutliplier: 3
   orbAttackTime: 3
@@ -864,7 +880,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.6667573
-  m_Speed: 3
+  m_Speed: 3.5
   m_Acceleration: 100
   avoidancePriority: 50
   m_AngularSpeed: 120
