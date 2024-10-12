@@ -17,7 +17,7 @@ public class enemyGhostAI : MonoBehaviour, IDamage
     //circling orbs that do damage
     [SerializeField] GameObject orbBullet;
     // transform for orbBullet to rotate around
-   // [SerializeField] Transform orbAttackPos;
+    [SerializeField] Transform orbAttackPos;
     //where the ghost can see from
     [SerializeField] Transform headPos;
     //[SerializeField] Animator animator;
@@ -39,6 +39,7 @@ public class enemyGhostAI : MonoBehaviour, IDamage
     //how long a dash lasts
     [SerializeField] float dashTime;
 
+   // Vector3 bulletPosVec;
     //gets player position
     Vector3 playerDir;
     //gets the position and rotation of an object
@@ -64,6 +65,7 @@ public class enemyGhostAI : MonoBehaviour, IDamage
     void Update()
     {
         playerDir = GameManager.instance.player.transform.position;
+        
         if (playerInRange)
         {
             //sets the destination of enemy to player 

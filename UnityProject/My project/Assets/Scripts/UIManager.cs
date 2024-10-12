@@ -16,7 +16,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] TMP_Text enemyCountText;
     [SerializeField] TMP_Text ammoCountText;
 
-    private playerController playerCont;
+    public playerController playerCont;
 
     public Image playerHpBar;
     public bool isPaused;

@@ -21,11 +21,15 @@ public class damage : MonoBehaviour
         if (type == damageType.bullet || type == damageType.arrow)
         {
             rb.velocity = transform.forward * speed;
-            Destroy(gameObject, destroyTime);
+          
+                Destroy(gameObject, destroyTime);
+            
         }
         else if (type == damageType.chaser)
         {
-            Destroy(gameObject, destroyTime);
+            
+                Destroy(gameObject, destroyTime);
+            
         }
 
       
@@ -49,7 +53,8 @@ public class damage : MonoBehaviour
                 dmg.takeDamage(damageAmount);
                 if (type == damageType.bullet || type == damageType.chaser)
                 {
-                    Destroy(gameObject);
+                        Destroy(gameObject);
+                    
                 }
             }
         }
