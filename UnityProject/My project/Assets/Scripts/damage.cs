@@ -81,7 +81,7 @@ public class damage : MonoBehaviour
         {
             dmg.takeDamage(damageAmount);
             yield return new WaitForSeconds(damageInterval); // Wait for the next damage tick
-            dmg.takeDamage(damageAmount);
+            
         }
     }
 
@@ -89,7 +89,8 @@ public class damage : MonoBehaviour
     {
         if (type == damageType.chaser)
         {
-            rb.velocity = (GameManager.instance.player.transform.position - transform.position).normalized * speed * Time.deltaTime;
+            rb.velocity = (GameManager.instance.player.transform.position - transform.position).normalized * speed;
+            transform.LookAt(GameManager.instance.player.transform);
         }
     }
 }
