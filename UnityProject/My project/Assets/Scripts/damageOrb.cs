@@ -1,8 +1,7 @@
 using System;
 using System.Collections;
-
 using UnityEngine;
-using UnityEngine.AI;
+
 
 public class damageOrb : MonoBehaviour
 {
@@ -12,15 +11,13 @@ public class damageOrb : MonoBehaviour
     private bool isPlayerinField = false;
     private Coroutine statDmgCoroutine;
     private enemyGhostAI ghost;
-    private playerController player;
 
 
 
     // Start is called before the first frame update
     void Start()
     {
-        player = GetComponent<playerController>();
-        ghost = FindObjectOfType<enemyGhostAI>();
+       
     }
 
     private void OnTriggerEnter(Collider other)

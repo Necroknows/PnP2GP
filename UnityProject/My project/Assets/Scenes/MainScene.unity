@@ -1826,6 +1826,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1085279910580287670, guid: 6fe77b0ff36476b4295e2a9c7cc6b0bf, type: 3}
+      propertyPath: m_Height
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1085279910580287670, guid: 6fe77b0ff36476b4295e2a9c7cc6b0bf, type: 3}
+      propertyPath: m_Radius
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2313998321423092805, guid: 6fe77b0ff36476b4295e2a9c7cc6b0bf, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1985,7 +1993,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 766010465}
-  - {fileID: 1997747105}
   - {fileID: 598430859}
   - {fileID: 612919761}
   - {fileID: 1554833569}
@@ -11088,7 +11095,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8134755368490289999, guid: f8284c9a0dd3b264da474f7fd8e61d41, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 29.3
+      value: 29.49
       objectReference: {fileID: 0}
     - target: {fileID: 8134755368490289999, guid: f8284c9a0dd3b264da474f7fd8e61d41, type: 3}
       propertyPath: m_LocalPosition.z
@@ -11227,7 +11234,7 @@ Transform:
   m_GameObject: {fileID: 1718405759}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 33.638477, y: 30, z: 115.70296}
+  m_LocalPosition: {x: 33.638474, y: 29, z: 115.70296}
   m_LocalScale: {x: 25, y: 1, z: 25}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13104,37 +13111,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d55f2e598ebf8fd40987cbcc92bc7bfd, type: 3}
---- !u!1 &1997747104
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1997747105}
-  m_Layer: 0
-  m_Name: DamageDealers
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1997747105
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1997747104}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 28.945076, y: 14.197224, z: 25.933617}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 372916200}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2004139937 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9074000095630518869, guid: 7f951d926de90464b80614f5cd2cd38f, type: 3}
@@ -14939,7 +14915,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 206747168011652532, guid: 2479306332f4cdd44acade29534ff0e8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 32.21
+      value: 31.21
       objectReference: {fileID: 0}
     - target: {fileID: 206747168011652532, guid: 2479306332f4cdd44acade29534ff0e8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -14973,9 +14949,33 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 12.987
       objectReference: {fileID: 0}
+    - target: {fileID: 2436864956566489032, guid: 2479306332f4cdd44acade29534ff0e8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.353
+      objectReference: {fileID: 0}
+    - target: {fileID: 2436864956566489032, guid: 2479306332f4cdd44acade29534ff0e8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.642
+      objectReference: {fileID: 0}
+    - target: {fileID: 2436864956566489032, guid: 2479306332f4cdd44acade29534ff0e8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.931
+      objectReference: {fileID: 0}
     - target: {fileID: 4304176632236108868, guid: 2479306332f4cdd44acade29534ff0e8, type: 3}
       propertyPath: m_Name
       value: Mushie (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7427361493799514218, guid: 2479306332f4cdd44acade29534ff0e8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.273
+      objectReference: {fileID: 0}
+    - target: {fileID: 7427361493799514218, guid: 2479306332f4cdd44acade29534ff0e8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.208
+      objectReference: {fileID: 0}
+    - target: {fileID: 7427361493799514218, guid: 2479306332f4cdd44acade29534ff0e8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6.091
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -15034,6 +15034,14 @@ PrefabInstance:
     - target: {fileID: 5190356414272033625, guid: cdb4501d4437c4f4281a875a9b2d3033, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5190356414272033625, guid: cdb4501d4437c4f4281a875a9b2d3033, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5190356414272033625, guid: cdb4501d4437c4f4281a875a9b2d3033, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5190356414272033625, guid: cdb4501d4437c4f4281a875a9b2d3033, type: 3}
       propertyPath: m_LocalPosition.x
