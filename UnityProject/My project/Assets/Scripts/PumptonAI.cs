@@ -9,20 +9,23 @@ using UnityEngine.AI;
 // * It has been decided that he is pumpkin. I'll rename later...
 // * Pumpton the Pumpkin.
 public class PumptonAI : MonoBehaviour
-{
+{//Model / Prefab
     [SerializeField] Renderer model;
     [SerializeField] GameObject pumptonShot; //Prefab
     [SerializeField] Transform shootPOS;
-
+ //HP & Dmg
     [SerializeField] int HP;
+    [SerializeField] int dmgToPlayer;
+    [SerializeField] int dmgFromPlayer;
+ //Shooting Parameters
+    [SerializeField] float normalShootRange = 10f;
+    [SerializeField] float chargedShotRange = 15f;
     [SerializeField] float chargedShotForce;
     [SerializeField] float chargedDuration;
     [SerializeField] float delayAfterAttack;
     [SerializeField] float shootCD;
     [SerializeField] int rotateSpeed;
-    [SerializeField] int dmgToPlayer;
-
-    private Vector3 playerDir;
+    //Other
     private bool isChargingShot;
     private bool playerInRange;
     private bool canShoot = true;
@@ -39,25 +42,31 @@ public class PumptonAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        playerDir = GameManager.instance.player.transform.position;
-
-        if (playerInRange)
+        if(GameManager.instance.player != null)
         {
+            float distanceToPlayer = Vector3.Distance(transform.position, GameManager.instance.player.transform.position);
             faceTarget();
 
-            if (!isChargingShot && canShoot)
+            if (canShoot)
             {
-                StartCoroutine(beginChargedShot());
+                if(distanceToPlayer <= normalShootRange)
+                {
+                    StartCoroutine(Shoot(1.0f));
+                }
+                else if(distanceToPlayer > normalShootRange && distanceToPlayer <= chargedShotRange)
+                {
+                    StartCoroutine(Shoot(chargedShotForce));
+                }
             }
         }
-
-        if (!canShoot)
+        //Shoot Cooldown
+        if(!canShoot)
         {
             shootTimer -= Time.deltaTime;
-            if (shootTimer <= 0f)
+            if(shootTimer <= 0f)
             {
                 canShoot = true;
-            }
+            }    
         }
     }
 
@@ -79,7 +88,6 @@ public class PumptonAI : MonoBehaviour
         if (pumptonShot != null && shootPOS != null)
         {
             GameObject bullet = Instantiate(pumptonShot, shootPOS.position, shootPOS.rotation);
-
             Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
 
             if (bulletRb != null)
@@ -89,15 +97,15 @@ public class PumptonAI : MonoBehaviour
         }
     }
 
-    void ResetChargedShot()
-    {
-        shootTimer = shootCD;
-        chargedShotForce = 0;
-    }
-    //Player Detection
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Projectile"))
+        {
+            takeDmg(dmgFromPlayer);
+            //Destroys upon impact.
+            Destroy(other.gameObject);
+        }
+        else if(other.CompareTag("Player"))
         {
             playerInRange = true;
         }
@@ -110,16 +118,29 @@ public class PumptonAI : MonoBehaviour
             playerInRange = false;
         }
     }
+
     public void takeDmg(int damage)
     {
         HP -= damage;
+        Debug.Log("Pumpton took damage! HP: " + HP);
         StartCoroutine(flashColor());
 
         if (HP <= 0)
         {
+            Debug.Log("Pumpton HP reached 0. Destroying Pumpton.");
             GameManager.instance.updateGameGoal(-1);
             Destroy(gameObject);
         }
+    }
+
+    IEnumerator Shoot(float shootForce)
+    {
+        PumptonShot(shootForce);
+
+        canShoot = false;
+        shootTimer = shootCD;
+        yield return new WaitForSeconds(shootCD);
+        canShoot = true;
     }
 
     IEnumerator beginChargedShot()

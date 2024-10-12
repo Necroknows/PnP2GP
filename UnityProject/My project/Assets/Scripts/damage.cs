@@ -18,6 +18,8 @@ public class damage : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(!rb) rb = GetComponent<Rigidbody>();
+
         if (type == damageType.bullet || type == damageType.arrow)
         {
             rb.velocity = transform.forward * speed;

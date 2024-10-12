@@ -1,12 +1,12 @@
 using System;
 using System.Collections;
-using Unity.VisualScripting.Dependencies.Sqlite;
+
 using UnityEngine;
 using UnityEngine.AI;
 
 public class damageOrb : MonoBehaviour
 {
-
+    
     [SerializeField] int damageAmount;
     [SerializeField] float damageInterval; // Interval for stationary damage
     private bool isPlayerinField = false;
@@ -20,6 +20,7 @@ public class damageOrb : MonoBehaviour
     void Start()
     {
         player = GetComponent<playerController>();
+        ghost = FindObjectOfType<enemyGhostAI>();
     }
 
     private void OnTriggerEnter(Collider other)
