@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public GameObject flashDamageScreen;
 
     public GameObject player;
+    public GameObject pumpkin;
     public playerController playerScript;
 
     public bool isPaused;
