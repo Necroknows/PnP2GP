@@ -8,7 +8,7 @@ using UnityEngine.AI;
 // * Also modified for a stationary variant.
 // * It has been decided that he is pumpkin. I'll rename later...
 // * Pumpton the Pumpkin.
-public class PumptonAI : MonoBehaviour
+public class PumptonAI : MonoBehaviour, IDamage
 {//Model / Prefab
     [SerializeField] Renderer model;
     [SerializeField] GameObject pumptonShot; //Prefab
@@ -121,16 +121,8 @@ public class PumptonAI : MonoBehaviour
 
     public void takeDmg(int damage)
     {
-        HP -= damage;
-        Debug.Log("Pumpton took damage! HP: " + HP);
-        StartCoroutine(flashColor());
-
-        if (HP <= 0)
-        {
-            Debug.Log("Pumpton HP reached 0. Destroying Pumpton.");
-            GameManager.instance.updateGameGoal(-1);
-            Destroy(gameObject);
-        }
+     // for an enemy to take any form of damage it has to also derive from IDamage and the spelling 
+     // has to remain consistant ... i fixed it and moved your code from this section to the interface.
     }
 
     IEnumerator Shoot(float shootForce)
@@ -163,5 +155,19 @@ public class PumptonAI : MonoBehaviour
         model.material.color = Color.red;
         yield return new WaitForSeconds(0.1f);
         model.material.color = colorOrig;
+    }
+
+    public void takeDamage(int amount)
+    {
+        HP -= amount;
+        Debug.Log("Pumpton took damage! HP: " + HP);
+        StartCoroutine(flashColor());
+
+        if (HP <= 0)
+        {
+            Debug.Log("Pumpton HP reached 0. Destroying Pumpton.");
+            GameManager.instance.updateGameGoal(-1);
+            Destroy(gameObject);
+        }
     }
 }
