@@ -76,7 +76,7 @@ public class PumptonAI : MonoBehaviour, IDamage
         if (directionToPlayer != Vector3.zero)
         {
             Quaternion rot = Quaternion.LookRotation(new Vector3(directionToPlayer.x, 0, directionToPlayer.z));
-            transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * rotateSpeed);
+            transform.rotation = Quaternion.Lerp(transform.rotation, rot * Quaternion.Euler(0, 90, 0), Time.deltaTime * rotateSpeed);
         }
             //Debugging...
         Debug.DrawLine(transform.position, transform.position + directionToPlayer * 5, Color.red);
