@@ -15,15 +15,20 @@ public class ZombieAI : MonoBehaviour, IDamage
     [SerializeField] float AtkDelay;// how long in between attacks 
     [SerializeField] float BulletSpeed;// how fast is the bullet moving 
     [SerializeField] int HP;
+    [SerializeField] Renderer model;
+
     private bool isAttacking = false;// is the zombie currently attacking 
 
-
+    Animator ani;
+    Color colorOrig;
 
     // Start is called before the first frame update
     void Start()
     {
+        colorOrig = model.material.color;
         player = GameObject.FindWithTag("Player").transform;
         GameManager.instance.updateGameGoal(1);
+        ani = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -42,35 +47,37 @@ public class ZombieAI : MonoBehaviour, IDamage
         {
             MoveTowardsPlayer();
         }
-        else if(DistanceToPlayer <=attackRange && !isAttacking) 
+        else if (DistanceToPlayer <= attackRange && !isAttacking)
         {
             StartCoroutine(ThrowPoisonBullet());
         }
 
     }
-        void MoveTowardsPlayer()
-        {
-            // move toward the player maintaining distance 
-            Vector3 direction = (player.position - transform.position).normalized;
-            transform.position += direction * moveSpeed * Time.deltaTime;
-            transform.LookAt(player);
-        }
-        IEnumerator ThrowPoisonBullet()
-        {
-            isAttacking = true;
+    void MoveTowardsPlayer()
+    {
+        ani.SetTrigger("movTrigger");
 
-            yield return new WaitForSeconds(AtkDelay);
-
-            GameObject poisonBullet = Instantiate(Bullet, ShootPOS.position, ShootPOS.rotation);
-            Rigidbody rb= poisonBullet.GetComponent<Rigidbody>();
-            rb.velocity = (player.position - transform.position).normalized*BulletSpeed;
-            isAttacking=false;
-        }
+        // move toward the player maintaining distance 
+        Vector3 direction = (player.position - transform.position).normalized;
+        transform.position += direction * moveSpeed * Time.deltaTime;
+        transform.LookAt(player);
+    }
+    IEnumerator ThrowPoisonBullet()
+    {
+        isAttacking = true;
+        yield return new WaitForSeconds(AtkDelay);
+        GameObject poisonBullet = Instantiate(Bullet, ShootPOS.position, ShootPOS.rotation);
+        ani.SetTrigger("atkTrigger");
+        Rigidbody rb = poisonBullet.GetComponent<Rigidbody>();
+        rb.velocity = (player.position - transform.position).normalized * BulletSpeed;
+        isAttacking = false;
+    }
 
     public void takeDamage(int amount)
     {
         // reduce hp by damage amount 
-       HP-=amount;
+        HP -= amount;
+        StartCoroutine(flashRed());
         // if health drops to zero destroy enemie object 
         if (HP <= 0)
         {
@@ -79,4 +86,11 @@ public class ZombieAI : MonoBehaviour, IDamage
             Destroy(gameObject);
         }
     }
+    IEnumerator flashRed()
+    {
+        model.material.color = Color.red;
+        yield return new WaitForSeconds(.1f);
+        model.material.color = colorOrig;
+    }
+
 }

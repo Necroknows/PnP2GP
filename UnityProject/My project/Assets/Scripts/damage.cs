@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class damage : MonoBehaviour
 {
-    [SerializeField] enum damageType { bullet, stationary, chaser, arrow, };
+    [SerializeField] enum damageType { bullet, stationary, chaser, arrow, lobber };
 
     [SerializeField] damageType type;
     [SerializeField] Rigidbody rb;
@@ -32,6 +32,29 @@ public class damage : MonoBehaviour
             
                 Destroy(gameObject, destroyTime);
             
+        }
+        else if (type==damageType.lobber)
+        {
+          // get the player location 
+          Vector3 targetPOS=GameManager.instance.player.transform.position;
+
+            // get the distance to the player 
+            Vector3 playerDir = targetPOS-transform.position;
+            float distToPlayer = playerDir.magnitude;
+
+            // calculate the time it will take to get to that position
+            float flightTime = distToPlayer / speed;
+
+            // calculate the vertical velocity needed to get there accounting for gravity . 
+            float vertVelo = (0.5f * Mathf.Abs(Physics.gravity.y) * flightTime);
+
+            // combine out and up velocity
+            Vector3 lobberVelo = (playerDir.normalized*speed)+Vector3.up*vertVelo;
+
+            rb.velocity=lobberVelo;
+            Destroy(gameObject, destroyTime);
+
+
         }
 
       

@@ -25,7 +25,7 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-    
+        timescale=Time.timeScale;
         Instance = this;
     }
     private void Start()

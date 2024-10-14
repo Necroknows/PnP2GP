@@ -312,4 +312,5 @@ public class slimeAI : MonoBehaviour, IDamage
         transform.position = position;
         agent.nextPosition = transform.position;
     }
+
 }
