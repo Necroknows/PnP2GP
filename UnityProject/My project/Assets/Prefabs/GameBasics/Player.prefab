@@ -62,8 +62,9 @@ MonoBehaviour:
   jumpMax: 2
   jumpSpeed: 12
   gravity: 28
-  HP: 7
+  HP: 15
   Ammo: 30
+  AmmoMax: 99
   shootDamage: 1
   shootRate: 0.25
   shootDist: 500
@@ -162,8 +163,8 @@ CapsuleCollider:
   m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
-  m_Height: 2
+  m_Radius: 0.1
+  m_Height: 0.01
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4750255137899064072

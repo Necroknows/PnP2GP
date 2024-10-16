@@ -76,7 +76,7 @@ public class damage : MonoBehaviour
             else
             {
                 dmg.takeDamage(damageAmount);
-                if (type == damageType.bullet || type == damageType.chaser)
+                if (type == damageType.bullet || type == damageType.chaser|| type== damageType.lobber)
                 {
                         Destroy(gameObject);
                     
