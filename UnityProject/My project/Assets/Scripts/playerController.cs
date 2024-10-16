@@ -7,7 +7,7 @@ using UnityEngine.Animations;
 
 public class playerController : MonoBehaviour, IDamage
 {
-    
+
     [SerializeField] CharacterController controller;
     [SerializeField] LayerMask ignoreMask;
     [SerializeField] Transform shootPos;
@@ -22,6 +22,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] int gravity;
     [SerializeField] int HP;
     [SerializeField] int Ammo;
+    [SerializeField] int AmmoMax;
 
 
     [SerializeField] int shootDamage;
@@ -48,7 +49,7 @@ public class playerController : MonoBehaviour, IDamage
     {
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.red);
 
-        if (!GameManager.instance.isPaused)
+        if (!UIManager.Instance.isPaused)
         {
             movement();
         }
@@ -83,19 +84,19 @@ public class playerController : MonoBehaviour, IDamage
         playerVel.y -= gravity * Time.deltaTime;
 
         //calling shoot
-        if(Input.GetButton("Shoot") && !isShooting)
-        StartCoroutine(shoot());
+        if (Input.GetButton("Shoot") && !isShooting)
+            StartCoroutine(shoot());
     }
 
     void sprint()
     {
-        if(Input.GetButtonDown("Sprint"))
+        if (Input.GetButtonDown("Sprint"))
         {
             speed *= sprintMod;
             isSprinting = true;
 
         }
-        else if(Input.GetButtonUp("Sprint"))
+        else if (Input.GetButtonUp("Sprint"))
         {
             speed /= sprintMod;
             isSprinting = false;
@@ -105,13 +106,13 @@ public class playerController : MonoBehaviour, IDamage
 
     IEnumerator shoot()
     {
-        if(getAmmo()>0)
+        if (getAmmo() > 0)
         {
 
-        isShooting = true;
-        Instantiate(bullet, shootPos.position, shootRot.transform.rotation);
+            isShooting = true;
+            Instantiate(bullet, shootPos.position, shootRot.transform.rotation);
 
-        setAmmo(-1);
+            setAmmo(-1);
 
         }
         yield return new WaitForSeconds(shootRate);
@@ -125,11 +126,11 @@ public class playerController : MonoBehaviour, IDamage
         updatePlayerUI();
         StartCoroutine(flashDamage());
         //I'm dead :c
-        if(HP <= 0)
+        if (HP <= 0)
         {
             //GameManager.instance.youLose();
             UIManager.Instance.ShowLoseScreen();
-            
+
         }
     }
 
@@ -151,19 +152,38 @@ public class playerController : MonoBehaviour, IDamage
     {
         return HP;
     }
+    public int getHPOrig()
+    {
+        return HPOrig;
+    }
 
     public int getAmmo()
     {
         return Ammo;
     }
+    public int getAmmoMax()
+    {
+        return AmmoMax;
+    }
 
     public void setHP(int amount)
     {
-        HP = amount;
+        HP += amount;
+        if (HP > HPOrig)
+        {
+            HP = HPOrig;
+        }
     }
 
     public void setAmmo(int amount)
     {
+
         Ammo += amount;
+        if (Ammo > AmmoMax)
+        {
+            Ammo = AmmoMax;
+        }
     }
+
 }
+

@@ -16,10 +16,12 @@ public class Pickups : MonoBehaviour
     public float hoverRange = 0.5f;
     private Vector3 startPos;
 
+    public playerController playerCont;
     // Start is called before the first frame update
     void Start()
     {
         startPos = transform.position;
+        playerCont=FindAnyObjectByType<playerController>();
     }
 
     // Update is called once per frame
@@ -41,16 +43,34 @@ public class Pickups : MonoBehaviour
             switch (pickupType)
             {
                 case PickUpType.Health:
-                    
-                    player.setHP(healthPickupAmount);
-                    UIManager.Instance.UPdatePlayerHealthBar(healthPickupAmount);
-                    break;
+                    {
+                        if (playerCont.getHP() < playerCont.getHPOrig())
+                        {
+                            player.setHP(healthPickupAmount);
+                            UIManager.Instance.UPdatePlayerHealthBar(healthPickupAmount);
+                            Destroy(gameObject);
+                        }
+                        else
+                        {
+
+                        }
+                        break;
+                    }
                 case PickUpType.Ammo:
-                    player.setAmmo(ammoPickupAmount);
-                    break;
+                    {
+                        if (player.getAmmo() < player.getAmmoMax())
+                        {
+                            player.setAmmo(ammoPickupAmount);
+                            Destroy(gameObject);
+                        }
+                        else
+                        {
+
+                        }
+                        break;
+                    }
             }
 
-            Destroy(gameObject);
         }
     }
 }
