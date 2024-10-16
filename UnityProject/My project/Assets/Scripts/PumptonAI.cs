@@ -152,9 +152,18 @@ public class PumptonAI : MonoBehaviour, IDamage
     }
     IEnumerator flashColor()
     {
-        model.material.color = Color.red;
+        Material[] mats = model.materials;
+        for (int model_iterator = 0; model_iterator < mats.Length; model_iterator++)
+        {
+            mats[model_iterator].color = Color.red;//Changes ALL materials to red via loop.
+        }
+        model.materials = mats;
         yield return new WaitForSeconds(0.1f);
-        model.material.color = colorOrig;
+        for(int model_iterator = 0;model_iterator < mats.Length;model_iterator++)
+        {
+            mats[model_iterator].color = colorOrig;//Reverts colors to original.
+        }
+        model.materials = mats;
     }
 
     public void takeDamage(int amount)
