@@ -134,18 +134,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Zombie
       objectReference: {fileID: 0}
-    - target: {fileID: 4135580487086074884, guid: 0f78932bf1555b64c9d3b192e95450ee, type: 3}
-      propertyPath: shootRate
-      value: 1.333
-      objectReference: {fileID: 0}
-    - target: {fileID: 4170078837537582292, guid: 0f78932bf1555b64c9d3b192e95450ee, type: 3}
-      propertyPath: m_Speed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4170078837537582292, guid: 0f78932bf1555b64c9d3b192e95450ee, type: 3}
-      propertyPath: m_StoppingDistance
-      value: 12
-      objectReference: {fileID: 0}
     - target: {fileID: 8057921695749838182, guid: 0f78932bf1555b64c9d3b192e95450ee, type: 3}
       propertyPath: m_LocalPosition.x
       value: -15.56
@@ -309,6 +297,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2bf0fcf49cea0c4eb0da10b1138dae1, type: 3}
+--- !u!1001 &1091638125
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1848710110185624222, guid: 7f951d926de90464b80614f5cd2cd38f, type: 3}
+      propertyPath: m_Name
+      value: Visible Slime Guy
+      objectReference: {fileID: 0}
+    - target: {fileID: 9074000095630518869, guid: 7f951d926de90464b80614f5cd2cd38f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 94.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9074000095630518869, guid: 7f951d926de90464b80614f5cd2cd38f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0000076293945
+      objectReference: {fileID: 0}
+    - target: {fileID: 9074000095630518869, guid: 7f951d926de90464b80614f5cd2cd38f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -82.89237
+      objectReference: {fileID: 0}
+    - target: {fileID: 9074000095630518869, guid: 7f951d926de90464b80614f5cd2cd38f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9074000095630518869, guid: 7f951d926de90464b80614f5cd2cd38f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9074000095630518869, guid: 7f951d926de90464b80614f5cd2cd38f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9074000095630518869, guid: 7f951d926de90464b80614f5cd2cd38f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9074000095630518869, guid: 7f951d926de90464b80614f5cd2cd38f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9074000095630518869, guid: 7f951d926de90464b80614f5cd2cd38f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9074000095630518869, guid: 7f951d926de90464b80614f5cd2cd38f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7f951d926de90464b80614f5cd2cd38f, type: 3}
 --- !u!1001 &2127733089
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -414,3 +459,4 @@ SceneRoots:
   - {fileID: 66461477}
   - {fileID: 224085960}
   - {fileID: 37616238}
+  - {fileID: 1091638125}

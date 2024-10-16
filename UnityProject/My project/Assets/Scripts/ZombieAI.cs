@@ -24,6 +24,7 @@ public class ZombieAI : MonoBehaviour, IDamage
     // Variables related to enemy attacks and shooting
     [SerializeField] GameObject bullet;   // Bullet prefab for enemy attacks
     [SerializeField] float shootRate;     // Time delay between shots
+    [SerializeField] float deathTime;     // Time Delay for Death animation to finish before destruction
 
     // --- STATE FLAGS ---
     // Booleans to keep track of the enemy's current state
@@ -134,6 +135,7 @@ public class ZombieAI : MonoBehaviour, IDamage
     {
         HP -= amount;
         StartCoroutine(flashRed()); // Flash red when taking damage
+        ani.SetTrigger("dmgTrigger");
 
         if (someCO != null)
         {
@@ -144,9 +146,15 @@ public class ZombieAI : MonoBehaviour, IDamage
 
         if (HP <= 0)
         {
-            GameManager.instance.updateGameGoal(-1); // Update game goal if enemy dies
-            Destroy(gameObject); // Destroy enemy object on death
+         StartCoroutine(death());
         }
+    }
+    IEnumerator death()
+    {
+        ani.SetTrigger("deathTrigger");// sets the animation trigger for death animation 
+        yield return new WaitForSeconds(deathTime);
+        GameManager.instance.updateGameGoal(-1); // Update game goal if enemy dies
+        Destroy(gameObject); // Destroy enemy object on death
     }
 
     // Coroutine to briefly flash the enemy red when hit
