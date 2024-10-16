@@ -84,12 +84,15 @@ MonoBehaviour:
   pumptonShot: {fileID: 7259661551555041543, guid: cb72ff9cae0bd6648b35efabb78fbad1, type: 3}
   shootPOS: {fileID: 1609136194491994023}
   HP: 3
+  dmgToPlayer: 1
+  dmgFromPlayer: 0
+  normalShootRange: 10
+  chargedShotRange: 15
   chargedShotForce: 3
   chargedDuration: 1
   delayAfterAttack: 0.2
-  shootCD: 0.01
+  shootCD: 0.9
   rotateSpeed: 20
-  dmgToPlayer: 1
 --- !u!33 &3656695169221733587
 MeshFilter:
   m_ObjectHideFlags: 0
