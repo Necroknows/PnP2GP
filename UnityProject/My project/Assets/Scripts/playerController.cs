@@ -22,7 +22,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] int gravity;
     [SerializeField] int HP;
     [SerializeField] int Ammo;
-    [SerializeField] int AmmoMax;
+    [SerializeField] int Fuel;
 
 
     [SerializeField] int shootDamage;
@@ -166,6 +166,11 @@ public class playerController : MonoBehaviour, IDamage
         return AmmoMax;
     }
 
+    public int getFuel()
+    {
+        return Fuel;
+    }
+
     public void setHP(int amount)
     {
         HP += amount;
@@ -183,6 +188,11 @@ public class playerController : MonoBehaviour, IDamage
         {
             Ammo = AmmoMax;
         }
+    }
+
+    public void setFuel(int amount)
+    {
+        Fuel += amount;
     }
 
 }

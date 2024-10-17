@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,10 +19,15 @@ public class GameManager : MonoBehaviour
     public GameObject flashDamageScreen;
 
     public GameObject player;
+    public GameObject pumpkin;
     public playerController playerScript;
 
     public bool isPaused;
     int enemyCount;
+    int retrievableCount;
+
+    //list for retrievable objects
+    List<RetrievableObjects> retrievableObjects = new List<RetrievableObjects>();
 
     // Start is called before the first frame update
     void Awake()
@@ -29,6 +35,9 @@ public class GameManager : MonoBehaviour
         instance = this;
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<playerController>();
+
+        //fill list with all retrievable objects in scene
+        fillRetrievables();     //<---can be moved elsewhere if need be
     }
 
     // Update is called once per frame
@@ -50,25 +59,6 @@ public class GameManager : MonoBehaviour
         //}
     }
 
-    //public void statePause()
-    //{
-    //    isPaused = !isPaused;
-    //    Time.timeScale = 0;
-    //    Cursor.visible = true;
-    //    Cursor.lockState = CursorLockMode.Confined;
-
-    //}
-
-    //public void stateUnpuase()
-    //{
-    //    isPaused = !isPaused;
-    //    Time.timeScale = 1;
-    //    Cursor.visible = false;
-    //    Cursor.lockState = CursorLockMode.Locked;
-    //    menuActive.SetActive(isPaused);
-    //    menuActive = null;
-    //}
-
     public void updateGameGoal(int amount)
     {
         enemyCount += amount;
@@ -84,10 +74,45 @@ public class GameManager : MonoBehaviour
 
     public int GetEnemyCount()
         {return enemyCount; }
-    //public void youLose()
-    //{
-    //    statePause();
-    //    menuActive = menuLose;
-    //    menuActive.SetActive(isPaused);
-    //}
+
+    //fill list with all retrievable objects in scene
+    public void fillRetrievables()
+    {
+        //find all retrievableobject components in scene & add to list
+        RetrievableObjects[] allRetrievables = FindObjectsOfType<RetrievableObjects>();
+        
+        //fill list w/ objects
+        foreach (RetrievableObjects retrievable in allRetrievables)
+        {
+            retrievableObjects.Add(retrievable);
+        }    
+    }
+
+    //handles retrievable of an object
+    public void RetrieveObject(RetrievableObjects retrievable)
+    {
+        if (!retrievable.isRetrieved)
+        {
+            //mark as retrieved
+            retrievable.Retrieve();
+
+            //update count of retrievable objects
+            updateRetrievableCount();
+        }
+    }
+
+    //update the count of retrievable objects
+    public int updateRetrievableCount()
+    {
+        return retrievableObjects.Count;
+    }
+
+    //resets all objects for restarting game/level
+    public void ResetAllObjects()
+    {
+        foreach (var retrievable in retrievableObjects)
+        {
+            retrievable.ResetObject();
+        }
+    }
 }
