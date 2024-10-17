@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Pickups : MonoBehaviour
 {
-    public enum PickUpType { Health, Ammo };
+    public enum PickUpType { Health, Ammo, Fuel };
     public PickUpType pickupType;
 
     public int healthPickupAmount = 15;
     public int ammoPickupAmount = 30;
+    public int fuelPickupAmount = 25;
 
     //animation
     public float hoverHeight = 0.5f;
@@ -57,18 +58,11 @@ public class Pickups : MonoBehaviour
                         break;
                     }
                 case PickUpType.Ammo:
-                    {
-                        if (player.getAmmo() < player.getAmmoMax())
-                        {
-                            player.setAmmo(ammoPickupAmount);
-                            Destroy(gameObject);
-                        }
-                        else
-                        {
-
-                        }
-                        break;
-                    }
+                    player.setAmmo(ammoPickupAmount);
+                    break;
+                case PickUpType.Fuel:
+                    player.setFuel(fuelPickupAmount);
+                    break;
             }
 
         }

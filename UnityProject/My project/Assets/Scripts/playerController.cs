@@ -4,14 +4,11 @@
  * Course: Full Sail University - Game Development Program
  * Project: Project and Portfolio 2
  * Description: 
- *     This script manages the player’s movement, shooting mechanics, jetpack flight, damage interactions, and push force mechanic.
+ *     This script manages the player's movement, shooting mechanics, jetpack flight, damage interactions, and push force mechanic.
  *     It includes functionality for sprinting, jumping, and handling player inputs.
  *     Updates both health and fuel in the player UI.
  *
  * Version: 1.5 (Merged Mercer Personal and Main Project Code 10-17-2024)
- * 
- * Additional Notes:
- * 
  */
 
 using System.Collections;
@@ -28,7 +25,6 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] LayerMask ignoreMask;            // Mask to ignore certain layers during raycast
     [SerializeField] Transform shootPos;              // The position from which bullets are fired
     [SerializeField] GameObject bullet;               // Prefab for the bullet object
-                                                      //[SerializeField] LineRenderer lr;               // Optional LineRenderer for visualizing shot path
 
     // --- PLAYER STATS AND MOVEMENT ---
     [SerializeField] int speed;          // Player movement speed
@@ -41,6 +37,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] int Ammo;           // Current ammo count
     [SerializeField] int AmmoMax;        // Maximum ammo capacity
     [SerializeField] float fuel;         // Jetpack fuel amount
+    [SerializeField] float fuelmax;      // Maximum jetpack fuel amount
 
     // --- WEAPON STATS AND SHOOTING ---
     [SerializeField] int shootDamage;    // Damage dealt by bullets
@@ -53,7 +50,6 @@ public class playerController : MonoBehaviour, IDamage
     public Vector3 pushDir; // Direction and force of any external push applied to the player
 
     // --- MISC VARIABLES ---
-    float fuelmax;        // Maximum fuel amount for jetpack
     int HPOrig;           // Original player health at start
     int jumpCount;        // Number of jumps the player has made
     bool isSprinting;     // Is the player currently sprinting
@@ -126,8 +122,6 @@ public class playerController : MonoBehaviour, IDamage
                 fuel -= Time.deltaTime;   // Reduce fuel during flight
                 updatePlayerUI();         // Update UI with remaining fuel
             }
-    
-
         }
 
         // Apply the push mechanic to player movement
@@ -230,6 +224,21 @@ public class playerController : MonoBehaviour, IDamage
         return AmmoMax;
     }
 
+    // Getter and Setter for fuel
+    public float getFuel()
+    {
+        return fuel;
+    }
+
+    public void setFuel(float amount)
+    {
+        fuel += amount;
+        if (fuel > fuelmax)
+        {
+            fuel = fuelmax;  // Prevent fuel from exceeding the maximum
+        }
+    }
+
     public void setHP(int amount)
     {
         HP += amount;
@@ -248,4 +257,3 @@ public class playerController : MonoBehaviour, IDamage
         }
     }
 }
-
