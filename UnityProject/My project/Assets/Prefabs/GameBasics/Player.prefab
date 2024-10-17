@@ -55,19 +55,21 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   shootPos: {fileID: 3750722861990556781}
-  shootRot: {fileID: 4750255137899064072}
   bullet: {fileID: 2241154125395934740, guid: 204bab027be7fca4eb82808e94d0d2c6, type: 3}
   speed: 8
   sprintMod: 3
   jumpMax: 2
-  jumpSpeed: 12
+  jumpSpeed: 20
   gravity: 28
-  HP: 15
+  pushtime: 3
+  HP: 500
   Ammo: 30
   AmmoMax: 99
+  fuel: 50
   shootDamage: 1
   shootRate: 0.25
   shootDist: 500
+  pushDir: {x: 0, y: 0, z: 0}
 --- !u!143 &4985625575012694083
 CharacterController:
   m_ObjectHideFlags: 0
@@ -160,11 +162,11 @@ CapsuleCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
-  m_ProvidesContacts: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.1
-  m_Height: 0.01
+  m_Height: 0.1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4750255137899064072

@@ -166,7 +166,7 @@ public class PumptonAI : MonoBehaviour, IDamage
         model.materials = mats;
     }
 
-    public void takeDamage(int amount)
+    public void takeDamage(int amount,Vector3 Dir)
     {
         HP -= amount;
         Debug.Log("Pumpton took damage! HP: " + HP);

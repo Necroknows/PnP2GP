@@ -131,7 +131,7 @@ public class ZombieAI : MonoBehaviour, IDamage
     }
 
     // Implement the takeDamage method from the IDamage interface
-    public void takeDamage(int amount)
+    public void takeDamage(int amount, Vector3 Dir)
     {
         HP -= amount;
         StartCoroutine(flashRed()); // Flash red when taking damage

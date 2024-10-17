@@ -1,3 +1,19 @@
+/*
+ * Author(s): Alexandria Dixon, Jesse Mercer
+ * Date: 10-17-2024
+ * Course: Full Sail University - Game Development Program
+ * Project: Project and Portfolio 2
+ * Description: 
+ *     This script serves as the central manager for the game, handling player references, tracking enemy count for game progression, and managing game states such as win or lose conditions.
+ *     It is designed to integrate future scene management functionalities.
+ *
+ * Version: 1.0
+ * 
+ * Additional Notes:
+ * - The UI-related functionalities have been moved to the UIManager script.
+ * - This script focuses on core game management, including future scene handling.
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,88 +22,62 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
-    // MOVED TO UI SCRIPT 
-    //[SerializeField] GameObject menuActive;
-    //[SerializeField] GameObject menuPause;
-    //[SerializeField] GameObject menuWin;
-    //[SerializeField] GameObject menuLose;
-    //[SerializeField] TMP_Text enemyCountText;
-    public Image playerHpBar;
+    public static GameManager instance;    // Singleton pattern for easy access
 
-    public GameObject flashDamageScreen;
+    // --- PLAYER AND UI REFERENCES ---
+    public Image playerHpBar;              // Health bar UI reference
+    public Image playerFuelBar;            // Fuel bar UI reference
 
-    public GameObject player;
-    public playerController playerScript;
+    public GameObject flashDamageScreen;   // Flash screen when the player takes damage
+    public GameObject player;              // Player GameObject reference
+    public playerController playerScript;  // Player script reference
 
-    public bool isPaused;
-    int enemyCount;
+    public bool isPaused;                  // Tracks if the game is paused
+    private int enemyCount;                // Tracks remaining enemy count
 
-    // Start is called before the first frame update
+    // --- AWAKE: Initialize GameManager Singleton and Player Reference ---
     void Awake()
     {
-        instance = this;
+        // Ensure only one instance of the GameManager exists
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        // Find and assign the player object and its script
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<playerController>();
     }
 
-    // Update is called once per frame
+    // --- UPDATE: Game Loop Logic (if needed) ---
     void Update()
     {
-        //if(Input.GetButtonDown("Cancel"))
-        //{
-        //    if (menuActive == null)
-        //    {
-        //        statePause();
-        //        menuActive = menuPause;
-        //        menuActive.SetActive(isPaused);
-
-        //    }
-        //    else if (menuActive == menuPause)
-        //    {
-        //        stateUnpuase();
-        //    }
-        //}
+      
     }
 
-    //public void statePause()
-    //{
-    //    isPaused = !isPaused;
-    //    Time.timeScale = 0;
-    //    Cursor.visible = true;
-    //    Cursor.lockState = CursorLockMode.Confined;
-
-    //}
-
-    //public void stateUnpuase()
-    //{
-    //    isPaused = !isPaused;
-    //    Time.timeScale = 1;
-    //    Cursor.visible = false;
-    //    Cursor.lockState = CursorLockMode.Locked;
-    //    menuActive.SetActive(isPaused);
-    //    menuActive = null;
-    //}
-
+    // --- ENEMY TRACKING: Updates the enemy count, triggers win condition if all enemies are defeated ---
     public void updateGameGoal(int amount)
     {
         enemyCount += amount;
-        if(enemyCount <= 0)
+
+        // Check if all enemies are defeated
+        if (enemyCount <= 0)
         {
-            ////you win
-            //statePause();
-            //menuActive = menuWin;
-            //menuActive.SetActive(isPaused);
+            // Trigger win condition
             UIManager.Instance.ShowWinScreen();
         }
     }
 
+    // --- GET ENEMY COUNT: Return the current enemy count ---
     public int GetEnemyCount()
-        {return enemyCount; }
-    //public void youLose()
-    //{
-    //    statePause();
-    //    menuActive = menuLose;
-    //    menuActive.SetActive(isPaused);
-    //}
+    {
+        return enemyCount;
+    }
+
+    // --- FUTURE: Placeholder for future scene management logic ---
+    // This is where future scene management methods will be implemented, handling transitions between different scenes (e.g., levels, menus).
 }

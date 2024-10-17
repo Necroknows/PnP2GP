@@ -114,7 +114,7 @@ public class slimeAIAssist : MonoBehaviour, IDamage
     }
     //to derive from IDamage must be public void, must use the exact
     //syntax as IDamage
-    public void takeDamage(int amount)
+    public void takeDamage(int amount, Vector3 Dir)
     {
         HP -= amount;
 

@@ -735,11 +735,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 4976790332419164001}
   model: {fileID: 4975026908817459347}
+  ani: {fileID: 5717946127222427749}
   shootPos: {fileID: 7622234368678016636}
   headPos: {fileID: 5715525366262877577}
   HP: 3
   rotateSpeed: 55
-  viewAngle: 180
+  viewAngle: 90
+  shootAngle: 50
+  roamDist: 15
+  roamPauseTime: 2
+  deathTime: 0.7
   bullet: {fileID: 2125302551442605049, guid: 6d7f4fe89148e784a87a7c3f1188df4d, type: 3}
   shootRate: 0.5
 --- !u!195 &4976790332419164001

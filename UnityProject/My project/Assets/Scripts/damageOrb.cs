@@ -54,12 +54,12 @@ public class damageOrb : MonoBehaviour
         {
             if (!ghost)
             {
-                dmg.takeDamage(damageAmount);
+                dmg.takeDamage(damageAmount,Vector3.zero);
             }
             yield return new WaitForSeconds(damageInterval); // Wait for the next damage tick
             if (!ghost)
             {
-                dmg.takeDamage(damageAmount);
+                dmg.takeDamage(damageAmount,Vector3.zero);
             }
         }
     }

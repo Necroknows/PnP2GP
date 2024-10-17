@@ -172,7 +172,7 @@ public class enemyGhostAI : MonoBehaviour, IDamage
 
     }
 
-    public void takeDamage(int amount)
+    public void takeDamage(int amount,Vector3 Dir)
     {
         //decreases health by damage amount
         HP -= amount;
