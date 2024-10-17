@@ -37,7 +37,7 @@ public class Seeker : MonoBehaviour
         if (!hasObject)
         {
             //seeker to find object
-            if (FindObjectWithRaycast())
+            if (FindObjectWithOverlap())
             {
                 //move to retrievable object if found
                 agent.SetDestination(objectToRetrieve.transform.position);
@@ -55,7 +55,9 @@ public class Seeker : MonoBehaviour
         {
             //carry retrievable object to drop off point
             agent.SetDestination(dropOffPoint.position);
-            if (Vector3.Distance(transform.position, dropOffPoint.position) < 1f)
+            Debug.Log("Taking Object To Drop Off" + objectToRetrieve.name);
+
+            if (agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending)
             {
                 DropOffObject();
                 Debug.Log("Object Dropped Off");
@@ -63,34 +65,28 @@ public class Seeker : MonoBehaviour
         }
     }
 
-    private bool FindObjectWithRaycast()
+    private bool FindObjectWithOverlap()
     {
-        //cast ray forward from seeker to detect objects w/in range
-        Vector3 rayOrigin = shootPos.position;              //use position for raycast
-        Debug.DrawRay(rayOrigin, transform.forward, Color.red);
+        //define a sphere around the seeker to detect objects
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionRange, objectMask);
 
-        RaycastHit hit;
-
-        //cast ray forward to detect objects in range
-        if (Physics.Raycast(rayOrigin, transform.forward, out hit, detectionRange, objectMask))
+        foreach (var hitCollider in hitColliders)
         {
-            //check if hit object is retrievable & w/in certain range
-            if (hit.collider.CompareTag("Retrievable"))
+            //check if object is retrievable
+            if (hitCollider.CompareTag("Retrievable"))
             {
-                float distanceToObject = Vector3.Distance(transform.position, hit.collider.transform.position);
-                if (distanceToObject < detectionRange)       //detection threshold
+                float distanceToObject = Vector3.Distance(transform.position, hitCollider.transform.position);
+
+                //ensure object is w/in detection range & isn't an obstacle
+                if (distanceToObject < detectionRange && !Physics.Raycast(transform.position, hitCollider.transform.position - transform.position, distanceToObject, obstacleMask))
                 {
-                    //ensure there are no obstacles in the way
-                    if (!Physics.Raycast(rayOrigin, hit.point, detectionRange, obstacleMask))
-                    {
-                        //check if hit object is retrievable
-                        objectToRetrieve = hit.collider.gameObject;         //assign detected object to objectToRetrieve
-                        Debug.Log("Hit Object Layer: " + objectToRetrieve.name);
-                        return true;
-                    }
+                    objectToRetrieve = hitCollider.gameObject; //assign detected object to objectToRetrieve
+                    Debug.Log("Object Found: " + objectToRetrieve.name);
+                    return true;
                 }
             }
         }
+
         //no object found
         return false;
     }
