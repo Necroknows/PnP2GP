@@ -1914,17 +1914,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1085279910580287670, guid: 6fe77b0ff36476b4295e2a9c7cc6b0bf, type: 3}
-      propertyPath: m_Radius
-      value: 0.01
-      objectReference: {fileID: 0}
     - target: {fileID: 2313998321423092805, guid: 6fe77b0ff36476b4295e2a9c7cc6b0bf, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 2513610731545503641, guid: 6fe77b0ff36476b4295e2a9c7cc6b0bf, type: 3}
-      propertyPath: HP
-      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 7720689943075398501, guid: 6fe77b0ff36476b4295e2a9c7cc6b0bf, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11590,8 +11582,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 766010465}
     m_Modifications:
     - target: {fileID: 1475852984694641814, guid: f8284c9a0dd3b264da474f7fd8e61d41, type: 3}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1475852984694641814, guid: f8284c9a0dd3b264da474f7fd8e61d41, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1475852984694641814, guid: f8284c9a0dd3b264da474f7fd8e61d41, type: 3}
       propertyPath: m_ExcludeLayers.m_Bits
       value: 320
+      objectReference: {fileID: 0}
+    - target: {fileID: 6773247841081486890, guid: f8284c9a0dd3b264da474f7fd8e61d41, type: 3}
+      propertyPath: force
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7834869236340291085, guid: f8284c9a0dd3b264da474f7fd8e61d41, type: 3}
       propertyPath: m_Name
@@ -15281,10 +15285,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 766010465}
     m_Modifications:
+    - target: {fileID: 1466693422293004204, guid: 5c2f4fba35d5f2742bd2065757e54998, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1d72b553927ca5543bf331ef0db4326c, type: 2}
     - target: {fileID: 2568281469392103077, guid: 5c2f4fba35d5f2742bd2065757e54998, type: 3}
       propertyPath: m_Name
       value: MapEdge
       objectReference: {fileID: 0}
+    - target: {fileID: 3689105677037352048, guid: 5c2f4fba35d5f2742bd2065757e54998, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1d72b553927ca5543bf331ef0db4326c, type: 2}
+    - target: {fileID: 5383885254594042827, guid: 5c2f4fba35d5f2742bd2065757e54998, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1d72b553927ca5543bf331ef0db4326c, type: 2}
+    - target: {fileID: 5898371054053223723, guid: 5c2f4fba35d5f2742bd2065757e54998, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1d72b553927ca5543bf331ef0db4326c, type: 2}
+    - target: {fileID: 6203141097652273972, guid: 5c2f4fba35d5f2742bd2065757e54998, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1d72b553927ca5543bf331ef0db4326c, type: 2}
     - target: {fileID: 6496835390250978954, guid: 5c2f4fba35d5f2742bd2065757e54998, type: 3}
       propertyPath: m_LocalPosition.x
       value: 33.638477
@@ -15511,6 +15535,10 @@ PrefabInstance:
     - target: {fileID: 1972570909280253327, guid: e5b4de8ec8584254cb7b0cac392543de, type: 3}
       propertyPath: m_Name
       value: UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 1972570909280253327, guid: e5b4de8ec8584254cb7b0cac392543de, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6914724331423551356, guid: e5b4de8ec8584254cb7b0cac392543de, type: 3}
       propertyPath: m_Pivot.x
