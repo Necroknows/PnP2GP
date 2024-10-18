@@ -16,9 +16,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] TMP_Text enemyCountText;
     [SerializeField] TMP_Text ammoCountText;
 
+
+
     public playerController playerCont;
 
     public Image playerHpBar;
+    public Image playerFuelBar;
     public bool isPaused;
 
     float timescale;
@@ -93,10 +96,15 @@ public class UIManager : MonoBehaviour
         // updated enmey count to display to tracker 
         enemyCountText.text = count.ToString();
     }
-    public void UPdatePlayerHealthBar(float healthFraction)
+    public void UpdatePlayerHealthBar(float healthFraction)
     {
         // fills per fraction of health 
         playerHpBar.fillAmount = healthFraction;
+    }
+    public void UpdatePlayerFuelBar(float fuelFraction)
+    {
+        //Fill the FuelCan icon by fraction of fuel
+       playerFuelBar.fillAmount = fuelFraction;
     }
     public void ShowWinScreen()
     {

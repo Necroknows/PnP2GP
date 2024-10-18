@@ -27,7 +27,6 @@ public class GameManager : MonoBehaviour
 
     // --- PLAYER AND UI REFERENCES ---
     public Image playerHpBar;              // Health bar UI reference
-    public Image playerFuelBar;            // Fuel bar UI reference
     public GameObject flashDamageScreen;   // Flash screen when the player takes damage
     public GameObject player;              // Player GameObject reference
     public playerController playerScript;  // Player script reference

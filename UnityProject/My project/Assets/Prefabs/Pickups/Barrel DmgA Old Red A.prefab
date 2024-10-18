@@ -129,13 +129,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6850585989e0167469be4ac61e6ee034, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupType: 0
-  healthPickupAmount: 15
-  ammoPickupAmount: 30
-  fuelPickupAmount: 25
+  pickupType: 2
+  healthPickupAmount: 0
+  ammoPickupAmount: 0
+  fuelPickupAmount: 2
   hoverHeight: 0.5
   hoverSpeed: 3
   hoverRange: 0.5
+  playerCont: {fileID: 0}
 --- !u!136 &4144830865164440532
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -151,7 +152,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2

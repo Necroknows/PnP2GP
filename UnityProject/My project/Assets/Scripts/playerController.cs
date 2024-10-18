@@ -67,6 +67,8 @@ public class playerController : MonoBehaviour, IDamage
     // Update is called once per frame
     void Update()
     {
+        // send updates to the ui manager 
+        updatePlayerUI();
         // Draw a debug ray to visualize shooting direction
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.red);
 
@@ -199,8 +201,8 @@ public class playerController : MonoBehaviour, IDamage
     // Update player health and fuel UI elements
     public void updatePlayerUI()
     {
-        GameManager.instance.playerHpBar.fillAmount = (float)HP / HPOrig;
-        GameManager.instance.playerFuelBar.fillAmount = (float)fuel / fuelmax;
+        UIManager.Instance.playerHpBar.fillAmount = (float)HP / HPOrig;
+        UIManager.Instance.playerFuelBar.fillAmount = (float)fuel / fuelmax;
     }
 
     // Getters and setters for health, ammo, and other player stats
@@ -229,6 +231,10 @@ public class playerController : MonoBehaviour, IDamage
     {
         return fuel;
     }
+    public float getFuelMax() 
+        {
+            return fuelmax;
+        }
 
     public void setFuel(float amount)
     {
@@ -256,4 +262,7 @@ public class playerController : MonoBehaviour, IDamage
             Ammo = AmmoMax;  // Prevent ammo from exceeding maximum capacity
         }
     }
+
+   
+
 }

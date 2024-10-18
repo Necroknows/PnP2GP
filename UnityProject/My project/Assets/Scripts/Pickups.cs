@@ -48,7 +48,7 @@ public class Pickups : MonoBehaviour
                         if (playerCont.getHP() < playerCont.getHPOrig())
                         {
                             player.setHP(healthPickupAmount);
-                            UIManager.Instance.UPdatePlayerHealthBar(healthPickupAmount);
+                            UIManager.Instance.UpdatePlayerHealthBar(healthPickupAmount);
                             Destroy(gameObject);
                         }
                         else
@@ -58,10 +58,19 @@ public class Pickups : MonoBehaviour
                         break;
                     }
                 case PickUpType.Ammo:
+                    if(playerCont.getAmmo()<playerCont.getAmmoMax())
+                    {
                     player.setAmmo(ammoPickupAmount);
+                        Destroy(gameObject);    
+                    }
                     break;
                 case PickUpType.Fuel:
-                    player.setFuel(fuelPickupAmount);
+                    if(playerCont.getFuel()<playerCont.getFuelMax())
+                    {
+                        UIManager.Instance.UpdatePlayerFuelBar(ammoPickupAmount);
+                        player.setFuel(fuelPickupAmount);
+                        Destroy(gameObject);
+                    }
                     break;
             }
 
