@@ -25,9 +25,9 @@ public class enemyGhostAI : MonoBehaviour, IDamage
     //ghost HP
     [SerializeField] int HP;
     //how many dashes to do in a sequence
-    [SerializeField] int numOfDashes;
+    [SerializeField] int numOfShield;
     //how long to wait between dashes in a sequence
-    [SerializeField] int secBetweenDashes;
+    [SerializeField] int secBetweenShield;
     //how much faster to make the ghost speed during dash
     [SerializeField] int dashSpeedMutliplier;
     //how long orbBullet attack lasts
@@ -37,7 +37,7 @@ public class enemyGhostAI : MonoBehaviour, IDamage
     //how quickly the ghost rotates towards the player
     [SerializeField] int rotateSpeed;
     //how long a dash lasts
-    [SerializeField] float dashTime;
+    [SerializeField] float shieldTime;
 
    // Vector3 bulletPosVec;
     //gets player position
@@ -122,23 +122,23 @@ public class enemyGhostAI : MonoBehaviour, IDamage
         {
             isDashing = true;
             //grouping dashes together, for creating more dynamic dashes
-            for (int currDashNum = 0; currDashNum < numOfDashes; currDashNum++)
+            for (int currDashNum = 0; currDashNum < numOfShield; currDashNum++)
             {
                 // turns on orb sheild
                 orbShield.gameObject.SetActive(true);
                 //increases speed of ghost
-                agent.speed *= dashSpeedMutliplier;
+                //agent.speed *= dashSpeedMutliplier;
                 
                
                 //determines time for dash
-                yield return new WaitForSeconds(dashTime);
+                yield return new WaitForSeconds(shieldTime);
                 //returns to original speed
-                agent.speed /= dashSpeedMutliplier;
+                //agent.speed /= dashSpeedMutliplier;
 
                 //turns off orb sheild 
                 orbShield.gameObject.SetActive(false);
                 //waits for time between the next dash in loop
-                yield return new WaitForSeconds(secBetweenDashes);
+                yield return new WaitForSeconds(secBetweenShield);
                 
 
 
@@ -152,22 +152,26 @@ public class enemyGhostAI : MonoBehaviour, IDamage
         StartCoroutine(orbAttack());
     }
 
+
+
     IEnumerator orbAttack()
     {
         if (!isDashing)
         {
-            //sets bool to true so dashing doesn't happen at the same time
-            isAttacking = true;
-            //turns on ghost bullet
-            orbBullet.gameObject.SetActive(true);
-            //keeps active for set time
-            yield return new WaitForSeconds(orbAttackTime);
-            //turns off ghost bullet
-            orbBullet.gameObject.SetActive(false);
+            
+            isAttacking = true;//sets bool to true so dashing doesn't happen at the same time
+            
+            orbBullet.gameObject.SetActive(true); //turns on ghost bullet
+            agent.speed *= dashSpeedMutliplier;
+
+            yield return new WaitForSeconds(orbAttackTime);//keeps active for set time
+            agent.speed /= dashSpeedMutliplier;
+
+            orbBullet.gameObject.SetActive(false); //turns off ghost bullet
 
             yield return new WaitForSeconds(delayAfterAttack);
-            //turns off bool so dash can begin
-            isAttacking = false;
+            
+            isAttacking = false;//turns off bool so dash can begin
         }
 
     }

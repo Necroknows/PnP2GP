@@ -51,8 +51,7 @@ public class enemyAI : MonoBehaviour, IDamage
     float stoppingDistOrig;       // Original stopping distance for the NavMesh agent
     Vector3 playerDir;            // Direction vector towards the player
     Vector3 startingPos;          // Starting position of the enemy
-    
-
+   
     // --- MISC VARIABLES ---
     Color colorOrig;              // Original color of the enemy's material
     Coroutine someCO;             // Reference to active roaming coroutine
