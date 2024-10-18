@@ -771,6 +771,10 @@ MonoBehaviour:
   delayAfterAttack: 3
   rotateSpeed: 600
   shieldTime: 3
+  roamDist: 1
+  roamPauseTime: 2
+  angleToPlayer: 15
+  viewAngle: 180
 --- !u!137 &737302148524589272
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -911,7 +915,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 10
+  m_Radius: 8
   m_Center: {x: 0, y: 0.54034597, z: -0.06694923}
 --- !u!95 &8169371640765557073
 Animator:

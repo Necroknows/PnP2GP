@@ -38,13 +38,20 @@ public class enemyGhostAI : MonoBehaviour, IDamage
     [SerializeField] int rotateSpeed;
     //how long a dash lasts
     [SerializeField] float shieldTime;
+    [SerializeField] int roamDist;//distance enemy roams
+    [SerializeField] int roamPauseTime;//how long enemy stops at that location
+    [SerializeField] float angleToPlayer;
+    //used to replace stopping distance for roaming vs going to player
+     float stoppingDisOrig;
+    [SerializeField] int viewAngle;
 
-   // Vector3 bulletPosVec;
+    // Vector3 bulletPosVec;
     //gets player position
     Vector3 playerDir;
     //gets the position and rotation of an object
     Vector3 modelSwitchPos;
     Quaternion modelSwitchRot;
+    Vector3 startingPos;
 
     //if the ghost attack/dash sequence
     bool isAttacking;
@@ -52,8 +59,10 @@ public class enemyGhostAI : MonoBehaviour, IDamage
     bool isDashing;
     //if player is in range
     bool playerInRange;
+    bool isRoaming;
 
     Color colorOrig;
+    Coroutine someCo; //sets the coroutine to current coroutine
     // Start is called before the first frame update
     void Start()
     {
@@ -66,29 +75,62 @@ public class enemyGhostAI : MonoBehaviour, IDamage
     {
         playerDir = GameManager.instance.player.transform.position;
         
-        if (playerInRange)
+        if (playerInRange && !canSeePlayer())
         {
-            //sets the destination of enemy to player 
-            agent.SetDestination(GameManager.instance.player.transform.position);
-            if (agent.remainingDistance <= agent.stoppingDistance)
-            {
-                //calls function to update rotation towards player
-                faceTarget();
-            }
 
-            if (!isAttacking)
+            //this calls roam if the enemy is not roaming
+            //and if the remaining distance is very small
+            if (agent.remainingDistance < 0.05f && !isRoaming)
             {
-                //coroutine to shoot when player is in range
-                if (!isDashing)
-                {
-                    //coroutine to shoot when player is in range
-                    StartCoroutine(beginAttack());
-                }
-
+                someCo = StartCoroutine(roam());
             }
 
         }
-        
+        else if (!playerInRange)
+        {
+            //this calls roam if the enemy is not roaming
+            //and if the remaining distance is very small
+            if (agent.remainingDistance < 0.05f && !isRoaming)
+            {
+                someCo = StartCoroutine(roam());
+            }
+        }
+    }
+    bool canSeePlayer()
+    {
+        playerDir = GameManager.instance.player.transform.position - headPos.position;
+        angleToPlayer = Vector3.Angle(new Vector3(playerDir.x, 0, playerDir.z), transform.forward);
+        Debug.DrawRay(headPos.position, playerDir);
+
+        RaycastHit hit;
+        if (Physics.Raycast(headPos.position, playerDir, out hit))
+        {
+            if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
+            {
+                agent.SetDestination(GameManager.instance.player.transform.position);
+
+                if (agent.remainingDistance <= agent.stoppingDistance)
+                {
+                    faceTarget();
+                }
+
+                if (!isAttacking)
+                {
+                    if (!isDashing)
+                    {
+                        //coroutine to shoot when player is in range
+                        StartCoroutine(beginAttack());
+                    }
+                }
+                //resets stopping distance from roaming
+                agent.stoppingDistance = stoppingDisOrig;
+
+                return true;
+            }
+        }
+        //catch to make sure stopping distance is 0 when player isnt being seen
+        agent.stoppingDistance = 0;
+        return false;
     }
 
     void faceTarget()
@@ -98,12 +140,36 @@ public class enemyGhostAI : MonoBehaviour, IDamage
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * rotateSpeed);
 
     }
+    IEnumerator roam()
+    {
+        isRoaming = true;
+        yield return new WaitForSeconds(roamPauseTime);
+
+        agent.stoppingDistance = 0;
+        //sets makes the max distance to roam within a sphere and selects 
+        //a random position
+        Vector3 randomPos = Random.insideUnitSphere;
+        
+        //keeps enemy from wandering too far from startingPos
+        randomPos += startingPos;
+
+        NavMeshHit hit;
+        //prevents enemy from attempting to leave the navMesh 
+        //when roaming, if edge is hit goes to that hit pos instead
+        NavMesh.SamplePosition(randomPos, out hit, roamDist, 1);
+        agent.SetDestination(hit.position);
+
+
+        isRoaming = false;
+        someCo = null;
+    }
 
     public void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             playerInRange = true;
+
         }
     }
     public void OnTriggerExit(Collider other)
@@ -111,6 +177,8 @@ public class enemyGhostAI : MonoBehaviour, IDamage
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
+            //resets stopping dis for when player leaves the trigger
+            agent.stoppingDistance = 0;
         }
     }
     
@@ -180,6 +248,14 @@ public class enemyGhostAI : MonoBehaviour, IDamage
     {
         //decreases health by damage amount
         HP -= amount;
+
+        //stops the current coroutine so they are not conflicting
+        if (someCo != null)
+        {
+            StopCoroutine(someCo);
+            isRoaming = false;
+        }
+        agent.SetDestination(GameManager.instance.player.transform.position);
 
         StartCoroutine(flashColor());
 
