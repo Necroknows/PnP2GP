@@ -109,8 +109,8 @@ NavMeshSettings:
     agentHeight: 2
     agentSlope: 45
     agentClimb: 0.4
-    ledgeDropHeight: 0
-    maxJumpAcrossDistance: 0
+    ledgeDropHeight: 5
+    maxJumpAcrossDistance: 5
     minRegionArea: 2
     manualCellSize: 0
     cellSize: 0.16666667
@@ -5320,6 +5320,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 838735399703044357, guid: 6443090c02facc44ba2eaf732c356c5a, type: 3}
   m_PrefabInstance: {fileID: 858004056}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &863297662 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2513610731545503641, guid: 6fe77b0ff36476b4295e2a9c7cc6b0bf, type: 3}
+  m_PrefabInstance: {fileID: 326782291}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52c2bac318f1d354ca540eb1a080858f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &864083933 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2946664227703752616, guid: 82aa4d3a4f7e26e4ea1c45139f3f88a0, type: 3}
@@ -15276,6 +15287,10 @@ PrefabInstance:
       propertyPath: playerHpBar
       value: 
       objectReference: {fileID: 770346445454244033}
+    - target: {fileID: 1343607391804326830, guid: b03defe1234367d49ad45e836f4ee4cf, type: 3}
+      propertyPath: playerScript
+      value: 
+      objectReference: {fileID: 863297662}
     - target: {fileID: 1343607391804326830, guid: b03defe1234367d49ad45e836f4ee4cf, type: 3}
       propertyPath: flashDamageScreen
       value: 
