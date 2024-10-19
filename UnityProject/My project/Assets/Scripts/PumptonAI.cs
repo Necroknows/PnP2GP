@@ -13,11 +13,11 @@ public class PumptonAI : MonoBehaviour, IDamage
     [SerializeField] Renderer model;
     [SerializeField] GameObject pumptonShot; //Prefab
     [SerializeField] Transform shootPOS;
- //HP & Dmg
+    //HP & Dmg
     [SerializeField] int HP;
     [SerializeField] int dmgToPlayer;
     [SerializeField] int dmgFromPlayer;
- //Shooting Parameters
+    //Shooting Parameters
     [SerializeField] float normalShootRange = 10f;
     [SerializeField] float chargedShotRange = 15f;
     [SerializeField] float chargedShotForce;
@@ -42,31 +42,31 @@ public class PumptonAI : MonoBehaviour, IDamage
     // Update is called once per frame
     void Update()
     {
-        if(GameManager.instance.player != null)
+        if (GameManager.instance.player != null)
         {
             float distanceToPlayer = Vector3.Distance(transform.position, GameManager.instance.player.transform.position);
             faceTarget();
 
             if (canShoot)
             {
-                if(distanceToPlayer <= normalShootRange)
+                if (distanceToPlayer <= normalShootRange)
                 {
                     StartCoroutine(Shoot(1.0f));
                 }
-                else if(distanceToPlayer > normalShootRange && distanceToPlayer <= chargedShotRange)
+                else if (distanceToPlayer > normalShootRange && distanceToPlayer <= chargedShotRange)
                 {
                     StartCoroutine(Shoot(chargedShotForce));
                 }
             }
         }
         //Shoot Cooldown
-        if(!canShoot)
+        if (!canShoot)
         {
             shootTimer -= Time.deltaTime;
-            if(shootTimer <= 0f)
+            if (shootTimer <= 0f)
             {
                 canShoot = true;
-            }    
+            }
         }
     }
 
@@ -78,7 +78,7 @@ public class PumptonAI : MonoBehaviour, IDamage
             Quaternion rot = Quaternion.LookRotation(new Vector3(directionToPlayer.x, 0, directionToPlayer.z));
             transform.rotation = Quaternion.Lerp(transform.rotation, rot * Quaternion.Euler(0, 90, 0), Time.deltaTime * rotateSpeed);
         }
-            //Debugging...
+        //Debugging...
         Debug.DrawLine(transform.position, transform.position + directionToPlayer * 5, Color.red);
         Debug.DrawLine(transform.position, transform.position + transform.forward * 5, Color.green);
     }
@@ -105,7 +105,7 @@ public class PumptonAI : MonoBehaviour, IDamage
             //Destroys upon impact.
             Destroy(other.gameObject);
         }
-        else if(other.CompareTag("Player"))
+        else if (other.CompareTag("Player"))
         {
             playerInRange = true;
         }
@@ -121,8 +121,8 @@ public class PumptonAI : MonoBehaviour, IDamage
 
     public void takeDmg(int damage)
     {
-     // for an enemy to take any form of damage it has to also derive from IDamage and the spelling 
-     // has to remain consistant ... i fixed it and moved your code from this section to the interface.
+        // for an enemy to take any form of damage it has to also derive from IDamage and the spelling 
+        // has to remain consistant ... i fixed it and moved your code from this section to the interface.
     }
 
     IEnumerator Shoot(float shootForce)
@@ -159,14 +159,14 @@ public class PumptonAI : MonoBehaviour, IDamage
         }
         model.materials = mats;
         yield return new WaitForSeconds(0.1f);
-        for(int model_iterator = 0;model_iterator < mats.Length;model_iterator++)
+        for (int model_iterator = 0; model_iterator < mats.Length; model_iterator++)
         {
             mats[model_iterator].color = colorOrig;//Reverts colors to original.
         }
         model.materials = mats;
     }
 
-    public void takeDamage(int amount,Vector3 Dir)
+    public void takeDamage(int amount, Vector3 Dir)
     {
         HP -= amount;
         Debug.Log("Pumpton took damage! HP: " + HP);
