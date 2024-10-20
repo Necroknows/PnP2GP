@@ -41,18 +41,19 @@ public class enemyGhostAI : MonoBehaviour, IDamage
     [SerializeField] int roamDist;//distance enemy roams
     [SerializeField] int roamPauseTime;//how long enemy stops at that location
     [SerializeField] float angleToPlayer;
-    //used to replace stopping distance for roaming vs going to player
-     float stoppingDisOrig;
-    [SerializeField] int viewAngle;
+    [SerializeField] int viewAngle; //view angle
 
     // Vector3 bulletPosVec;
+    Vector3 startingPoint; //used for roam feature 
     //gets player position
     Vector3 playerDir;
     //gets the position and rotation of an object
     Vector3 modelSwitchPos;
     Quaternion modelSwitchRot;
-    Vector3 startingPos;
+   // Vector3 startingPos;
 
+    //used to replace stopping distance for roaming vs going to player
+    float stoppingDisOrig;
     //if the ghost attack/dash sequence
     bool isAttacking;
     //if dashing/sheild sequence
@@ -68,6 +69,9 @@ public class enemyGhostAI : MonoBehaviour, IDamage
     {
         colorOrig = model.material.color;
         GameManager.instance.updateGameGoal(1);
+        startingPoint = transform.position;
+        stoppingDisOrig = agent.stoppingDistance;
+        
     }
 
     // Update is called once per frame
@@ -148,18 +152,19 @@ public class enemyGhostAI : MonoBehaviour, IDamage
         agent.stoppingDistance = 0;
         //sets makes the max distance to roam within a sphere and selects 
         //a random position
-        Vector3 randomPos = Random.insideUnitSphere;
         
+        Vector3 randomPos = Random.insideUnitSphere * roamDist;
+
         //keeps enemy from wandering too far from startingPos
-        randomPos += startingPos;
+        randomPos += startingPoint;
 
         NavMeshHit hit;
         //prevents enemy from attempting to leave the navMesh 
         //when roaming, if edge is hit goes to that hit pos instead
-        NavMesh.SamplePosition(randomPos, out hit, roamDist, 1);
-        agent.SetDestination(hit.position);
+        if (NavMesh.SamplePosition(randomPos, out hit, roamDist, 1))
+        { agent.SetDestination(hit.position); }
 
-
+        agent.stoppingDistance = stoppingDisOrig;
         isRoaming = false;
         someCo = null;
     }
