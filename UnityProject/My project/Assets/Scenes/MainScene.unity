@@ -29111,6 +29111,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7817884641444569784, guid: 52d7cfb6572391e488c86985e8f073ae, type: 3}
   m_PrefabInstance: {fileID: 251828016}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1154078271 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8163353099693633898, guid: e5b4de8ec8584254cb7b0cac392543de, type: 3}
+  m_PrefabInstance: {fileID: 6259894713394479812}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1155591589
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -60045,6 +60050,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3475233617521054820, guid: e5b4de8ec8584254cb7b0cac392543de, type: 3}
+      propertyPath: checkpointPopup
+      value: 
+      objectReference: {fileID: 1154078271}
     - target: {fileID: 3558179347403248007, guid: e5b4de8ec8584254cb7b0cac392543de, type: 3}
       propertyPath: m_Name
       value: UI
