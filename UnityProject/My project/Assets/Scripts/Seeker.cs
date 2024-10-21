@@ -67,6 +67,8 @@ public class Seeker : MonoBehaviour
 
     private bool FindObjectWithOverlap()
     {
+        if (hasObject) return false; //if seeker already has object, don't look for another
+
         //define a sphere around the seeker to detect objects
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionRange, objectMask);
 
@@ -135,8 +137,13 @@ public class Seeker : MonoBehaviour
         if (objectToRetrieve != null)
         {
             objectToRetrieve.transform.SetParent(null);             //unparent object
+            Destroy(objectToRetrieve);                              //destroy object
             objectToRetrieve = null;                                //clear reference to object
             hasObject = false;                                      //update carrying status
+
+            //we'll either update game goals for the enemy in game manager or UI manager
+            //Waiting on Jesse to confirm which script to use
+            //gameManager.instance.UpdateGameGoal();
             Debug.Log("Object Dropped Off");
         }
     }
