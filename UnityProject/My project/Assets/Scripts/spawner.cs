@@ -10,6 +10,7 @@ public class spawner : MonoBehaviour, IDamage
     [SerializeField] Transform spawnPoint;
     //model for the spawner, used to flash red and be destroyed
     [SerializeField] Renderer model;
+    
 
     //how many enemies to be spawned each wave
     [SerializeField] int spawnCount;
@@ -24,6 +25,7 @@ public class spawner : MonoBehaviour, IDamage
     bool playerInRange;
     //if currently spawning
     bool isSpawning;
+    
     //counts how many spawns there have been
     int spawnCounter;
 
@@ -44,12 +46,17 @@ public class spawner : MonoBehaviour, IDamage
             //will continously spawn enemies until spawner is destroyed
             if(continousSpawning && !isSpawning)
             {
-                StartCoroutine(spawn());
+               
+                    StartCoroutine(spawn());
+                
             }
             //will only spawn enemies once
-            if(!continousSpawning && spawnCounter <= 0)
+            if(!continousSpawning && !isSpawning &&spawnCounter <= 0)
             {
-                StartCoroutine(spawn());
+               
+                
+                    StartCoroutine(spawn());
+                
             }
         }
     }
@@ -74,16 +81,23 @@ public class spawner : MonoBehaviour, IDamage
         model.material.color = colorOrig;
     }
 
+    
+
     IEnumerator spawn()
         //spawns enemies
     {
         isSpawning = true;
+
+        
+        
         for (int numOfSpawn = 0; numOfSpawn < spawnCount; numOfSpawn++)
         {
             Instantiate(enemy, spawnPoint.position, transform.rotation);
         }
-        spawnCounter++;
         yield return new WaitForSeconds(spawnRate);
+        spawnCounter++;
+        
+        
         isSpawning = false;
     }
 
@@ -94,6 +108,7 @@ public class spawner : MonoBehaviour, IDamage
         if (other.CompareTag("Player"))
         {
             playerInRange = true;
+            
         }
     }
     public void OnTriggerExit(Collider other)
