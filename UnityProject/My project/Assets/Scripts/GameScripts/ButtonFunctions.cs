@@ -30,7 +30,7 @@ public class ButtonFunctions : MonoBehaviour
 
     public void Respawn()
     {
-        GameManager.instance.playerScript.SpawnPlayerPOS();
+        GameManager.instance.playerScript.spawnPlayer();
         UIManager.Instance.UnpauseGame();
     }
     public void MainMenu()

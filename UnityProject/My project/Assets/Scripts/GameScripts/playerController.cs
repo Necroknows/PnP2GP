@@ -11,15 +11,16 @@
  * Version: 1.5 (Merged Mercer Personal and Main Project Code 10-17-2024)
  */
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Animations;
 
-public class playerController : MonoBehaviour, IDamage
+public class PlayerController : MonoBehaviour, IDamage
 {
     // --- COMPONENT REFERENCES ---
     [SerializeField] CharacterController controller;  // Reference to the CharacterController for player movement
@@ -38,12 +39,15 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] int Ammo;           // Current ammo count
     [SerializeField] int AmmoMax;        // Maximum ammo capacity
     [SerializeField] float fuel;         // Jetpack fuel amount
-    [SerializeField] float fuelmax;      // Maximum jetpack fuel amount
+    float fuelmax;        // Maximum fuel amount for jetpack
 
     // --- WEAPON STATS AND SHOOTING ---
-    [SerializeField] int shootDamage;    // Damage dealt by bullets
+    [SerializeField] List<GunStats> gunList = new List<GunStats>();
     [SerializeField] float shootRate;    // Rate of fire (time between shots)
     [SerializeField] int shootDist;      // Maximum shooting distance
+    [SerializeField] Transform gunHolderTransform;  // Where the gun will be placed (e.g., player's hand)
+    public GameObject gunModel;          // Store the current gun model
+    [SerializeField] GameObject muzzleFlash;
 
     // --- DYNAMIC STATE VARIABLES ---
     Vector3 moveDir;      // Direction of player movement
@@ -52,10 +56,12 @@ public class playerController : MonoBehaviour, IDamage
 
     // --- MISC VARIABLES ---
     int HPOrig;           // Original player health at start
+    int SelectGunPos;     // Hold the Current weapon postion in list for proper cycling 
     int jumpCount;        // Number of jumps the player has made
     bool isSprinting;     // Is the player currently sprinting
     bool isShooting;      // Is the player currently shooting
     bool isjumping;       // Is the player currently jumping
+
 
     // Start is called before the first frame update
     void Start()
@@ -63,24 +69,23 @@ public class playerController : MonoBehaviour, IDamage
         HPOrig = HP;           // Set original health value
         fuelmax = fuel;        // Set maximum fuel value
         updatePlayerUI();      // Initialize player UI
+        spawnPlayer();         // DropPlayer at SpawnPos 
     }
-
-    public void SpawnPlayerPOS()
+    public void spawnPlayer()
     {
         controller.enabled = false;
         transform.position = GameManager.instance.playerSpawnPOS.transform.position;
         controller.enabled = true;
         HP = HPOrig;
         fuel = fuelmax;
-        updatePlayerUI();
+        UIManager.Instance.UpdatePlayerHealthBar(HP);
         UIManager.Instance.UnpauseGame();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        // send updates to the ui manager 
-        updatePlayerUI();
         // Draw a debug ray to visualize shooting direction
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.red);
 
@@ -88,11 +93,11 @@ public class playerController : MonoBehaviour, IDamage
         if (!UIManager.Instance.isPaused)
         {
             movement();
+            selectGun();
         }
         sprint();
     }
 
-    // Handles player movement, including jumping, jetpack flight, and applying push force
     void movement()
     {
         // Gradually reduce push force over time using Lerp
@@ -136,13 +141,16 @@ public class playerController : MonoBehaviour, IDamage
                 fuel -= Time.deltaTime;   // Reduce fuel during flight
                 updatePlayerUI();         // Update UI with remaining fuel
             }
+
+            // Apply gravity for flight as well
+            playerVel.y -= gravity * Time.deltaTime;
         }
 
         // Apply the push mechanic to player movement
         controller.Move((playerVel + pushDir) * Time.deltaTime);
 
         // Call shoot logic when the player presses the shoot button
-        if (Input.GetButton("Shoot") && !isShooting)
+        if (Input.GetButton("Shoot") && gunList.Count > 0 && gunList[SelectGunPos].ammoCur > 0 && !isShooting)
         {
             StartCoroutine(shoot());
         }
@@ -166,21 +174,39 @@ public class playerController : MonoBehaviour, IDamage
     // Shooting logic using a coroutine to manage shooting rate
     IEnumerator shoot()
     {
-        if (getAmmo() > 0)
+        if (SelectGunPos >= 0 && SelectGunPos < gunList.Count && gunList[SelectGunPos].ammoCur > 0)
         {
+            StartCoroutine(flashMuzzle());
             isShooting = true;
+            //reduce ammo count
+            gunList[SelectGunPos].ammoCur--;
 
-            // Use the camera's forward direction for bullet rotation
-            Quaternion bulletRotation = Quaternion.LookRotation(Camera.main.transform.forward);
+            // Calculate the target point from the reticle using raycasting
+            Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+            RaycastHit hit;
+            Vector3 targetPoint = ray.GetPoint(1000); // Default far point if nothing is hit
 
-            // Instantiate bullet with corrected rotation
+            if (Physics.Raycast(ray, out hit))
+            {
+                targetPoint = hit.point; // Update target point if something is hit
+            }
+
+            // Calculate the direction from the shoot position to the target point
+            Vector3 direction = (targetPoint - shootPos.position).normalized;
+            Quaternion bulletRotation = Quaternion.LookRotation(direction);
+
+            // Instantiate bullet at the shoot position aiming towards the target point
             Instantiate(bullet, shootPos.position, bulletRotation);
+            // Wait for the rate of fire before enabling shooting again
+            yield return new WaitForSeconds(shootRate);
 
-            setAmmo(-1);  // Reduce ammo count
+            isShooting = false;
         }
-        yield return new WaitForSeconds(shootRate);
-
-        isShooting = false;
+        else
+        {
+            // Optionally handle what happens if ammo is 0 (play click sound, show reload prompt, etc.)
+            yield return null; // Just end the coroutine if there's no ammo
+        }
     }
 
     // Handle player taking damage and apply a push force
@@ -209,6 +235,12 @@ public class playerController : MonoBehaviour, IDamage
         yield return new WaitForSeconds(0.1f);
         GameManager.instance.flashDamageScreen.SetActive(false);
     }
+    IEnumerator flashMuzzle()
+    {
+        muzzleFlash.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        muzzleFlash.SetActive(false);
+    }
 
     // Update player health and fuel UI elements
     public void updatePlayerUI()
@@ -228,33 +260,14 @@ public class playerController : MonoBehaviour, IDamage
         return HPOrig;
     }
 
-    public int getAmmo()
+    public int GetAmmo()
     {
-        return Ammo;
+        return (SelectGunPos >= 0 && SelectGunPos < gunList.Count) ? gunList[SelectGunPos].ammoCur : 0;
     }
 
     public int getAmmoMax()
     {
-        return AmmoMax;
-    }
-
-    // Getter and Setter for fuel
-    public float getFuel()
-    {
-        return fuel;
-    }
-    public float getFuelMax() 
-        {
-            return fuelmax;
-        }
-
-    public void setFuel(float amount)
-    {
-        fuel += amount;
-        if (fuel > fuelmax)
-        {
-            fuel = fuelmax;  // Prevent fuel from exceeding the maximum
-        }
+        return (SelectGunPos >= 0 && SelectGunPos < gunList.Count) ? gunList[SelectGunPos].ammoMax : 0;
     }
 
     public void setHP(int amount)
@@ -268,13 +281,80 @@ public class playerController : MonoBehaviour, IDamage
 
     public void setAmmo(int amount)
     {
-        Ammo += amount;
-        if (Ammo > AmmoMax)
+        gunList[SelectGunPos].ammoCur += amount;
+        if (gunList[SelectGunPos].ammoCur > gunList[SelectGunPos].ammoMax)
         {
-            Ammo = AmmoMax;  // Prevent ammo from exceeding maximum capacity
+            gunList[SelectGunPos].ammoCur = gunList[SelectGunPos].ammoMax;  // Prevent ammo from exceeding maximum capacity
         }
     }
+    public void getGunStats(GunStats gun)
+    {
+        // Set the stats for shooting
+        gunList.Add(gun);
 
-   
+        SelectGunPos = gunList.Count - 1;
 
+        shootRate = gun.shootRate;
+        shootDist = gun.shootDist;
+        bullet = gun.bullet;
+
+        gunModel.GetComponent<MeshFilter>().sharedMesh = gun.gunModel.GetComponent<MeshFilter>().sharedMesh;
+        gunModel.GetComponent<MeshRenderer>().sharedMaterial = gun.gunModel.GetComponent<MeshRenderer>().sharedMaterial;
+
+
+    }
+    void selectGun()
+    {
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 && SelectGunPos < gunList.Count - 1)
+        {
+            SelectGunPos++;
+            WeaponSwap();
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && SelectGunPos > 0)
+        {
+            SelectGunPos--;
+            WeaponSwap();
+        }
+    }
+    void WeaponSwap()
+    {
+
+        shootRate = gunList[SelectGunPos].shootRate;
+        shootDist = gunList[SelectGunPos].shootDist;
+        bullet = gunList[SelectGunPos].bullet;
+
+        gunModel.GetComponent<MeshFilter>().sharedMesh = gunList[SelectGunPos].gunModel.GetComponent<MeshFilter>().sharedMesh;
+        gunModel.GetComponent<MeshRenderer>().sharedMaterial = gunList[SelectGunPos].gunModel.GetComponent<MeshRenderer>().sharedMaterial;
+    }
+    public List<GunStats> GetGuns()
+    {
+        return gunList;
+    }
+    public GunStats GetGunCurr()
+    {
+        if (gunList.Count > 0)
+        {
+            return gunList[SelectGunPos];
+        }
+        else return null;
+    }
+
+    internal float GetFuel()
+    {
+        return fuel;
+    }
+
+    internal float GetFuelMax()
+    {
+        return fuelmax;
+    }
+
+    internal void SetFuel(int fuelPickupAmount)
+    {
+        fuel+=fuelPickupAmount;
+        if(fuel>fuelmax)
+        {
+            fuel=fuelmax;
+        }
+    }
 }

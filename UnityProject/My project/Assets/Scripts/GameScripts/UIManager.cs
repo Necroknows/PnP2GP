@@ -18,7 +18,7 @@ public class UIManager : MonoBehaviour
 
 
     public GameObject checkpointPopup;
-    public playerController playerCont;
+    public PlayerController playerCont;
 
     public Image playerHpBar;
     public Image playerFuelBar;
@@ -33,7 +33,7 @@ public class UIManager : MonoBehaviour
     }
     private void Start()
     {
-        playerCont=FindObjectOfType<playerController>();
+        playerCont=FindObjectOfType<PlayerController>();
     }
 
     // Update is called once per frame
@@ -56,7 +56,7 @@ public class UIManager : MonoBehaviour
         enemyCountText.text = count.ToString();
         if(playerCont !=null)
         {
-            int ammoCount = playerCont.getAmmo();
+            int ammoCount = playerCont.GetAmmo();
             ammoCountText.text = ammoCount.ToString();
         }
         
@@ -135,5 +135,13 @@ public class UIManager : MonoBehaviour
         menuActive.SetActive(true);
 
     }
-    
+    public void CloseMenu()
+    {
+        if (menuActive != null)
+        {
+            menuActive.SetActive(false);              // Deactivate the currently active menu
+            menuActive = null;                        // Clear the active menu reference
+        }
+    }
+
 }

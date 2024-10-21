@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     // --- PLAYER AND UI REFERENCES ---
     public GameObject flashDamageScreen;   // Flash screen when the player takes damage
     public GameObject player;              // Player GameObject reference
-    public playerController playerScript;  // Player script reference
+    public PlayerController playerScript;  // Player script reference
     public GameObject playerSpawnPOS;      // Player spawn position reference
     public GameObject pumpkin;             // Example of a retrievable object (can be generalized later)
 
@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
 
         // Find and assign the player object and its script
         player = GameObject.FindWithTag("Player");
-        playerScript = player.GetComponent<playerController>();
+        playerScript = player.GetComponent<PlayerController>();
         playerSpawnPOS = GameObject.FindWithTag("PlayerSpawnPOS");
 
         // Fill the list with all retrievable objects in the scene
