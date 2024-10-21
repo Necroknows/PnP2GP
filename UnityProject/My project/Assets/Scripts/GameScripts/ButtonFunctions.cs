@@ -33,6 +33,11 @@ public class ButtonFunctions : MonoBehaviour
         GameManager.instance.playerScript.SpawnPlayerPOS();
         UIManager.Instance.UnpauseGame();
     }
+    public void MainMenu()
+    {
+        SceneManager.LoadScene(0);
+        UIManager.Instance.UnpauseGame();
+    }
 
     public void quit()
 {
