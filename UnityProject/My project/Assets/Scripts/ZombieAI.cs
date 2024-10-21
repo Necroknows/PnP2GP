@@ -61,12 +61,12 @@ public class ZombieAI : MonoBehaviour, IDamage
 
         if (playerInRange && !canSeePlayer())
         {
-            if (!isRoaming && agent.remainingDistance < 0.5f)
+            if (!isRoaming && agent.remainingDistance <1f)
                 someCO = StartCoroutine(roam()); // Start roaming if player is out of sight
         }
         else if (!playerInRange)
         {
-            if (!isRoaming && agent.remainingDistance < 0.5f)
+            if (!isRoaming && agent.remainingDistance < 1f)
                 someCO = StartCoroutine(roam()); // Start roaming if player is not in range
         }
     }
@@ -133,20 +133,24 @@ public class ZombieAI : MonoBehaviour, IDamage
     // Implement the takeDamage method from the IDamage interface
     public void takeDamage(int amount, Vector3 Dir)
     {
-        HP -= amount;
-        StartCoroutine(flashRed()); // Flash red when taking damage
-        ani.SetTrigger("dmgTrigger");
-
-        if (someCO != null)
+        if (this != null)
         {
-            StopCoroutine(someCO); // Stop roaming if taking damage
-            isRoaming = false;
-        }
-        agent.SetDestination(GameManager.instance.player.transform.position); // Chase player after taking damage
+            HP -= amount;
 
-        if (HP <= 0)
-        {
-         StartCoroutine(death());
+            StartCoroutine(flashRed()); // Flash red when taking damage
+            ani.SetTrigger("dmgTrigger");
+
+            if (someCO != null)
+            {
+                StopCoroutine(someCO); // Stop roaming if taking damage
+                isRoaming = false;
+            }
+            agent.SetDestination(GameManager.instance.player.transform.position); // Chase player after taking damage
+
+            if (HP <= 0)
+            {
+                StartCoroutine(death());
+            }
         }
     }
     IEnumerator death()

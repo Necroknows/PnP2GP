@@ -99,13 +99,8 @@ public class PumptonAI : MonoBehaviour, IDamage
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Projectile"))
-        {
-            takeDmg(dmgFromPlayer);
-            //Destroys upon impact.
-            Destroy(other.gameObject);
-        }
-        else if (other.CompareTag("Player"))
+       
+        if (other.CompareTag("Player"))
         {
             playerInRange = true;
         }
