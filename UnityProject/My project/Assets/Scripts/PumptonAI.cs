@@ -3,10 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-//Lastest push -
-// * Updated with range check to stop archer from firing arrows continuously.
-// * Also modified for a stationary variant.
-// * It has been decided that he is pumpkin. I'll rename later...
 // * Pumpton the Pumpkin.
 public class PumptonAI : MonoBehaviour, IDamage
 {//Model / Prefab
@@ -32,6 +28,7 @@ public class PumptonAI : MonoBehaviour, IDamage
     private Color colorOrig;
     private float shootTimer = 0f;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -55,7 +52,7 @@ public class PumptonAI : MonoBehaviour, IDamage
                 }
                 else if(distanceToPlayer > normalShootRange && distanceToPlayer <= chargedShotRange)
                 {
-                    StartCoroutine(Shoot(chargedShotForce));
+                    StartCoroutine(beginChargedShot());
                 }
             }
         }
@@ -101,7 +98,7 @@ public class PumptonAI : MonoBehaviour, IDamage
     {
         if (other.CompareTag("Projectile"))
         {
-            takeDmg(dmgFromPlayer);
+            takeDamage(dmgFromPlayer);
             //Destroys upon impact.
             Destroy(other.gameObject);
         }
@@ -119,7 +116,7 @@ public class PumptonAI : MonoBehaviour, IDamage
         }
     }
 
-    public void takeDmg(int damage)
+    public void takeDamage(int damage)
     {
      // for an enemy to take any form of damage it has to also derive from IDamage and the spelling 
      // has to remain consistant ... i fixed it and moved your code from this section to the interface.
