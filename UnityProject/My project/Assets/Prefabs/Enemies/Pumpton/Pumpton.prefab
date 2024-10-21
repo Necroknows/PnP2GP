@@ -81,18 +81,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 6809339126563957200}
-  pumptonShot: {fileID: 7259661551555041543, guid: cb72ff9cae0bd6648b35efabb78fbad1, type: 3}
+  pumptonShot: {fileID: 1786156495390430059, guid: 787907bbbf1ea4241a0c6086d8480af9, type: 3}
   shootPOS: {fileID: 1609136194491994023}
   HP: 3
   dmgToPlayer: 1
-  dmgFromPlayer: 0
-  normalShootRange: 10
-  chargedShotRange: 15
+  dmgFromPlayer: 1
+  normalShootRange: 15
+  chargedShotRange: 30
+  minimumChargedShotRange: 15
   chargedShotForce: 3
   chargedDuration: 1
-  delayAfterAttack: 0.2
-  shootCD: 0.9
-  rotateSpeed: 20
+  delayAfterAttack: 2
+  shootCD: 1.5
+  rotateSpeed: 15
 --- !u!33 &3656695169221733587
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -163,7 +164,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 18
+  m_Radius: 30
   m_Center: {x: 0.17044306, y: 1.855142, z: 0.011774421}
 --- !u!135 &8552891009625052129
 SphereCollider:

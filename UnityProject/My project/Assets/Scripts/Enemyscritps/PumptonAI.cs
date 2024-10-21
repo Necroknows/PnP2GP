@@ -15,7 +15,8 @@ public class PumptonAI : MonoBehaviour, IDamage
     [SerializeField] int dmgFromPlayer;
     //Shooting Parameters
     [SerializeField] float normalShootRange = 10f;
-    [SerializeField] float chargedShotRange = 15f;
+    [SerializeField] float chargedShotRange = 25f;
+    [SerializeField] float minimumChargedShotRange = 10f;
     [SerializeField] float chargedShotForce;
     [SerializeField] float chargedDuration;
     [SerializeField] float delayAfterAttack;
@@ -52,7 +53,10 @@ public class PumptonAI : MonoBehaviour, IDamage
                 }
                 else if (distanceToPlayer > normalShootRange && distanceToPlayer <= chargedShotRange)
                 {
-                    StartCoroutine(beginChargedShot());
+                    if (distanceToPlayer > minimumChargedShotRange)
+                    {
+                        StartCoroutine(beginChargedShot());
+                    }
                 }
             }
         }
@@ -129,18 +133,25 @@ public class PumptonAI : MonoBehaviour, IDamage
 
     IEnumerator beginChargedShot()
     {
-        isChargingShot = true;
-        yield return new WaitForSeconds(chargedDuration);
+        if(!isChargingShot)//Check prevents the charged shot from spam firing.
+        {
+            isChargingShot = true;
+            yield return new WaitForSeconds(chargedDuration);
 
-        GameObject bullet = Instantiate(pumptonShot, shootPOS.position, shootPOS.rotation);
-        Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
-        bulletRb.AddForce(transform.forward * chargedShotForce, ForceMode.Impulse);
+            GameObject bullet = Instantiate(pumptonShot, shootPOS.position, shootPOS.rotation);
+            Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
 
-        yield return new WaitForSeconds(delayAfterAttack);
-        //CD Reset
-        canShoot = false;
-        shootTimer = shootCD;
-        isChargingShot = false;
+            if (bulletRb != null)
+            {//Sets shoot direction.
+                bulletRb.AddForce(Vector3.forward * chargedShotForce, ForceMode.Impulse);
+            }
+           
+            yield return new WaitForSeconds(delayAfterAttack);
+            //CD Reset
+            canShoot = false;
+            shootTimer = shootCD;
+            isChargingShot = false;
+        }
     }
     IEnumerator flashColor()
     {
