@@ -28,7 +28,13 @@ public class ButtonFunctions : MonoBehaviour
         }
     }
 
-public void quit()
+    public void Respawn()
+    {
+        GameManager.instance.playerScript.SpawnPlayerPOS();
+        UIManager.Instance.UnpauseGame();
+    }
+
+    public void quit()
 {
 #if UNITY_EDITOR
     UnityEditor.EditorApplication.isPlaying = false;

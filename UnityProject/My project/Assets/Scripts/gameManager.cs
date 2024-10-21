@@ -1,5 +1,5 @@
 /*
- * Author(s): Alexandria Dixon, Jesse Mercer
+ * Author(s): Alexandria Dixon, Jesse Mercer, Orion White
  * Date: 10-17-2024
  * Course: Full Sail University - Game Development Program
  * Project: Project and Portfolio 2
@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     public GameObject flashDamageScreen;   // Flash screen when the player takes damage
     public GameObject player;              // Player GameObject reference
     public playerController playerScript;  // Player script reference
+    public GameObject playerSpawnPOS;      // Player spawn position reference
     public GameObject pumpkin;             // Example of a retrievable object (can be generalized later)
 
     public bool isPaused;                  // Tracks if the game is paused
@@ -54,6 +55,7 @@ public class GameManager : MonoBehaviour
         // Find and assign the player object and its script
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<playerController>();
+        playerSpawnPOS = GameObject.FindWithTag("PlayerSpawnPOS");
 
         // Fill the list with all retrievable objects in the scene
         fillRetrievables();

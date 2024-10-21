@@ -13,6 +13,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -62,6 +63,14 @@ public class playerController : MonoBehaviour, IDamage
         HPOrig = HP;           // Set original health value
         fuelmax = fuel;        // Set maximum fuel value
         updatePlayerUI();      // Initialize player UI
+    }
+
+    public void SpawnPlayerPOS()
+    {
+        controller.enabled = false;
+        transform.position = GameManager.instance.playerSpawnPOS.transform.position;
+        controller.enabled = true;
+        HP = HPOrig;
     }
 
     // Update is called once per frame
