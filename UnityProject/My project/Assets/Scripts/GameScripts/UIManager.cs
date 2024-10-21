@@ -12,12 +12,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
-
     [SerializeField] TMP_Text enemyCountText;
     [SerializeField] TMP_Text ammoCountText;
 
 
 
+    public GameObject checkpointPopup;
     public playerController playerCont;
 
     public Image playerHpBar;

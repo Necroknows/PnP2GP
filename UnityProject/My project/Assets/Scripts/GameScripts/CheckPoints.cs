@@ -40,9 +40,9 @@ public class CheckPoint : MonoBehaviour
     IEnumerator FlashColor()
     {
         model.material.color = Color.red;
-        //GameManager.instance.checkPointPopUp.SetActive(true);  UNCOMMENT WHEN WE HAVE A CHECKPOINT POPUP
+        UIManager.Instance.checkpointPopup.SetActive(true);  
         yield return new WaitForSeconds(1.0f);
-        //GameManager.instance.checkPointPopUp.SetActive(false); UNCOMMENT WHEN WE HAVE A CHECKPOINT POPUP
+        UIManager.Instance.checkpointPopup.SetActive(false);    
         model.material.color = colorOriginal;
     }
 }

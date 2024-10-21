@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Pickups : MonoBehaviour
 {
-    public enum PickUpType { Health, Ammo, Fuel };
+    public enum PickUpType { Health, Ammo, Fuel,Gun };
     public PickUpType pickupType;
 
     public int healthPickupAmount = 15;
@@ -71,7 +71,10 @@ public class Pickups : MonoBehaviour
                         player.setFuel(fuelPickupAmount);
                         Destroy(gameObject);
                     }
+
                     break;
+
+              
             }
 
         }
