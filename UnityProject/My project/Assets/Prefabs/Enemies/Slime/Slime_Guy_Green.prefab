@@ -193,15 +193,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 4176613149856435502}
   model: {fileID: 234919615024840393}
+  animator: {fileID: 8439295939957717448}
+  headPOS: {fileID: 20761587021082655}
+  roamDistance: 0
+  detectDistance: 0
+  roamPauseTime: 0
   HP: 1
   rotateSpeed: 10
-  viewAngle: 100
+  fieldOfView: 0
+  stoppingDistanceOriginal: 0
   faces: {fileID: 11400000, guid: 8b8a7554fceb39841840f45a2d8da540, type: 2}
   SmileBody: {fileID: 4587139802925562382}
   currentState: 0
-  animator: {fileID: 8439295939957717448}
-  waypoints: []
-  damType: 0
 --- !u!195 &4176613149856435502
 NavMeshAgent:
   m_ObjectHideFlags: 0
