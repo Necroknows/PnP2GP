@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] int Ammo;           // Current ammo count
     [SerializeField] int AmmoMax;        // Maximum ammo capacity
     [SerializeField] float fuel;         // Jetpack fuel amount
-    float fuelmax;        // Maximum fuel amount for jetpack
+    [SerializeField]float fuelmax;        // Maximum fuel amount for jetpack
 
     // --- WEAPON STATS AND SHOOTING ---
     [SerializeField] List<GunStats> gunList = new List<GunStats>();
@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour, IDamage
     void Start()
     {
         HPOrig = HP;           // Set original health value
-        fuelmax = fuel;        // Set maximum fuel value
+        fuel=0;                // sets starting fuel to 0 
         updatePlayerUI();      // Initialize player UI
         spawnPlayer();         // DropPlayer at SpawnPos 
     }

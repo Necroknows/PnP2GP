@@ -31,7 +31,7 @@ public class damage : MonoBehaviour
     [SerializeField] int destroyTime;        // Time before the object is destroyed
     [SerializeField] float damageInterval;   // Interval between stationary damage ticks
     [SerializeField] int force;              // Force applied for pushback effect
-
+    public ParticleSystem hitEffect;         // hit effect to assign to bullets 
     // --- STATE TRACKING ---
     private bool isPlayerinField = false;    // Flag to track if the player is within the stationary damage field
     private Coroutine statDmgCoroutine;      // Reference to the stationary damage coroutine
@@ -74,6 +74,11 @@ public class damage : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.isTrigger) return;
+       
+        if(hitEffect != null)
+        {
+            Instantiate(hitEffect, transform.position,Quaternion.identity);
+        }
 
         IDamage dmg = other.GetComponent<IDamage>();
 
