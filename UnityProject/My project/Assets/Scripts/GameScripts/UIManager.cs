@@ -16,9 +16,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] TMP_Text enemyCountText;
     [SerializeField] TMP_Text ammoCountText;
     [SerializeField] TMP_Text pumpkinCountText;
-    [SerializeField] GameObject goalUI;
-
-
+   
+    public GameObject goalUI;
     public GameObject checkpointPopup;
     public PlayerController playerCont;
 
@@ -146,11 +145,7 @@ public class UIManager : MonoBehaviour
             menuActive = null;                        // Clear the active menu reference
         }
     }
-    public void ShowJolCount()
-    {
-        menuActive = counterJOL;
-        menuActive.SetActive(true);
-    }
+   
 
    
 }

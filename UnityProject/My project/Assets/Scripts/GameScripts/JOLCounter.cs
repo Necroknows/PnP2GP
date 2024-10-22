@@ -9,18 +9,14 @@ public class JOLCounter : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
-        {
-            UIManager.Instance.ShowJolCount();
-
-        }
     }
     private void OnTriggerExit(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
-            UIManager.Instance.CloseMenu();
+            UIManager.Instance.goalUI.SetActive(true);
         }
+       
     }
 
 }

@@ -92,7 +92,9 @@ public class GameManager : MonoBehaviour
 
         if (playerScore >= goalScore)
         {
+
            miniGoal = true;
+         UIManager.Instance.goalUI.SetActive(false);
         }
 
     }
