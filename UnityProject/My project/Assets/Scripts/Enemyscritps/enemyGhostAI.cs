@@ -7,6 +7,8 @@ public class enemyGhostAI : MonoBehaviour, IDamage
 {
     //nav mesh for ghost
     [SerializeField] NavMeshAgent agent;
+    //animations for ghost
+    [SerializeField] Animator animator;
     //ghost model
     [SerializeField] Renderer model;
     //model for prefab to replace it
@@ -61,6 +63,7 @@ public class enemyGhostAI : MonoBehaviour, IDamage
     //if player is in range
     bool playerInRange;
     bool isRoaming;
+    bool isDying;
 
     Color colorOrig;
     Coroutine someCo; //sets the coroutine to current coroutine
@@ -77,7 +80,9 @@ public class enemyGhostAI : MonoBehaviour, IDamage
     // Update is called once per frame
     void Update()
     {
-        playerDir = GameManager.instance.player.transform.position;
+        animator.SetFloat("Speed", agent.velocity.normalized.magnitude);
+
+        
         
         if (playerInRange && !canSeePlayer())
         {
@@ -92,6 +97,7 @@ public class enemyGhostAI : MonoBehaviour, IDamage
         }
         else if (!playerInRange)
         {
+            agent.stoppingDistance = 0f;
             //this calls roam if the enemy is not roaming
             //and if the remaining distance is very small
             if (agent.remainingDistance < 0.05f && !isRoaming)
@@ -111,6 +117,7 @@ public class enemyGhostAI : MonoBehaviour, IDamage
         {
             if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
             {
+                
                 agent.SetDestination(GameManager.instance.player.transform.position);
 
                 if (agent.remainingDistance <= agent.stoppingDistance)
@@ -126,11 +133,15 @@ public class enemyGhostAI : MonoBehaviour, IDamage
                         StartCoroutine(beginAttack());
                     }
                 }
-                //resets stopping distance from roaming
-                agent.stoppingDistance = stoppingDisOrig;
+                //if (playerInRange)
+                
+                    //resets stopping distance from roaming
+                    agent.stoppingDistance = stoppingDisOrig;
+                
 
                 return true;
             }
+            
         }
         //catch to make sure stopping distance is 0 when player isnt being seen
         agent.stoppingDistance = 0;
@@ -147,6 +158,7 @@ public class enemyGhostAI : MonoBehaviour, IDamage
     IEnumerator roam()
     {
         isRoaming = true;
+        agent.stoppingDistance = 0;
         yield return new WaitForSeconds(roamPauseTime);
 
         agent.stoppingDistance = 0;
@@ -174,7 +186,7 @@ public class enemyGhostAI : MonoBehaviour, IDamage
         if (other.CompareTag("Player"))
         {
             playerInRange = true;
-
+            animator.SetTrigger("Surprise");
         }
     }
     public void OnTriggerExit(Collider other)
@@ -237,6 +249,8 @@ public class enemyGhostAI : MonoBehaviour, IDamage
             orbBullet.gameObject.SetActive(true); //turns on ghost bullet
             agent.speed *= dashSpeedMutliplier;
 
+            animator.SetTrigger("Boo");
+
             yield return new WaitForSeconds(orbAttackTime);//keeps active for set time
             agent.speed /= dashSpeedMutliplier;
 
@@ -264,17 +278,37 @@ public class enemyGhostAI : MonoBehaviour, IDamage
 
         StartCoroutine(flashColor());
 
-        if (HP <= 0)
+        if (HP <= 0 && !isDying)
         {
-            //updates game manager game goal and destroys the enemy
-            GameManager.instance.updateGameGoal(-1);
-            modelSwitchPos = model.transform.position;
-            modelSwitchRot = model.transform.rotation;
-            Destroy(gameObject);
-            if (isUsingNewModel)
-            {
-                Instantiate(modelSwitch, modelSwitchPos, modelSwitchRot);
-            }
+            //set is dying so that it does not keep restarting death coroutine
+            isDying = true;
+            //stops walking to player
+            agent.speed = 0;
+            //stop all attacking/defense/roaming 
+            StopAllCoroutines();
+            //stops ghost from being a bloody drip during death animation
+            model.material.color = colorOrig;
+            //begins death animation
+            StartCoroutine(Death());
+           
+        }
+    }
+
+    IEnumerator Death()
+    {
+
+        //updates game manager game goal and destroys the enemy
+        GameManager.instance.updateGameGoal(-1);
+        //death animation
+        animator.SetTrigger("Death");
+        //wait for animation to end
+        yield return new WaitForSeconds(1.3f);
+        modelSwitchPos = model.transform.position;
+        modelSwitchRot = model.transform.rotation;
+        Destroy(gameObject);
+        if (isUsingNewModel)
+        {
+            Instantiate(modelSwitch, modelSwitchPos, modelSwitchRot);
         }
     }
 
