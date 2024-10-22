@@ -293,7 +293,6 @@ public class PlayerController : MonoBehaviour, IDamage
         gunList.Add(gun);
 
         SelectGunPos = gunList.Count - 1;
-
         shootRate = gun.shootRate;
         shootDist = gun.shootDist;
         bullet = gun.bullet;
