@@ -153,7 +153,7 @@ public class ZombieAI : MonoBehaviour, IDamage
             {
                 if (isBoss)
                 {
-                    GameManager.instance.toggleBoss();
+                    GameManager.instance.ToggleBoss();
                 }
 
                 StartCoroutine(death());

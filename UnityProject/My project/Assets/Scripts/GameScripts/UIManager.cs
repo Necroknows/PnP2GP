@@ -12,9 +12,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
+    [SerializeField] GameObject counterJOL;
     [SerializeField] TMP_Text enemyCountText;
     [SerializeField] TMP_Text ammoCountText;
-
+    [SerializeField] TMP_Text pumpkinCountText;
+    [SerializeField] GameObject goalUI;
 
 
     public GameObject checkpointPopup;
@@ -58,6 +60,7 @@ public class UIManager : MonoBehaviour
         {
             int ammoCount = playerCont.GetAmmo();
             ammoCountText.text = ammoCount.ToString();
+            pumpkinCountText.text=GameManager.instance.GetPlayerScore().ToString();
         }
         
     }
@@ -143,5 +146,11 @@ public class UIManager : MonoBehaviour
             menuActive = null;                        // Clear the active menu reference
         }
     }
+    public void ShowJolCount()
+    {
+        menuActive = counterJOL;
+        menuActive.SetActive(true);
+    }
 
+   
 }

@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
     private int playerScore;               // holds the players progress score. 
     private bool liveBoss;                 // game state bool 
     [SerializeField] int goalScore;        // goal to reach 
+    private bool miniGoal;
 
     // --- RETRIEVABLE OBJECTS LIST ---
     List<RetrievableObjects> retrievableObjects = new List<RetrievableObjects>();
@@ -47,6 +48,7 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         liveBoss = true;
+        miniGoal = false;
         // Ensure only one instance of the GameManager exists
         if (instance == null)
         {
@@ -90,7 +92,7 @@ public class GameManager : MonoBehaviour
 
         if (playerScore >= goalScore)
         {
-           // FUTURE CODE GOES HERE 
+           miniGoal = true;
         }
 
     }
@@ -140,8 +142,20 @@ public class GameManager : MonoBehaviour
             retrievable.ResetObject();  // Reset each object to its original state
         }
     }
-    public void toggleBoss()
+    public void ToggleBoss()
     {
         liveBoss = !liveBoss;
+    }
+    public int GetPlayerScore()
+    {
+        return playerScore;
+    }
+    public int GetGoalScore()
+    {
+        return goalScore;
+    }
+    public bool GetGoalState()
+    {
+        return miniGoal;
     }
 }
