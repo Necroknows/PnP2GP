@@ -124,7 +124,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3073180695364179073}
   - component: {fileID: 4223512278099337963}
-  - component: {fileID: 3147267573418639302}
   - component: {fileID: 218555034417633237}
   - component: {fileID: 1694248559006938159}
   - component: {fileID: 4660811986003613873}
@@ -161,22 +160,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5387905478556764515}
   m_Mesh: {fileID: 6325488930424328852, guid: 948b20d9b64dddb40b4dd1ce8d257c89, type: 3}
---- !u!114 &3147267573418639302
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5387905478556764515}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b360089ac0cfb8c449899fe1d1a1eb97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  model: {fileID: 1694248559006938159}
-  modelSwitch: {fileID: 7116392507288952248, guid: 79fa4e00c450da749a995cd45a634069, type: 3}
-  isUsingNewModel: 1
-  HP: 3
 --- !u!114 &218555034417633237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,9 +175,12 @@ MonoBehaviour:
   enemy: {fileID: 4937548549666618176, guid: 0f447901b930ad842a37e19e9bc9b5c7, type: 3}
   spawnPoint: {fileID: 492180102879370087}
   model: {fileID: 1694248559006938159}
+  modelSwitch: {fileID: 7116392507288952248, guid: 79fa4e00c450da749a995cd45a634069, type: 3}
+  isUsingNewModel: 1
   spawnCount: 1
   spawnRate: 1
   HP: 3
+  indestructible: 0
   continousSpawning: 0
 --- !u!23 &1694248559006938159
 MeshRenderer:
