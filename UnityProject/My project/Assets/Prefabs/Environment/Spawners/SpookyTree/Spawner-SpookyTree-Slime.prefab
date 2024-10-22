@@ -40,7 +40,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5686769919148507401}
-  - component: {fileID: 106143479594426631}
   - component: {fileID: 685728242220716162}
   - component: {fileID: 1409405895169103209}
   - component: {fileID: 2892303125938355034}
@@ -69,22 +68,6 @@ Transform:
   - {fileID: 6233234039430754247}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &106143479594426631
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5839646065038777373}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b360089ac0cfb8c449899fe1d1a1eb97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  model: {fileID: 2892303125938355034}
-  modelSwitch: {fileID: 3712163943787679583, guid: 1459eacbc122a814fad23e27a46f96ba, type: 3}
-  isUsingNewModel: 1
-  HP: 5
 --- !u!114 &685728242220716162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100,9 +83,12 @@ MonoBehaviour:
   enemy: {fileID: 2938329929716087778, guid: f3ad18a9e94c73b4fa5748593c3abd63, type: 3}
   spawnPoint: {fileID: 6233234039430754247}
   model: {fileID: 2892303125938355034}
+  modelSwitch: {fileID: 3712163943787679583, guid: 1459eacbc122a814fad23e27a46f96ba, type: 3}
+  isUsingNewModel: 1
   spawnCount: 1
   spawnRate: 2
   HP: 5
+  indestructible: 0
   continousSpawning: 1
 --- !u!33 &1409405895169103209
 MeshFilter:

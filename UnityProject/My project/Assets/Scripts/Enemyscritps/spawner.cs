@@ -10,7 +10,10 @@ public class spawner : MonoBehaviour, IDamage
     [SerializeField] Transform spawnPoint;
     //model for the spawner, used to flash red and be destroyed
     [SerializeField] Renderer model;
-    
+    //model for prefab to replace it
+    [SerializeField] GameObject modelSwitch;
+    [SerializeField] bool isUsingNewModel;
+
 
     //how many enemies to be spawned each wave
     [SerializeField] int spawnCount;
@@ -18,6 +21,12 @@ public class spawner : MonoBehaviour, IDamage
     [SerializeField] int spawnRate;
     //health of the spawner(only used if continously spawning for the moment)
     [SerializeField] int HP;
+    [SerializeField] bool indestructible;
+
+
+    //gets the position and rotation of an object
+    Vector3 modelSwitchPos;
+    Quaternion modelSwitchRot;
 
     //color so it will flash red
     Color colorOrig;
@@ -35,6 +44,11 @@ public class spawner : MonoBehaviour, IDamage
     // Start is called before the first frame update
     void Start()
     {
+        if(isUsingNewModel)
+        {
+            modelSwitchPos = model.transform.position;
+            modelSwitchRot = model.transform.rotation;
+        }
         colorOrig = model.material.color;
     }
 
@@ -62,6 +76,8 @@ public class spawner : MonoBehaviour, IDamage
     }
     public void takeDamage(int amount, Vector3 Dir)
     {
+        if (!indestructible || this.GetComponent<DestructibleObject>() != null)
+        {
             HP -= amount;
 
             StartCoroutine(flashRed());
@@ -69,7 +85,12 @@ public class spawner : MonoBehaviour, IDamage
             if (HP <= 0)
             {
                 Destroy(gameObject);
+                if (isUsingNewModel)
+                {
+                    Instantiate(modelSwitch, modelSwitchPos, modelSwitchRot);
+                }
             }
+        }
     }
 
     
