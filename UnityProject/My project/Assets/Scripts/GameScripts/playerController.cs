@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] int Ammo;           // Current ammo count
     [SerializeField] int AmmoMax;        // Maximum ammo capacity
     [SerializeField] float fuel;         // Jetpack fuel amount
-    [SerializeField]float fuelmax;        // Maximum fuel amount for jetpack
+    [SerializeField] float fuelmax;        // Maximum fuel amount for jetpack
 
     // --- WEAPON STATS AND SHOOTING ---
     [SerializeField] List<GunStats> gunList = new List<GunStats>();
@@ -61,13 +61,16 @@ public class PlayerController : MonoBehaviour, IDamage
     bool isSprinting;     // Is the player currently sprinting
     bool isShooting;      // Is the player currently shooting
     bool isjumping;       // Is the player currently jumping
+    [SerializeField] GameObject objectToRetrieve;
+    public Transform carryPosition;
+    private bool hasObject;
 
 
     // Start is called before the first frame update
     void Start()
     {
         HPOrig = HP;           // Set original health value
-        fuel=0;                // sets starting fuel to 0 
+        fuel = 0;                // sets starting fuel to 0 
         updatePlayerUI();      // Initialize player UI
         spawnPlayer();         // DropPlayer at SpawnPos 
     }
@@ -150,7 +153,7 @@ public class PlayerController : MonoBehaviour, IDamage
         controller.Move((playerVel + pushDir) * Time.deltaTime);
 
         // Call shoot logic when the player presses the shoot button
-        if (Input.GetButton("Shoot") && gunList.Count > 0 && gunList[SelectGunPos].ammoCur > 0 && !isShooting)
+        if (Input.GetButton("Shoot") && gunList.Count > 0 && gunList[SelectGunPos].ammoCur > 0 && !isShooting&&!hasObject)
         {
             StartCoroutine(shoot());
         }
@@ -350,10 +353,53 @@ public class PlayerController : MonoBehaviour, IDamage
 
     internal void SetFuel(int fuelPickupAmount)
     {
-        fuel+=fuelPickupAmount;
-        if(fuel>fuelmax)
+        fuel += fuelPickupAmount;
+        if (fuel > fuelmax)
         {
-            fuel=fuelmax;
+            fuel = fuelmax;
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Retrievable") && !hasObject)
+        {
+            objectToRetrieve = other.gameObject;        //assigns detected object to objectToRetrieve
+            Debug.Log("Object Entered: " + objectToRetrieve.name);
+            PickUpObject();                             //automatically picks up object
+        }
+        else if (other.CompareTag("Drop Off")&&hasObject)
+        {
+            GameManager.instance.updateMiniGoal(1);
+            DropOffObject();
+        }
+    }
+    //called to pick up object
+    void PickUpObject()
+    {
+        if (objectToRetrieve != null && !hasObject)
+        {
+            objectToRetrieve.transform.SetParent(transform);        //parents object to seeker
+            objectToRetrieve.transform.localPosition = carryPosition.transform.localPosition; //sets carry position
+            hasObject = true;                                       //updates carry status
+            Debug.Log("Object Retrieved" + objectToRetrieve.name);
+        }
+    }
+
+    //called to drop off object
+    void DropOffObject()
+    {
+        if (objectToRetrieve != null)
+        {
+           
+            objectToRetrieve.transform.SetParent(null);             //unparent object
+            Destroy(objectToRetrieve);                              //destroy object
+            objectToRetrieve = null;                                //clear reference to object
+            hasObject = false;                                      //update carrying status
+
+            //we'll either update game goals for the enemy in game manager or UI manager
+            //Waiting on Jesse to confirm which script to use
+            //gameManager.instance.UpdateGameGoal();
+            Debug.Log("Object Dropped Off");
         }
     }
 }

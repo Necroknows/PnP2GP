@@ -44,6 +44,7 @@ public class ZombieAI : MonoBehaviour, IDamage
     // Other variables related to visual effects and coroutines
     Color colorOrig;              // Original color of the enemy's material
     Coroutine someCO;             // Reference to active roaming coroutine
+    public bool isBoss;           // switching boss on and off for zombie 
 
     // Initialize the enemy state
     void Start()
@@ -52,6 +53,7 @@ public class ZombieAI : MonoBehaviour, IDamage
         GameManager.instance.updateGameGoal(1); // Register this enemy with the game goal
         startingPos = transform.position;       // Store the starting position for roaming
         stoppingDistOrig = agent.stoppingDistance; // Store the original stopping distance
+        
     }
 
     // Handle movement and behavior logic each frame
@@ -149,7 +151,13 @@ public class ZombieAI : MonoBehaviour, IDamage
 
             if (HP <= 0)
             {
+                if (isBoss)
+                {
+                    GameManager.instance.toggleBoss();
+                }
+
                 StartCoroutine(death());
+                
             }
         }
     }

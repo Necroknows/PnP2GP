@@ -20,6 +20,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using Unity.VisualScripting;
+using System.Runtime.InteropServices;
 
 public class GameManager : MonoBehaviour
 {
@@ -35,6 +36,9 @@ public class GameManager : MonoBehaviour
     public bool isPaused;                  // Tracks if the game is paused
     private int enemyCount;                // Tracks remaining enemy count
     private int retrievableCount;          // Tracks remaining retrievable objects count
+    private int playerScore;               // holds the players progress score. 
+    private bool liveBoss;                 // game state bool 
+    [SerializeField] int goalScore;        // goal to reach 
 
     // --- RETRIEVABLE OBJECTS LIST ---
     List<RetrievableObjects> retrievableObjects = new List<RetrievableObjects>();
@@ -42,6 +46,7 @@ public class GameManager : MonoBehaviour
     // --- AWAKE: Initialize GameManager Singleton and Player Reference ---
     void Awake()
     {
+        liveBoss = true;
         // Ensure only one instance of the GameManager exists
         if (instance == null)
         {
@@ -73,11 +78,21 @@ public class GameManager : MonoBehaviour
         enemyCount += amount;
 
         // Check if all enemies are defeated
-        if (enemyCount <= 0)
+        if (!liveBoss)
         {
             // Trigger win condition
             UIManager.Instance.ShowWinScreen();
         }
+    }
+    public void updateMiniGoal(int amount)
+    {
+        playerScore+=amount;
+
+        if (playerScore >= goalScore)
+        {
+           // FUTURE CODE GOES HERE 
+        }
+
     }
 
     // --- GET ENEMY COUNT: Return the current enemy count ---
@@ -124,5 +139,9 @@ public class GameManager : MonoBehaviour
         {
             retrievable.ResetObject();  // Reset each object to its original state
         }
+    }
+    public void toggleBoss()
+    {
+        liveBoss = !liveBoss;
     }
 }
