@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     private int enemyCount;                // Tracks remaining enemy count
     private int retrievableCount;          // Tracks remaining retrievable objects count
     private int playerScore;               // holds the players progress score. 
-    private bool liveBoss=true;                 // game state bool 
+    private bool liveBoss = true;                 // game state bool 
     [SerializeField] int goalScore;        // goal to reach 
     private bool miniGoal;
 
@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
     // --- AWAKE: Initialize GameManager Singleton and Player Reference ---
     void Awake()
     {
-        
+
         miniGoal = false;
         // Ensure only one instance of the GameManager exists
         if (instance == null)
@@ -68,10 +68,10 @@ public class GameManager : MonoBehaviour
         fillRetrievables();
     }
 
-   
+
     void Update()
     {
-      
+
     }
 
     // --- ENEMY TRACKING: Updates the enemy count, triggers win condition if all enemies are defeated ---
@@ -88,14 +88,14 @@ public class GameManager : MonoBehaviour
     }
     public void updateMiniGoal(int amount)
     {
-        playerScore+=amount;
+        playerScore += amount;
         UIManager.Instance.UpdatePumpkinFill();
 
         if (playerScore >= goalScore)
         {
 
-           miniGoal = true;
-         UIManager.Instance.goalUI.SetActive(false);
+            miniGoal = true;
+            UIManager.Instance.goalUI.SetActive(false);
         }
 
     }
@@ -161,4 +161,5 @@ public class GameManager : MonoBehaviour
     {
         return miniGoal;
     }
+
 }
