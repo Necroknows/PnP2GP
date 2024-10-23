@@ -50,7 +50,7 @@ public class UIManager : MonoBehaviour
             {
                 PauseGame();
             }
-            else if (menuActive !=null)
+            else if (menuActive != null && menuActive == menuPause)
             {
                 UnpauseGame();
             }

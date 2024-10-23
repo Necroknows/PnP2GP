@@ -142,13 +142,13 @@ public class PlayerController : MonoBehaviour, IDamage
         {
             if (Input.GetKey(KeyCode.F))
             {
-                playerVel.y = jumpSpeed;  // Apply vertical velocity for flight
+                playerVel.y = jumpSpeed / 2;  // Apply vertical velocity for flight
                 fuel -= Time.deltaTime;   // Reduce fuel during flight
                 updatePlayerUI();         // Update UI with remaining fuel
             }
 
             // Apply gravity for flight as well
-            playerVel.y -= gravity * Time.deltaTime;
+            // playerVel.y -= gravity * Time.deltaTime;
         }
 
         // Apply the push mechanic to player movement
