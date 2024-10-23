@@ -41,7 +41,7 @@ public class Seeker : MonoBehaviour
             {
                 //move to retrievable object if found
                 agent.SetDestination(objectToRetrieve.transform.position);
-                Debug.Log("Object Found" + objectToRetrieve.name);
+               // Debug.Log("Object Found" + objectToRetrieve.name);
             }
             //if seeker has no object & doesn't see one, roam to find one
             else

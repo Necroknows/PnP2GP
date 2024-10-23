@@ -166,7 +166,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8086348799173341151}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.026250469, y: 0.00018839847, z: 0.9996296, w: 0.007174299}
+  m_LocalRotation: {x: 0.026254771, y: 0.00018833925, z: 0.99962956, w: 0.007170867}
   m_LocalPosition: {x: 2, y: 0.5, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -198,7 +198,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 24575
   agent: {fileID: 5974191257303403562}
-  objectToRetrieve: {fileID: 0}
+  objectToRetrieve: {fileID: 606030953483887268, guid: 469d5403d196f2f4f8d9d7d159a032d8, type: 3}
   carryPosition: {fileID: 7374687804889269889}
 --- !u!33 &1400103165868582012
 MeshFilter:
@@ -265,11 +265,11 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.070568204
+  m_Radius: 0.65
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!195 &5974191257303403562
 NavMeshAgent:
