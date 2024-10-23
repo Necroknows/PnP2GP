@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] Transform gunHolderTransform;  // Where the gun will be placed (e.g., player's hand)
     public GameObject gunModel;          // Store the current gun model
     [SerializeField] GameObject muzzleFlash;
+    [SerializeField] AudioSource gunShotNoise;      // Stores the sound for the gunshot
 
     // --- DYNAMIC STATE VARIABLES ---
     Vector3 moveDir;      // Direction of player movement
@@ -71,6 +72,7 @@ public class PlayerController : MonoBehaviour, IDamage
     {
         HPOrig = HP;           // Set original health value
         fuel = 0;                // sets starting fuel to 0 
+        gunShotNoise.playOnAwake = false;   // Ensures audio does not play immediately, still make sure it is checked as false in audio component
         updatePlayerUI();      // Initialize player UI
         spawnPlayer();         // DropPlayer at SpawnPos 
     }
@@ -200,6 +202,8 @@ public class PlayerController : MonoBehaviour, IDamage
 
             // Instantiate bullet at the shoot position aiming towards the target point
             Instantiate(bullet, shootPos.position, bulletRotation);
+            // Plays the Audio for the Bullets when fired
+            StartCoroutine(GunShot());
             // Wait for the rate of fire before enabling shooting again
             yield return new WaitForSeconds(shootRate);
 
@@ -210,6 +214,14 @@ public class PlayerController : MonoBehaviour, IDamage
             // Optionally handle what happens if ammo is 0 (play click sound, show reload prompt, etc.)
             yield return null; // Just end the coroutine if there's no ammo
         }
+    }
+
+    // Handles the gunshot audio
+    IEnumerator GunShot()
+    {
+        gunShotNoise.loop = false;
+        gunShotNoise.Play();
+        yield return null;
     }
 
     // Handle player taking damage and apply a push force
