@@ -1541,6 +1541,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1145749827}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1501808333
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2485449399949545984, guid: 0260a8d57b92bae4f909088d4f63cb75, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -10.157901
+      objectReference: {fileID: 0}
+    - target: {fileID: 2485449399949545984, guid: 0260a8d57b92bae4f909088d4f63cb75, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2485449399949545984, guid: 0260a8d57b92bae4f909088d4f63cb75, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.329548
+      objectReference: {fileID: 0}
+    - target: {fileID: 2485449399949545984, guid: 0260a8d57b92bae4f909088d4f63cb75, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2485449399949545984, guid: 0260a8d57b92bae4f909088d4f63cb75, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2485449399949545984, guid: 0260a8d57b92bae4f909088d4f63cb75, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2485449399949545984, guid: 0260a8d57b92bae4f909088d4f63cb75, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2485449399949545984, guid: 0260a8d57b92bae4f909088d4f63cb75, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2485449399949545984, guid: 0260a8d57b92bae4f909088d4f63cb75, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2485449399949545984, guid: 0260a8d57b92bae4f909088d4f63cb75, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6639750681424646487, guid: 0260a8d57b92bae4f909088d4f63cb75, type: 3}
+      propertyPath: m_Name
+      value: Barrel DmgA Old Red A
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0260a8d57b92bae4f909088d4f63cb75, type: 3}
 --- !u!4 &1610445956 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4970077993701562657, guid: 5eaeebbab06b5d749a9872dc57c7524d, type: 3}
@@ -2273,3 +2330,4 @@ SceneRoots:
   - {fileID: 2287414742483954351}
   - {fileID: 105354106}
   - {fileID: 194498163035207880}
+  - {fileID: 1501808333}
