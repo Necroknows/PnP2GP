@@ -153,6 +153,7 @@ public class ZombieAI : MonoBehaviour, IDamage
             {
                 if (isBoss)
                 {
+                    GameManager.instance.updateGameGoal(-1);
                     GameManager.instance.ToggleBoss();
                 }
 
@@ -165,7 +166,7 @@ public class ZombieAI : MonoBehaviour, IDamage
     {
         ani.SetTrigger("deathTrigger");// sets the animation trigger for death animation 
         yield return new WaitForSeconds(deathTime);
-        GameManager.instance.updateGameGoal(-1); // Update game goal if enemy dies
+       
         Destroy(gameObject); // Destroy enemy object on death
     }
 

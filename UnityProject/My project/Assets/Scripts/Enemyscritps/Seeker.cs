@@ -122,7 +122,7 @@ public class Seeker : MonoBehaviour
     //called to pick up object
     void PickUpObject()
     {
-        if (objectToRetrieve != null)
+        if (objectToRetrieve != null && IsGrounded(objectToRetrieve))
         {
             objectToRetrieve.transform.SetParent(transform);        //parents object to seeker
             objectToRetrieve.transform.localPosition = carryPosition.localPosition; //sets carry position
@@ -146,5 +146,18 @@ public class Seeker : MonoBehaviour
             //gameManager.instance.UpdateGameGoal();
             Debug.Log("Object Dropped Off");
         }
+    }
+    bool IsGrounded(GameObject obj)
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(obj.transform.position, Vector3.down, out hit, 0.25f))
+        {
+            if (hit.collider.CompareTag("Ground"))
+            {
+                return true;
+            }
+        }
+        return false;
+
     }
 }

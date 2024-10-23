@@ -6676,7 +6676,7 @@ MonoBehaviour:
   menuPause: {fileID: 7485668096686170677}
   menuWin: {fileID: 5567817784488692813}
   menuLose: {fileID: 7156785322215015978}
-  counterJOL: {fileID: 8648299588340773459}
+  counterJOL: {fileID: 5742259096059608183}
   enemyCountText: {fileID: 2698742927392573987}
   ammoCountText: {fileID: 8497581138902348119}
   pumpkinCountText: {fileID: 174470664569614426}
@@ -7039,6 +7039,10 @@ PrefabInstance:
     - target: {fileID: 1343607391804326830, guid: b03defe1234367d49ad45e836f4ee4cf, type: 3}
       propertyPath: player
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1343607391804326830, guid: b03defe1234367d49ad45e836f4ee4cf, type: 3}
+      propertyPath: goalScore
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1343607391804326830, guid: b03defe1234367d49ad45e836f4ee4cf, type: 3}
       propertyPath: flashDamageScreen

@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     private int enemyCount;                // Tracks remaining enemy count
     private int retrievableCount;          // Tracks remaining retrievable objects count
     private int playerScore;               // holds the players progress score. 
-    private bool liveBoss;                 // game state bool 
+    private bool liveBoss=true;                 // game state bool 
     [SerializeField] int goalScore;        // goal to reach 
     private bool miniGoal;
 
@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
     // --- AWAKE: Initialize GameManager Singleton and Player Reference ---
     void Awake()
     {
-        liveBoss = true;
+        
         miniGoal = false;
         // Ensure only one instance of the GameManager exists
         if (instance == null)
