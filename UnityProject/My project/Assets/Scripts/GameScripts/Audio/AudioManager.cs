@@ -9,6 +9,7 @@ public class AudioManager : MonoBehaviour
 
     AudioSource musicTrack01, musicTrack02;
     [SerializeField] AudioClip defaultMusic;
+    [SerializeField] float volumeForAreaMusic0To1;
 
     bool isPlayingTrack1;
     Coroutine fade;
@@ -25,6 +26,8 @@ public class AudioManager : MonoBehaviour
         musicTrack02 = gameObject.AddComponent<AudioSource>();
         musicTrack01.loop = true;
         musicTrack02.loop = true;
+        musicTrack01.volume = volumeForAreaMusic0To1;
+        musicTrack02.volume = volumeForAreaMusic0To1;
         isPlayingTrack1 = true;
 
         AudioSwap(defaultMusic);
@@ -54,8 +57,8 @@ public class AudioManager : MonoBehaviour
 
             while (timeElapsed < fadeTime)
             {
-                musicTrack02.volume = Mathf.Lerp(0, 1, timeElapsed / fadeTime);
-                musicTrack01.volume = Mathf.Lerp(1, 0, timeElapsed / fadeTime);
+                musicTrack02.volume = Mathf.Lerp(0, volumeForAreaMusic0To1, timeElapsed / fadeTime);
+                musicTrack01.volume = Mathf.Lerp(volumeForAreaMusic0To1, 0, timeElapsed / fadeTime);
                 timeElapsed += Time.deltaTime;
                 yield return null;
             }
@@ -69,8 +72,8 @@ public class AudioManager : MonoBehaviour
 
             while (timeElapsed < fadeTime)
             {
-                musicTrack01.volume = Mathf.Lerp(0, 1, timeElapsed / fadeTime);
-                musicTrack02.volume = Mathf.Lerp(1, 0, timeElapsed / fadeTime);
+                musicTrack01.volume = Mathf.Lerp(0, volumeForAreaMusic0To1, timeElapsed / fadeTime);
+                musicTrack02.volume = Mathf.Lerp(volumeForAreaMusic0To1, 0, timeElapsed / fadeTime);
                 timeElapsed += Time.deltaTime;
                 yield return null;
             }
