@@ -106,13 +106,17 @@ public class UIManager : MonoBehaviour
         // fills per fraction of health 
         playerHpBar.fillAmount = healthFraction;
     }
-    public void UpdatePumpkinFill(float fillFraction)
+    public void UpdatePumpkinFill()
     {
-        // Calculate the fill fraction based on player's score and the goal score
-        fillFraction = Mathf.Clamp01(GameManager.instance.GetGoalScore() / GameManager.instance.GetPlayerScore()  );
+        // Get the current player's score and goal score
+        float currentScore = GameManager.instance.GetPlayerScore();
+        float goalScore = GameManager.instance.GetGoalScore();
 
-        // Set the fill amount to the calculated fraction instead of adding to it
-        pumpkinFill.fillAmount = fillFraction;
+        // Calculate the fill fraction based on current score divided by the goal score
+        float fillFraction = Mathf.Clamp01(currentScore / goalScore);  // Clamped between 0 and 1
+
+        // Update the fill amount for the pumpkin UI element
+        pumpkinFill.fillAmount = fillFraction;  // Directly set the fill amount
     }
     public void UpdatePlayerFuelBar(float fuelFraction)
     {
