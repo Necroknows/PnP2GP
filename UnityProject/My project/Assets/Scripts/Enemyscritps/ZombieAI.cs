@@ -31,7 +31,7 @@ public class ZombieAI : MonoBehaviour, IDamage
     bool isShooting = false;      // Indicates if the enemy is currently shooting
     bool playerInRange = false;   // Indicates if the player is within attack range
     bool isRoaming = false;       // Indicates if the enemy is roaming
-
+    bool isDying = false;
     // --- DYNAMIC STATE VARIABLES ---
     // Variables that track the dynamic state of the enemy in relation to the player and environment
     float angleToPlayer;          // Angle between the enemy and the player
@@ -53,7 +53,7 @@ public class ZombieAI : MonoBehaviour, IDamage
         GameManager.instance.updateGameGoal(1); // Register this enemy with the game goal
         startingPos = transform.position;       // Store the starting position for roaming
         stoppingDistOrig = agent.stoppingDistance; // Store the original stopping distance
-        
+
     }
 
     // Handle movement and behavior logic each frame
@@ -63,7 +63,7 @@ public class ZombieAI : MonoBehaviour, IDamage
 
         if (playerInRange && !canSeePlayer())
         {
-            if (!isRoaming && agent.remainingDistance <1f)
+            if (!isRoaming && agent.remainingDistance < 1f)
                 someCO = StartCoroutine(roam()); // Start roaming if player is out of sight
         }
         else if (!playerInRange)
@@ -153,20 +153,28 @@ public class ZombieAI : MonoBehaviour, IDamage
             {
                 if (isBoss)
                 {
-                    GameManager.instance.updateGameGoal(-1);
-                    GameManager.instance.ToggleBoss();
-                }
+                    StartCoroutine(death());
+                    
 
-                StartCoroutine(death());
-                
+
+                }
+                else
+                {
+                    StartCoroutine(death());
+
+                }
             }
+
         }
     }
+
     IEnumerator death()
     {
         ani.SetTrigger("deathTrigger");// sets the animation trigger for death animation 
         yield return new WaitForSeconds(deathTime);
-       
+        if (isBoss)
+        { GameManager.instance.ToggleBoss(); }
+        GameManager.instance.updateGameGoal(-1);
         Destroy(gameObject); // Destroy enemy object on death
     }
 
