@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour, IDamage
         transform.position = GameManager.instance.playerSpawnPOS.transform.position;
         controller.enabled = true;
         HP = HPOrig;
-        fuel = fuelmax;
+        fuel = 0;
         UIManager.Instance.UpdatePlayerHealthBar(HP);
         UIManager.Instance.UnpauseGame();
 

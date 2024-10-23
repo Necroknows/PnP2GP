@@ -8524,11 +8524,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 76d65dcdb7bd4f24ca8b3deb5c071678, type: 3}
---- !u!20 &363986115 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 3616332790315929847, guid: 6fe77b0ff36476b4295e2a9c7cc6b0bf, type: 3}
-  m_PrefabInstance: {fileID: 326782291}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &365305882
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10710,8 +10705,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: DoorClosed (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 6756731718040954145, guid: 2b5d21c22f1a49d49ab3520348ca3118, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -40205,17 +40199,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5480645318927649384, guid: 979a647151237734c935c1cc71b19c8a, type: 3}
   m_PrefabInstance: {fileID: 2028946755}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1495415292 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2566244463838750603, guid: 716635e6af856984e9739b4103852497, type: 3}
-  m_PrefabInstance: {fileID: 1466040496785268903}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1499632455 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4642893435899501461, guid: ac41ff41d2bb45445afb767b241d76be, type: 3}
@@ -60298,14 +60281,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2566244463838750603, guid: 716635e6af856984e9739b4103852497, type: 3}
-      propertyPath: m_FillAmount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3816113167045440232, guid: 716635e6af856984e9739b4103852497, type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 363986115}
     - target: {fileID: 5948833830622749456, guid: 716635e6af856984e9739b4103852497, type: 3}
       propertyPath: m_Name
       value: DropOffCauldron Variant
@@ -60850,10 +60825,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3475233617521054820, guid: e5b4de8ec8584254cb7b0cac392543de, type: 3}
-      propertyPath: pumpkinFill
-      value: 
-      objectReference: {fileID: 1495415292}
     - target: {fileID: 3558179347403248007, guid: e5b4de8ec8584254cb7b0cac392543de, type: 3}
       propertyPath: m_Name
       value: UI

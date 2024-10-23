@@ -21,6 +21,7 @@ public class UIManager : MonoBehaviour
     public GameObject checkpointPopup;
     public PlayerController playerCont;
 
+    public Image pumpkinFill;
     public Image playerHpBar;
     public Image playerFuelBar;
     public bool isPaused;
@@ -35,6 +36,7 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         playerCont=FindObjectOfType<PlayerController>();
+       
     }
 
     // Update is called once per frame
@@ -100,11 +102,21 @@ public class UIManager : MonoBehaviour
     }
     public void UpdatePlayerHealthBar(float healthFraction)
     {
+        healthFraction = Mathf.Clamp01(GameManager.instance.playerScript.getHP()/ GameManager.instance.playerScript.getHPOrig());
         // fills per fraction of health 
         playerHpBar.fillAmount = healthFraction;
     }
+    public void UpdatePumpkinFill(float fillFraction)
+    {
+        // Calculate the fill fraction based on player's score and the goal score
+        fillFraction = Mathf.Clamp01(GameManager.instance.GetGoalScore() / GameManager.instance.GetPlayerScore()  );
+
+        // Set the fill amount to the calculated fraction instead of adding to it
+        pumpkinFill.fillAmount = fillFraction;
+    }
     public void UpdatePlayerFuelBar(float fuelFraction)
     {
+        fuelFraction = Mathf.Clamp01(GameManager.instance.playerScript.GetFuel() / GameManager.instance.playerScript.GetFuelMax());
         //Fill the FuelCan icon by fraction of fuel
        playerFuelBar.fillAmount = fuelFraction;
     }

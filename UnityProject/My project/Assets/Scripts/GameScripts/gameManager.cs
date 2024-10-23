@@ -89,6 +89,7 @@ public class GameManager : MonoBehaviour
     public void updateMiniGoal(int amount)
     {
         playerScore+=amount;
+        UIManager.Instance.UpdatePumpkinFill(playerScore);
 
         if (playerScore >= goalScore)
         {
