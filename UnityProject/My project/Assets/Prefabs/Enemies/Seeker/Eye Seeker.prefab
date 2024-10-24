@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 5376339625203512571}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1}
+  m_LocalPosition: {x: -0.015989594, y: 0.19973972, z: -1.2496406}
   m_LocalScale: {x: 0.1, y: 1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -188,8 +188,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropOffPoint: {fileID: 0}
-  detectionRange: 15
-  speed: 8
+  detectionRange: 50
+  speed: 35
   shootPos: {fileID: 8022401142195186043}
   objectMask:
     serializedVersion: 2
@@ -198,7 +198,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 24575
   agent: {fileID: 5974191257303403562}
-  objectToRetrieve: {fileID: 606030953483887268, guid: 469d5403d196f2f4f8d9d7d159a032d8, type: 3}
+  objectToRetrieve: {fileID: 0}
+  floorHieght: 2
   carryPosition: {fileID: 7374687804889269889}
 --- !u!33 &1400103165868582012
 MeshFilter:
@@ -269,7 +270,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.65
+  m_Radius: 1.37
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!195 &5974191257303403562
 NavMeshAgent:

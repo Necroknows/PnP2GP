@@ -15,7 +15,7 @@ public class Seeker : MonoBehaviour
     [SerializeField] LayerMask obstacleMask;    //to detect obstacles
     [SerializeField] NavMeshAgent agent;        //navmesh agent for seeker movement
     [SerializeField] GameObject objectToRetrieve;   //current object to retrieve
-
+    [SerializeField] float floorHieght;
     bool hasObject;                             //does the seeker have the object
     public Transform carryPosition;             //position on the seeker to carry the object
 
@@ -41,7 +41,7 @@ public class Seeker : MonoBehaviour
             {
                 //move to retrievable object if found
                 agent.SetDestination(objectToRetrieve.transform.position);
-               // Debug.Log("Object Found" + objectToRetrieve.name);
+                // Debug.Log("Object Found" + objectToRetrieve.name);
             }
             //if seeker has no object & doesn't see one, roam to find one
             else
@@ -55,7 +55,7 @@ public class Seeker : MonoBehaviour
         {
             //carry retrievable object to drop off point
             agent.SetDestination(dropOffPoint.position);
-            Debug.Log("Taking Object To Drop Off" + objectToRetrieve.name);
+            //Debug.Log("Taking Object To Drop Off" + objectToRetrieve.name);
 
             if (agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending)
             {
@@ -75,14 +75,17 @@ public class Seeker : MonoBehaviour
         foreach (var hitCollider in hitColliders)
         {
             //check if object is retrievable
-            if (hitCollider.CompareTag("Retrievable"))
+            if (hitCollider.CompareTag("Retrievable")&& hitCollider.gameObject.transform.parent==null)
             {
                 float distanceToObject = Vector3.Distance(transform.position, hitCollider.transform.position);
 
                 //ensure object is w/in detection range & isn't an obstacle
                 if (distanceToObject < detectionRange && !Physics.Raycast(transform.position, hitCollider.transform.position - transform.position, distanceToObject, obstacleMask))
                 {
-                    objectToRetrieve = hitCollider.gameObject; //assign detected object to objectToRetrieve
+                   
+                    
+                        objectToRetrieve = hitCollider.gameObject; //assign detected object to objectToRetrieve
+                    
                     Debug.Log("Object Found: " + objectToRetrieve.name);
                     return true;
                 }
@@ -112,17 +115,27 @@ public class Seeker : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Retrievable"))
+        if (other.CompareTag("Retrievable") && !hasObject)
         {
-            objectToRetrieve = other.gameObject;        //assigns detected object to objectToRetrieve
+            objectToRetrieve = other.gameObject;  // assigns detected object to objectToRetrieve
             Debug.Log("Object Entered: " + objectToRetrieve.name);
-            PickUpObject();                             //automatically picks up object
+
+            // Check if objectToRetrieve is properly assigned
+            if (objectToRetrieve != null)
+            {
+                Debug.Log("Object Assigned Properly: " + objectToRetrieve.name);
+                PickUpObject();  // automatically picks up object
+            }
+            else
+            {
+                Debug.Log("ObjectToRetrieve is NULL!");
+            }
         }
     }
     //called to pick up object
     void PickUpObject()
     {
-        if (objectToRetrieve != null && IsGrounded(objectToRetrieve))
+        if (objectToRetrieve != null && !hasObject && objectToRetrieve.transform.position.y<2.01)
         {
             objectToRetrieve.transform.SetParent(transform);        //parents object to seeker
             objectToRetrieve.transform.localPosition = carryPosition.localPosition; //sets carry position
@@ -138,7 +151,7 @@ public class Seeker : MonoBehaviour
         {
             objectToRetrieve.transform.SetParent(null);             //unparent object
             Destroy(objectToRetrieve);                              //destroy object
-            objectToRetrieve = null;                                //clear reference to object
+           /* objectToRetrieve = null;  */                              //clear reference to object
             hasObject = false;                                      //update carrying status
 
             //we'll either update game goals for the enemy in game manager or UI manager
@@ -147,17 +160,7 @@ public class Seeker : MonoBehaviour
             Debug.Log("Object Dropped Off");
         }
     }
-    bool IsGrounded(GameObject obj)
-    {
-        RaycastHit hit;
-        if (Physics.Raycast(obj.transform.position, Vector3.down, out hit, 0.25f))
-        {
-            if (hit.collider.CompareTag("Ground"))
-            {
-                return true;
-            }
-        }
-        return false;
+    
+   
 
-    }
 }

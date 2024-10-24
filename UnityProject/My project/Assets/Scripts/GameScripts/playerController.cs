@@ -373,7 +373,7 @@ public class PlayerController : MonoBehaviour, IDamage
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Retrievable") && !hasObject)
+        if (other.CompareTag("Retrievable") && !hasObject&& other.transform.parent==null)
         {
             objectToRetrieve = other.gameObject;        //assigns detected object to objectToRetrieve
             Debug.Log("Object Entered: " + objectToRetrieve.name);
