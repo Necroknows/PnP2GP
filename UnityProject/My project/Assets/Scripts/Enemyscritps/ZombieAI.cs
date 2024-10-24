@@ -31,7 +31,7 @@ public class ZombieAI : MonoBehaviour, IDamage
     bool isShooting = false;      // Indicates if the enemy is currently shooting
     bool playerInRange = false;   // Indicates if the player is within attack range
     bool isRoaming = false;       // Indicates if the enemy is roaming
-    bool isDying = false;
+    
     // --- DYNAMIC STATE VARIABLES ---
     // Variables that track the dynamic state of the enemy in relation to the player and environment
     float angleToPlayer;          // Angle between the enemy and the player
