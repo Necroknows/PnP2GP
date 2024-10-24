@@ -22,9 +22,10 @@ public class FacePlayer : MonoBehaviour
     {
         if (playerTransform != null)
         {
-            Vector3 direction = (playerTransform.position-transform.position).normalized;
-            Quaternion lookRotation= Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Lerp(transform.rotation,lookRotation,Time.deltaTime*5f);
+            Vector3 direction = (playerTransform.position - transform.position).normalized;
+            direction.y = 0;
+            Quaternion lookRotation = Quaternion.LookRotation(direction);
+            transform.rotation = lookRotation;
         }
     }
 
