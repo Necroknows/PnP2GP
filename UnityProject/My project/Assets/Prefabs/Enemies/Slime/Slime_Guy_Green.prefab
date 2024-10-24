@@ -604,7 +604,6 @@ GameObject:
   - component: {fileID: 3805188687688432217}
   - component: {fileID: 4832082476046080446}
   - component: {fileID: 6333684679774912063}
-  - component: {fileID: 787678267217190399}
   m_Layer: 15
   m_Name: Enemy Icon (1)
   m_TagString: Untagged
@@ -621,7 +620,7 @@ Transform:
   m_GameObject: {fileID: 6556970895447592881}
   serializedVersion: 2
   m_LocalRotation: {x: 0.35355464, y: -0.61237174, z: 0.61237174, w: 0.35355464}
-  m_LocalPosition: {x: -85.77887, y: 19.875582, z: -79.24683}
+  m_LocalPosition: {x: 0, y: 1.7000003, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -655,7 +654,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1c348280357e8e24eac88a47f0ba3b50, type: 2}
+  - {fileID: 2100000, guid: 209a8d9eb06afac49815c61a6c6105cb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -677,28 +676,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &787678267217190399
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6556970895447592881}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &7152237782488528680
 GameObject:
   m_ObjectHideFlags: 0
