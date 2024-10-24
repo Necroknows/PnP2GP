@@ -713,7 +713,6 @@ GameObject:
   - component: {fileID: 1550751641253575170}
   - component: {fileID: 5636988416250307514}
   - component: {fileID: 517829015307963827}
-  - component: {fileID: 8478836655634175679}
   m_Layer: 15
   m_Name: Enemy Icon
   m_TagString: Untagged
@@ -764,7 +763,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1c348280357e8e24eac88a47f0ba3b50, type: 2}
+  - {fileID: 2100000, guid: 209a8d9eb06afac49815c61a6c6105cb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -786,28 +785,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &8478836655634175679
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4758457542663754575}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &4937548549666618176
 GameObject:
   m_ObjectHideFlags: 0
