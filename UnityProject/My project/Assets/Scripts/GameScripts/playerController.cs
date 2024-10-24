@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour, IDamage
     int HPOrig;           // Original player health at start
     int SelectGunPos;     // Hold the Current weapon postion in list for proper cycling 
     int jumpCount;        // Number of jumps the player has made
-    bool isSprinting;     // Is the player currently sprinting
+    /*bool isSprinting;*/     // Is the player currently sprinting          //// future use ... make sure to uncomment in Sprint()
     bool isShooting;      // Is the player currently shooting
     bool isjumping;       // Is the player currently jumping
     [SerializeField] GameObject objectToRetrieve;
@@ -142,13 +142,13 @@ public class PlayerController : MonoBehaviour, IDamage
         {
             if (Input.GetKey(KeyCode.F))
             {
-                playerVel.y = jumpSpeed;  // Apply vertical velocity for flight
+                playerVel.y = (jumpSpeed/2)+2;  // Apply vertical velocity for flight
                 fuel -= Time.deltaTime;   // Reduce fuel during flight
                 updatePlayerUI();         // Update UI with remaining fuel
             }
 
             // Apply gravity for flight as well
-            playerVel.y -= gravity * Time.deltaTime;
+            // playerVel.y -= gravity * Time.deltaTime;
         }
 
         // Apply the push mechanic to player movement
@@ -167,12 +167,12 @@ public class PlayerController : MonoBehaviour, IDamage
         if (Input.GetButtonDown("Sprint"))
         {
             speed *= sprintMod;      // Multiply speed for sprinting
-            isSprinting = true;
+            //isSprinting = true;
         }
         else if (Input.GetButtonUp("Sprint"))
         {
             speed /= sprintMod;      // Reset speed after sprinting
-            isSprinting = false;
+            //isSprinting = false;
         }
     }
 
@@ -379,7 +379,7 @@ public class PlayerController : MonoBehaviour, IDamage
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Retrievable") && !hasObject)
+        if (other.CompareTag("Retrievable") && !hasObject&& other.transform.parent==null)
         {
             objectToRetrieve = other.gameObject;        //assigns detected object to objectToRetrieve
             Debug.Log("Object Entered: " + objectToRetrieve.name);
