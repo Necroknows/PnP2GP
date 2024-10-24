@@ -52,6 +52,7 @@ MonoBehaviour:
   destroyTime: 0
   damageInterval: 0.75
   force: 0
+  hitEffect: {fileID: 0}
 --- !u!65 &7972033643661602987
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -65,7 +66,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 65527
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
