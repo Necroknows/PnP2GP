@@ -155,7 +155,7 @@ public class PlayerController : MonoBehaviour, IDamage
         controller.Move((playerVel + pushDir) * Time.deltaTime);
 
         // Call shoot logic when the player presses the shoot button
-        if (Input.GetButton("Shoot") && gunList.Count > 0 && gunList[SelectGunPos].ammoCur > 0 && !isShooting&&!hasObject)
+        if (Input.GetButton("Shoot") && gunList.Count > 0 && gunList[SelectGunPos].ammoCur > 0 && !isShooting && !hasObject)
         {
             StartCoroutine(shoot());
         }
@@ -219,8 +219,14 @@ public class PlayerController : MonoBehaviour, IDamage
     // Handles the gunshot audio
     IEnumerator GunShot()
     {
-        gunShotNoise.loop = false;
-        gunShotNoise.Play();
+        //play gunshot from gunstats
+        if (gunShotNoise != null && gunList[SelectGunPos].shootSound.Length > 0)
+        {
+            gunShotNoise.clip = gunList[SelectGunPos].shootSound[0];
+            gunShotNoise.volume = gunList[SelectGunPos].shootVol;
+            gunShotNoise.loop = false;
+            gunShotNoise.Play();
+        }
         yield return null;
     }
 
@@ -379,7 +385,7 @@ public class PlayerController : MonoBehaviour, IDamage
             Debug.Log("Object Entered: " + objectToRetrieve.name);
             PickUpObject();                             //automatically picks up object
         }
-        else if (other.CompareTag("Drop Off")&&hasObject)
+        else if (other.CompareTag("Drop Off") && hasObject)
         {
             GameManager.instance.updateMiniGoal(1);
             DropOffObject();
@@ -402,7 +408,7 @@ public class PlayerController : MonoBehaviour, IDamage
     {
         if (objectToRetrieve != null)
         {
-           
+
             objectToRetrieve.transform.SetParent(null);             //unparent object
             Destroy(objectToRetrieve);                              //destroy object
             objectToRetrieve = null;                                //clear reference to object
