@@ -75,7 +75,7 @@ public class Seeker : MonoBehaviour
         foreach (var hitCollider in hitColliders)
         {
             //check if object is retrievable
-            if (hitCollider.CompareTag("Retrievable")&& hitCollider.gameObject.transform.parent == null)
+            if (hitCollider.CompareTag("Retrievable")&& hitCollider.gameObject.transform.parent==null)
             {
                 float distanceToObject = Vector3.Distance(transform.position, hitCollider.transform.position);
 
@@ -135,7 +135,7 @@ public class Seeker : MonoBehaviour
     //called to pick up object
     void PickUpObject()
     {
-        if (objectToRetrieve != null && !hasObject && objectToRetrieve.transform.position.y<floorHieght)
+        if (objectToRetrieve != null && !hasObject && objectToRetrieve.transform.position.y<2.01)
         {
             objectToRetrieve.transform.SetParent(transform);        //parents object to seeker
             objectToRetrieve.transform.localPosition = carryPosition.localPosition; //sets carry position
@@ -151,7 +151,7 @@ public class Seeker : MonoBehaviour
         {
             objectToRetrieve.transform.SetParent(null);             //unparent object
             Destroy(objectToRetrieve);                              //destroy object
-            objectToRetrieve = null;                                //clear reference to object
+           /* objectToRetrieve = null;  */                              //clear reference to object
             hasObject = false;                                      //update carrying status
 
             //we'll either update game goals for the enemy in game manager or UI manager
