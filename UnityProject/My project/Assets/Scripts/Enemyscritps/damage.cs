@@ -35,7 +35,7 @@ public class damage : MonoBehaviour
     // --- STATE TRACKING ---
     private bool isPlayerinField = false;    // Flag to track if the player is within the stationary damage field
     private Coroutine statDmgCoroutine;      // Reference to the stationary damage coroutine
-
+    public bool isRichochet=false;                 // to toggle destroy on collision defualt
     // Start is called before the first frame update
     void Start()
     {
@@ -147,6 +147,13 @@ public class damage : MonoBehaviour
         if (GameManager.instance.playerScript.getHP() <= 0 && statDmgCoroutine != null)
         {
             StopCoroutine(statDmgCoroutine);
+        }
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (!isRichochet)
+        {
+            Destroy(gameObject);
         }
     }
 }
