@@ -49,20 +49,7 @@ public class DialogueBrancher : MonoBehaviour
         if (playerInRange && Input.GetKeyUp(KeyCode.E) && manager.anim.GetBool("IsOpen") == false)
         {
             controller.enabled = false;
-            if (boolUnmetBrancher == null && boolMetBrancher == null)
-            {
-                TriggerDialogue();
-            }
-        }
-        // If the player presses Backspace while the dialogue is open, close it and free the player
-        else if (playerInRange && manager.anim.GetBool("IsOpen") == true && Input.GetKeyUp(KeyCode.Backspace))
-        {
-            controller.enabled = true;
-            manager.EndDialogue();
-        }
-        // Looks to see if the Dialogue Box is not open, and if so, lets the player move
-        else if (playerInRange && manager.anim.GetBool("IsOpen") == false)
-        {
+            TriggerDialogue();
         }
     }
     // On Player enter, let script know
