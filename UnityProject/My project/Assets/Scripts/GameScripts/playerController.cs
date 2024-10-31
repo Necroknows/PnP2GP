@@ -50,6 +50,11 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] GameObject muzzleFlash;
     [SerializeField] AudioSource gunShotNoise;      // Stores the sound for the gunshot
 
+    // --- INTERACTION ---
+    [SerializeField] float interactionRange;
+    public LayerMask interactionLayer;
+
+
     // --- DYNAMIC STATE VARIABLES ---
     Vector3 moveDir;      // Direction of player movement
     Vector3 playerVel;    // Player's velocity including vertical movement and push force
@@ -94,6 +99,9 @@ public class PlayerController : MonoBehaviour, IDamage
         // Draw a debug ray to visualize shooting direction
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.red);
 
+        //Handle player interaction with objects
+        HandleInteraction();
+
         // Perform movement and sprinting logic if the game is not paused
         if (!UIManager.Instance.isPaused)
         {
@@ -101,6 +109,35 @@ public class PlayerController : MonoBehaviour, IDamage
             selectGun();
         }
         sprint();
+    }
+
+    //Player Interaction
+    private void HandleInteraction()
+    {
+        if(Input.GetMouseButtonDown(0))
+        {
+            Ray ray = new Ray(transform.position, transform.forward); // Create a ray from the player's position to the forward direction
+            RaycastHit hit; // Store the hit information from the raycast
+
+            if(Physics.Raycast(ray, out hit, interactionRange, interactionLayer))
+            {
+                IInteractive interactable = hit.collider.GetComponent<IInteractive>();
+                if (interactable != null)
+                {
+                    interactable.Interact();
+                }
+                else
+                {
+                    Debug.Log("No interactable object found");
+                }
+
+            }
+        }
+    }
+
+    InventoryItem GetSelectedHerb()
+    {
+        return Inventory.instance.GetItems().Find(item => item.itemType == InventoryItem.ItemType.Herb);
     }
 
     void movement()
@@ -175,6 +212,8 @@ public class PlayerController : MonoBehaviour, IDamage
             //isSprinting = false;
         }
     }
+
+    
 
     // Shooting logic using a coroutine to manage shooting rate
     IEnumerator shoot()
