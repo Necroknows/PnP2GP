@@ -35,7 +35,7 @@ public class damage : MonoBehaviour
     // --- STATE TRACKING ---
     private bool isPlayerinField = false;    // Flag to track if the player is within the stationary damage field
     private Coroutine statDmgCoroutine;      // Reference to the stationary damage coroutine
-    public bool isRichochet=false;                 // to toggle destroy on collision defualt
+    public bool isRichochet = false;         // to toggle destroy on collision defualt
     // Start is called before the first frame update
     void Start()
     {
@@ -74,10 +74,11 @@ public class damage : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.isTrigger) return;
-       
-        if(hitEffect != null)
+
+        if (hitEffect != null)
         {
-            Instantiate(hitEffect, transform.position,Quaternion.identity);
+            StartCoroutine(ShowHit());
+       
         }
 
         IDamage dmg = other.GetComponent<IDamage>();
@@ -89,7 +90,7 @@ public class damage : MonoBehaviour
             {
                 isPlayerinField = true;
                 statDmgCoroutine = StartCoroutine(DealStationaryDamage(dmg));
-                
+
             }
             else
             {
@@ -134,6 +135,12 @@ public class damage : MonoBehaviour
             dmg.takeDamage(damageAmount, Vector3.up * force);  // Apply damage and push upwards
             yield return new WaitForSeconds(damageInterval);  // Wait for the next tick
         }
+    }
+    private IEnumerator ShowHit()
+    {
+       ParticleSystem hit= Instantiate(hitEffect, transform.position, Quaternion.identity);
+        yield return new WaitForSeconds(0.25f);
+        Destroy(hit );
     }
 
     // Update method to control chaser object movement towards the player

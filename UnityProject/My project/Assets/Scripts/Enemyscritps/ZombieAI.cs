@@ -59,6 +59,8 @@ public class ZombieAI : MonoBehaviour, IDamage
     // Handle movement and behavior logic each frame
     void Update()
     {
+        playerInRange = true;
+        
         ani.SetFloat("Speed", agent.velocity.normalized.magnitude); // Update animation speed based on movement
 
         if (playerInRange && !canSeePlayer())
@@ -104,6 +106,10 @@ public class ZombieAI : MonoBehaviour, IDamage
     // Check if the enemy can see the player based on raycasting and angle
     bool canSeePlayer()
     {
+        if (isBoss)
+        {
+            return true;
+        }
         playerDir = GameManager.instance.player.transform.position - headPos.position;
         angleToPlayer = Vector3.Angle(playerDir, transform.forward);
 
