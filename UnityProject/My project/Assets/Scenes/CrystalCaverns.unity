@@ -1347,6 +1347,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 484bf69c410cb0c4f8d0cad1ff0d85bc, type: 3}
+--- !u!1001 &698953242
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4351341233817418273, guid: e443c1f6f826cd348a4ee0bc0ea7508d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -17.197037
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351341233817418273, guid: e443c1f6f826cd348a4ee0bc0ea7508d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.663
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351341233817418273, guid: e443c1f6f826cd348a4ee0bc0ea7508d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351341233817418273, guid: e443c1f6f826cd348a4ee0bc0ea7508d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.58236635
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351341233817418273, guid: e443c1f6f826cd348a4ee0bc0ea7508d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.42412105
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351341233817418273, guid: e443c1f6f826cd348a4ee0bc0ea7508d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.6742052
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351341233817418273, guid: e443c1f6f826cd348a4ee0bc0ea7508d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.16253673
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351341233817418273, guid: e443c1f6f826cd348a4ee0bc0ea7508d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -45.492
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351341233817418273, guid: e443c1f6f826cd348a4ee0bc0ea7508d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -112.553
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351341233817418273, guid: e443c1f6f826cd348a4ee0bc0ea7508d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 33.076
+      objectReference: {fileID: 0}
+    - target: {fileID: 5927704000643706460, guid: e443c1f6f826cd348a4ee0bc0ea7508d, type: 3}
+      propertyPath: m_Name
+      value: Spellbook-ShadowBullet
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e443c1f6f826cd348a4ee0bc0ea7508d, type: 3}
 --- !u!4 &699955505 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4237741520885958, guid: 8ad137f6808375f4e885d60451f0c4fc, type: 3}
@@ -3730,7 +3787,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 960101654037087676, guid: 6fe77b0ff36476b4295e2a9c7cc6b0bf, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1644797822983465360, guid: 6fe77b0ff36476b4295e2a9c7cc6b0bf, type: 3}
       propertyPath: m_LocalScale.x
@@ -4077,3 +4134,4 @@ SceneRoots:
   - {fileID: 5066826987607416642}
   - {fileID: 433605285}
   - {fileID: 627607153}
+  - {fileID: 698953242}
