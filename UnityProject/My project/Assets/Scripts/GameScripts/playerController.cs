@@ -50,10 +50,10 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] GameObject muzzleFlash;
     [SerializeField] AudioSource gunShotNoise;      // Stores the sound for the gunshot
 
-    // --- INTERACTION ---
+    // --- INTERACTION & INVENTORY ---
     [SerializeField] float interactionRange;
     public LayerMask interactionLayer;
-
+    Inventory inventory = Inventory.instance;
 
     // --- DYNAMIC STATE VARIABLES ---
     Vector3 moveDir;      // Direction of player movement

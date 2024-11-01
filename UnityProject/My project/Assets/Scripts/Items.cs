@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]
 
 public class InventoryItem : ScriptableObject
 {
@@ -16,9 +15,8 @@ public class InventoryItem : ScriptableObject
     public enum ItemType
     {
         Herb,       //Unaltered, found in the wild
+        Ingredient, //Herb that has been prepared
         Potion,     //Completed brew
-        Alcohol,    //Base ingredient
-        Ingredient, //Herb/item that has been prepared
+        Weapon,     //Weapon
     }
-
 }//END
