@@ -51,6 +51,11 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] GameObject muzzleFlash;
     [SerializeField] AudioSource gunShotNoise;      // Stores the sound for the gunshot
 
+    // --- INTERACTION & INVENTORY ---
+    [SerializeField] float interactionRange;
+    public LayerMask interactionLayer;
+    Inventory inventory = Inventory.instance;
+
     // --- DYNAMIC STATE VARIABLES ---
     Vector3 moveDir;      // Direction of player movement
     Vector3 playerVel;    // Player's velocity including vertical movement and push force
@@ -75,7 +80,8 @@ public class PlayerController : MonoBehaviour, IDamage
         fuel = 0;                // sets starting fuel to 0 
         gunShotNoise.playOnAwake = false;   // Ensures audio does not play immediately, still make sure it is checked as false in audio component
         updatePlayerUI();      // Initialize player UI
-        spawnPlayer();         // DropPlayer at SpawnPos 
+        spawnPlayer();         // DropPlayer at SpawnPos
+        inventory = Inventory.instance; // Get the inventory instance
     }
     public void spawnPlayer()
     {
@@ -94,16 +100,44 @@ public class PlayerController : MonoBehaviour, IDamage
     {
         // Draw a debug ray to visualize shooting direction
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.red);
-
+        
         // Perform movement and sprinting logic if the game is not paused
         if (!UIManager.Instance.isPaused)
         {
             movement();
             selectGun();
+            HandleInteraction();
         }
         sprint();
         //ItemBounce();
 
+    }
+
+    //Player Interaction
+    private void HandleInteraction()
+    {
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            
+            RaycastHit hit;
+
+            if(Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, interactionRange, interactionLayer))
+            {
+                //check if hit object has pickups component
+                Pickups pickup = hit.collider.GetComponent<Pickups>();
+                if(pickup != null)
+                {
+                    //call interact method
+                    pickup.Interact();
+                }
+
+            }
+        }
+    }
+
+    InventoryItem GetSelectedHerb()
+    {
+        return Inventory.instance.GetItems().Find(item => item.itemType == InventoryItem.ItemType.Herb);
     }
 
     void movement()
