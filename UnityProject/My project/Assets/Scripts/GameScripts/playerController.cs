@@ -40,7 +40,8 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] int AmmoMax;        // Maximum ammo capacity
     [SerializeField] float fuel;         // Jetpack fuel amount
     [SerializeField] float fuelmax;        // Maximum fuel amount for jetpack
-
+    //[SerializeField] float hoverSpeed;    // for item hover 
+    //[SerializeField] float hoverRange;
     // --- WEAPON STATS AND SHOOTING ---
     [SerializeField] List<GunStats> gunList = new List<GunStats>();
     [SerializeField] float shootRate;    // Rate of fire (time between shots)
@@ -101,6 +102,8 @@ public class PlayerController : MonoBehaviour, IDamage
             selectGun();
         }
         sprint();
+        //ItemBounce();
+
     }
 
     void movement()
@@ -420,4 +423,13 @@ public class PlayerController : MonoBehaviour, IDamage
             Debug.Log("Object Dropped Off");
         }
     }
+    //IEnumerator ItemBounce()
+    //{
+    //    //gunHolderTransform
+    //   Vector3 startPos = gunModel.transform.position;
+    //    // Hovering animation logic
+    //    float newY = startPos.y + Mathf.Sin(Time.time * hoverSpeed) * (hoverRange / 2);
+    //    transform.position = new Vector3(startPos.x, newY, startPos.z);
+    //    yield return null;
+    //}
 }
