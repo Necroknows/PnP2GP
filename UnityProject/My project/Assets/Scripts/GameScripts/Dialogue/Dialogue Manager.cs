@@ -19,6 +19,7 @@ public class DialogueManager : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI nameText;
     [SerializeField] TextMeshProUGUI lineText;
+    PlayerController controller;
 
     public Animator anim;
 
@@ -29,6 +30,25 @@ public class DialogueManager : MonoBehaviour
     {
         lines = new Queue<string>();
         instance = this;
+    }
+
+    private void Start()
+    {
+        controller = FindObjectOfType<PlayerController>();
+    }
+
+    private void Update()
+    {
+        // If the player presses Backspace while the dialogue is open, close it and free the player
+        if (anim.GetBool("IsOpen") == true && Input.GetKeyUp(KeyCode.E))
+        {
+            controller.enabled = true;
+            DisplayNextSentence();
+        }
+        else if (anim.GetBool("IsOpen") == true && Input.GetKeyUp(KeyCode.Backspace))
+        {
+            EndDialogue();
+        }
     }
 
     public void StartDialogue(Dialogue dialogue)
@@ -46,7 +66,7 @@ public class DialogueManager : MonoBehaviour
             lines.Enqueue(line);
         }
 
-        DisplayNextSentence();
+        //DisplayNextSentence();
 
     }
 
