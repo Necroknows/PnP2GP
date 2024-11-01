@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PickupItems : MonoBehaviour, IInteractive
+public class PickupItems : MonoBehaviour//, IInteractive
 {
-    public InventoryItem itemData;  //ref to item scriptable object
+/*    public InventoryItem itemData;  //ref to item scriptable object
 
     public string pickupMessage = "Press LMB to pick up";
     public string pickupMessage2 = "Picked up";
@@ -24,6 +24,6 @@ public class PickupItems : MonoBehaviour, IInteractive
             Debug.LogWarning("No item data assigned to this pickup");
         }
     }
-
+*/
 
 }//END

@@ -80,7 +80,8 @@ public class PlayerController : MonoBehaviour, IDamage
         fuel = 0;                // sets starting fuel to 0 
         gunShotNoise.playOnAwake = false;   // Ensures audio does not play immediately, still make sure it is checked as false in audio component
         updatePlayerUI();      // Initialize player UI
-        spawnPlayer();         // DropPlayer at SpawnPos 
+        spawnPlayer();         // DropPlayer at SpawnPos
+        inventory = Inventory.instance; // Get the inventory instance
     }
     public void spawnPlayer()
     {
@@ -99,15 +100,13 @@ public class PlayerController : MonoBehaviour, IDamage
     {
         // Draw a debug ray to visualize shooting direction
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.red);
-
-        //Handle player interaction with objects
-        HandleInteraction();
-
+        
         // Perform movement and sprinting logic if the game is not paused
         if (!UIManager.Instance.isPaused)
         {
             movement();
             selectGun();
+            HandleInteraction();
         }
         sprint();
         //ItemBounce();
@@ -117,21 +116,19 @@ public class PlayerController : MonoBehaviour, IDamage
     //Player Interaction
     private void HandleInteraction()
     {
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetKeyDown(KeyCode.E))
         {
-            Ray ray = new Ray(transform.position, transform.forward); // Create a ray from the player's position to the forward direction
-            RaycastHit hit; // Store the hit information from the raycast
+            
+            RaycastHit hit;
 
-            if(Physics.Raycast(ray, out hit, interactionRange, interactionLayer))
+            if(Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, interactionRange, interactionLayer))
             {
-                IInteractive interactable = hit.collider.GetComponent<IInteractive>();
-                if (interactable != null)
+                //check if hit object has pickups component
+                Pickups pickup = hit.collider.GetComponent<Pickups>();
+                if(pickup != null)
                 {
-                    interactable.Interact();
-                }
-                else
-                {
-                    Debug.Log("No interactable object found");
+                    //call interact method
+                    pickup.Interact();
                 }
 
             }
@@ -215,8 +212,6 @@ public class PlayerController : MonoBehaviour, IDamage
             //isSprinting = false;
         }
     }
-
-    
 
     // Shooting logic using a coroutine to manage shooting rate
     IEnumerator shoot()
