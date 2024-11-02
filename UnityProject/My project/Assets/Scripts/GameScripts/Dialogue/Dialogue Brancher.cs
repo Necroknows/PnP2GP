@@ -75,8 +75,8 @@ public class DialogueBrancher : MonoBehaviour
         if (boolUnmetBrancher == null && boolMetBrancher == null)
         {
             // If boolUnmetDialogue is the only valid choice
-            if ((boolUnmetDialogue != null && boolMetDialogue == null && !toBeChecked) || 
-                (boolUnmetDialogue != null && boolMetDialogue != null && !toBeChecked) || 
+            if ((boolUnmetDialogue != null && boolMetDialogue == null && !toBeChecked) ||
+                (boolUnmetDialogue != null && boolMetDialogue != null && !toBeChecked) ||
                 (boolUnmetDialogue != null && boolMetDialogue == null && toBeChecked))
             {
                 manager.StartDialogue(boolUnmetDialogue);
@@ -86,8 +86,8 @@ public class DialogueBrancher : MonoBehaviour
                 }
             }
             // If boolMetDialogue is the only valid choice
-            if ((boolUnmetDialogue == null && boolMetDialogue != null && !toBeChecked) || 
-                (boolUnmetDialogue != null && boolUnmetDialogue != null && toBeChecked) || 
+            if ((boolUnmetDialogue == null && boolMetDialogue != null && !toBeChecked) ||
+                (boolUnmetDialogue != null && boolUnmetDialogue != null && toBeChecked) ||
                 (boolUnmetDialogue == null && boolMetDialogue != null && toBeChecked))
             {
                 manager.StartDialogue(boolMetDialogue);
@@ -97,7 +97,7 @@ public class DialogueBrancher : MonoBehaviour
                 }
             }
             // If there is no valid choice
-            if ((boolUnmetDialogue == null && boolMetDialogue == null && !toBeChecked) || 
+            if ((boolUnmetDialogue == null && boolMetDialogue == null && !toBeChecked) ||
                 (boolUnmetDialogue == null && boolMetDialogue == null && toBeChecked))
             {
                 Debug.Log("No dialogue given.");
@@ -107,8 +107,8 @@ public class DialogueBrancher : MonoBehaviour
         else if (boolUnmetBrancher != null && boolMetBrancher == null)
         {
             // If boolUnmetBrancher is the only valid choice
-            if ((boolUnmetBrancher != null && boolMetDialogue == null && !toBeChecked) || 
-                (boolUnmetBrancher != null && boolMetDialogue != null && !toBeChecked) || 
+            if ((boolUnmetBrancher != null && boolMetDialogue == null && !toBeChecked) ||
+                (boolUnmetBrancher != null && boolMetDialogue != null && !toBeChecked) ||
                 (boolUnmetBrancher != null && boolMetDialogue == null && toBeChecked))
             {
                 // Recursive function call
@@ -119,8 +119,8 @@ public class DialogueBrancher : MonoBehaviour
                 }
             }
             // If boolMetDialogue is the only valid choice
-            if ((boolUnmetBrancher == null && boolMetDialogue != null && !toBeChecked) || 
-                (boolUnmetBrancher != null && boolMetDialogue != null && toBeChecked) || 
+            if ((boolUnmetBrancher == null && boolMetDialogue != null && !toBeChecked) ||
+                (boolUnmetBrancher != null && boolMetDialogue != null && toBeChecked) ||
                 (boolUnmetBrancher == null && boolMetDialogue != null && toBeChecked))
             {
                 manager.StartDialogue(boolMetDialogue);
@@ -130,7 +130,7 @@ public class DialogueBrancher : MonoBehaviour
                 }
             }
             // If there is no valid choice
-            if ((boolUnmetBrancher == null && boolMetDialogue == null && !toBeChecked) || 
+            if ((boolUnmetBrancher == null && boolMetDialogue == null && !toBeChecked) ||
                 (boolUnmetBrancher == null && boolMetDialogue == null && toBeChecked))
             {
                 Debug.Log("No dialogue given.");
@@ -140,8 +140,8 @@ public class DialogueBrancher : MonoBehaviour
         else if (boolUnmetBrancher == null && boolMetBrancher != null)
         {
             // If boolUnmetDialogue is the only valid choice
-            if ((boolUnmetDialogue != null && boolMetBrancher == null && !toBeChecked) || 
-                (boolUnmetDialogue != null && boolMetBrancher != null && !toBeChecked) || 
+            if ((boolUnmetDialogue != null && boolMetBrancher == null && !toBeChecked) ||
+                (boolUnmetDialogue != null && boolMetBrancher != null && !toBeChecked) ||
                 (boolUnmetDialogue != null && boolMetBrancher == null && toBeChecked))
             {
                 manager.StartDialogue(boolUnmetDialogue);
@@ -151,8 +151,8 @@ public class DialogueBrancher : MonoBehaviour
                 }
             }
             // If boolMetBrancher is the only valid choice
-            if ((boolUnmetDialogue == null && boolMetBrancher != null && !toBeChecked) || 
-                (boolUnmetDialogue != null && boolMetBrancher != null && toBeChecked) || 
+            if ((boolUnmetDialogue == null && boolMetBrancher != null && !toBeChecked) ||
+                (boolUnmetDialogue != null && boolMetBrancher != null && toBeChecked) ||
                 (boolUnmetDialogue == null && boolMetBrancher != null && toBeChecked))
             {
                 // Recursive function call
@@ -163,7 +163,7 @@ public class DialogueBrancher : MonoBehaviour
                 }
             }
             // If there is no valid choice
-            if ((boolUnmetDialogue == null && boolMetBrancher == null && !toBeChecked) || 
+            if ((boolUnmetDialogue == null && boolMetBrancher == null && !toBeChecked) ||
                 (boolUnmetDialogue == null && boolMetBrancher == null && toBeChecked))
             {
                 Debug.Log("No dialogue given.");
@@ -173,8 +173,8 @@ public class DialogueBrancher : MonoBehaviour
         else if (boolUnmetBrancher != null && boolMetBrancher != null)
         {
             // If boolUnmetBrancher is the only valid choice
-            if ((boolUnmetBrancher != null && boolMetBrancher == null && !toBeChecked) || 
-                (boolUnmetBrancher != null && boolMetBrancher != null && !toBeChecked) || 
+            if ((boolUnmetBrancher != null && boolMetBrancher == null && !toBeChecked) ||
+                (boolUnmetBrancher != null && boolMetBrancher != null && !toBeChecked) ||
                 (boolUnmetBrancher != null && boolMetBrancher == null && toBeChecked))
             {
                 // Recursive function call
@@ -185,8 +185,8 @@ public class DialogueBrancher : MonoBehaviour
                 }
             }
             // If boolMetBrancher is the only valid choice
-            if ((boolUnmetBrancher == null && boolMetBrancher != null && !toBeChecked) || 
-                (boolUnmetBrancher != null && boolMetBrancher != null && toBeChecked) || 
+            if ((boolUnmetBrancher == null && boolMetBrancher != null && !toBeChecked) ||
+                (boolUnmetBrancher != null && boolMetBrancher != null && toBeChecked) ||
                 (boolUnmetBrancher == null && boolMetBrancher != null && toBeChecked))
             {
                 // Recursive function call
@@ -197,7 +197,7 @@ public class DialogueBrancher : MonoBehaviour
                 }
             }
             // If there is no valid choice
-            if ((boolUnmetBrancher == null && boolMetBrancher == null && !toBeChecked) || 
+            if ((boolUnmetBrancher == null && boolMetBrancher == null && !toBeChecked) ||
                 (boolUnmetBrancher == null && boolMetBrancher == null && toBeChecked))
             {
                 Debug.Log("No dialogue given.");
@@ -214,7 +214,7 @@ public class DialogueBrancher : MonoBehaviour
         if (branch.boolUnmetBrancher == null && branch.boolMetBrancher == null)
         {
             // If boolUnmetDialogue is the only valid choice
-            if ((branch.boolUnmetDialogue != null && branch.boolMetDialogue == null && !branch.toBeChecked) || 
+            if ((branch.boolUnmetDialogue != null && branch.boolMetDialogue == null && !branch.toBeChecked) ||
                 (branch.boolUnmetDialogue != null && branch.boolMetDialogue != null && !branch.toBeChecked) ||
                 (branch.boolUnmetDialogue != null && branch.boolMetDialogue == null && branch.toBeChecked))
             {
@@ -225,7 +225,7 @@ public class DialogueBrancher : MonoBehaviour
                 }
             }
             // If boolMetDialogue is the only valid choice
-            if ((branch.boolUnmetDialogue == null && branch.boolMetDialogue != null && !branch.toBeChecked) || 
+            if ((branch.boolUnmetDialogue == null && branch.boolMetDialogue != null && !branch.toBeChecked) ||
                 (branch.boolUnmetDialogue != null && branch.boolMetDialogue != null && branch.toBeChecked) ||
                 (branch.boolUnmetDialogue == null && branch.boolMetDialogue != null && branch.toBeChecked))
             {
@@ -236,7 +236,7 @@ public class DialogueBrancher : MonoBehaviour
                 }
             }
             // If there is no valid choice
-            if ((branch.boolUnmetDialogue == null && branch.boolMetDialogue == null && !branch.toBeChecked) || 
+            if ((branch.boolUnmetDialogue == null && branch.boolMetDialogue == null && !branch.toBeChecked) ||
                 (branch.boolUnmetDialogue == null && branch.boolMetDialogue == null && branch.toBeChecked))
             {
                 Debug.Log("No dialogue given.");
@@ -246,7 +246,7 @@ public class DialogueBrancher : MonoBehaviour
         else if (boolUnmetBrancher != null && boolMetBrancher == null)
         {
             // If boolUnmetBrancher is the only valid choice
-            if ((branch.boolUnmetBrancher != null && branch.boolMetDialogue == null && !branch.toBeChecked) || 
+            if ((branch.boolUnmetBrancher != null && branch.boolMetDialogue == null && !branch.toBeChecked) ||
                 (branch.boolUnmetBrancher != null && branch.boolMetDialogue != null && !branch.toBeChecked) ||
                 (branch.boolUnmetBrancher != null && branch.boolMetDialogue == null && branch.toBeChecked))
             {
@@ -258,7 +258,7 @@ public class DialogueBrancher : MonoBehaviour
                 }
             }
             // If boolMetDialogue is the only valid choice
-            if ((branch.boolUnmetBrancher == null && branch.boolMetDialogue != null && !branch.toBeChecked) || 
+            if ((branch.boolUnmetBrancher == null && branch.boolMetDialogue != null && !branch.toBeChecked) ||
                 (branch.boolUnmetBrancher != null && branch.boolMetDialogue != null && branch.toBeChecked) ||
                 (branch.boolUnmetBrancher == null && branch.boolMetDialogue != null && branch.toBeChecked))
             {
@@ -269,7 +269,7 @@ public class DialogueBrancher : MonoBehaviour
                 }
             }
             // If there is no valid choice
-            if ((branch.boolUnmetBrancher == null && branch.boolMetDialogue == null && !branch.toBeChecked) || 
+            if ((branch.boolUnmetBrancher == null && branch.boolMetDialogue == null && !branch.toBeChecked) ||
                 (branch.boolUnmetBrancher == null && branch.boolMetDialogue == null && branch.toBeChecked))
             {
                 Debug.Log("No dialogue given.");
@@ -279,7 +279,7 @@ public class DialogueBrancher : MonoBehaviour
         else if (branch.boolUnmetBrancher == null && branch.boolMetBrancher != null)
         {
             // If boolUnmetDialogue is the only valid choice
-            if ((branch.boolUnmetDialogue != null && branch.boolMetBrancher == null && !branch.toBeChecked) || 
+            if ((branch.boolUnmetDialogue != null && branch.boolMetBrancher == null && !branch.toBeChecked) ||
                 (branch.boolUnmetDialogue != null && branch.boolMetBrancher != null && !branch.toBeChecked) ||
                 (branch.boolUnmetDialogue != null && branch.boolMetBrancher == null && branch.toBeChecked))
             {
@@ -290,7 +290,7 @@ public class DialogueBrancher : MonoBehaviour
                 }
             }
             // If boolMetBrancher is the only valid choice
-            if ((branch.boolUnmetDialogue == null && branch.boolMetBrancher != null && !branch.toBeChecked) || 
+            if ((branch.boolUnmetDialogue == null && branch.boolMetBrancher != null && !branch.toBeChecked) ||
                 (branch.boolUnmetDialogue != null && branch.boolMetBrancher != null && branch.toBeChecked) ||
                 (branch.boolUnmetDialogue == null && branch.boolMetBrancher != null && branch.toBeChecked))
             {
@@ -302,7 +302,7 @@ public class DialogueBrancher : MonoBehaviour
                 }
             }
             // If there is no valid choice
-            if ((branch.boolUnmetDialogue == null && branch.boolMetBrancher == null && !branch.toBeChecked) || 
+            if ((branch.boolUnmetDialogue == null && branch.boolMetBrancher == null && !branch.toBeChecked) ||
                 (branch.boolUnmetDialogue == null && branch.boolMetBrancher == null && branch.toBeChecked))
             {
                 Debug.Log("No dialogue given.");
@@ -312,7 +312,7 @@ public class DialogueBrancher : MonoBehaviour
         else if (branch.boolUnmetBrancher != null && branch.boolMetBrancher != null)
         {
             // If boolUnmetBrancher is the only valid choice
-            if ((branch.boolUnmetBrancher != null && branch.boolMetBrancher == null && !branch.toBeChecked) || 
+            if ((branch.boolUnmetBrancher != null && branch.boolMetBrancher == null && !branch.toBeChecked) ||
                 (branch.boolUnmetBrancher != null && branch.boolMetBrancher != null && !branch.toBeChecked) ||
                 (branch.boolUnmetBrancher != null && branch.boolMetBrancher == null && branch.toBeChecked))
             {
@@ -324,7 +324,7 @@ public class DialogueBrancher : MonoBehaviour
                 }
             }
             // If boolMetBrancher is the only valid choice
-            if ((branch.boolUnmetBrancher == null && branch.boolMetBrancher != null && !branch.toBeChecked) || 
+            if ((branch.boolUnmetBrancher == null && branch.boolMetBrancher != null && !branch.toBeChecked) ||
                 (branch.boolUnmetBrancher != null && branch.boolMetBrancher != null && branch.toBeChecked) ||
                 (branch.boolUnmetBrancher == null && branch.boolMetBrancher != null && branch.toBeChecked))
             {
@@ -336,7 +336,7 @@ public class DialogueBrancher : MonoBehaviour
                 }
             }
             // If there is no valid choice
-            if ((branch.boolUnmetBrancher == null && branch.boolMetBrancher == null && !branch.toBeChecked) || 
+            if ((branch.boolUnmetBrancher == null && branch.boolMetBrancher == null && !branch.toBeChecked) ||
                 (branch.boolUnmetBrancher == null && branch.boolMetBrancher == null && branch.toBeChecked))
             {
                 Debug.Log("No dialogue given.");
