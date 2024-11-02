@@ -124,10 +124,9 @@ public class NewEnemyAI : MonoBehaviour, IDamage
 
     private IEnumerator ClawAttack()
     {
-        if (!Claw)
-        {
-            Claw.SetActive(true);
-        }
+
+        Claw.SetActive(true);
+
         ani.SetTrigger("ClawAttackTrigger");
         yield return new WaitForSeconds(attackCooldown);
         isAttacking = false;

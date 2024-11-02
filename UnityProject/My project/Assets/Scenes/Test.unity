@@ -10620,13 +10620,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1705190436}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: 0.26901823, y: -0.69897664, z: 0.32593822, w: 0.5769101}
   m_LocalPosition: {x: -226.61278, y: -114.71658, z: -6.431627}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 50, y: -100.93, z: 0}
 --- !u!1001 &1789465555
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10922,10 +10922,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Creep1
       objectReference: {fileID: 0}
+    - target: {fileID: 3409084038302394624, guid: 1f8babb473c4c884d8a4414058776952, type: 3}
+      propertyPath: viewAngle
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 5946856105587024853, guid: 1f8babb473c4c884d8a4414058776952, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1346699095}
+    - target: {fileID: 5946856105587024853, guid: 1f8babb473c4c884d8a4414058776952, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: bc9dbcdd7e822b745a41fb39c77a9e9f, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

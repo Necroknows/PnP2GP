@@ -246,6 +246,7 @@ MonoBehaviour:
   ani: {fileID: 5309698794589794618}
   mouthPos: {fileID: 242417926521873984}
   headPos: {fileID: 549820970189325173}
+  Claw: {fileID: 5592390933085391959}
   HP: 3
   rotateSpeed: 120
   viewAngle: 120
@@ -1180,7 +1181,7 @@ GameObject:
   - component: {fileID: 4472516130070638312}
   - component: {fileID: 9074540423371410609}
   - component: {fileID: 1177441774703248898}
-  - component: {fileID: 4682851595741561949}
+  - component: {fileID: 8599540097445462272}
   m_Layer: 6
   m_Name: HitPoint
   m_TagString: Untagged
@@ -1251,8 +1252,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &4682851595741561949
-BoxCollider:
+--- !u!135 &8599540097445462272
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1270,7 +1271,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.02, y: 0.02, z: 0.02}
+  m_Radius: 0.03
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5630420993354972822
 GameObject:
