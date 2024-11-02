@@ -95,6 +95,25 @@ public class UIManager : MonoBehaviour
             menuActive = null;
         }
     }
+<<<<<<< Updated upstream
+=======
+
+    public void ToggleInventory()
+    {
+        //toggle inventory panel visibility
+        isInventoryOpen = !isInventoryOpen;
+        inventoryPanel.SetActive(isInventoryOpen);
+
+        //lock cursor when inventory is open
+        if(isInventoryOpen)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+    }
+
+
+>>>>>>> Stashed changes
     public void updateEnemyCount(int count)
     {
         // updated enmey count to display to tracker 
