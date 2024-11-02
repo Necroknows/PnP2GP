@@ -9,6 +9,8 @@ public class NewEnemyAI : MonoBehaviour, IDamage
     [SerializeField] private Animator ani;
     [SerializeField] private Transform mouthPos;  // Position from where ranged attacks are fired
     [SerializeField] private Transform headPos;   // Position for the sightline raycast
+    [SerializeField] private GameObject Claw;
+
 
     [SerializeField] private int HP;
     [SerializeField] private int rotateSpeed;
@@ -20,6 +22,7 @@ public class NewEnemyAI : MonoBehaviour, IDamage
     [SerializeField] private float clawAttackRange;  // Range for claw attack
     [SerializeField] private float attackCooldown;   // Time delay between attacks
     [SerializeField] private float deathTime;
+    [SerializeField] public float attackRange;
 
     private bool isAttacking = false;
     private bool playerInRange = false;
@@ -31,6 +34,7 @@ public class NewEnemyAI : MonoBehaviour, IDamage
 
     private void Start()
     {
+        Claw.SetActive(false);
         startingPos = transform.position;
         GameManager.instance.updateGameGoal(1); // Register with game goal
     }
@@ -70,11 +74,14 @@ public class NewEnemyAI : MonoBehaviour, IDamage
             isSniffing = false;
         }
 
+
+
         // Get a random roam point
         Vector3 randomPos = Random.insideUnitSphere * roamDist + startingPos;
         NavMeshHit hit;
         NavMesh.SamplePosition(randomPos, out hit, roamDist, 1);
         agent.SetDestination(hit.position);
+
 
         isRoaming = false;
     }
@@ -117,15 +124,20 @@ public class NewEnemyAI : MonoBehaviour, IDamage
 
     private IEnumerator ClawAttack()
     {
+        if (!Claw)
+        {
+            Claw.SetActive(true);
+        }
         ani.SetTrigger("ClawAttackTrigger");
         yield return new WaitForSeconds(attackCooldown);
         isAttacking = false;
+        Claw.SetActive(false);
     }
 
     private IEnumerator MouthAttack()
     {
         ani.SetTrigger("MouthAttackTrigger");
-        yield return new WaitForSeconds(0.5f);  // Sync timing with roar animation
+        yield return new WaitForSeconds(0.5f);
         Instantiate(projectile, mouthPos.position, transform.rotation);
         yield return new WaitForSeconds(attackCooldown);
         isAttacking = false;

@@ -106,7 +106,7 @@ public class PlayerController : MonoBehaviour, IDamage
         {
             movement();
             selectGun();
-            HandleInteraction();
+            //HandleInteraction();
         }
         sprint();
         //ItemBounce();
@@ -114,26 +114,26 @@ public class PlayerController : MonoBehaviour, IDamage
     }
 
     //Player Interaction
-    private void HandleInteraction()
-    {
-        if(Input.GetKeyDown(KeyCode.E))
-        {
+    //private void HandleInteraction()
+    //{
+    //    if(Input.GetKeyDown(KeyCode.E))
+    //    {
             
-            RaycastHit hit;
+    //        RaycastHit hit;
 
-            if(Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, interactionRange, interactionLayer))
-            {
-                //check if hit object has pickups component
-                Pickups pickup = hit.collider.GetComponent<Pickups>();
-                if(pickup != null)
-                {
-                    //call interact method
-                    pickup.Interact();
-                }
+    //        if(Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, interactionRange, interactionLayer))
+    //        {
+    //            //check if hit object has pickups component
+    //            Pickups pickup = hit.collider.GetComponent<Pickups>();
+    //            if(pickup != null)
+    //            {
+    //                //call interact method
+    //                pickup.Interact();
+    //            }
 
-            }
-        }
-    }
+    //        }
+    //    }
+    //}
 
     InventoryItem GetSelectedHerb()
     {
