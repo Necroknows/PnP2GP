@@ -42,7 +42,6 @@ public class DialogueManager : MonoBehaviour
         // If the player presses Backspace while the dialogue is open, close it and free the player
         if (anim.GetBool("IsOpen") == true && Input.GetKeyUp(KeyCode.E))
         {
-            controller.enabled = true;
             DisplayNextSentence();
         }
         else if (anim.GetBool("IsOpen") == true && Input.GetKeyUp(KeyCode.Backspace))
@@ -66,7 +65,7 @@ public class DialogueManager : MonoBehaviour
             lines.Enqueue(line);
         }
 
-        //DisplayNextSentence();
+        DisplayNextSentence();
 
     }
 
@@ -90,6 +89,7 @@ public class DialogueManager : MonoBehaviour
         Debug.Log("End of conversation.");
         StopAllCoroutines();
         anim.SetBool("IsOpen", false);
+        controller.enabled = true;
     }
 
     IEnumerator TypeLine(string line)

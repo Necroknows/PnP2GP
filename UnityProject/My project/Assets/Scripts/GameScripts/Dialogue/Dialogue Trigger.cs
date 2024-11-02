@@ -34,12 +34,13 @@ public class DialogueTrigger : MonoBehaviour
         {
             controller.enabled = false;
             TriggerDialogue();
+            playerInRange = false;
         }
     }
 
     public void TriggerDialogue()
     {
-        FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
+        manager.StartDialogue(dialogue);
     }
 
     // On Player enter, let script know
@@ -54,9 +55,10 @@ public class DialogueTrigger : MonoBehaviour
     // On Player exit, let script know
     private void OnTriggerExit(Collider other)
     {
-        if (other.GetComponent<PlayerController>() != null)
+        if (other.GetComponent<PlayerController>() == controller)
         {
             playerInRange = false;
+            manager.EndDialogue();
         }
     }
 }
