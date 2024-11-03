@@ -38,6 +38,20 @@ public class ButtonFunctions : MonoBehaviour
         SceneManager.LoadScene(0);
         UIManager.Instance.UnpauseGame();
     }
+    //Save to bed method.
+    public void SaveToBed()
+    {//Updates playerSpawnPOS to bed.
+        GameManager.instance.playerSpawnPOS.transform.position = GameManager.instance.bedPosition;
+     //Displays save confirmation.
+        UIManager.Instance.checkpointPopup.SetActive(true);
+        StartCoroutine(HideCheckpointPopupAfterDelay());
+    }
+    //Hides popup after delay.
+    IEnumerator HideCheckpointPopupAfterDelay()
+    {
+        yield return new WaitForSeconds(1.5f);
+        UIManager.Instance.checkpointPopup.SetActive(false);
+    }
 
     public void quit()
 {
