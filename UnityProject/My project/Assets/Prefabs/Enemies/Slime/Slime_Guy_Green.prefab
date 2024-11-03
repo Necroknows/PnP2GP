@@ -74,17 +74,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1341983700496706374}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20a89c0dcb4a89643b4cacc26787f7ba, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f1406c0864255d45b7f4874953f0e22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 1
+  type: 5
   rb: {fileID: 260713664086497584}
-  damageAmount: 2
+  damageAmount: 1
   speed: 0
   destroyTime: 0
-  damageInterval: 0.75
-  force: 0
+  damageInterval: 0
+  force: 3
   hitEffect: {fileID: 0}
+  isRichochet: 0
 --- !u!136 &7731999023187535522
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -558,14 +559,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 6479610186762126516}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 530ca0d41b267004bb4b22481f746f92, type: 3}
+  m_Script: {fileID: 11500000, guid: 58498e87d1c3211498c1168ea7a403d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 4176613149856435502}
+  agent: {fileID: 0}
   model: {fileID: 234919615024840393}
-  HP: 3
-  rotateSpeed: 10
-  viewAngle: 100
+  HP: 0
+  rotateSpeed: 0
+  viewAngle: 0
   faces: {fileID: 11400000, guid: 8b8a7554fceb39841840f45a2d8da540, type: 2}
   SmileBody: {fileID: 4587139802925562382}
   currentState: 0
