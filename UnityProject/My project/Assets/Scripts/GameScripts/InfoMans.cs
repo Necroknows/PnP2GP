@@ -25,13 +25,16 @@ public class InfoMans : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // pop up is hidden on start 
-        tutorialPopUp.SetActive(false);
+        if (tutorialPopUp != null)
+        {
+            // pop up is hidden on start 
+            tutorialPopUp.SetActive(false);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && tutorialPopUp != null)
         {
             ShowTutorial();
             if (isAnimated)
@@ -41,10 +44,13 @@ public class InfoMans : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        HideTutorial();
-        if(isAnimated)
+        if (tutorialPopUp != null)
         {
-            anim.SetTrigger("PlayerLeave");
+            HideTutorial();
+            if (isAnimated)
+            {
+                anim.SetTrigger("PlayerLeave");
+            }
         }
     }
     // Update is called once per frame

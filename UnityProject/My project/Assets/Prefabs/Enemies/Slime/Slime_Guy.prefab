@@ -42,17 +42,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 2863510045766279563}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20a89c0dcb4a89643b4cacc26787f7ba, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f1406c0864255d45b7f4874953f0e22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 1
+  type: 5
   rb: {fileID: 2938165708318876366}
-  damageAmount: 2
+  damageAmount: 1
   speed: 0
   destroyTime: 0
-  damageInterval: 0.75
-  force: 0
+  damageInterval: 0.5
+  force: 5
   hitEffect: {fileID: 0}
+  isRichochet: 0
 --- !u!65 &7972033643661602987
 BoxCollider:
   m_ObjectHideFlags: 0

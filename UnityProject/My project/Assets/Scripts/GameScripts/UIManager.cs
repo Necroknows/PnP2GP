@@ -21,6 +21,11 @@ public class UIManager : MonoBehaviour
     public GameObject checkpointPopup;
     public PlayerController playerCont;
 
+    //=== PLAYER INVENTORY ===
+    public GameObject inventoryPanel;           //sets inventory panel
+    public KeyCode inventoryKey = KeyCode.I;       //sets key for inventory panel
+    private bool isInventoryOpen = false;       //checks if inventory is open
+    
     public Image pumpkinFill;
     public Image playerHpBar;
     public Image playerFuelBar;
@@ -38,6 +43,11 @@ public class UIManager : MonoBehaviour
     {
         playerCont=FindObjectOfType<PlayerController>();
        
+        //hide inventory on start
+        if(inventoryPanel != null)
+        {
+            inventoryPanel.SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -63,6 +73,12 @@ public class UIManager : MonoBehaviour
             int ammoCount = playerCont.GetAmmo();
             ammoCountText.text = ammoCount.ToString();
             pumpkinCountText.text=GameManager.instance.GetPlayerScore().ToString();
+        }
+
+        //on I key
+        if(Input.GetKeyDown(inventoryKey))
+        {
+            ToggleInventory();
         }
         
     }
@@ -96,6 +112,15 @@ public class UIManager : MonoBehaviour
             menuActive = null;
         }
     }
+
+    public void ToggleInventory()
+    {
+        //toggle inventory panel visibility
+        isInventoryOpen = !isInventoryOpen;
+        inventoryPanel.SetActive(isInventoryOpen);
+    }
+
+
     public void updateEnemyCount(int count)
     {
         // updated enmey count to display to tracker 

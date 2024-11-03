@@ -632,6 +632,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5469114087579289540, guid: e5b4de8ec8584254cb7b0cac392543de, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 104.8999
+      objectReference: {fileID: 0}
+    - target: {fileID: 5469114087579289540, guid: e5b4de8ec8584254cb7b0cac392543de, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 114.69995
+      objectReference: {fileID: 0}
     - target: {fileID: 7079812504232385278, guid: e5b4de8ec8584254cb7b0cac392543de, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1398,6 +1406,14 @@ PrefabInstance:
     - target: {fileID: 5927704000643706460, guid: e443c1f6f826cd348a4ee0bc0ea7508d, type: 3}
       propertyPath: m_Name
       value: Spellbook-ShadowBullet
+      objectReference: {fileID: 0}
+    - target: {fileID: 8341548735135155979, guid: e443c1f6f826cd348a4ee0bc0ea7508d, type: 3}
+      propertyPath: gun
+      value: 
+      objectReference: {fileID: 11400000, guid: 576f145a2471e624698febfc42beff3c, type: 2}
+    - target: {fileID: 8341548735135155979, guid: e443c1f6f826cd348a4ee0bc0ea7508d, type: 3}
+      propertyPath: pickupType
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3849,6 +3865,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: -851506137877018919, guid: 33008c432a7348145bf33a979a3b214a, type: 3}
+    - target: {fileID: 2513610731545503641, guid: 6fe77b0ff36476b4295e2a9c7cc6b0bf, type: 3}
+      propertyPath: ignoreMask.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3367535090507536906, guid: 6fe77b0ff36476b4295e2a9c7cc6b0bf, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
       value: 0.20274118

@@ -19,7 +19,7 @@ using UnityEngine;
 
 public class damage : MonoBehaviour
 {
-    [SerializeField] enum damageType { bullet, stationary, chaser, arrow, lobber };  // Enum defining the various damage types
+    [SerializeField] enum damageType { bullet, stationary, chaser, arrow, lobber, melee };  // Enum defining the various damage types
 
     // --- COMPONENT REFERENCES ---
     [SerializeField] damageType type;        // Current damage type of this object
@@ -92,11 +92,27 @@ public class damage : MonoBehaviour
                 statDmgCoroutine = StartCoroutine(DealStationaryDamage(dmg));
 
             }
+            else if(type==damageType.melee)
+            {
+
+                // Apply damage and push force based on object type
+                Vector3 targetPOS = GameManager.instance.player.transform.position;
+               Vector3 playerDir= (targetPOS - transform.parent.position).normalized; 
+
+                if (force>0)
+                {
+                    dmg.takeDamage(damageAmount, (playerDir * force));
+                }
+                else
+                {
+                    dmg.takeDamage(damageAmount,Vector3.zero);
+                }
+            }
             else
             {
                 // Apply damage and push force based on object type
                 Vector3 targetPOS = GameManager.instance.player.transform.position;
-                Vector3 playerDir = (targetPOS - transform.position).normalized;
+                Vector3 playerDir = (targetPOS - transform.position);
 
                 if (force > 0)
                 {
