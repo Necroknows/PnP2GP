@@ -45,16 +45,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1234295489867055940}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20a89c0dcb4a89643b4cacc26787f7ba, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f1406c0864255d45b7f4874953f0e22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
   rb: {fileID: 197326055467500306}
   damageAmount: 1
-  speed: 5
-  destroyTime: 6
-  damageInterval: 0.25
-  force: 0
+  speed: 15
+  destroyTime: 0
+  damageInterval: 0
+  force: 2
+  hitEffect: {fileID: 0}
+  isRichochet: 0
 --- !u!33 &3415386019841959477
 MeshFilter:
   m_ObjectHideFlags: 0
