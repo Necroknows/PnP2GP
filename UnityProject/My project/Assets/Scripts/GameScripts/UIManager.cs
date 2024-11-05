@@ -23,7 +23,7 @@ public class UIManager : MonoBehaviour
 
     //=== PLAYER INVENTORY ===
     public GameObject inventoryPanel;           //sets inventory panel
-    public KeyCode inventoryKey = KeyCode.I;       //sets key for inventory panel
+    public KeyCode interactKey = KeyCode.E;       //sets key for interact
     private bool isInventoryOpen = false;       //checks if inventory is open
     
     public Image pumpkinFill;
@@ -41,12 +41,6 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         playerCont=FindObjectOfType<PlayerController>();
-       
-        //hide inventory on start
-        if(inventoryPanel != null)
-        {
-            inventoryPanel.SetActive(false);
-        }
     }
 
     // Update is called once per frame
@@ -74,11 +68,8 @@ public class UIManager : MonoBehaviour
             pumpkinCountText.text=GameManager.instance.GetPlayerScore().ToString();
         }
 
-        //on I key
-        if(Input.GetKeyDown(inventoryKey))
-        {
-            ToggleInventory();
-        }
+        //on E key
+        
         
     }
     public void PauseGame()
@@ -96,6 +87,7 @@ public class UIManager : MonoBehaviour
         menuActive = menuPause;
         menuActive.SetActive(true);
     }
+    
     public void UnpauseGame()
     { // return to original timescale
         Time.timeScale = timescale;
@@ -112,25 +104,19 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void ToggleInventory()
-    {
-        //toggle inventory panel visibility
-        isInventoryOpen = !isInventoryOpen;
-        inventoryPanel.SetActive(isInventoryOpen);
-    }
-
-
     public void updateEnemyCount(int count)
     {
         // updated enmey count to display to tracker 
         enemyCountText.text = count.ToString();
     }
+    
     public void UpdatePlayerHealthBar(float healthFraction)
     {
         healthFraction = Mathf.Clamp01(GameManager.instance.playerScript.getHP()/ GameManager.instance.playerScript.getHPOrig());
         // fills per fraction of health 
         playerHpBar.fillAmount = healthFraction;
     }
+    
     public void UpdatePumpkinFill()
     {
         // Get the current player's score and goal score
@@ -143,12 +129,14 @@ public class UIManager : MonoBehaviour
         // Update the fill amount for the pumpkin UI element
         pumpkinFill.fillAmount = fillFraction;  // Directly set the fill amount
     }
+    
     public void UpdatePlayerFuelBar(float fuelFraction)
     {
         fuelFraction = Mathf.Clamp01(GameManager.instance.playerScript.GetFuel() / GameManager.instance.playerScript.GetFuelMax());
         //Fill the FuelCan icon by fraction of fuel
        playerFuelBar.fillAmount = fuelFraction;
     }
+    
     public void ShowWinScreen()
     {
         // pause game 
@@ -164,6 +152,7 @@ public class UIManager : MonoBehaviour
         menuActive.SetActive(true);
 
     }
+    
     public void ShowLoseScreen()
     {
         // pause game 
@@ -178,6 +167,7 @@ public class UIManager : MonoBehaviour
         menuActive.SetActive(true);
 
     }
+    
     public void CloseMenu()
     {
         if (menuActive != null)
@@ -190,3 +180,4 @@ public class UIManager : MonoBehaviour
 
    
 }
+//END

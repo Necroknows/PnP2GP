@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class ItemPickup : MonoBehaviour
@@ -7,7 +8,7 @@ public class ItemPickup : MonoBehaviour
     public Item item;
     private bool isPickedUp = false;        //check if item is picked up
 
-    void Pickup()
+void Pickup()
     {
         Debug.Log("Attempting item pick up" + item.itemName);
 
@@ -26,7 +27,6 @@ public class ItemPickup : MonoBehaviour
             
             Debug.Log("Item picked up" + item.itemName);
 
-            //InventoryManager.instance.ListItems();      //update inventory UI
             Destroy(gameObject);
         }
         else
