@@ -52,7 +52,7 @@ MonoBehaviour:
   type: 0
   rb: {fileID: 484106046455049338}
   damageAmount: 2
-  speed: 0
+  speed: 60
   destroyTime: 5
   damageInterval: 0
   force: 1
@@ -148,7 +148,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
