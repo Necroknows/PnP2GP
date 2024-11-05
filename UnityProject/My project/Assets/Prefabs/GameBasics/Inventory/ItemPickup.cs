@@ -8,7 +8,14 @@ public class ItemPickup : MonoBehaviour
     public Item item;
     private bool isPickedUp = false;        //check if item is picked up
 
-void Pickup()
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.E) && !isPickedUp)
+        {
+            Pickup();
+        }
+    }
+    public void Pickup()
     {
         Debug.Log("Attempting item pick up" + item.itemName);
 
@@ -33,11 +40,6 @@ void Pickup()
         {
             Debug.Log("Item already picked up" + item.itemName);
         }
-    }
-
-    private void OnMouseDown()
-    {
-        Pickup();
     }
 }
 //END

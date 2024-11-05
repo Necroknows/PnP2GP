@@ -55,7 +55,6 @@ public class InventoryManager : MonoBehaviour
         currentSelectedItem = (currentSelectedItem + 1) % Items.Count;
     }
 
-
     public void HighlightSelected()
     {
         //loop thru item instances in UI and set scale

@@ -52,9 +52,11 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] AudioSource gunShotNoise;      // Stores the sound for the gunshot
 
     // --- INTERACTION & INVENTORY ---
-    [SerializeField] float interactionRange;
+    //[SerializeField] float interactionRange;
     public LayerMask interactionLayer;
     Inventory inventory = Inventory.instance;
+    public KeyCode interactKey = KeyCode.E;
+    [SerializeField] GameObject objectToRetrieve;
 
     // --- DYNAMIC STATE VARIABLES ---
     Vector3 moveDir;      // Direction of player movement
@@ -68,7 +70,7 @@ public class PlayerController : MonoBehaviour, IDamage
     /*bool isSprinting;*/     // Is the player currently sprinting          //// future use ... make sure to uncomment in Sprint()
     bool isShooting;      // Is the player currently shooting
     bool isjumping;       // Is the player currently jumping
-    [SerializeField] GameObject objectToRetrieve;
+
     public Transform carryPosition;
     private bool hasObject;
 
@@ -100,40 +102,34 @@ public class PlayerController : MonoBehaviour, IDamage
     {
         // Draw a debug ray to visualize shooting direction
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.red);
-        
+
         // Perform movement and sprinting logic if the game is not paused
         if (!UIManager.Instance.isPaused)
         {
             movement();
             selectGun();
-            //HandleInteraction();
+            if (objectToRetrieve != null && Input.GetKeyDown(interactKey))
+            { HandleInteraction(); }
         }
         sprint();
         //ItemBounce();
-
     }
 
     //Player Interaction
-    //private void HandleInteraction()
-    //{
-    //    if(Input.GetKeyDown(KeyCode.E))
-    //    {
-            
-    //        RaycastHit hit;
+    private void HandleInteraction()
+    {
+        if (objectToRetrieve != null)
+        {
+            ItemPickup itemPickup = objectToRetrieve.GetComponent<ItemPickup>();
 
-    //        if(Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, interactionRange, interactionLayer))
-    //        {
-    //            //check if hit object has pickups component
-    //            Pickups pickup = hit.collider.GetComponent<Pickups>();
-    //            if(pickup != null)
-    //            {
-    //                //call interact method
-    //                pickup.Interact();
-    //            }
-
-    //        }
-    //    }
-    //}
+            if (itemPickup != null)
+            {
+                itemPickup.Pickup();        //call pickup() from ItemPickup
+                Debug.Log("Object Retrieved " + objectToRetrieve.name);
+            }
+            objectToRetrieve = null;    //clear reference to object
+        }
+    }
 
     InventoryItem GetSelectedHerb()
     {
@@ -179,7 +175,7 @@ public class PlayerController : MonoBehaviour, IDamage
         {
             if (Input.GetKey(KeyCode.F))
             {
-                playerVel.y = (jumpSpeed/2)+2;  // Apply vertical velocity for flight
+                playerVel.y = (jumpSpeed / 2) + 2;  // Apply vertical velocity for flight
                 fuel -= Time.deltaTime;   // Reduce fuel during flight
                 updatePlayerUI();         // Update UI with remaining fuel
             }
@@ -345,6 +341,7 @@ public class PlayerController : MonoBehaviour, IDamage
             gunList[SelectGunPos].ammoCur = gunList[SelectGunPos].ammoMax;  // Prevent ammo from exceeding maximum capacity
         }
     }
+
     public void getGunStats(GunStats gun)
     {
         // Set the stats for shooting
@@ -360,6 +357,7 @@ public class PlayerController : MonoBehaviour, IDamage
 
 
     }
+
     void selectGun()
     {
         if (Input.GetAxis("Mouse ScrollWheel") > 0 && SelectGunPos < gunList.Count - 1)
@@ -373,6 +371,7 @@ public class PlayerController : MonoBehaviour, IDamage
             WeaponSwap();
         }
     }
+
     void WeaponSwap()
     {
 
@@ -383,10 +382,12 @@ public class PlayerController : MonoBehaviour, IDamage
         gunModel.GetComponent<MeshFilter>().sharedMesh = gunList[SelectGunPos].gunModel.GetComponent<MeshFilter>().sharedMesh;
         gunModel.GetComponent<MeshRenderer>().sharedMaterial = gunList[SelectGunPos].gunModel.GetComponent<MeshRenderer>().sharedMaterial;
     }
+
     public List<GunStats> GetGuns()
     {
         return gunList;
     }
+
     public GunStats GetGunCurr()
     {
         if (gunList.Count > 0)
@@ -414,49 +415,25 @@ public class PlayerController : MonoBehaviour, IDamage
             fuel = fuelmax;
         }
     }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Retrievable") && !hasObject&& other.transform.parent==null)
+        if (other.CompareTag("Retrievable") && objectToRetrieve == null)
         {
             objectToRetrieve = other.gameObject;        //assigns detected object to objectToRetrieve
             Debug.Log("Object Entered: " + objectToRetrieve.name);
-            PickUpObject();                             //automatically picks up object
-        }
-        else if (other.CompareTag("Drop Off") && hasObject)
-        {
-            GameManager.instance.updateMiniGoal(1);
-            DropOffObject();
         }
     }
-    //called to pick up object
-    void PickUpObject()
+
+    private void OnTriggerExit(Collider other)
     {
-        if (objectToRetrieve != null && !hasObject)
+        if (other.CompareTag("Retrievable") && objectToRetrieve == other.gameObject)
         {
-            objectToRetrieve.transform.SetParent(transform);        //parents object to seeker
-            objectToRetrieve.transform.localPosition = carryPosition.transform.localPosition; //sets carry position
-            hasObject = true;                                       //updates carry status
-            Debug.Log("Object Retrieved" + objectToRetrieve.name);
+            Debug.Log("Object Exited " + objectToRetrieve.name);
+            objectToRetrieve = null;    //resets oTR to null if player leaves range
         }
     }
 
-    //called to drop off object
-    void DropOffObject()
-    {
-        if (objectToRetrieve != null)
-        {
-
-            objectToRetrieve.transform.SetParent(null);             //unparent object
-            Destroy(objectToRetrieve);                              //destroy object
-            objectToRetrieve = null;                                //clear reference to object
-            hasObject = false;                                      //update carrying status
-
-            //we'll either update game goals for the enemy in game manager or UI manager
-            //Waiting on Jesse to confirm which script to use
-            //gameManager.instance.UpdateGameGoal();
-            Debug.Log("Object Dropped Off");
-        }
-    }
     //IEnumerator ItemBounce()
     //{
     //    //gunHolderTransform
