@@ -19,7 +19,6 @@ using UnityEngine;
 public class CheckPoint : MonoBehaviour
 {
     [SerializeField] Renderer model;
-    [SerializeField] bool isBedCheckpoint = false; //Bed bool, or not Bed bool.
 
     Color colorOriginal;
 
@@ -28,34 +27,14 @@ public class CheckPoint : MonoBehaviour
     {
         colorOriginal = model.material.color;
     }
-    //Edited so that player can trigger bed checkpoint or just a regular checkpoint.
+
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if (other.CompareTag("Player") && transform.position != GameManager.instance.playerSpawnPOS.transform.position)
         {
-            if(isBedCheckpoint)
-            {//Shows save button in UI.
-                UIManager.Instance.EnableSaveButton();
-            }
-            else if (transform.position != GameManager.instance.playerSpawnPOS.transform.position)
-            {
-                SetCheckpoint();
-            }
+            GameManager.instance.playerSpawnPOS.transform.position = transform.position;
+            StartCoroutine(FlashColor());
         }
-    }
-    //Hides save button when out of range.
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player") && isBedCheckpoint)
-        {
-            UIManager.Instance.DisableSaveButton();
-        }
-    }
-    //Updates playerSpawnPOS and gives feedback.
-    void SetCheckpoint()
-    {
-        GameManager.instance.playerSpawnPOS.transform.position = transform.position;
-        StartCoroutine(FlashColor());
     }
 
     IEnumerator FlashColor()

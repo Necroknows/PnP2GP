@@ -7,14 +7,34 @@ public class ItemPickup : MonoBehaviour
 {
     public Item item;
     private bool isPickedUp = false;        //check if item is picked up
+    private bool isPlayerInRange = false;   //check if player is in range of item
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.E) && !isPickedUp)
+        if(isPlayerInRange && Input.GetKeyDown(KeyCode.E) && !isPickedUp)
         {
             Pickup();
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isPlayerInRange = true;
+            Debug.Log("Player in range of item" + item.itemName);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.CompareTag("Player"))
+        {
+            isPlayerInRange = false;
+            Debug.Log("Player out of range of item" + item.itemName);
+        }
+    }
+
     public void Pickup()
     {
         Debug.Log("Attempting item pick up" + item.itemName);

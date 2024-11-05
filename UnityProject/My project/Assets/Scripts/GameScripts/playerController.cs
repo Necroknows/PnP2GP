@@ -108,15 +108,15 @@ public class PlayerController : MonoBehaviour, IDamage
         {
             movement();
             selectGun();
-            if (objectToRetrieve != null && Input.GetKeyDown(interactKey))
-            { HandleInteraction(); }
+            /*if (objectToRetrieve != null && Input.GetKeyDown(interactKey))
+            { HandleInteraction(); }*/
         }
         sprint();
         //ItemBounce();
     }
 
     //Player Interaction
-    private void HandleInteraction()
+    /*private void HandleInteraction()
     {
         if (objectToRetrieve != null)
         {
@@ -129,7 +129,7 @@ public class PlayerController : MonoBehaviour, IDamage
             }
             objectToRetrieve = null;    //clear reference to object
         }
-    }
+    }*/
 
     InventoryItem GetSelectedHerb()
     {
@@ -416,7 +416,7 @@ public class PlayerController : MonoBehaviour, IDamage
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+/*    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Retrievable") && objectToRetrieve == null)
         {
@@ -432,7 +432,7 @@ public class PlayerController : MonoBehaviour, IDamage
             Debug.Log("Object Exited " + objectToRetrieve.name);
             objectToRetrieve = null;    //resets oTR to null if player leaves range
         }
-    }
+    }*/
 
     //IEnumerator ItemBounce()
     //{
