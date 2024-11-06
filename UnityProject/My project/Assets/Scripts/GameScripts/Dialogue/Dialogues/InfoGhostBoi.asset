@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59eaf85fd16c4704f84ff544d5d8a134, type: 3}
+  m_Name: InfoGhostBoi
+  m_EditorClassIdentifier: 
+  nameNPC: 
+  dialogue:
+  - Hey there!
+  - We were able to imprison these terrors thanks to the wizards magic, but not without
+    sacrifices.
+  - The wizard even cast a spell so that they wouldn't demolish our frames!
+  - Even better is, it only hurts them!
+  - If you want, however, you may use them as you own target pratice.
+  responses:
+  - responseText: Yes
+    dialogueObject: {fileID: 11400000, guid: 77ad4850954b37a4297838d6927a3569, type: 2}
+  - responseText: No
+    dialogueObject: {fileID: 11400000, guid: a9e2b528d5792624db062927911aba79, type: 2}

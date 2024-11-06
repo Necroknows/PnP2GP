@@ -13,7 +13,7 @@ using UnityEngine;
 public class DialogueTrigger : MonoBehaviour
 {
     // What do you want the NPC to say to the player
-    [SerializeField] Dialogue dialogue;
+    [SerializeField] DialogueObject dialogue;
 
     bool playerInRange = false;
 
