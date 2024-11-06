@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -21,6 +22,9 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI lineText;
     PlayerController controller;
 
+    private ResponseHandler responseHandler;
+    private DialogueObject dialogueObject;
+    [SerializeField] private GameObject hUD;
     public Animator anim;
 
     Queue<string> lines;
@@ -35,6 +39,7 @@ public class DialogueManager : MonoBehaviour
     private void Start()
     {
         controller = FindObjectOfType<PlayerController>();
+        responseHandler = GetComponent<ResponseHandler>();
     }
 
     private void Update()
@@ -50,17 +55,21 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    public void StartDialogue(Dialogue dialogue)
+    public void StartDialogue(DialogueObject dialogue)
     {
-        Debug.Log("Starting conversation with " + dialogue.name);
+        Debug.Log("Starting conversation with " + dialogue.nameNPC);
+
+        hUD.SetActive(false);
 
         anim.SetBool("IsOpen", true);
 
-        nameText.text = dialogue.name;
+        nameText.text = dialogue.nameNPC;
+
+        dialogueObject = dialogue;
 
         lines.Clear();
 
-        foreach (string line in dialogue.lines)
+        foreach (string line in dialogue.Dialogue)
         {
             lines.Enqueue(line);
         }
@@ -71,17 +80,23 @@ public class DialogueManager : MonoBehaviour
 
     public void DisplayNextSentence()
     {
-        if (lines.Count == 0)
+        if (lines.Count == 0 && dialogueObject.HasResponses)
+        {
+            responseHandler.ShowResponses(dialogueObject.Responses);
+        }
+        else if (lines.Count == 0)
         {
             EndDialogue();
             return;
         }
-
-        string line = lines.Dequeue();
-        StopAllCoroutines();
-        lineText.text = string.Empty;
-        StartCoroutine(TypeLine(line));
-        //lineText.text = line;
+        else
+        {
+            string line = lines.Dequeue();
+            StopAllCoroutines();
+            lineText.text = string.Empty;
+            StartCoroutine(TypeLine(line));
+            //lineText.text = line;
+        }
     }
 
     public void EndDialogue()
@@ -90,6 +105,7 @@ public class DialogueManager : MonoBehaviour
         StopAllCoroutines();
         anim.SetBool("IsOpen", false);
         controller.enabled = true;
+        hUD.SetActive(true);
     }
 
     IEnumerator TypeLine(string line)
