@@ -20,11 +20,14 @@ public class DialogueManager : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI nameText;
     [SerializeField] TextMeshProUGUI lineText;
-    PlayerController controller;
+    [SerializeField] private GameObject hUD;
+    [SerializeField] AudioClip textSound;
 
+    private float textSpeedOriginal;
+    private AudioSource textSourceAudio;
+    private PlayerController controller;
     private ResponseHandler responseHandler;
     private DialogueObject dialogueObject;
-    [SerializeField] private GameObject hUD;
     public Animator anim;
 
     Queue<string> lines;
@@ -40,6 +43,10 @@ public class DialogueManager : MonoBehaviour
     {
         controller = FindObjectOfType<PlayerController>();
         responseHandler = GetComponent<ResponseHandler>();
+        textSourceAudio = gameObject.AddComponent<AudioSource>();
+        textSourceAudio.loop = false;
+        textSourceAudio.clip = textSound;
+        textSpeedOriginal = textSpeed;
     }
 
     private void Update()
@@ -52,6 +59,14 @@ public class DialogueManager : MonoBehaviour
         else if (anim.GetBool("IsOpen") == true && Input.GetKeyUp(KeyCode.Backspace))
         {
             EndDialogue();
+        }
+        else if (Input.GetKey(KeyCode.LeftShift))
+        {
+            textSpeed /= 2;
+        }
+        else if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            textSpeed = textSpeedOriginal;
         }
     }
 
@@ -113,6 +128,7 @@ public class DialogueManager : MonoBehaviour
         foreach (char c in line.ToCharArray())
         {
             lineText.text += c;
+            textSourceAudio.Play();
             yield return new WaitForSeconds(textSpeed);
         }
     }
