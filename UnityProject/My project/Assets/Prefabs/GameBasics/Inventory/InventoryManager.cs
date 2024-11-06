@@ -15,6 +15,8 @@ public class InventoryManager : MonoBehaviour
     private List<GameObject> inventoryItemInstances = new List<GameObject>(); //list of instantiated inventory items
     public int currentSelectedItem = 0; //tracks currently selected item
 
+    public int recipeBookItemID = 600;
+
     //Inventory Item Highlight
     private Vector3 defaultScale = new Vector3(1, 1, 1);            //default scale of inventory item
     private Vector3 highlightScale = new Vector3(1.2f, 1.2f, 1.2f); //scale of highlighted inventory item
@@ -37,9 +39,28 @@ public class InventoryManager : MonoBehaviour
         }
 
         HighlightSelected();        //visually indicates selected item
+        
+        CheckForRecipeBook();       //if recipe book item is selected...
 
     }
 
+    private void CheckForRecipeBook()
+    {
+        //get current selected item
+        Item selectedItem = Items[currentSelectedItem];
+
+        //check if recipe book item is selected in inventory
+        if(selectedItem != null && selectedItem.itemID == recipeBookItemID)
+        {
+            //show recipe book if selected is the recipe book
+            RecipeBookUI.instance.ShowRecipeBook();
+        }
+        else
+        {
+            //hide recipe book if any other item is selected
+            RecipeBookUI.instance.HideRecipeBook();
+        }
+    }
     public void SelectPrevItem()
     {
         if (Items.Count < 1) return;

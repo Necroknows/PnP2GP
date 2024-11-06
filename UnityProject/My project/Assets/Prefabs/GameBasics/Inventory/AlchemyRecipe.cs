@@ -10,5 +10,5 @@ public class AlchemyRecipe : ScriptableObject
     public string recipeName;
     public List<Item> ingredients;  //ingredients needed
     public Item result; //result of the recipe
-    
+    public Sprite recipeImage;
 }
