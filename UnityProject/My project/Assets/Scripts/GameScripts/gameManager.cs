@@ -32,7 +32,6 @@ public class GameManager : MonoBehaviour
     public PlayerController playerScript;  // Player script reference
     public GameObject playerSpawnPOS;      // Player spawn position reference
     public GameObject pumpkin;             // Example of a retrievable object (can be generalized later)
-    public Vector3 bedPosition;            // Bed Checkpoint
 
     public bool isPaused;                  // Tracks if the game is paused
     private int enemyCount;                // Tracks remaining enemy count
@@ -161,12 +160,6 @@ public class GameManager : MonoBehaviour
         {
             retrievable.ResetObject();  // Reset each object to its original state
         }
-    }
-    //Method sets player spawn on bed or not.
-    public void ResetPlayerPosition()
-    {
-        Vector3 respawnPosition = (bedPosition != Vector3.zero) ? bedPosition : playerSpawnPOS.transform.position;
-        player.transform.position = respawnPosition;
     }
     public void ToggleBoss()
     {

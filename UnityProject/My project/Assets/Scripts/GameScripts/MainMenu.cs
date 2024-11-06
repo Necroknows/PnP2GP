@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-
 public class MainMenu : MonoBehaviour
 {
     //Menu buttons, so that they can be turned off when loading the game

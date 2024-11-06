@@ -29,7 +29,6 @@ public class UIManager : MonoBehaviour
     public Image pumpkinFill;
     public Image playerHpBar;
     public Image playerFuelBar;
-    public Button saveButton;
     public bool isPaused;
 
     float timescale;
@@ -178,20 +177,7 @@ public class UIManager : MonoBehaviour
         }
     }
    
-    public void EnableSaveButton()
-    {
-        if (saveButton != null)
-        {
-            saveButton.interactable = true;
-        }
-    }
+
    
-    public void DisableSaveButton()
-    {
-        if (saveButton != null)
-        {
-            saveButton.interactable = false;
-        }
-    }
 }
 //END

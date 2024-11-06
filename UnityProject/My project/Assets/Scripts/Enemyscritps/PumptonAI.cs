@@ -45,7 +45,7 @@ public class PumptonAI : MonoBehaviour, IDamage
             float distanceToPlayer = Vector3.Distance(transform.position, GameManager.instance.player.transform.position);
             faceTarget();
 
-            if (canShoot)
+            if (canShoot && playerInRange)
             {
                 if (distanceToPlayer <= normalShootRange)
                 {

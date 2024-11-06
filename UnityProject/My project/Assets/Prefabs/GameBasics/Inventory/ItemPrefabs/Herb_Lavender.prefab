@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 6513202214539053940}
   m_Layer: 16
   m_Name: Herb_Lavender
-  m_TagString: Untagged
+  m_TagString: Retrievable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -194,11 +194,11 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 6.3577814, y: 5.3656282, z: 6.2172575}
+  m_Size: {x: 14.257372, y: 10.338272, z: 16.926785}
   m_Center: {x: -0.27186093, y: 5.0393853, z: 0.17064819}
 --- !u!199 &4995312028285511363
 ParticleSystemRenderer:
