@@ -124,7 +124,18 @@ public class InventoryManager : MonoBehaviour
             }
 
             itemName.text = item.itemName;
-            itemIcon.sprite = item.itemIcon;
+
+            //check if the item has animated frames
+            if(item.animatedIconFrames != null && item.animatedIconFrames.Length > 0)
+            {
+                //start coroutine to handle animation for this item
+                StartCoroutine(AnimateIcon(item.animatedIconFrames, itemIcon));
+            }
+            else
+            {
+                itemIcon.sprite = item.itemIcon;
+            }
+            
             Debug.Log("Added item to UI " + item.itemName);
         }
 
@@ -139,6 +150,22 @@ public class InventoryManager : MonoBehaviour
         {
             Debug.LogError("InventoryItem not set in InventoryManager");
             return;
+        }
+    }
+
+    public bool HasItem(Item item)
+    {
+        return Items.Contains(item);
+    }
+    private IEnumerator AnimateIcon(Sprite[] frames, Image itemIcon)
+    {
+        int currentFrame = 0;
+
+        while (true)
+        {
+            itemIcon.sprite = frames[currentFrame];
+            currentFrame = (currentFrame + 1) % frames.Length;
+            yield return new WaitForSeconds(0.1f); //adjust speed as needed
         }
     }
 }//END
