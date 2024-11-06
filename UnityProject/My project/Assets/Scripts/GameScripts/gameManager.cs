@@ -1,5 +1,5 @@
 /*
- * Author(s): Alexandria Dixon, Jesse Mercer, Orion White
+ * Author(s): Alexandria Dixon, Jesse Mercer, Orion White, Duran Perry
  * Date: 10-17-2024
  * Course: Full Sail University - Game Development Program
  * Project: Project and Portfolio 2
@@ -45,6 +45,11 @@ public class GameManager : MonoBehaviour
     // --- RETRIEVABLE OBJECTS LIST ---
     List<RetrievableObjects> retrievableObjects = new List<RetrievableObjects>();
 
+    // --- DEATH NPC REFERENCES ---
+    public GameObject deathPrefab;
+    public int enemiesToSpawnDeath = 10; //Can be adjusted to however enemies needed.
+    private bool isDeathSpawned = false; //Tracks if Death is spawned or not.
+
     // --- AWAKE: Initialize GameManager Singleton and Player Reference ---
     void Awake()
     {
@@ -72,7 +77,18 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if(!isDeathSpawned && enemyCount >= enemiesToSpawnDeath)
+        {
+            SpawnDeath();
+            isDeathSpawned = true;
+        }
+    }
 
+    // --- Spawn DEATH NPC Method ---
+    private void SpawnDeath()
+    {
+        Vector3 spawnPosition = player.transform.position + new Vector3(5, 0, 5);
+        Instantiate(deathPrefab, spawnPosition, Quaternion.identity);
     }
 
     // --- ENEMY TRACKING: Updates the enemy count, triggers win condition if all enemies are defeated ---
