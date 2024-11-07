@@ -4,7 +4,7 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Potion", menuName = "Inventory/Potion")]
 
-public class PotionItem : InventoryItem
+public class PotionItem : Item
 {
     public int effect;  //which effect the potion has
     public int potionID;  //ID of the potion

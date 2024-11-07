@@ -24,7 +24,7 @@ public class UIManager : MonoBehaviour
     //=== PLAYER INVENTORY ===
     public GameObject inventoryPanel;           //sets inventory panel
     public KeyCode interactKey = KeyCode.E;       //sets key for interact
-    private bool isInventoryOpen = false;       //checks if inventory is open
+    //private bool isInventoryOpen = false;       //checks if inventory is open
     
     public Image pumpkinFill;
     public Image playerHpBar;

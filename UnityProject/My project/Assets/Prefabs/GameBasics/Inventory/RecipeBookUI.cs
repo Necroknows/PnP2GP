@@ -7,35 +7,62 @@ using UI_Image = UnityEngine.UI.Image;
 
 public class RecipeBookUI : MonoBehaviour
 {
+    [SerializeField] private List<Sprite> recipeImages;
+    [SerializeField] private Image recipeImageDisplay;
+
 
     public static RecipeBookUI instance;
-    private int recipeBookItemID = 600;
+    //private int recipeBookItemID = 600;
 
     public GameObject recipeBookPanel;
-    
-    private int currentPage = 0;
+
+    private int currentPage;
     private List<AlchemyRecipe> recipes; //list of recipes from AlchemyManager
 
-    public UI_Image recipeImage;
+    //public UI_Image recipeImage;
 
     private void Awake()
     {
-        instance = this;
+        Debug.Log("RecipeBookUI Awake()");
+
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);        //ensures 1 copy
+        }
+
         recipeBookPanel.SetActive(false);
         recipes = AlchemyManager.instance.recipes;  //accesses recipes from AlchemyManager.cs
     }
 
+    private void Start()
+    {
+        Debug.Log("RecipeBookUI Start()");
+    }
+
+    private void OnEnable()
+    {
+        Debug.Log("RecipeBookUI OnEnable()");
+    }
+
     private void Update()
     {
+        Debug.Log("RecipeBookUI Update() is running");
+
         //only allow page cycling if book is open
-        if(recipeBookPanel.activeSelf)
+        if (recipeBookPanel.activeSelf)
         {
-            if(Input.GetButtonDown("ArrowRight"))
+            if (Input.GetButtonDown("ArrowRight"))
             {
+                Debug.Log("ArrowRight(right) pressed - calling NextPage()");
                 NextPage();
             }
             else if (Input.GetButtonDown("ArrowLeft"))
             {
+                Debug.Log("ArrowLeft(left) pressed - calling PrevPage()");
                 PrevPage();
             }
         }
@@ -46,9 +73,8 @@ public class RecipeBookUI : MonoBehaviour
         recipeBookPanel.SetActive(true);
         currentPage = 0;
         ShowPage(currentPage);
-        Debug.Log("Recipe Book Panel Activated");
+        Debug.Log("Recipe Book opened - current page set to 0");
     }
- 
 
     public void HideRecipeBook()
     {
@@ -57,25 +83,34 @@ public class RecipeBookUI : MonoBehaviour
 
     public void ShowPage(int pageIndex)
     {
-        if(pageIndex >= 0 && pageIndex < recipes.Count)
-        {
-            AlchemyRecipe recipe = recipes[pageIndex];
+        Debug.Log($"Recipe book panel active: {recipeBookPanel.activeSelf}");
+        Debug.Log($"Recipe image display active: {recipeImageDisplay.gameObject.activeSelf}");
+        Debug.Log($"recipeImageDisplay assigned: {recipeImageDisplay != null}");
+        Debug.Log($"ShowPage called w/ pageIndex: {pageIndex}");
+        Debug.Log($"recipeImages.Count: {recipeImages.Count}");
+        
 
-            //display recipe page image
-            if(recipe.recipeImage != null)
-            {
-                recipeImage.sprite = recipe.recipeImage;
-            }
-            else
-            {
-                recipeImage.sprite = null;
-            }
+
+        if (recipeImages == null || recipeImages.Count == 0)
+        {
+            Debug.LogWarning("No recipe images assigned");
+            return;
         }
+        if (pageIndex < 0 || pageIndex >= recipeImages.Count)
+        {
+            Debug.LogWarning($"Invalid pageIndex: {pageIndex}. recipeImages.Count: {recipeImages.Count}");
+            return;
+        }
+
+        //set display to show selected image
+        recipeImageDisplay.sprite = recipeImages[pageIndex];
+
+        AlchemyRecipe recipe = recipes[pageIndex];
     }
 
     public void NextPage()
     {
-        if(currentPage < recipes.Count -1)
+        if (currentPage < recipes.Count - 1)
         {
             currentPage++;
             ShowPage(currentPage);
@@ -84,7 +119,7 @@ public class RecipeBookUI : MonoBehaviour
 
     public void PrevPage()
     {
-        if(currentPage > 0)
+        if (currentPage > 0)
         {
             currentPage--;
             ShowPage(currentPage);
