@@ -15,6 +15,8 @@ public class InventoryManager : MonoBehaviour
     private List<GameObject> inventoryItemInstances = new List<GameObject>(); //list of instantiated inventory items
     public int currentSelectedItem = 0; //tracks currently selected item
 
+    public int recipeBookItemID = 600;
+
     //Inventory Item Highlight
     private Vector3 defaultScale = new Vector3(1, 1, 1);            //default scale of inventory item
     private Vector3 highlightScale = new Vector3(1.2f, 1.2f, 1.2f); //scale of highlighted inventory item
@@ -37,9 +39,28 @@ public class InventoryManager : MonoBehaviour
         }
 
         HighlightSelected();        //visually indicates selected item
+        
+        CheckForRecipeBook();       //if recipe book item is selected...
 
     }
 
+    private void CheckForRecipeBook()
+    {
+        //get current selected item
+        Item selectedItem = Items[currentSelectedItem];
+
+        //check if recipe book item is selected in inventory
+        if(selectedItem != null && selectedItem.itemID == recipeBookItemID)
+        {
+            //show recipe book if selected is the recipe book
+            RecipeBookUI.instance.ShowRecipeBook();
+        }
+        else
+        {
+            //hide recipe book if any other item is selected
+            RecipeBookUI.instance.HideRecipeBook();
+        }
+    }
     public void SelectPrevItem()
     {
         if (Items.Count < 1) return;
@@ -124,7 +145,18 @@ public class InventoryManager : MonoBehaviour
             }
 
             itemName.text = item.itemName;
-            itemIcon.sprite = item.itemIcon;
+
+            //check if the item has animated frames
+            if(item.animatedIconFrames != null && item.animatedIconFrames.Length > 0)
+            {
+                //start coroutine to handle animation for this item
+                StartCoroutine(AnimateIcon(item.animatedIconFrames, itemIcon));
+            }
+            else
+            {
+                itemIcon.sprite = item.itemIcon;
+            }
+            
             Debug.Log("Added item to UI " + item.itemName);
         }
 
@@ -139,6 +171,22 @@ public class InventoryManager : MonoBehaviour
         {
             Debug.LogError("InventoryItem not set in InventoryManager");
             return;
+        }
+    }
+
+    public bool HasItem(Item item)
+    {
+        return Items.Contains(item);
+    }
+    private IEnumerator AnimateIcon(Sprite[] frames, Image itemIcon)
+    {
+        int currentFrame = 0;
+
+        while (true)
+        {
+            itemIcon.sprite = frames[currentFrame];
+            currentFrame = (currentFrame + 1) % frames.Length;
+            yield return new WaitForSeconds(0.1f); //adjust speed as needed
         }
     }
 }//END
