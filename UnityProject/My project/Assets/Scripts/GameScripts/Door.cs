@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    [SerializeField] GameObject door;
+   // [SerializeField] GameObject door;
     [SerializeField] Animator anim;
     [SerializeField] enum DoorType { doorNormal, doorLockOffArea, doorGoalWinOpens};
     [SerializeField] DoorType doorType;
@@ -21,6 +21,11 @@ public class Door : MonoBehaviour
             SwitchDoorState(false);
             isOpen = false;
         }
+        if(doorType == DoorType.doorNormal)
+        {
+            //SwitchDoorState(false);
+            isOpen = false;
+        }
     }
 
     // Update is called once per frame
@@ -34,19 +39,19 @@ public class Door : MonoBehaviour
 
     }
 
-    void SwitchDoorState(bool open)
+    void SwitchDoorState(bool shouldOpen)
     {
         
         //switches the door being opened and closed
-        if(open == true)
+        if(shouldOpen == true)
         {
-            isOpen = false;
+            isOpen = true;
             anim.SetTrigger("Open");
             
         }
-        if (open == false)
+        if (shouldOpen == false)
         {
-            isOpen = true;
+            isOpen = false;
             anim.SetTrigger("Close");
         }
     }
@@ -67,10 +72,10 @@ public class Door : MonoBehaviour
         {
             SwitchDoorState(false);
         }
-        if (doorType == DoorType.doorNormal && !isOpen)
-        {
-            SwitchDoorState(false);
-        }
+        //if (doorType == DoorType.doorNormal && !isOpen)
+        //{
+        //    SwitchDoorState(false);
+        //}
 
 
     }
