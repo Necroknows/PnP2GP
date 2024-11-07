@@ -7,7 +7,7 @@ public class Door : MonoBehaviour
 {
     [SerializeField] GameObject door;
     [SerializeField] Animator anim;
-    [SerializeField] enum DoorType { doorLockOffArea, doorGoalWinOpens};
+    [SerializeField] enum DoorType { doorNormal, doorLockOffArea, doorGoalWinOpens};
     [SerializeField] DoorType doorType;
     
     
@@ -31,6 +31,7 @@ public class Door : MonoBehaviour
         {
             SwitchDoorState(true);
         }
+
     }
 
     void SwitchDoorState(bool open)
@@ -52,7 +53,10 @@ public class Door : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        
+        if(doorType == DoorType.doorNormal && !isOpen)
+        {
+            SwitchDoorState(true);
+        }
     }
 
     //On enter of the trigger calls for door to close
@@ -63,7 +67,11 @@ public class Door : MonoBehaviour
         {
             SwitchDoorState(false);
         }
-        
+        if (doorType == DoorType.doorNormal && !isOpen)
+        {
+            SwitchDoorState(false);
+        }
+
 
     }
 }
