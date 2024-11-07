@@ -2,47 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mortar : MonoBehaviour, IInteractive
+public class Mortar : MonoBehaviour
 {
-    //assign a ground herb item to the mortar
-    public InventoryItem groundHerb;
+    private List<Item> itemsInMortar = new List<Item>();
 
-    public void Interact()
+    public bool HasItem(Item item)
     {
-        InventoryItem selectedHerb = Inventory.instance.GetItems().Find(item => item.itemType == InventoryItem.ItemType.Herb);
-        if(selectedHerb != null)
-        { Inventory.instance.RemoveItem(selectedHerb);
-            Inventory.instance.AddItem(groundHerb);
-            Debug.Log("Herb Ground");
-        }
-        else
-        {
-            Debug.Log("No herb in possession for grinding");
-        }
-    }
-    
-    public void GrindHerb(InventoryItem Herb)
-    {
-        if(Inventory.instance.HasItem(Herb))
-        {
-            Inventory.instance.RemoveItem(Herb);
-            Inventory.instance.AddItem(groundHerb);
-            Debug.Log($"{Herb.itemName} ground into {groundHerb.itemName}");
-        }
-        else
-        {
-            Debug.Log($"No {Herb.itemName} possessed for grinding");
-        }
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+        return itemsInMortar.Contains(item);
     }
 
-    // Update is called once per frame
-    void Update()
+    //add item to mortar
+    public void AddItem(Item item)
     {
-        
+        itemsInMortar.Add(item);
+        Debug.Log(item.itemName + "added to Mortar");
     }
-}
+
+    public void ClearItems()
+    {
+        itemsInMortar.Clear();
+        Debug.Log("Mortar cleared");
+
+    }
+
+}//END

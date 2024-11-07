@@ -4,7 +4,7 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Herb", menuName = "Inventory/Herb")]
 
-public class HerbItem : InventoryItem
+public class HerbItem : Item
 {
     public int herbID;  //ID of the herb
 

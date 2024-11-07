@@ -46,21 +46,55 @@ public class InventoryManager : MonoBehaviour
 
     private void CheckForRecipeBook()
     {
-        //get current selected item
-        Item selectedItem = Items[currentSelectedItem];
-
-        //check if recipe book item is selected in inventory
-        if(selectedItem != null && selectedItem.itemID == recipeBookItemID)
+        //check if recipebookUI.instance is available
+        if(RecipeBookUI.instance == null)
         {
-            //show recipe book if selected is the recipe book
-            RecipeBookUI.instance.ShowRecipeBook();
+            RecipeBookUI.instance = FindObjectOfType<RecipeBookUI>();
+            if(RecipeBookUI.instance == null)
+            {
+                Debug.LogWarning("RecipeBookUI.instance is STILL Null & may not have been initialized.");
+                return;
+            }
+        }
+
+        //ensure selectedItem is properly assigned
+        if (Items.Count > 0 && currentSelectedItem >= 0 && currentSelectedItem < Items.Count)
+        {
+            //get current selected item
+            Item selectedItem = Items[currentSelectedItem];
+
+            //check if recipe book item is selected in inventory
+            if (selectedItem != null && selectedItem.itemID == recipeBookItemID)
+            {
+                Debug.Log("Recipe Book selected - calling ShowRecipeBook");
+
+                //show recipe book if selected is the recipe book
+                RecipeBookUI.instance.ShowRecipeBook();
+            }
+            else
+            {
+                Debug.Log("Other item selected - calling HideRecipeBook");
+
+                //hide recipe book if any other item is selected
+                RecipeBookUI.instance.HideRecipeBook();
+            }
         }
         else
         {
-            //hide recipe book if any other item is selected
+            Debug.LogWarning("No Items in Inventory or Invalid Selection");
             RecipeBookUI.instance.HideRecipeBook();
         }
     }
+
+    public Item GetSelectedItem()
+    {
+        if(Items.Count > 0 && currentSelectedItem >= 0 && currentSelectedItem < Items.Count)
+        {
+            return Items[currentSelectedItem];
+        }
+        return null;
+    }
+
     public void SelectPrevItem()
     {
         if (Items.Count < 1) return;

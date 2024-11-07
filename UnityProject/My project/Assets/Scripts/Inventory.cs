@@ -5,28 +5,28 @@ public class Inventory : MonoBehaviour
 {
     public static Inventory instance;
 
-    [SerializeField] private List<InventoryItem> items = new List<InventoryItem>();
+    [SerializeField] private List<Item> items = new List<Item>();
 
     private void Awake()
     {
         if (instance == null) instance = this;
     }
 
-    public void AddItem(InventoryItem item)
+    public void AddItem(Item item)
     {
         items.Add(item);
         Debug.Log($"{item.itemName} added to inventory");
     }
 
-    public List<InventoryItem> GetItems()
+    public List<Item> GetItems()
     {
         return items;
     }
 
-    public List<T> GetItemsOfType<T>() where T : InventoryItem
+    public List<T> GetItemsOfType<T>() where T : Item
     {
         List<T> itemsOfType = new List<T>();
-        foreach (InventoryItem item in items)
+        foreach (Item item in items)
         {
             if(item is T specificItem)
             {
@@ -36,7 +36,7 @@ public class Inventory : MonoBehaviour
         return itemsOfType;
     }
 
-    public void RemoveItem(InventoryItem item)
+    public void RemoveItem(Item item)
     {
         if(items.Contains(item))
         {
@@ -49,7 +49,7 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public bool HasItem(InventoryItem item)
+    public bool HasItem(Item item)
     {
         return items.Contains(item);
     }

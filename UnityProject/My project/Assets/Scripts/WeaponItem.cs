@@ -4,7 +4,7 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Weapon", menuName = "Inventory/Weapon")]
 
-public class WeaponItem : InventoryItem
+public class WeaponItem : Item
 {
     //general
     public GameObject bullet;
