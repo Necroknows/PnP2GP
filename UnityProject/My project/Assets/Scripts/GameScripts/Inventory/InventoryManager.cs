@@ -29,11 +29,11 @@ public class InventoryManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetAxis("Mouse ScrollWheel") > 0f)
+        if (Input.GetAxis("Mouse ScrollWheel") < 0f)
         {
             SelectNextItem();
         }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0f)
+        else if (Input.GetAxis("Mouse ScrollWheel") > 0f)
         {
             SelectPrevItem();
         }
@@ -140,15 +140,19 @@ public class InventoryManager : MonoBehaviour
     public void RemoveItem(Item item)
     {
         Items.Remove(item);
+        ListItems();        //update UI after adding items
     }
 
     public void ListItems()
     {
-
+        StopAllCoroutines();
         //clear all previous UI items
         foreach (Transform child in ItemContent)
         {
-            Destroy(child.gameObject);
+            if (child != null)
+            {
+                Destroy(child.gameObject);
+            }
         }
         inventoryItemInstances.Clear();
 
