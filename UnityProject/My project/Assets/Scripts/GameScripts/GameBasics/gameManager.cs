@@ -30,7 +30,8 @@ public class GameManager : MonoBehaviour
     public GameObject flashDamageScreen;   // Flash screen when the player takes damage
     public GameObject player;              // Player GameObject reference
     public PlayerController playerScript;  // Player script reference
-    public GameObject playerSpawnPOS;      // Player spawn position reference
+    public GameObject playerSpawnPOS;       // Player spawn position reference
+    public GameObject playerStartPOS;      // Player spawn position reference
     public GameObject pumpkin;             // Example of a retrievable object (can be generalized later)
 
     public bool isPaused;                  // Tracks if the game is paused
@@ -48,6 +49,8 @@ public class GameManager : MonoBehaviour
     public GameObject deathPrefab;
     public int enemiesToSpawnDeath = 10; //Can be adjusted to however enemies needed.
     private bool isDeathSpawned = false; //Tracks if Death is spawned or not.
+
+    
 
     // --- AWAKE: Initialize GameManager Singleton and Player Reference ---
     void Awake()
@@ -68,6 +71,7 @@ public class GameManager : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<PlayerController>();
         playerSpawnPOS = GameObject.FindWithTag("PlayerSpawnPOS");
+        playerStartPOS = GameObject.FindWithTag("PlayerStartPOS");
 
         // Fill the list with all retrievable objects in the scene
         fillRetrievables();
@@ -153,10 +157,10 @@ public class GameManager : MonoBehaviour
     {
         liveBoss = !liveBoss;
     }
-    public int GetPlayerScore()
-    {
-        return playerScore;
-    }
+    //public int GetPlayerScore()
+    //{
+    //    return playerScore;
+    //}
     
 
 }
