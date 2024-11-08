@@ -106,13 +106,6 @@ public class GameManager : MonoBehaviour
             UIManager.Instance.ShowWinScreen();
         }
     }
-   
-
-    // --- GET ENEMY COUNT: Return the current enemy count ---
-    public int GetEnemyCount()
-    {
-        return enemyCount;
-    }
 
     // --- RETRIEVABLE OBJECTS HANDLING ---
 

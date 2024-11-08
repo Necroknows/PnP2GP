@@ -58,8 +58,8 @@ public class UIManager : MonoBehaviour
                 UnpauseGame();
             }
         }
-        int count= GameManager.instance.GetEnemyCount();
-        enemyCountText.text = count.ToString();
+        
+        
         if(playerCont !=null)
         {
             int ammoCount = playerCont.GetAmmo();
