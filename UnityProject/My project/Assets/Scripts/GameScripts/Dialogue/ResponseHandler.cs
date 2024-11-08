@@ -9,6 +9,7 @@ public class ResponseHandler : MonoBehaviour
     [SerializeField] private RectTransform responseBox;
     [SerializeField] private RectTransform responseButtonTemplate;
     [SerializeField] private RectTransform responseContainer;
+    [SerializeField] private Inventory inventory;
     private DialogueManager dialogueManager;
     private EventSystem eventSystem;
 
@@ -26,14 +27,38 @@ public class ResponseHandler : MonoBehaviour
         
         foreach (Response response in responses)
         {
-            GameObject responseButton = Instantiate(responseButtonTemplate.gameObject, responseContainer);
-            responseButton.gameObject.SetActive(true);
-            responseButton.GetComponent<TMP_Text>().text = response.ResponseText;
-            responseButton.GetComponent<Button>().onClick.AddListener(() => OnPickedResponse(response));
+            bool hasItem = true;
+            if (response.thingsToCheck != null)
+            {
+                foreach (Item thing in response.thingsToCheck)
+                {
+                    if (!inventory.HasItem(thing))
+                    {
+                        hasItem = false;
+                    }
+                }
+            }
+            if (response.thingsToIgnore != null)
+            {
+                foreach (Item thing in response.thingsToIgnore)
+                {
+                    if (inventory.HasItem(thing))
+                    {
+                        hasItem = false;
+                    }
+                }
+            }
+            if (hasItem)
+            {
+                GameObject responseButton = Instantiate(responseButtonTemplate.gameObject, responseContainer);
+                responseButton.gameObject.SetActive(true);
+                responseButton.GetComponent<TMP_Text>().text = response.ResponseText;
+                responseButton.GetComponent<Button>().onClick.AddListener(() => OnPickedResponse(response));
 
-            tempResponseButtons.Add(responseButton);
+                tempResponseButtons.Add(responseButton);
 
-            responseBoxHeight += responseButtonTemplate.sizeDelta.y;
+                responseBoxHeight += responseButtonTemplate.sizeDelta.y;
+            }
         }
 
         responseBox.sizeDelta = new Vector2(responseBox.sizeDelta.x, responseBoxHeight);
@@ -43,6 +68,27 @@ public class ResponseHandler : MonoBehaviour
 
     private void OnPickedResponse(Response response)
     {
+        bool hasItem = true;
+        if (response.thingsToCheck != null)
+        {
+            foreach (Item thing in response.thingsToCheck)
+            {
+                if (!inventory.HasItem(thing))
+                {
+                    hasItem = false;
+                }
+            }
+        }
+        if (response.thingsToIgnore != null)
+        {
+            foreach (Item thing in response.thingsToIgnore)
+            {
+                if (inventory.HasItem(thing))
+                {
+                    hasItem = false;
+                }
+            }
+        }
         responseBox.gameObject.SetActive(false);
 
         foreach (GameObject responseButton in tempResponseButtons)
@@ -51,7 +97,17 @@ public class ResponseHandler : MonoBehaviour
         }
         tempResponseButtons.Clear();
 
-        dialogueManager.StartDialogue(response.DialogueObject);
+        if (hasItem && response.DialogueTrue != null)
+        {
+            dialogueManager.StartDialogue(response.DialogueTrue);
+        }
+        else if (!hasItem && response.DialogueFalse != null)
+        {
+            dialogueManager.StartDialogue(response.DialogueFalse);
+        }
+        else
+        {
+            Debug.Log("No dialogue suitable for conversation outcome.");
+        }
     }
-
 }
