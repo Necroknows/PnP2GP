@@ -121,7 +121,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: b5a611b0748132548882c188fceea20a, type: 2}
 --- !u!1001 &362276458
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -221,6 +221,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1023137381}
+  - component: {fileID: 1023137382}
   m_Layer: 0
   m_Name: Haunted Forest
   m_TagString: Untagged
@@ -243,6 +244,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1023137382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023137380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3f294b4a0b4a8c4c8572b68fc833378, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 362276459}
+  checkMethod: 0
+  loadRange: 100
 --- !u!1 &1357871386
 GameObject:
   m_ObjectHideFlags: 0
@@ -252,6 +268,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1357871387}
+  - component: {fileID: 1357871388}
   m_Layer: 0
   m_Name: Village
   m_TagString: Untagged
@@ -274,6 +291,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1357871388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1357871386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3f294b4a0b4a8c4c8572b68fc833378, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 362276459}
+  checkMethod: 0
+  loadRange: 100
 --- !u!1001 &1466280968
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -521,6 +553,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1731281658}
+  - component: {fileID: 1731281659}
   m_Layer: 0
   m_Name: Haunted Forest
   m_TagString: Untagged
@@ -543,6 +576,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1731281659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731281657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3f294b4a0b4a8c4c8572b68fc833378, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 362276459}
+  checkMethod: 0
+  loadRange: 100
 --- !u!1001 &1985873165
 PrefabInstance:
   m_ObjectHideFlags: 0
