@@ -38,8 +38,8 @@ public class GameManager : MonoBehaviour
     private int retrievableCount;          // Tracks remaining retrievable objects count
     private int playerScore;               // holds the players progress score. 
     private bool liveBoss = true;                 // game state bool 
-    [SerializeField] int goalScore;        // goal to reach 
-    private bool miniGoal;
+    
+    //private bool miniGoal;
 
     // --- RETRIEVABLE OBJECTS LIST ---
     List<RetrievableObjects> retrievableObjects = new List<RetrievableObjects>();
@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
 
-        miniGoal = false;
+        //miniGoal = false;
         // Ensure only one instance of the GameManager exists
         if (instance == null)
         {
@@ -102,19 +102,7 @@ public class GameManager : MonoBehaviour
             UIManager.Instance.ShowWinScreen();
         }
     }
-    public void updateMiniGoal(int amount)
-    {
-        playerScore += amount;
-        UIManager.Instance.UpdatePumpkinFill();
-
-        if (playerScore >= goalScore)
-        {
-
-            miniGoal = true;
-            UIManager.Instance.goalUI.SetActive(false);
-        }
-
-    }
+   
 
     // --- GET ENEMY COUNT: Return the current enemy count ---
     public int GetEnemyCount()
@@ -169,13 +157,6 @@ public class GameManager : MonoBehaviour
     {
         return playerScore;
     }
-    public int GetGoalScore()
-    {
-        return goalScore;
-    }
-    public bool GetGoalState()
-    {
-        return miniGoal;
-    }
+    
 
 }

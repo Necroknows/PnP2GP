@@ -14,7 +14,7 @@ public class JOLCounter : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            UIManager.Instance.goalUI.SetActive(true);
+           // UIManager.Instance.goalUI.SetActive(true);
         }
        
     }

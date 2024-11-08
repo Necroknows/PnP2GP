@@ -12,12 +12,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
-    [SerializeField] GameObject counterJOL;
     [SerializeField] TMP_Text enemyCountText;
     [SerializeField] TMP_Text ammoCountText;
-    [SerializeField] TMP_Text pumpkinCountText;
+    
    
-    public GameObject goalUI;
+    //public GameObject goalUI;
     public GameObject checkpointPopup;
     public PlayerController playerCont;
 
@@ -26,7 +25,7 @@ public class UIManager : MonoBehaviour
     public KeyCode interactKey = KeyCode.E;       //sets key for interact
     //private bool isInventoryOpen = false;       //checks if inventory is open
     
-    public Image pumpkinFill;
+    //public Image pumpkinFill;
     public Image playerHpBar;
     public Image playerFuelBar;
     public bool isPaused;
@@ -65,7 +64,7 @@ public class UIManager : MonoBehaviour
         {
             int ammoCount = playerCont.GetAmmo();
             ammoCountText.text = ammoCount.ToString();
-            pumpkinCountText.text=GameManager.instance.GetPlayerScore().ToString();
+           
         }
 
         //on E key
@@ -104,11 +103,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void updateEnemyCount(int count)
-    {
-        // updated enmey count to display to tracker 
-        enemyCountText.text = count.ToString();
-    }
+    
     
     public void UpdatePlayerHealthBar(float healthFraction)
     {
@@ -117,18 +112,18 @@ public class UIManager : MonoBehaviour
         playerHpBar.fillAmount = healthFraction;
     }
     
-    public void UpdatePumpkinFill()
-    {
-        // Get the current player's score and goal score
-        float currentScore = GameManager.instance.GetPlayerScore();
-        float goalScore = GameManager.instance.GetGoalScore();
+    //public void UpdatePumpkinFill()
+    //{
+    //    // Get the current player's score and goal score
+    //    float currentScore = GameManager.instance.GetPlayerScore();
+    //    float goalScore = GameManager.instance.GetGoalScore();
 
-        // Calculate the fill fraction based on current score divided by the goal score
-        float fillFraction = Mathf.Clamp01(currentScore / goalScore);  // Clamped between 0 and 1
+    //    // Calculate the fill fraction based on current score divided by the goal score
+    //    float fillFraction = Mathf.Clamp01(currentScore / goalScore);  // Clamped between 0 and 1
 
-        // Update the fill amount for the pumpkin UI element
-        pumpkinFill.fillAmount = fillFraction;  // Directly set the fill amount
-    }
+    //    // Update the fill amount for the pumpkin UI element
+    //    pumpkinFill.fillAmount = fillFraction;  // Directly set the fill amount
+    //}
     
     public void UpdatePlayerFuelBar(float fuelFraction)
     {
