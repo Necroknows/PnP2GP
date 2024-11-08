@@ -83,6 +83,7 @@ public class GameManager : MonoBehaviour
     {
         if(!isDeathSpawned && enemyCount >= enemiesToSpawnDeath)
         {
+            Debug.Log("Spawning Death..");
             SpawnDeath();
             isDeathSpawned = true;
         }
@@ -92,7 +93,7 @@ public class GameManager : MonoBehaviour
     // --- Spawn DEATH NPC Method ---
     private void SpawnDeath()
     {
-        Vector3 spawnPosition = player.transform.position + new Vector3(5, 0, 5);
+        Vector3 spawnPosition = player.transform.position + new Vector3(10, 5, 10);
         deathInstance = Instantiate(deathPrefab, spawnPosition, Quaternion.identity);
     }
 
