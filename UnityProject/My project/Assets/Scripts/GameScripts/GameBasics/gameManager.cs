@@ -40,14 +40,15 @@ public class GameManager : MonoBehaviour
     private bool liveBoss = true;                 // game state bool 
     [SerializeField] int goalScore;        // goal to reach 
     private bool miniGoal;
+    
+    // --- DEATH NPC REFERENCES ---
+    public GameObject deathPrefab;
+    public int enemiesToSpawnDeath = 5; //Can be adjusted to however enemies needed.
+    private bool isDeathSpawned = false; //Tracks if Death is spawned or not.
+    private GameObject deathInstance;
 
     // --- RETRIEVABLE OBJECTS LIST ---
     List<RetrievableObjects> retrievableObjects = new List<RetrievableObjects>();
-
-    // --- DEATH NPC REFERENCES ---
-    public GameObject deathPrefab;
-    public int enemiesToSpawnDeath = 10; //Can be adjusted to however enemies needed.
-    private bool isDeathSpawned = false; //Tracks if Death is spawned or not.
 
     // --- AWAKE: Initialize GameManager Singleton and Player Reference ---
     void Awake()
@@ -81,13 +82,23 @@ public class GameManager : MonoBehaviour
             SpawnDeath();
             isDeathSpawned = true;
         }
+        if (isDeathSpawned) TrackPlayerWithDeath();
     }
 
     // --- Spawn DEATH NPC Method ---
     private void SpawnDeath()
     {
         Vector3 spawnPosition = player.transform.position + new Vector3(5, 0, 5);
-        Instantiate(deathPrefab, spawnPosition, Quaternion.identity);
+        deathInstance = Instantiate(deathPrefab, spawnPosition, Quaternion.identity);
+    }
+
+    private void TrackPlayerWithDeath()
+    {
+        if(deathInstance != null)
+        {
+            deathController deathScript = deathInstance.GetComponent<deathController>();
+            deathScript.SetTarget(player.transform);
+        }
     }
 
     // --- ENEMY TRACKING: Updates the enemy count, triggers win condition if all enemies are defeated ---

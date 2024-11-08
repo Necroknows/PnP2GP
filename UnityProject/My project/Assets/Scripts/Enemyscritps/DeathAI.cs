@@ -1,15 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class DeathAI : MonoBehaviour
 {   // --- DEATH STATS ---
     public Transform player;
-    public float followSpeed = 4f;
+    public NavMeshAgent agent;
     public float swipeRange = 2f;
     public int swipeDamage = 5;
     public float swipeCooldown = 3f;
-    public float detectionRadius = 5f;
     private float nextSwipeTime = 0f;
     private float followInterval = 0.2f;
     private float attackCheckInterval = 0.5f;
@@ -25,69 +25,51 @@ public class DeathAI : MonoBehaviour
     private bool isActivated = false;
     private bool coroutinesStarted = false;
 
-    public void ActivateDeathAI()
+    private void Start()
     {
-        if (player == null)
+        if(player ==null)
         {
-            GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
-            if(playerObject != null)
-            {
-                player = playerObject.transform;
-            }
-            else
-            {
-                Debug.LogError("Player not found.");
-                return;
-            }
+            player = GameObject.FindGameObjectWithTag("Player").transform;
         }
-        isActivated = true;
-        gameObject.SetActive(true); //Makes Death visible
-        if(!coroutinesStarted)//Starts the coroutines if they haven't been started already.
+        if (agent == null)
+        {
+            agent = GetComponent<NavMeshAgent>();
+        }
+    }
+
+    private void OnEnable()
+    {
+        if(!coroutinesStarted)
         {
             StartCoroutine(FollowPlayerRoutine());
             StartCoroutine(HandleAttacksRoutine());
             coroutinesStarted = true;
         }
-       
     }
-
-    private IEnumerator FollowPlayerRoutine()
+    public void ActivateDeathAI()
     {
-        while(isActivated)
-        {
-            FollowPlayer();
-            yield return new WaitForSeconds(followInterval);
-        }
-    }
-
-    private IEnumerator HandleAttacksRoutine()
-    {
-        while(isActivated)
-        {
-            HandleAttacks();
-            yield return new WaitForSeconds(attackCheckInterval);
-        }
+        isActivated = true;
+        gameObject.SetActive(true);
     }
 
     private void FollowPlayer()
     {
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-
-        if(distanceToPlayer > swipeRange)
+        if (distanceToPlayer > swipeRange)
         {
-            Vector3 direction = (player.position - transform.position).normalized;
-            transform.position += direction * followSpeed * Time.deltaTime;
+            agent.SetDestination(player.position);
         }
     }
 
     private void HandleAttacks()
-    {//Performs swipe attack if in range and CD is not on.
-        if(Vector3.Distance(transform.position, player.position) <= swipeRange && Time.time >= nextSwipeTime)
+    {
+        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+        if(distanceToPlayer <= swipeRange && Time.time >= nextSwipeTime)
         {
             SwipeAttack();
             nextSwipeTime = Time.time + swipeCooldown;
         }
-        //Spawns more minions if max hasn't been reached yet.
+
         if(Time.time >= nextMinionSpawnTime && activeMinions.Count < maxMinions)
         {
             SpawnMinion();
@@ -114,21 +96,41 @@ public class DeathAI : MonoBehaviour
         if (activeMinions.Count >= maxMinions) return;
 
         Vector3 spawnPosition = transform.position + Random.insideUnitSphere * 1.5f;
+        spawnPosition.y = transform.position.y;
         GameObject minion = Instantiate(minionPrefab, spawnPosition, Quaternion.identity);
         activeMinions.Add(minion);
-        
-        DeathMinionAI minionAI = minion.GetComponent<DeathMinionAI>();
-        if(minionAI != null)
+        StartCoroutine(RemoveMinionFromList(minion, 20f));
+    }
+
+    private IEnumerator RemoveMinionFromList(GameObject minion, float lifeTime)
+    {
+        yield return new WaitForSeconds(lifeTime);
+        activeMinions.Remove(minion);
+        Destroy(minion);
+    }
+
+    private IEnumerator FollowPlayerRoutine()
+    {
+        while(isActivated)
         {
-            minionAI.lifeTime = 20f;
-            Destroy(minion, minionAI.lifeTime);
-            StartCoroutine(RemoveMinionFromList(minion, minionAI.lifeTime));
+            FollowPlayer();
+            yield return new WaitForSeconds(followInterval);
         }
     }
 
-    private IEnumerator RemoveMinionFromList(GameObject minion, float delay)
+    private IEnumerator HandleAttacksRoutine()
     {
-        yield return new WaitForSeconds(delay);
-        activeMinions.Remove(minion);
+        while(isActivated)
+        {
+            HandleAttacks();
+            yield return new WaitForSeconds(attackCheckInterval);
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+
+        Gizmos.DrawWireSphere(transform.position, swipeRange);
     }
 }
