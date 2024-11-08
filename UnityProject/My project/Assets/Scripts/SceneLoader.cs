@@ -22,21 +22,11 @@ public class SceneLoader : MonoBehaviour
 
     //scene state
     private bool loadInProgress = false;
-    private bool isLoaded;
+    
 
     private void Start()
     {
-        if (SceneManager.sceneCount > 0)
-        {
-            for (int i = 0; i < SceneManager.sceneCount; i++)
-            {
-                Scene scene = SceneManager.GetSceneAt(i);
-                if (scene.name == gameObject.name)
-                {
-                    isLoaded = true;
-                }
-            }
-        }
+        
     }
     private void Update()
     {
@@ -75,7 +65,7 @@ public class SceneLoader : MonoBehaviour
 
         if (loadInProgress == false)
         {
-            Debug.Log("Load Scene has started" + this.name);
+            //Debug.Log("Load Scene has started" + this.name);
             loadInProgress = true;
             //loads the scene
             if (!SceneManager.GetSceneByName(this.name).isLoaded)
@@ -86,13 +76,13 @@ public class SceneLoader : MonoBehaviour
                     
                 loadInProgress = false;
             }
-            Debug.Log("load scene has ended " + this.name);
+            //Debug.Log("load scene has ended " + this.name);
         }
     }
 
    IEnumerator UnloadScene()
     {
-        Debug.Log("Unload Scene has started" + this.name);
+        //Debug.Log("Unload Scene has started" + this.name);
         //checks if loading is in progress
         if (loadInProgress == false)
         {
