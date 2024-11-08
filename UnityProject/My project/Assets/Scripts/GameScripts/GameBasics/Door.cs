@@ -7,7 +7,7 @@ public class Door : MonoBehaviour
 {
    // [SerializeField] GameObject door;
     [SerializeField] Animator anim;
-    [SerializeField] enum DoorType { doorNormal, doorLockOffArea, doorGoalWinOpens};
+    [SerializeField] enum DoorType { doorNormal, doorLockOffArea};
     [SerializeField] DoorType doorType;
     
     
@@ -16,11 +16,7 @@ public class Door : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (doorType == DoorType.doorGoalWinOpens)
-        {
-            SwitchDoorState(false);
-            isOpen = false;
-        }
+        
         if(doorType == DoorType.doorNormal)
         {
             //SwitchDoorState(false);
@@ -31,11 +27,7 @@ public class Door : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //checks if the JOL mini game has been completed, calls the doors to open, check if it's already open
-        if(GameManager.instance.GetGoalState() == true && doorType == DoorType.doorGoalWinOpens && !isOpen)
-        {
-            SwitchDoorState(true);
-        }
+        
 
     }
 

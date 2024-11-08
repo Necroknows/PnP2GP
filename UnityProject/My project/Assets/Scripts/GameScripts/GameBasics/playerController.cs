@@ -82,13 +82,24 @@ public class PlayerController : MonoBehaviour, IDamage
         fuel = 0;                // sets starting fuel to 0 
         gunShotNoise.playOnAwake = false;   // Ensures audio does not play immediately, still make sure it is checked as false in audio component
         updatePlayerUI();      // Initialize player UI
-        spawnPlayer();         // DropPlayer at SpawnPos
+        spawnPlayerAtStart();         // DropPlayer at SpawnPos
         inventory = Inventory.instance; // Get the inventory instance
     }
     public void spawnPlayer()
     {
         controller.enabled = false;
         transform.position = GameManager.instance.playerSpawnPOS.transform.position;
+        controller.enabled = true;
+        HP = HPOrig;
+        fuel = 0;
+        UIManager.Instance.UpdatePlayerHealthBar(HP);
+        UIManager.Instance.UnpauseGame();
+
+    }
+    public void spawnPlayerAtStart()
+    {
+        controller.enabled = false;
+        transform.position = GameManager.instance.playerStartPOS.transform.position;
         controller.enabled = true;
         HP = HPOrig;
         fuel = 0;

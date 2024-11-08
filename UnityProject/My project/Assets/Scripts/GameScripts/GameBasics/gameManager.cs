@@ -30,7 +30,8 @@ public class GameManager : MonoBehaviour
     public GameObject flashDamageScreen;   // Flash screen when the player takes damage
     public GameObject player;              // Player GameObject reference
     public PlayerController playerScript;  // Player script reference
-    public GameObject playerSpawnPOS;      // Player spawn position reference
+    public GameObject playerSpawnPOS;       // Player spawn position reference
+    public GameObject playerStartPOS;      // Player spawn position reference
     public GameObject pumpkin;             // Example of a retrievable object (can be generalized later)
 
     public bool isPaused;                  // Tracks if the game is paused
@@ -38,23 +39,25 @@ public class GameManager : MonoBehaviour
     private int retrievableCount;          // Tracks remaining retrievable objects count
     private int playerScore;               // holds the players progress score. 
     private bool liveBoss = true;                 // game state bool 
-    [SerializeField] int goalScore;        // goal to reach 
-    private bool miniGoal;
     
+    //private bool miniGoal;
+
+    // --- RETRIEVABLE OBJECTS LIST ---
+    List<RetrievableObjects> retrievableObjects = new List<RetrievableObjects>();
+
     // --- DEATH NPC REFERENCES ---
     public GameObject deathPrefab;
     public int enemiesToSpawnDeath = 5; //Can be adjusted to however enemies needed.
     private bool isDeathSpawned = false; //Tracks if Death is spawned or not.
     private GameObject deathInstance;
 
-    // --- RETRIEVABLE OBJECTS LIST ---
-    List<RetrievableObjects> retrievableObjects = new List<RetrievableObjects>();
+    
 
     // --- AWAKE: Initialize GameManager Singleton and Player Reference ---
     void Awake()
     {
 
-        miniGoal = false;
+        //miniGoal = false;
         // Ensure only one instance of the GameManager exists
         if (instance == null)
         {
@@ -69,6 +72,7 @@ public class GameManager : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<PlayerController>();
         playerSpawnPOS = GameObject.FindWithTag("PlayerSpawnPOS");
+        playerStartPOS = GameObject.FindWithTag("PlayerStartPOS");
 
         // Fill the list with all retrievable objects in the scene
         fillRetrievables();
@@ -112,25 +116,6 @@ public class GameManager : MonoBehaviour
             // Trigger win condition
             UIManager.Instance.ShowWinScreen();
         }
-    }
-    public void updateMiniGoal(int amount)
-    {
-        playerScore += amount;
-        UIManager.Instance.UpdatePumpkinFill();
-
-        if (playerScore >= goalScore)
-        {
-
-            miniGoal = true;
-            UIManager.Instance.goalUI.SetActive(false);
-        }
-
-    }
-
-    // --- GET ENEMY COUNT: Return the current enemy count ---
-    public int GetEnemyCount()
-    {
-        return enemyCount;
     }
 
     // --- RETRIEVABLE OBJECTS HANDLING ---
@@ -176,17 +161,10 @@ public class GameManager : MonoBehaviour
     {
         liveBoss = !liveBoss;
     }
-    public int GetPlayerScore()
-    {
-        return playerScore;
-    }
-    public int GetGoalScore()
-    {
-        return goalScore;
-    }
-    public bool GetGoalState()
-    {
-        return miniGoal;
-    }
+    //public int GetPlayerScore()
+    //{
+    //    return playerScore;
+    //}
+    
 
 }
