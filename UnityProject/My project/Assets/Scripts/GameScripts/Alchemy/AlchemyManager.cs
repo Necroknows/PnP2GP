@@ -88,7 +88,7 @@ public class AlchemyManager : MonoBehaviour
         {
             //get the mortar component
             Mortar mortarComponent = targetObj.GetComponent<Mortar>();
-            if (mortarComponent == null)
+            if (mortarComponent != null)
             {
                 mortarComponent.AddItem(item);
                 inventory.RemoveItem(item);

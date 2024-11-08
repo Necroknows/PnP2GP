@@ -228,6 +228,7 @@ public class PlayerController : MonoBehaviour, IDamage
             {
                 targetPoint = hit.point; // Update target point if something is hit
             }
+            
 
             // Calculate the direction from the shoot position to the target point
             Vector3 direction = (targetPoint - shootPos.position).normalized;
