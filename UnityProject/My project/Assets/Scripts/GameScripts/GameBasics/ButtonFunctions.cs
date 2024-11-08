@@ -57,7 +57,9 @@ public class ButtonFunctions : MonoBehaviour
             {
                 if (SceneManager.GetSceneAt(i).isLoaded == true &&
                     SceneManager.GetSceneByName(gameBasics) != SceneManager.GetSceneAt(i))
+                {
                     SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(i));
+                }
             }
         }
 
