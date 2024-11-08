@@ -26,14 +26,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 75996420169396088}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.061955214, y: -0, z: -0, w: 0.99807894}
-  m_LocalPosition: {x: 0.80000305, y: -0.96788317, z: 1.1283628}
+  m_LocalRotation: {x: 0, y: 0.92387956, z: -0.38268343, w: 0}
+  m_LocalPosition: {x: 0.2, y: -0.2, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5461535381516208863}
   m_Father: {fileID: 3750722861990556781}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: 180, z: 0}
 --- !u!33 &2365033336022199300
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -331,13 +331,12 @@ MonoBehaviour:
   gunModel: {fileID: 75996420169396088}
   muzzleFlash: {fileID: 960101654037087676}
   gunShotNoise: {fileID: 4291443022338099674}
-  interactionRange: 0
   interactionLayer:
     serializedVersion: 2
     m_Bits: 0
   interactKey: 101
-  pushDir: {x: 0, y: 0, z: 0}
   objectToRetrieve: {fileID: 0}
+  pushDir: {x: 0, y: 0, z: 0}
   carryPosition: {fileID: 305810287369939846}
 --- !u!143 &4985625575012694083
 CharacterController:
@@ -670,7 +669,7 @@ Transform:
   m_GameObject: {fileID: 4922556376194628721}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.25340304, z: -0, w: -0.9673608}
-  m_LocalPosition: {x: 0.97947985, y: 0, z: 0.9879718}
+  m_LocalPosition: {x: 0.97947985, y: 0.23, z: 0.9879718}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -894,7 +893,7 @@ Transform:
   m_GameObject: {fileID: 7605459979563271968}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.95321965, z: -0, w: -0.30227867}
-  m_LocalPosition: {x: 0.5000005, y: -0.099999994, z: 1.299989}
+  m_LocalPosition: {x: 0.769, y: 0.226, z: 1.078}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
