@@ -22,11 +22,21 @@ public class SceneLoader : MonoBehaviour
 
     //scene state
     private bool loadInProgress = false;
-    
+    private bool isLoaded;
 
     private void Start()
     {
-        
+        if (SceneManager.sceneCount > 0)
+        {
+            for (int i = 0; i < SceneManager.sceneCount; i++)
+            {
+                Scene scene = SceneManager.GetSceneAt(i);
+                if (scene.name == gameObject.name)
+                {
+                    isLoaded = true;
+                }
+            }
+        }
     }
     private void Update()
     {
@@ -63,7 +73,7 @@ public class SceneLoader : MonoBehaviour
 
        
 
-        if (loadInProgress == false)
+        if (loadInProgress == false && !isLoaded)
         {
             //Debug.Log("Load Scene has started" + this.name);
             loadInProgress = true;
@@ -74,6 +84,7 @@ public class SceneLoader : MonoBehaviour
                     SceneManager.LoadSceneAsync(gameObject.name, LoadSceneMode.Additive);
                     yield return WaitUntil.ReferenceEquals(SceneManager.GetSceneByName(this.name).isLoaded, true);
                     
+                isLoaded = true;
                 loadInProgress = false;
             }
             //Debug.Log("load scene has ended " + this.name);
@@ -84,7 +95,7 @@ public class SceneLoader : MonoBehaviour
     {
         //Debug.Log("Unload Scene has started" + this.name);
         //checks if loading is in progress
-        if (loadInProgress == false)
+        if (loadInProgress == false && isLoaded)
         {
             //check to make sure scene is infact loaded
             if (SceneManager.GetSceneByName(this.name).isLoaded)
@@ -94,8 +105,8 @@ public class SceneLoader : MonoBehaviour
                 //until a scene is loaded 
                     SceneManager.UnloadSceneAsync(gameObject.name);
                     yield return WaitUntil.ReferenceEquals(!SceneManager.GetSceneByName(this.name).isLoaded, true);
-               
 
+                isLoaded = false;
                 loadInProgress = false;
             }
         }
