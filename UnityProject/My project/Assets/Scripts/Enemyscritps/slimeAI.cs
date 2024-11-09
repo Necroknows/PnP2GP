@@ -53,7 +53,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     // Update is called once per frame
     void Update()
     {
-        if (animator.GetFloat("Speed") <= 0.05)
+        if (animator.GetFloat("Speed") <= 0.05 && faces.Idleface != null && !isShooting)
             SetFace(faces.Idleface);
         animator.SetFloat("Speed", agent.velocity.normalized.magnitude);
         if (!CanSeePlayer())
