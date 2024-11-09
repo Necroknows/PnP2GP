@@ -235,7 +235,7 @@ public class PlayerController : MonoBehaviour, IDamage
             RaycastHit hit;
             Vector3 targetPoint = ray.GetPoint(1000); // Default far point if nothing is hit
 
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit, 1100, LayerMask.GetMask("Player")))
             {
                 targetPoint = hit.point; // Update target point if something is hit
             }

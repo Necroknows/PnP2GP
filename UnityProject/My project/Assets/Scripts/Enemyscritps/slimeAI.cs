@@ -38,7 +38,6 @@ public class EnemyAI : MonoBehaviour, IDamage
     private Material faceMaterial;
     private Texture faceOriginal;
     public GameObject SmileBody;
-    public SlimeAnimationState currentState;
 
 
     // Start is called before the first frame update
