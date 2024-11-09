@@ -21,10 +21,12 @@ public class DialogueTrigger : MonoBehaviour
     PlayerController controller;
     // Stores the DialogueManager so it doesn't constantly waste resources searching for it
     DialogueManager manager;
+    InteractionManager interactions;
 
     private void Start()
     {
         manager = FindObjectOfType<DialogueManager>();
+        interactions = FindObjectOfType<InteractionManager>();
     }
 
     private void Update()
@@ -50,6 +52,7 @@ public class DialogueTrigger : MonoBehaviour
         {
             controller = other.GetComponent<PlayerController>();
             playerInRange = true;
+            interactions.Interact("Press E To Speak With " + dialogue.nameNPC);
         }
     }
     // On Player exit, let script know
@@ -59,6 +62,7 @@ public class DialogueTrigger : MonoBehaviour
         {
             playerInRange = false;
             manager.EndDialogue();
+            interactions.StopInteract();
         }
     }
 }
