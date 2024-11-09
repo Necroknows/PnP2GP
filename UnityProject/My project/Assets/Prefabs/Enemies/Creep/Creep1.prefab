@@ -253,7 +253,7 @@ MonoBehaviour:
   roamDist: 60
   roamPauseTime: 2
   projectile: {fileID: 4885983065624503143, guid: 4ab23efd5dbe244488af7d95f84b6196, type: 3}
-  clawAttackRange: 5
+  clawAttackRange: 5.5
   attackCooldown: 1.25
   deathTime: 0
   attackRange: 0
@@ -288,11 +288,11 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3
+  m_Speed: 7
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 4.5
+  m_StoppingDistance: 5.5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
   m_AutoRepath: 1
@@ -1676,7 +1676,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e53b501690cc9aa48b3d425778b4bfd9, type: 2}
+  - {fileID: 2100000, guid: bc9dbcdd7e822b745a41fb39c77a9e9f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -31,12 +31,14 @@ public class NewEnemyAI : MonoBehaviour, IDamage
 
     private Vector3 playerDir;
     private Vector3 startingPos;
+    private GameManager gameManager;
 
     private void Start()
     {
         Claw.SetActive(false);
         startingPos = transform.position;
-        GameManager.instance.updateGameGoal(1); // Register with game goal
+        gameManager = GameManager.instance;
+        gameManager.updateGameGoal(1); // Register with game goal
     }
 
     private void Update()
@@ -89,7 +91,7 @@ public class NewEnemyAI : MonoBehaviour, IDamage
     private void faceTarget()
     {
         Quaternion rotate = Quaternion.LookRotation(new Vector3(playerDir.x, 0, playerDir.z));
-        transform.rotation = Quaternion.Lerp(transform.rotation, rotate, Time.deltaTime * rotateSpeed);
+        this.transform.LookAt(gameManager.player.transform);
     }
 
     private bool canSeePlayer()
