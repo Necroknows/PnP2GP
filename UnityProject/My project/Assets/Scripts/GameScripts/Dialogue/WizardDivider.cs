@@ -10,16 +10,26 @@ public class WizardDivider : MonoBehaviour
     [SerializeField] Transform[] waypoints;
     [SerializeField] float stopTime;
 
+    bool isRoaming;
     bool playerInRange;
+    int currWaypoint;
+    string prompt;
+    Coroutine someCO = null;
+
     // To stop the player from moving
     PlayerController controller;
+
     // Stores the DialogueManager so it doesn't constantly waste resources searching for it
     DialogueManager manager;
+    InteractionManager interactions;
 
     private void Start()
     {
         playerInRange = false;
         manager = FindObjectOfType<DialogueManager>();
+        interactions = FindObjectOfType<InteractionManager>();
+        prompt = "Press E To Speak With " + greeting.nameNPC;
+        currWaypoint = 0;
     }
 
     private void Update()
@@ -33,18 +43,23 @@ public class WizardDivider : MonoBehaviour
             TriggerDialogue();
             playerInRange = false;
         }
+        else if (!isRoaming)
+        {
+            someCO = StartCoroutine(Roaming());
+        }
     }
 
     IEnumerator Roaming()
     {
-        while (true)
-        {
-            foreach (Transform spot in waypoints)
-            {
-                agent.SetDestination(spot.position);
-                yield return new WaitForSeconds(stopTime);
-            }
-        }
+        isRoaming = true;
+        yield return new WaitForSeconds(stopTime);
+
+        currWaypoint %= waypoints.Length;
+        agent.SetDestination(waypoints[currWaypoint].position);
+        currWaypoint++;
+
+        isRoaming = false;
+        someCO = null;
     }
 
     public void TriggerDialogue()
@@ -54,19 +69,21 @@ public class WizardDivider : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<PlayerController>() != null)
+        if (other.GetComponent<PlayerController>())
         {
             controller = other.GetComponent<PlayerController>();
             playerInRange = true;
+            interactions.Interact(prompt);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.GetComponent<PlayerController>() == controller)
+        if (other.GetComponent<PlayerController>())
         {
             playerInRange = false;
             manager.EndDialogue();
+            interactions.StopInteract();
         }
     }
 }

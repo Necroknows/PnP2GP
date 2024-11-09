@@ -9,7 +9,7 @@ public class ResponseHandler : MonoBehaviour
     [SerializeField] private RectTransform responseBox;
     [SerializeField] private RectTransform responseButtonTemplate;
     [SerializeField] private RectTransform responseContainer;
-    [SerializeField] private Inventory inventory;
+    private InventoryManager inventory;
     private DialogueManager dialogueManager;
     private EventSystem eventSystem;
 
@@ -18,6 +18,7 @@ public class ResponseHandler : MonoBehaviour
     private void Start()
     {
         dialogueManager = GetComponent<DialogueManager>();
+        inventory = GetComponent<InventoryManager>();
         eventSystem = FindObjectOfType<EventSystem>();
     }
 
