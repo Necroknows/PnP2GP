@@ -28,6 +28,8 @@ public class DialogueManager : MonoBehaviour
     private PlayerController controller;
     private ResponseHandler responseHandler;
     private DialogueObject dialogueObject;
+    private bool isShowingResponses;
+
     public Animator anim;
 
     Queue<string> lines;
@@ -42,7 +44,7 @@ public class DialogueManager : MonoBehaviour
     private void Start()
     {
         controller = FindObjectOfType<PlayerController>();
-        responseHandler = GetComponent<ResponseHandler>();
+        responseHandler = FindObjectOfType<ResponseHandler>();
         textSourceAudio = gameObject.AddComponent<AudioSource>();
         textSourceAudio.loop = false;
         textSourceAudio.clip = textSound;
@@ -75,13 +77,11 @@ public class DialogueManager : MonoBehaviour
         Debug.Log("Starting conversation with " + dialogue.nameNPC);
 
         hUD.SetActive(false);
-
         anim.SetBool("IsOpen", true);
+        isShowingResponses = false;
 
         nameText.text = dialogue.nameNPC;
-
         dialogueObject = dialogue;
-
         lines.Clear();
 
         foreach (string line in dialogue.Dialogue)
@@ -97,7 +97,11 @@ public class DialogueManager : MonoBehaviour
     {
         if (lines.Count == 0 && dialogueObject.HasResponses)
         {
-            responseHandler.ShowResponses(dialogueObject.Responses);
+            if (!isShowingResponses)
+            {
+                responseHandler.ShowResponses(dialogueObject.Responses);
+                isShowingResponses = true;
+            }
         }
         else if (lines.Count == 0)
         {
