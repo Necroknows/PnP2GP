@@ -12,20 +12,21 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
-    [SerializeField] TMP_Text enemyCountText;
+    [SerializeField] GameObject deathSpawnWarning;
     [SerializeField] TMP_Text ammoCountText;
     
    
     //public GameObject goalUI;
     public GameObject checkpointPopup;
     public PlayerController playerCont;
+    public DeathAI deathAI;
 
     //=== PLAYER INVENTORY ===
     public GameObject inventoryPanel;           //sets inventory panel
     public KeyCode interactKey = KeyCode.E;       //sets key for interact
-    //private bool isInventoryOpen = false;       //checks if inventory is open
-    
-    //public Image pumpkinFill;
+                                                  //private bool isInventoryOpen = false;       //checks if inventory is open
+
+    public Image deathBar;
     public Image playerHpBar;
     public Image playerFuelBar;
     public bool isPaused;
@@ -69,7 +70,8 @@ public class UIManager : MonoBehaviour
 
         //on E key
         
-        
+        //Death awareness update
+        DeathSpawnBar();
     }
     public void PauseGame()
     {
@@ -112,19 +114,23 @@ public class UIManager : MonoBehaviour
         playerHpBar.fillAmount = healthFraction;
     }
     
-    //public void UpdatePumpkinFill()
-    //{
-    //    // Get the current player's score and goal score
-    //    float currentScore = GameManager.instance.GetPlayerScore();
-    //    float goalScore = GameManager.instance.GetGoalScore();
+    public void DeathSpawnBar()
+    {
 
-    //    // Calculate the fill fraction based on current score divided by the goal score
-    //    float fillFraction = Mathf.Clamp01(currentScore / goalScore);  // Clamped between 0 and 1
+        //fill bar based on the percentage between the two
+        
+        //update the bar to the percentage
+        deathBar.fillAmount = GameManager.instance.dSManager.GetCurrentFillAmount();
+        if(deathBar.fillAmount == 1 && !deathSpawnWarning.activeInHierarchy)
+        {
+            deathSpawnWarning.SetActive(true);
+        }
+        else if(deathBar.fillAmount < 1 && deathSpawnWarning.activeInHierarchy)
+        { deathSpawnWarning.SetActive(false) ;}
 
-    //    // Update the fill amount for the pumpkin UI element
-    //    pumpkinFill.fillAmount = fillFraction;  // Directly set the fill amount
-    //}
-    
+        
+    }
+
     public void UpdatePlayerFuelBar(float fuelFraction)
     {
         fuelFraction = Mathf.Clamp01(GameManager.instance.playerScript.GetFuel() / GameManager.instance.playerScript.GetFuelMax());
