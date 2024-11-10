@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
+using UnityEngine.AI;
 // ---Death spawn script---
 //holds counter for how many seconds player is outside of village collider
 //updates from gamemanager number of enemies killed to speed up bar fill time
@@ -19,6 +20,7 @@ public class DeathSpawnManager : MonoBehaviour
     float playerExploreTime;
     [SerializeField]float fillAmount;
     [SerializeField] float barFillIncrementOrig = .01f;
+    [SerializeField] float spawnRange;
 
     public float barFillIncrement;
     float barFillSpeed =1;
@@ -33,7 +35,7 @@ public class DeathSpawnManager : MonoBehaviour
     public bool isWaitingToDespawn;
 
     private bool isDeathSpawned = false; //Tracks if Death is spawned or not.
-    private GameObject deathInstance;
+    //private GameObject deathInstance;
 
     // Start is called before the first frame update
     void Start()
@@ -160,27 +162,40 @@ public class DeathSpawnManager : MonoBehaviour
             
             else if(isPlayerExploring == false)
             {
-                //if the player does not leave the village in the time death despawns
-                
-                deathInstance.gameObject.SetActive(false);
-                isWaitingToDespawn = false;
+            //if the player does not leave the village in the time death despawns
+
+            GameManager.instance.death.SetActive(false);
+            isWaitingToDespawn = false;
                 isDeathActive = false;
                 
              }
     }
     private void SpawnDeath()
     {
-        Vector3 spawnPosition = player.transform.position + new Vector3(10, 5, 10);
-        deathInstance = Instantiate(deathPrefab, spawnPosition, Quaternion.identity);
+        //Vector3 spawnPosition = player.transform.position + new Vector3(10, 5, 10);
+        //deathInstance = Instantiate(deathPrefab, spawnPosition, Quaternion.identity);
+        //isDeathActive = true;
+        Vector3 spawnPos = GameManager.instance.player.transform.position + UnityEngine.Random.insideUnitSphere * spawnRange;
+
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(spawnPos, out hit, spawnRange, 15))
+        {
+            spawnPos = hit.position;
+        }
+        
+        GameManager.instance.death.transform.position = spawnPos;
+        GameManager.instance.death.SetActive(true);
         isDeathActive = true;
+        
+        
     }
 
     private void TrackPlayerWithDeath()
     {
-        if (deathInstance != null)
+        if (GameManager.instance.death.activeInHierarchy)
         {
-            deathController deathScript = deathInstance.GetComponent<deathController>();
-            deathScript.SetTarget(player.transform);
+            
+            GameManager.instance.death.GetComponent<deathController>().SetTarget(GameManager.instance.player.transform);
         }
     }
 
