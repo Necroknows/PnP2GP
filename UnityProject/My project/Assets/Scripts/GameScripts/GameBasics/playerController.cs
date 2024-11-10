@@ -293,17 +293,22 @@ public class PlayerController : MonoBehaviour, IDamage
 
         if (HP <= 0)
         {
-            for (int i = 0; i < inventory.Items.Count; i++)
-            {
-                if (inventory.Items[i].itemType == Item.ItemType.Potion ||
-                    inventory.Items[i].itemType == Item.ItemType.Water ||
-                    inventory.Items[i].itemType == Item.ItemType.Herb)
-                {
-                    inventory.RemoveItem(inventory.Items[i]);
-                    i--;
-                }
-            }
+            DropAllItems();
             UIManager.Instance.ShowLoseScreen();  // Handle player death
+        }
+    }
+
+    public void DropAllItems()
+    {
+        for (int i = 0; i < inventory.Items.Count; i++)
+        {
+            if (inventory.Items[i].itemType == Item.ItemType.Potion ||
+                inventory.Items[i].itemType == Item.ItemType.Water ||
+                inventory.Items[i].itemType == Item.ItemType.Herb)
+            {
+                inventory.RemoveItem(inventory.Items[i]);
+                i--;
+            }
         }
     }
 

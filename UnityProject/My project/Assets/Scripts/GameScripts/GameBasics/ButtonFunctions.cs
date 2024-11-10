@@ -35,7 +35,7 @@ public class ButtonFunctions : MonoBehaviour
         //scenesToLoad.Add(SceneManager.LoadSceneAsync("Village", LoadSceneMode.Additive));
 
         GameManager.instance.playerScript.spawnPlayerAtStart();
-        UIManager.Instance.UnpauseGame();
+        GameManager.instance.playerScript.DropAllItems();
     }
     public void nextLevel()
     {
@@ -67,7 +67,6 @@ public class ButtonFunctions : MonoBehaviour
         //scenesToLoad.Add(SceneManager.LoadSceneAsync("Village", LoadSceneMode.Additive));
 
         GameManager.instance.playerScript.spawnPlayer();
-        //UIManager.Instance.UnpauseGame();
     }
     public void MainMenu()
     {
