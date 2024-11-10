@@ -129,6 +129,7 @@ public class QuestManager : MonoBehaviour
 
     public void RemoveQuest()
     {
+        questObject.SetQuestComplete();
         questObject = null;
     }
 }

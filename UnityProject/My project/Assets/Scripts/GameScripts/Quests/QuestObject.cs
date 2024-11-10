@@ -10,6 +10,7 @@ public class QuestObject : ScriptableObject
     [SerializeField] string questName;
 
     [SerializeField] public List<QuestItem> questCollectables = new List<QuestItem>();
+    bool isQuestCompleted;
 
     
     public string GetQuestName()
@@ -19,5 +20,14 @@ public class QuestObject : ScriptableObject
     public List<QuestItem> GetList()
     {
         return questCollectables;
+    }
+
+    public void SetQuestComplete()
+    {
+        isQuestCompleted = true;
+    }
+    public bool GetQuestCompleted()
+    {
+        return isQuestCompleted;
     }
 }
