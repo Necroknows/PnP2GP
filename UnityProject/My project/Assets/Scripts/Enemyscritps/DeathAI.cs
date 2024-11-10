@@ -11,11 +11,6 @@ public class DeathAI : MonoBehaviour
     public int swipeDamage = 5;
     public float swipeCooldown = 3f;
     private float lastSwipeTime = 0f;
-    private float followInterval = 0.2f;
-    private float attackCheckInterval = 0.5f;
-    private float rotateSpeed = 5f;
-
-    public int enemiesToSpawnDeath = 1;
 
     // --- MINION STATS ---
     public GameObject minionPrefab;
@@ -25,7 +20,6 @@ public class DeathAI : MonoBehaviour
     private float nextMinionSpawnTime = 0f;
 
     private bool isActivated = false;
-    private bool coroutinesStarted = false;
 
     private void Start()
     {
@@ -41,13 +35,12 @@ public class DeathAI : MonoBehaviour
         }
     }
 
-    private void OnEnable()
+    private void Update()
     {
-        if(!coroutinesStarted)
+        if(isActivated)
         {
-            StartCoroutine(FollowPlayerRoutine());
-            StartCoroutine(HandleAttacksRoutine());
-            coroutinesStarted = true;
+            FollowPlayer();
+            HandleMinionSpawns();
         }
     }
     //Activation and Deactivation for toggling Death depending on where the player is eventually..
@@ -62,8 +55,7 @@ public class DeathAI : MonoBehaviour
     public void DeactivateDeathAI()
     {
         isActivated = false;
-        coroutinesStarted = false;
-        StopAllCoroutines();
+        gameObject.SetActive(false);
     }
 
     private void FollowPlayer()
@@ -72,13 +64,10 @@ public class DeathAI : MonoBehaviour
         {
             agent.SetDestination(player.position);
         }
-    }
-
-    void faceTarget()
-    {
-        Vector3 playerDir = player.position - transform.position;
-        Quaternion rot = Quaternion.LookRotation(new Vector3(playerDir.x, 0, playerDir.z));
-        transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * rotateSpeed);
+        else
+        {
+            agent.ResetPath();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -95,32 +84,31 @@ public class DeathAI : MonoBehaviour
         }
     }
 
-    private void HandleAttacks()
+    private void OnTriggerStay(Collider other)
     {
-        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-        if(distanceToPlayer <= swipeRange && Time.time >= lastSwipeTime)
+        if(other.CompareTag("Player"))
         {
-            SwipeAttack();
-            lastSwipeTime = Time.time;
-        }
+            float distanceToPlayer = Vector3.Distance(transform.position, other.transform.position);
 
+            if (distanceToPlayer <= swipeRange && Time.time >= lastSwipeTime + swipeCooldown)
+            {
+                PlayerController playerController = other.GetComponent<PlayerController>();
+                if (playerController != null)
+                {
+                    Vector3 direction = (other.transform.position - transform.position).normalized;
+                    playerController.takeDamage(swipeDamage, direction);
+                    lastSwipeTime = Time.time;
+                }
+            }
+        }
+    }
+
+    private void HandleMinionSpawns()
+    {
         if(Time.time >= nextMinionSpawnTime && activeMinions.Count < maxMinions)
         {
             SpawnMinion();
             nextMinionSpawnTime = Time.time + minionSpawnInterval;
-        }
-    }
-
-    private void SwipeAttack()
-    {
-        if(Vector3.Distance(transform.position, player.position) <= swipeRange)
-        {
-            PlayerController playerController = player.GetComponent<PlayerController>();
-            if (playerController != null)
-            {
-                Vector3 swipeDirection = (player.position - transform.position).normalized;
-                playerController.takeDamage(swipeDamage, swipeDirection);
-            }
         }
     }
     //Spawns minion within certain radius.
@@ -142,24 +130,6 @@ public class DeathAI : MonoBehaviour
         {
         activeMinions.Remove(minion);
         Destroy(minion);
-        }
-    }
-
-    private IEnumerator FollowPlayerRoutine()
-    {
-        while(isActivated)
-        {
-            FollowPlayer();
-            yield return new WaitForSeconds(followInterval);
-        }
-    }
-
-    private IEnumerator HandleAttacksRoutine()
-    {
-        while(isActivated)
-        {
-            HandleAttacks();
-            yield return new WaitForSeconds(attackCheckInterval);
         }
     }
 
