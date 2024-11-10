@@ -24,7 +24,7 @@ public class AlchemyManager : MonoBehaviour, IInteractive
     public void Update()
     {
         //only process if player is holding item & clicking LMB
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetKeyUp(KeyCode.E))
         {
             Item selectedItem = InventoryManager.instance.GetSelectedItem();
 

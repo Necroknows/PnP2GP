@@ -70,6 +70,7 @@ public class PlayerController : MonoBehaviour, IDamage
     /*bool isSprinting;*/     // Is the player currently sprinting          //// future use ... make sure to uncomment in Sprint()
     bool isShooting;      // Is the player currently shooting
     bool isjumping;       // Is the player currently jumping
+    public bool canDash;
 
     public Transform carryPosition;
     private bool hasObject;
@@ -181,13 +182,13 @@ public class PlayerController : MonoBehaviour, IDamage
         // Apply gravity to player velocity
         playerVel.y -= gravity * Time.deltaTime;
 
-        // Handle flight (if jump is active and fuel is available)
+        // Handle Dashing (if jump is active and fuel is available)
         if (isjumping && fuel > 0)
         {
             if (Input.GetKey(KeyCode.F))
             {
-                playerVel.y = (jumpSpeed / 2) + 2;  // Apply vertical velocity for flight
-                fuel -= Time.deltaTime;   // Reduce fuel during flight
+                playerVel += new Vector3(jumpSpeed, jumpSpeed, jumpSpeed);  // Apply velocity for Dash
+                fuel--;   // Reduce fuel on Dash
                 updatePlayerUI();         // Update UI with remaining fuel
             }
 
@@ -345,6 +346,11 @@ public class PlayerController : MonoBehaviour, IDamage
         }
     }
 
+    public void setHPOrig(int amount) 
+    { 
+        HPOrig = amount;
+    }
+
     public void setAmmo(int amount)
     {
         gunList[SelectGunPos].ammoCur += amount;
@@ -419,7 +425,7 @@ public class PlayerController : MonoBehaviour, IDamage
         return fuelmax;
     }
 
-    internal void SetFuel(int fuelPickupAmount)
+    internal void SetFuel(float fuelPickupAmount)
     {
         fuel += fuelPickupAmount;
         if (fuel > fuelmax)
