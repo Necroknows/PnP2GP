@@ -17,6 +17,7 @@ public class DialogueObject : ScriptableObject
 
     [SerializeField] [TextArea] private string[] dialogue;
     [SerializeField] private Response[] responses;
+    [SerializeField] public QuestObject questToGive;
 
 
     public bool HasResponses => responses != null && responses.Length > 0;

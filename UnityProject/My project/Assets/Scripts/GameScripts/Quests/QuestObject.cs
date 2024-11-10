@@ -9,7 +9,7 @@ public class QuestObject : ScriptableObject
 {
     [SerializeField] string questName;
 
-    [SerializeField]List<QuestItem> questCollectables = new List<QuestItem>();
+    [SerializeField] public List<QuestItem> questCollectables = new List<QuestItem>();
 
     
     public string GetQuestName()

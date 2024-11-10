@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59eaf85fd16c4704f84ff544d5d8a134, type: 3}
+  m_Name: TutorialPage
+  m_EditorClassIdentifier: 
+  nameNPC: Tutorial
+  dialogue:
+  - You will mostly be using E to interact with most things as well as continue the
+    dialogue. You can press Left Shift to speed up the typing animation.
+  - When given a choice in dialogue, W/S are to control which response is currently
+    active and Space Bar is to accept the choice.
+  - Naturally, WASD is to move around and space is to jump and double jump.
+  - Pressing 1 or 2 will allow you to scroll through you inventory items and pressing
+    q uses the currently active item.
+  - To use the alchemy system, swap to your book and, using the <- and -> keys, pick
+    a page for the recipe you wish to create. (the recipes do not match what they
+    actually are in the system. The Legend - first page - throws it off.)
+  - Once you have the desired recipe selected, use the book on the Recipe Stand to
+    our right. Now the recipe for what you wish to craft is set.
+  - For plant looking ingredients (Herbs), use them on the mortar to the right of
+    the book. For water, use it on the boiler to the left of the book.
+  - Once you have place all ingredients, press E on the stand to craft the recipe.
+    If it doesn't have the neccessary ingredients, it will return them to the player's
+    inventory.
+  - You don't need to worry about over filling either. It will return excess items
+    to you!
+  - Be careful when out foraging, because killing and simply being out there draws
+    death's gaze closer to you.
+  responses: []
+  questToGive: {fileID: 0}

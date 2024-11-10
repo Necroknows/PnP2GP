@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Quest Item", menuName = "Quest Item")]
 public class QuestItem : ScriptableObject
 {
-    [SerializeField] Item item;
+    [SerializeField] public Item item;
     [SerializeField] int numToRetrieve;
 
     public int GetNumToRetrieve()

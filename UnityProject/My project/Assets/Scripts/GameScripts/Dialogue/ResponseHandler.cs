@@ -13,6 +13,7 @@ public class ResponseHandler : MonoBehaviour
     private DialogueManager dialogueManager;
 
     List<GameObject> tempResponseButtons = new List<GameObject>();
+    List<QuestItem> itemsToRemove = new List<QuestItem>();
 
     private void Start()
     {
@@ -29,7 +30,8 @@ public class ResponseHandler : MonoBehaviour
     public void ShowResponses(Response[] responses)
     {
         float responseBoxHeight = 0;
-        
+        itemsToRemove = dialogueManager.dialogueObject.questToGive.questCollectables;
+
         foreach (Response response in responses)
         {
             if (CheckForItems(response))
@@ -71,7 +73,9 @@ public class ResponseHandler : MonoBehaviour
 
         if (hasItem && response.DialogueTrue != null)
         {
+            // Complete quest function here
             dialogueManager.StartDialogue(response.DialogueTrue);
+            // Give next quest function here
         }
 
         else if (!hasItem && response.DialogueFalse != null)
@@ -89,28 +93,28 @@ public class ResponseHandler : MonoBehaviour
     private bool CheckForItems(Response response)
     {
 
-        if (response.thingsToCheck.Length > 0)
+        if (itemsToRemove.Count > 0)
         {
-            foreach (Item thing in response.thingsToCheck)
+            foreach (QuestItem thing in itemsToRemove)
             {
                 if (thing != null)
                 {
-                    Debug.Log("Checking Inventory for: " + thing.itemName);
-                    if (!inventory.HasItem(thing))
+                    Debug.Log("Checking Inventory for: " + thing.item.itemName);
+                    if (!inventory.HasItem(thing.item))
                     {
                         return false;
                     }
                 }
             }
         }
-        if (response.thingsToIgnore.Length > 0)
+        if (itemsToRemove.Count > 0)
         {
-            foreach (Item thing in response.thingsToIgnore)
+            foreach (QuestItem thing in itemsToRemove)
             {
                 if (thing != null)
                 {
-                    Debug.Log("Checking Inventory for: " + thing.itemName);
-                    if (inventory.HasItem(thing))
+                    Debug.Log("Checking Inventory for: " + thing.item.itemName);
+                    if (inventory.HasItem(thing.item))
                     {
                         return false;
                     }

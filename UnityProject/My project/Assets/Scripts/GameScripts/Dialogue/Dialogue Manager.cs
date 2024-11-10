@@ -27,7 +27,7 @@ public class DialogueManager : MonoBehaviour
     private AudioSource textSourceAudio;
     private PlayerController controller;
     private ResponseHandler responseHandler;
-    private DialogueObject dialogueObject;
+    public DialogueObject dialogueObject;
     private bool isShowingResponses;
 
     public Animator anim;
@@ -105,6 +105,10 @@ public class DialogueManager : MonoBehaviour
         }
         else if (lines.Count == 0)
         {
+            if (dialogueObject.questToGive != null)
+            {
+                // Give Quest here
+            }
             EndDialogue();
             return;
         }
