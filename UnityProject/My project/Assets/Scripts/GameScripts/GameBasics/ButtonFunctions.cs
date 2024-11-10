@@ -23,16 +23,16 @@ public class ButtonFunctions : MonoBehaviour
 
     public void restart()
     {
-        if (SceneManager.sceneCount > 0)
-        {
-            for (int i = 0; i < SceneManager.sceneCount; i++)
-            {
-                if(SceneManager.GetSceneAt(i).isLoaded == true && 
-                    SceneManager.GetSceneByName(gameBasics) != SceneManager.GetSceneAt(i))
-                SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(i));
-            }
-        }
-        scenesToLoad.Add(SceneManager.LoadSceneAsync("Village", LoadSceneMode.Additive));
+        //if (SceneManager.sceneCount > 0)
+        //{
+        //    for (int i = 0; i < SceneManager.sceneCount; i++)
+        //    {
+        //        if(SceneManager.GetSceneAt(i).isLoaded == true && 
+        //            SceneManager.GetSceneByName(gameBasics) != SceneManager.GetSceneAt(i))
+        //        SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(i));
+        //    }
+        //}
+        //scenesToLoad.Add(SceneManager.LoadSceneAsync("Village", LoadSceneMode.Additive));
 
         GameManager.instance.playerScript.spawnPlayerAtStart();
         UIManager.Instance.UnpauseGame();
@@ -51,20 +51,20 @@ public class ButtonFunctions : MonoBehaviour
 
     public void Respawn()
     {
-        if (SceneManager.sceneCount > 0)
-        {
-            for (int i = 0; i < SceneManager.sceneCount; i++)
-            {
-                if (SceneManager.GetSceneAt(i).isLoaded == true &&
-                    SceneManager.GetSceneByName(gameBasics) != SceneManager.GetSceneAt(i))
-                {
-                    SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(i));
-                }
-            }
-        }
+        //if (SceneManager.sceneCount > 0)
+        //{
+        //    for (int i = 0; i < SceneManager.sceneCount; i++)
+        //    {
+        //        if (SceneManager.GetSceneAt(i).isLoaded == true &&
+        //            SceneManager.GetSceneByName(gameBasics) != SceneManager.GetSceneAt(i))
+        //        {
+        //            SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(i));
+        //        }
+        //    }
+        //}
 
-        //needs to be updated for the check point level to be the spawn location
-        scenesToLoad.Add(SceneManager.LoadSceneAsync("Village", LoadSceneMode.Additive));
+        ////needs to be updated for the check point level to be the spawn location
+        //scenesToLoad.Add(SceneManager.LoadSceneAsync("Village", LoadSceneMode.Additive));
 
         GameManager.instance.playerScript.spawnPlayer();
         UIManager.Instance.UnpauseGame();

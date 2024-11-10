@@ -26,7 +26,9 @@ public class MainMenu : MonoBehaviour
         MainMenuHide();
         loadingScreenOn();
         scenesToLoad.Add(SceneManager.LoadSceneAsync("Village", LoadSceneMode.Additive));
+        //scenesToLoad.Add(SceneManager.LoadSceneAsync("Farm", LoadSceneMode.Additive));
         scenesToLoad.Add(SceneManager.LoadSceneAsync(gameBasics));
+        scenesToLoad.Add(SceneManager.LoadSceneAsync("Farm", LoadSceneMode.Additive));
         StartCoroutine(LoadingScreen());
     }
 

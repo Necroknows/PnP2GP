@@ -81,7 +81,8 @@ public class SceneLoader : MonoBehaviour
             if (!SceneManager.GetSceneByName(this.name).isLoaded)
             //waits for the scene to load
             {
-                    SceneManager.LoadSceneAsync(gameObject.name, LoadSceneMode.Additive);
+                    //SceneManager.LoadSceneAsync(gameObject.name, LoadSceneMode.Additive);
+                    SceneManager.LoadScene(gameObject.name,LoadSceneMode.Additive);
                     yield return WaitUntil.ReferenceEquals(SceneManager.GetSceneByName(this.name).isLoaded, true);
                     
                 isLoaded = true;
@@ -104,6 +105,7 @@ public class SceneLoader : MonoBehaviour
                 loadInProgress = true;
                 //until a scene is loaded 
                     SceneManager.UnloadSceneAsync(gameObject.name);
+                    
                     yield return WaitUntil.ReferenceEquals(!SceneManager.GetSceneByName(this.name).isLoaded, true);
 
                 isLoaded = false;
