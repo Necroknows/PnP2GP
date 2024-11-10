@@ -29,8 +29,8 @@ public class DeathSpawnManager : MonoBehaviour
 
     bool isPlayerExploring;
     bool isBarFillBusy;
-    bool isDeathActive;
-    bool isWaitingToDespawn;
+    public bool isDeathActive;
+    public bool isWaitingToDespawn;
 
     private bool isDeathSpawned = false; //Tracks if Death is spawned or not.
     private GameObject deathInstance;
@@ -129,12 +129,12 @@ public class DeathSpawnManager : MonoBehaviour
     //deaths awareness fill.
     IEnumerator BarReduce()
     {
-       
+        
         isBarFillBusy = true;//stops update from calling to fill until complete
 
         if(fillAmount - barFillIncrement <= 0) //checks to make sure fill amount doesn't go into the negative
         { fillAmount = 0; }   
-        else fillAmount -= barFillIncrement; //otherwize it reduces by .02
+        else fillAmount -= barFillIncrement; 
 
 
         yield return new WaitForSeconds(barFillSpeed); 
@@ -151,19 +151,22 @@ public class DeathSpawnManager : MonoBehaviour
     IEnumerator WaitToDespawn()
     {
         isWaitingToDespawn = true;
-        for(int i = 0; i < 5; i++)
-        {
-                yield return new WaitForSeconds(.5f);
+        
             
-            if(i == 5)
+            yield return new WaitForSeconds(3f);
+            
+            if (isPlayerExploring == true)
+            { isWaitingToDespawn = false;}
+            
+            else if(isPlayerExploring == false)
             {
                 //if the player does not leave the village in the time death despawns
+                
                 deathInstance.gameObject.SetActive(false);
                 isWaitingToDespawn = false;
                 isDeathActive = false;
-                BarReduce(); //begins to reduce awareness immediately after
-            }
-        }
+                
+             }
     }
     private void SpawnDeath()
     {
