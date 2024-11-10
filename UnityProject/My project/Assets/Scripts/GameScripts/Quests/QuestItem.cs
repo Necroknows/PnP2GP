@@ -18,4 +18,14 @@ public class QuestItem : ScriptableObject
     {
         return item.itemName;
     }
+
+    public Item GetItem()
+    {
+        return item;
+    }
+
+    public void DecrementNumToRetrieve()
+    {
+        numToRetrieve--;
+    }
 }

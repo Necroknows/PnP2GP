@@ -59,7 +59,8 @@ public class ItemPickup : MonoBehaviour
             isPickedUp = true;
 
             InventoryManager.instance.AddItem(item);
-            
+           
+
             Debug.Log("Item picked up" + item.itemName);
 
             Destroy(gameObject);

@@ -174,6 +174,7 @@ public class InventoryManager : MonoBehaviour
             Items.Add(item);
         }
         ListItems();        //update UI after adding items
+        QuestManager.instance.UpdateUIList();
     }
 
     public void RemoveItem(Item item)
@@ -182,10 +183,12 @@ public class InventoryManager : MonoBehaviour
         {
             int sub = -1;
             item.AddStack(sub);
+            
         }
         else
         {
             Items.Remove(item);
+            
         }
         if (currentSelectedItem != 0)
         {
@@ -197,6 +200,7 @@ public class InventoryManager : MonoBehaviour
             inventoryUI.gameObject.SetActive(false);
         }
         ListItems();        //update UI after adding items
+        QuestManager.instance.UpdateUIList();
     }
 
     public void ListItems()
