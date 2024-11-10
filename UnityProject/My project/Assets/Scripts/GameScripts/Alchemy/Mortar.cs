@@ -5,6 +5,13 @@ using UnityEngine;
 public class Mortar : MonoBehaviour
 {
     private List<Item> itemsInMortar = new List<Item>();
+    private InteractionManager interactions;
+    public bool inRange = false;
+
+    private void Start()
+    {
+        interactions = FindObjectOfType<InteractionManager>();
+    }
 
     public bool HasItem(Item item)
     {
@@ -23,6 +30,16 @@ public class Mortar : MonoBehaviour
         itemsInMortar.Clear();
         Debug.Log("Mortar cleared");
 
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        inRange = true;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        inRange = false;
     }
 
 }//END

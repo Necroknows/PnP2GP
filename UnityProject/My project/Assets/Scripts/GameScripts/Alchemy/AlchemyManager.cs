@@ -6,10 +6,11 @@ public class AlchemyManager : MonoBehaviour, IInteractive
 {
     //make it a singleton, bc there's only one
     public static AlchemyManager instance;
+    private InteractionManager interactables;
 
     //general
-    public GameObject waterBoiler;
-    public GameObject mortar;
+    public waterBoiler waterBoiler;
+    public Mortar mortar;
     public Item waterItem;      //ref to water scriptable object
     public Item herbItem;       //ref to herb scriptable object
 
@@ -23,9 +24,8 @@ public class AlchemyManager : MonoBehaviour, IInteractive
 
     public void Update()
     {
-        //only process if player is holding item & clicking LMB
-        if(Input.GetKeyUp(KeyCode.E))
-        {
+        if (waterBoiler.inRange || mortar.inRange) { 
+        //only process if player is holding item & clicking Q
             Item selectedItem = InventoryManager.instance.GetSelectedItem();
 
             if(selectedItem != null)
@@ -33,12 +33,26 @@ public class AlchemyManager : MonoBehaviour, IInteractive
                 //check if interacting with boiler
                 if(IsPointerOverObject(waterBoiler.gameObject))
                 {
-                    UseItemOnObject(selectedItem, waterBoiler, InventoryManager.instance);
+                    interactables.Interact("Press Q to place Item into the Boiler", KeyCode.Q);
+                    if (Input.GetKeyUp(KeyCode.Q))
+                    {
+                        interactables.StopInteract();
+                        UseItemOnObject(selectedItem, waterBoiler.gameObject, InventoryManager.instance);
+                    }
                 }
                 //check if interacting with mortar
                 else if (IsPointerOverObject(mortar.gameObject))
                 {
-                    UseItemOnObject(selectedItem, mortar, InventoryManager.instance);
+                    interactables.Interact("Press Q to place Item into the Boiler", KeyCode.Q);
+                    if (Input.GetKeyUp(KeyCode.Q))
+                    {
+                        interactables.StopInteract();
+                        UseItemOnObject(selectedItem, mortar.gameObject, InventoryManager.instance);
+                    }
+                }
+                else
+                {
+                    interactables.StopInteract();
                 }
             }
         }
