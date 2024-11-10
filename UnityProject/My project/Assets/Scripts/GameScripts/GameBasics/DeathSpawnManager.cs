@@ -18,10 +18,13 @@ public class DeathSpawnManager : MonoBehaviour
 
     float playerExploreTime;
     [SerializeField]float fillAmount;
-    float barFillSpeed;
+    [SerializeField] float barFillIncrementOrig = .01f;
+
+    public float barFillIncrement;
+    float barFillSpeed =1;
     
     
-    int barFillSpeedOrig = 1;
+    
 
 
     bool isPlayerExploring;
@@ -35,7 +38,9 @@ public class DeathSpawnManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        barFillSpeed = barFillSpeedOrig;
+        
+
+        barFillIncrement = barFillIncrementOrig;
         fillAmount = 0;
         player = GameManager.instance.player;
     }
@@ -78,19 +83,19 @@ public class DeathSpawnManager : MonoBehaviour
 
     public void IncreaseBarFillSpeed()
     {
-        barFillSpeed = barFillSpeedOrig - (.1f * GameManager.instance.enemyCount);
+        barFillIncrement = barFillIncrementOrig + (.01f * GameManager.instance.enemiesToSpawnDeath);
     }
 
     private void ResetBarFillSpeed()
     {
-        if(barFillSpeed > barFillSpeedOrig) barFillSpeed = barFillSpeedOrig;
-        else if(barFillSpeed != barFillSpeedOrig)
+        if(barFillIncrement <= barFillIncrementOrig) barFillIncrement = barFillIncrementOrig;
+        else if(barFillIncrement != barFillIncrementOrig)
         {
-            barFillSpeed += .1f;
+            barFillIncrement -= .01f;
         }
-        if(GameManager.instance.enemyCount > 0)
+        if(GameManager.instance.enemiesToSpawnDeath > 0)
         {
-            GameManager.instance.enemyCount--;
+            GameManager.instance.enemiesToSpawnDeath--;
         }
     }
 
@@ -100,10 +105,10 @@ public class DeathSpawnManager : MonoBehaviour
         
         isBarFillBusy = true;   //prevents other enumerators from adjusting the bar fill while active
 
-        if (fillAmount + (float).01 >= 1)
+        if (fillAmount + barFillIncrement >= 1)
             fillAmount = 1;
         else
-            fillAmount += (float).01;//fills by increment
+            fillAmount += barFillIncrement;//fills by increment
 
         if(fillAmount < 1)
             yield return new WaitForSeconds(barFillSpeed); //waits for bar fill speed amount
@@ -127,13 +132,13 @@ public class DeathSpawnManager : MonoBehaviour
        
         isBarFillBusy = true;//stops update from calling to fill until complete
 
-        if(fillAmount - .02 <= 0) //checks to make sure fill amount doesn't go into the negative
-        { fillAmount = 0; }     
-        else fillAmount -= (float).02; //otherwize it reduces by .02
+        if(fillAmount - barFillIncrement <= 0) //checks to make sure fill amount doesn't go into the negative
+        { fillAmount = 0; }   
+        else fillAmount -= barFillIncrement; //otherwize it reduces by .02
 
 
         yield return new WaitForSeconds(barFillSpeed); 
-        if(barFillSpeed != barFillSpeedOrig || GameManager.instance.enemyCount > 0)
+        if(barFillIncrement != barFillIncrementOrig || GameManager.instance.enemyCount > 0)
         {
             ResetBarFillSpeed(); //increments 
         }

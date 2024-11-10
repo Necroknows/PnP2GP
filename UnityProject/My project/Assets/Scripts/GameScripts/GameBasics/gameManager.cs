@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
 
     // --- DEATH NPC REFERENCES ---
     public GameObject deathPrefab;
-    public int enemiesToSpawnDeath = 5; //Can be adjusted to however enemies needed.
+    public int enemiesToSpawnDeath; //Can be adjusted to however enemies needed.
     //private bool isDeathSpawned = false; //Tracks if Death is spawned or not.
     //private GameObject deathInstance;
 
@@ -91,6 +91,8 @@ public class GameManager : MonoBehaviour
     public void updateGameGoal(int amount)
     {
         enemyCount += amount;
+        if (amount <= 0)
+        { enemiesToSpawnDeath -= amount; }
         if (amount < 0)
         {
             dSManager.IncreaseBarFillSpeed(); //increases speed of death awareness meter
