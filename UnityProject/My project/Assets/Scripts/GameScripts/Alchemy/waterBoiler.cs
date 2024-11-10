@@ -5,6 +5,13 @@ using UnityEngine;
 public class waterBoiler : MonoBehaviour
 {
     private List<Item> itemsInBoiler = new List<Item>();
+    private InteractionManager interactions;
+    public bool inRange = false;
+
+    private void Start()
+    {
+        interactions = FindObjectOfType<InteractionManager>();
+    }
 
     public bool HasItem(Item item)
     {
@@ -21,6 +28,16 @@ public class waterBoiler : MonoBehaviour
     {
         itemsInBoiler.Clear();
         Debug.Log("Boiler cleared");
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        inRange = true;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        inRange = false;
     }
 
 }//END

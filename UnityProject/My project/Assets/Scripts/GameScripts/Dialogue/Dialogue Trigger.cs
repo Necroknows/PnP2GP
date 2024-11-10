@@ -52,7 +52,7 @@ public class DialogueTrigger : MonoBehaviour
         {
             controller = other.GetComponent<PlayerController>();
             playerInRange = true;
-            interactions.Interact("Press E To Speak With " + dialogue.nameNPC);
+            interactions.Interact("Press E To Speak With " + dialogue.nameNPC, KeyCode.E);
         }
     }
     // On Player exit, let script know

@@ -8,11 +8,14 @@ public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager instance;
     public static GameManager manager;
+    public static InteractionManager interactables;
 
     public List<Item> Items = new List<Item>();
 
+    [SerializeField] private RectTransform inventoryUI;
     public Transform ItemContent;       //where all items are filled
     public GameObject InventoryItem;    //prefab to instantiate
+    [SerializeField] TextMeshProUGUI selectedItemName;
     private List<GameObject> inventoryItemInstances = new List<GameObject>(); //list of instantiated inventory items
     public int currentSelectedItem = 0; //tracks currently selected item
 
@@ -27,6 +30,7 @@ public class InventoryManager : MonoBehaviour
     {
         instance = this;
         manager = FindObjectOfType<GameManager>();
+        interactables = FindObjectOfType<InteractionManager>();
     }
 
     private void Update()
@@ -41,7 +45,7 @@ public class InventoryManager : MonoBehaviour
         }
         else if (Input.GetKeyUp(KeyCode.Q) && Items[currentSelectedItem].itemType == Item.ItemType.Potion)
         {
-            StartCoroutine(UsePotion());
+            UsePotion();
         }
 
         HighlightSelected();        //visually indicates selected item
@@ -79,7 +83,7 @@ public class InventoryManager : MonoBehaviour
             }
             else
             {
-                Debug.Log("Other item selected - calling HideRecipeBook");
+                //Debug.Log("Other item selected - calling HideRecipeBook");
 
                 //hide recipe book if any other item is selected
                 RecipeBookUI.instance.HideRecipeBook();
@@ -126,6 +130,7 @@ public class InventoryManager : MonoBehaviour
             {
                 //set scale of selected item index
                 inventoryItemInstances[i].transform.localScale = (i == currentSelectedItem) ? highlightScale : defaultScale;
+                selectedItemName.text = Items[currentSelectedItem].itemName;
             }
         }
     }
@@ -137,15 +142,48 @@ public class InventoryManager : MonoBehaviour
             Debug.LogError("Attempted to add null item to inventory");
             return;
         }
-
-        Debug.Log("Adding itme " + item.itemName);
-        Items.Add(item);
+        if (Items.Count == 0)
+        {
+            Debug.Log("Adding item " + item.itemName + " and setting it as the currently held item.");
+            Items.Add(item);
+            currentSelectedItem = 0;
+            inventoryUI.gameObject.SetActive(true);
+        }
+        else if (HasItem(item))
+        {
+            int index = 0;
+            for (int i = 0; i < Items.Count; i++)
+            {
+                if (Items[i] == item)
+                {
+                    index = i;
+                    break;
+                }
+            }
+            Debug.Log("Adding item " + item.itemName + " to stack.");
+            Items.Add(item);
+            Debug.Log("Current stack: " + Items[index].objectsInStack);
+        }
+        else
+        {
+            Debug.Log("Adding item " + item.itemName);
+            Items.Add(item);
+        }
         ListItems();        //update UI after adding items
     }
 
     public void RemoveItem(Item item)
     {
         Items.Remove(item);
+        if (currentSelectedItem != 0)
+        {
+            currentSelectedItem--;
+        }
+        if (Items.Count == 0)
+        {
+            selectedItemName.text = string.Empty;
+            inventoryUI.gameObject.SetActive(false);
+        }
         ListItems();        //update UI after adding items
     }
 
@@ -188,7 +226,8 @@ public class InventoryManager : MonoBehaviour
                 continue;
             }
 
-            itemName.text = item.itemName;
+            itemName.text = item.itemName + " x" + item.objectsInStack;
+            selectedItemName.text = itemName.text;
 
             //check if the item has animated frames
             if(item.animatedIconFrames != null && item.animatedIconFrames.Length > 0)
@@ -216,6 +255,8 @@ public class InventoryManager : MonoBehaviour
             Debug.LogError("InventoryItem not set in InventoryManager");
             return;
         }
+
+        HighlightSelected();
     }
 
     public bool HasItem(Item item)
@@ -235,21 +276,34 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    private IEnumerator UsePotion()
+    private void UsePotion()
     {
-        if (Items[currentSelectedItem].itemName == "HealthPotion")
+        if (Items[currentSelectedItem].itemName == "Health Potion")
         {
-            manager.playerScript.setHPOrig(manager.playerScript.getHPOrig());
+            manager.playerScript.setHPOrig(manager.playerScript.getHPOrig() + 1);
+            RemoveItem(Items[currentSelectedItem]);
+            ListItems();
+            manager.playerScript.updatePlayerUI();
+            interactables.Interact("Maximum health increased!\nPress E", KeyCode.E);
         }
-        if (Items[currentSelectedItem].itemName == "DashPotion")
+        else if (Items[currentSelectedItem].itemName == "Dash Potion" && manager.playerScript.GetFuel() != manager.playerScript.GetFuelMax())
         {
             if (manager.playerScript.canDash == false)
             {
                 manager.playerScript.canDash = true;
+                interactables.Interact("Press left Control while jumping to use a midair dash.", KeyCode.LeftControl);
             }
             manager.playerScript.SetFuel(manager.playerScript.GetFuelMax());
+            RemoveItem(Items[currentSelectedItem]);
+            ListItems();
         }
-        yield break;
+        else if (Items[currentSelectedItem].itemName == "Mana Potion")
+        {
+            manager.playerScript.setAmmo(manager.playerScript.getAmmoMax());
+            RemoveItem(Items[currentSelectedItem]);
+            ListItems();
+            interactables.Interact("Ammo Refilled!\nPress E", KeyCode.E);
+        }
     }
 
 }//END

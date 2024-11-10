@@ -6,8 +6,14 @@ using UnityEngine;
 public class ItemPickup : MonoBehaviour
 {
     public Item item;
+    private InteractionManager interactables;
     private bool isPickedUp = false;        //check if item is picked up
     private bool isPlayerInRange = false;   //check if player is in range of item
+
+    private void Start()
+    {
+        interactables = FindObjectOfType<InteractionManager>();
+    }
 
     private void Update()
     {
@@ -23,6 +29,7 @@ public class ItemPickup : MonoBehaviour
         {
             isPlayerInRange = true;
             Debug.Log("Player in range of item" + item.itemName);
+            interactables.Interact("Press E to pick up " + item.itemName, KeyCode.E);
         }
     }
 
@@ -32,6 +39,7 @@ public class ItemPickup : MonoBehaviour
         {
             isPlayerInRange = false;
             Debug.Log("Player out of range of item" + item.itemName);
+            interactables.StopInteract();
         }
     }
 

@@ -10,10 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d417bc0e3259d0742a5acd4c2715962e, type: 3}
-  m_Name: Potion 3
+  m_Name: Potion Mana
   m_EditorClassIdentifier: 
-  itemID: 303
-  itemName: Potion3
-  itemIcon: {fileID: 105259414, guid: 0b856bf7b2bbb554d9bbb6b9e01fdc87, type: 3}
+  itemID: 302
+  itemName: Mana Potion
+  itemIcon: {fileID: 1557221041, guid: 0b856bf7b2bbb554d9bbb6b9e01fdc87, type: 3}
   animatedIconFrames: []
   animationFrameRate: 2.5
+  objectsInStack: 1
+  hoverHeight: 0.5
+  hoverSpeed: 3
+  hoverRange: 0.5
+  itemType: 3

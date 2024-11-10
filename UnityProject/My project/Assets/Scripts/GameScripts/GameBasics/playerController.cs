@@ -182,13 +182,15 @@ public class PlayerController : MonoBehaviour, IDamage
         // Apply gravity to player velocity
         playerVel.y -= gravity * Time.deltaTime;
 
-        // Handle Dashing (if jump is active and fuel is available)
-        if (isjumping && fuel > 0)
+        // Handle Dashing (if jump is active and fuel is available and canDash is true)
+        if (isjumping && fuel > 0 && canDash)
         {
-            if (Input.GetKey(KeyCode.F))
+            if (Input.GetKeyUp(KeyCode.LeftControl))
             {
-                playerVel += new Vector3(jumpSpeed, jumpSpeed, jumpSpeed);  // Apply velocity for Dash
-                fuel--;   // Reduce fuel on Dash
+                pushDir = (Input.GetAxis("Vertical") * transform.forward * (jumpSpeed * 2)) + 
+                          (Input.GetAxis("Horizontal") * transform.right * (jumpSpeed * 2)) +
+                          new Vector3(0, jumpSpeed * 2, 0);  // Apply velocity for Dash
+                fuel -= 1;   // Reduce fuel on Dash
                 updatePlayerUI();         // Update UI with remaining fuel
             }
 

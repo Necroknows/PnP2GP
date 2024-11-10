@@ -73,7 +73,7 @@ public class WizardDivider : MonoBehaviour
         {
             controller = other.GetComponent<PlayerController>();
             playerInRange = true;
-            interactions.Interact(prompt);
+            interactions.Interact(prompt, KeyCode.E);
         }
     }
 
