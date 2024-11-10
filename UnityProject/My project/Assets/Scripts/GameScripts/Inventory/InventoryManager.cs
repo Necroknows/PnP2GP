@@ -74,24 +74,28 @@ public class InventoryManager : MonoBehaviour
             Item selectedItem = Items[currentSelectedItem];
 
             //check if recipe book item is selected in inventory
-            if (selectedItem != null && selectedItem.itemID == recipeBookItemID)
+            if (selectedItem != null && !RecipeBookUI.instance.isShowing && (selectedItem.itemID == recipeBookItemID && Input.GetKeyUp(KeyCode.Q)))
             {
                 Debug.Log("Recipe Book selected - calling ShowRecipeBook");
 
                 //show recipe book if selected is the recipe book
                 RecipeBookUI.instance.ShowRecipeBook();
             }
-            else
+            else if (RecipeBookUI.instance.isShowing && selectedItem.itemID != recipeBookItemID)
             {
                 //Debug.Log("Other item selected - calling HideRecipeBook");
 
                 //hide recipe book if any other item is selected
                 RecipeBookUI.instance.HideRecipeBook();
             }
+            else if (Items.Count == 1 && Input.GetKeyUp(KeyCode.Q))
+            {
+                RecipeBookUI.instance.HideRecipeBook();
+            }
         }
         else
         {
-            Debug.LogWarning("No Items in Inventory or Invalid Selection");
+            //Debug.LogWarning("No Items in Inventory or Invalid Selection");
             RecipeBookUI.instance.HideRecipeBook();
         }
     }

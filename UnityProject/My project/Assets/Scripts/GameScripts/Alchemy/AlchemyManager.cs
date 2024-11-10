@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AlchemyManager : MonoBehaviour, IInteractive
+public class AlchemyManager : MonoBehaviour
 {
     //make it a singleton, bc there's only one
     public static AlchemyManager instance;
@@ -11,8 +11,11 @@ public class AlchemyManager : MonoBehaviour, IInteractive
     //general
     public waterBoiler waterBoiler;
     public Mortar mortar;
+    public RecipeStand stand;
     public Item waterItem;      //ref to water scriptable object
     public Item herbItem;       //ref to herb scriptable object
+
+    private bool playerInRange = false;
 
     //list of all recipes
     public List<AlchemyRecipe> recipes = new List<AlchemyRecipe>();
@@ -22,9 +25,14 @@ public class AlchemyManager : MonoBehaviour, IInteractive
         instance = this;
     }
 
+    private void Start()
+    {
+        interactables = FindObjectOfType<InteractionManager>();
+    }
+
     public void Update()
     {
-        if (waterBoiler.inRange || mortar.inRange) { 
+        if (playerInRange) { 
         //only process if player is holding item & clicking Q
             Item selectedItem = InventoryManager.instance.GetSelectedItem();
 
@@ -43,46 +51,61 @@ public class AlchemyManager : MonoBehaviour, IInteractive
                 //check if interacting with mortar
                 else if (IsPointerOverObject(mortar.gameObject))
                 {
-                    interactables.Interact("Press Q to place Item into the Boiler", KeyCode.Q);
+                    interactables.Interact("Press Q to place Item into the Mortar", KeyCode.Q);
                     if (Input.GetKeyUp(KeyCode.Q))
                     {
                         interactables.StopInteract();
                         UseItemOnObject(selectedItem, mortar.gameObject, InventoryManager.instance);
                     }
                 }
+                else if (IsPointerOverObject(stand.gameObject))
+                {
+                    interactables.Interact("Press Q to place Recipe into the Recipe Stand or E to Craft the Recipe", KeyCode.Q);
+                    if (Input.GetKeyUp(KeyCode.Q))
+                    {
+                        interactables.StopInteract();
+                        if (selectedItem != null && selectedItem.itemID == InventoryManager.instance.recipeBookItemID)
+                        {
+                            stand.SetRecipe(RecipeBookUI.instance.recipes[RecipeBookUI.instance.currentPage]);
+                        }
+                    }
+                    else if (Input.GetKeyUp(KeyCode.E))
+                    {
+                        //check if both are filled and create potion
+                        CraftPotion();
+                    }
+                }
                 else
                 {
-                    interactables.StopInteract();
+                    if (interactables.animator.GetBool("IsOpen"))
+                    {
+                        interactables.StopInteract();
+                    }
                 }
             }
         }
-
-        //check if both are filled and create potion
-        CraftPotion();
-
     }
 
     //attempt to craft based on a recipe
-    public bool CraftItem(AlchemyRecipe recipe, InventoryManager inventory)
+    public bool CraftItem(AlchemyRecipe recipe)
     {
         //check if player has all ingredients
         foreach (Item ingredient in recipe.ingredients)
         {
-            if (!inventory.HasItem(ingredient))
+            if (!mortar.HasItem(ingredient) && ingredient.itemType == Item.ItemType.Herb)
+            {
+                Debug.Log("Missing ingredient " + ingredient.itemName);
+                return false;
+            }
+            else if (!waterBoiler.HasItem(ingredient) && ingredient.itemType == Item.ItemType.Water)
             {
                 Debug.Log("Missing ingredient " + ingredient.itemName);
                 return false;
             }
         }
 
-        //remove ingredients from inventory
-        foreach (Item ingredient in recipe.ingredients)
-        {
-            inventory.RemoveItem(ingredient);
-        }
-
         //add resulting item to inventory
-        inventory.AddItem(recipe.result);
+        InventoryManager.instance.AddItem(recipe.result);
         Debug.Log("Crafted " + recipe.result.itemName);
 
         return true;
@@ -125,27 +148,91 @@ public class AlchemyManager : MonoBehaviour, IInteractive
 
     private void CraftPotion()
     {
-        bool canCraft = false;
+        bool canCraft = true;
 
         //check if boiler & mortar have correct items
-        if(waterBoiler.GetComponent<waterBoiler>().HasItem(waterItem) && mortar.GetComponent<Mortar>().HasItem(herbItem))
+        List<Item> list = new List<Item>();
+        foreach (Item items in mortar.GetItems)
         {
-            canCraft = true;
+            list.Add(items);
+        }
+        foreach (Item items in waterBoiler.GetItems)
+        {
+            list.Add(items);
+        }
+        List<Item> checks = new List<Item>();
+        foreach (Item item in list)
+        {
+            checks.Add(item);
+        }
+        foreach (Item ingredient in stand.GetRecipe.ingredients)
+        {
+            if (!checks.Contains(ingredient))
+            {
+                canCraft = false;
+                Debug.Log("Invalid items for recipe");
+                break;
+            }
+            checks.Remove(ingredient);
         }
 
         //craft possible potion
-        if(canCraft)
+        if (canCraft)
         {
-            AlchemyRecipe recipe = MatchRecipe();
-            if(recipe != null)
+            if (stand.GetRecipe != null)
             {
                 //attempt to craft based on recipe
-                InventoryManager.instance.AddItem(recipe.result);
-                Debug.Log("Potion crafted & added to inventory");
+                InventoryManager.instance.AddItem(stand.GetRecipe.result);
+                Debug.Log("Potion crafted & added to inventory.");
                 //clear objects after crafting
-                waterBoiler.GetComponent<waterBoiler>().ClearItems();
-                mortar.GetComponent<Mortar>().ClearItems();
+                foreach (Item item in stand.GetRecipe.ingredients)
+                {
+                    if (item != null && item.itemType == Item.ItemType.Water)
+                    {
+                        waterBoiler.RemoveItem(item);
+                        Debug.Log(item.itemName + "removed from waterBoiler.");
+                    }
+                    else if (item != null && item.itemType == Item.ItemType.Herb)
+                    {
+                        mortar.RemoveItem(item);
+                        Debug.Log(item.itemName + "removed from mortar.");
+                    }
+                }
+                if (waterBoiler.GetItems != null)
+                {
+                    for (int i = 0; i < waterBoiler.GetItems.Count; i++)
+                    {
+                        Item temp = waterBoiler.GetItems[i];
+                        InventoryManager.instance.AddItem(waterBoiler.GetItems[i]);
+                        Debug.Log(temp.itemName + "returned to player inventory.");
+                        waterBoiler.RemoveItem(waterBoiler.GetItems[i]);
+                        Debug.Log(temp.itemName + "removed from waterBoiler.");
+                        i--;
+                    }
+                }
+                if (mortar.GetItems != null)
+                {
+                    for (int i = 0; i < mortar.GetItems.Count; i++)
+                    {
+                        Item temp = mortar.GetItems[i];
+                        InventoryManager.instance.AddItem(mortar.GetItems[i]);
+                        Debug.Log(temp.itemName + "returned to player inventory.");
+                        mortar.RemoveItem(mortar.GetItems[i]);
+                        Debug.Log(temp.itemName + "removed from mortar.");
+                        i--;
+                    }
+                }
             }
+        }
+        else
+        {
+            foreach (Item item in list)
+            {
+                InventoryManager.instance.AddItem(item);
+                Debug.Log(item.itemName + " returned to player");
+            }
+            waterBoiler.GetComponent<waterBoiler>().ClearItems();
+            mortar.GetComponent<Mortar>().ClearItems();
         }
     }
 
@@ -162,8 +249,13 @@ public class AlchemyManager : MonoBehaviour, IInteractive
         return null;
     }
 
-    public void Interact()
+    private void OnTriggerEnter(Collider other)
     {
-        throw new System.NotImplementedException();
+        playerInRange = true;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        playerInRange = false;
     }
 }//END

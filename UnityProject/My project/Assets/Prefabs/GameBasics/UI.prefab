@@ -3013,6 +3013,9 @@ MonoBehaviour:
   - {fileID: -1398435728, guid: 3b42c2a8fad814d47bce1045cf3f3c50, type: 3}
   recipeImageDisplay: {fileID: 6600872677000992034}
   recipeBookPanel: {fileID: 3172385506543537634}
+  isShowing: 0
+  currentPage: 0
+  recipes: []
 --- !u!222 &3806589796937179236
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9087,6 +9090,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DialogueManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6731961885246313177, guid: c0b574f577c5fc64896f7d469d5b2808, type: 3}
+      propertyPath: hUD
+      value: 
+      objectReference: {fileID: 8154240424795146719}
     - target: {fileID: 6731961885246313177, guid: c0b574f577c5fc64896f7d469d5b2808, type: 3}
       propertyPath: anim
       value: 

@@ -6,16 +6,23 @@ public class waterBoiler : MonoBehaviour
 {
     private List<Item> itemsInBoiler = new List<Item>();
     private InteractionManager interactions;
-    public bool inRange = false;
 
     private void Start()
     {
         interactions = FindObjectOfType<InteractionManager>();
     }
 
+    public List<Item> GetItems => itemsInBoiler;
+
     public bool HasItem(Item item)
     {
         return itemsInBoiler.Contains(item);
+    }
+
+    public void RemoveItem(Item item)
+    {
+        itemsInBoiler.Remove(item);
+        Debug.Log(item.itemName + "removed from Boiler");
     }
 
     public void AddItem(Item item)
@@ -28,16 +35,6 @@ public class waterBoiler : MonoBehaviour
     {
         itemsInBoiler.Clear();
         Debug.Log("Boiler cleared");
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        inRange = true;
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        inRange = false;
     }
 
 }//END

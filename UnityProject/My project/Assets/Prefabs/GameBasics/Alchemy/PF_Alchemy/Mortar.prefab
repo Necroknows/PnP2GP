@@ -55,6 +55,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e742a1aedf864443aeb99cc5a286094, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inRange: 0
 --- !u!23 &7028856441858710483
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -116,5 +117,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.1008428, y: 0.9947776, z: 1.047665}
-  m_Center: {x: 0.23413722, y: 0.06246841, z: 0.0053985915}
+  m_Size: {x: 2, y: 0.9947776, z: 1.047665}
+  m_Center: {x: 0, y: 0, z: 0}

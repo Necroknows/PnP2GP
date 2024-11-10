@@ -15,9 +15,10 @@ public class RecipeBookUI : MonoBehaviour
     //private int recipeBookItemID = 600;
 
     public GameObject recipeBookPanel;
+    public bool isShowing = false;
 
-    private int currentPage;
-    private List<AlchemyRecipe> recipes; //list of recipes from AlchemyManager
+    public int currentPage;
+    public List<AlchemyRecipe> recipes; //list of recipes from AlchemyManager
 
     //public UI_Image recipeImage;
 
@@ -50,7 +51,7 @@ public class RecipeBookUI : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("RecipeBookUI Update() is running");
+        //Debug.Log("RecipeBookUI Update() is running");
 
         //only allow page cycling if book is open
         if (recipeBookPanel.activeSelf)
@@ -74,11 +75,13 @@ public class RecipeBookUI : MonoBehaviour
         currentPage = 0;
         ShowPage(currentPage);
         Debug.Log("Recipe Book opened - current page set to 0");
+        isShowing = true;
     }
 
     public void HideRecipeBook()
     {
         recipeBookPanel.SetActive(false);
+        isShowing= false;
     }
 
     public void ShowPage(int pageIndex)

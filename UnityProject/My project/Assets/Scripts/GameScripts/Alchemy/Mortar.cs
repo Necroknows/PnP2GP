@@ -6,16 +6,23 @@ public class Mortar : MonoBehaviour
 {
     private List<Item> itemsInMortar = new List<Item>();
     private InteractionManager interactions;
-    public bool inRange = false;
 
     private void Start()
     {
         interactions = FindObjectOfType<InteractionManager>();
     }
 
+    public List<Item> GetItems => itemsInMortar;
+
     public bool HasItem(Item item)
     {
         return itemsInMortar.Contains(item);
+    }
+
+    public void RemoveItem(Item item)
+    {
+        itemsInMortar.Remove(item);
+        Debug.Log(item.itemName + "removed from Mortar");
     }
 
     //add item to mortar
@@ -30,16 +37,6 @@ public class Mortar : MonoBehaviour
         itemsInMortar.Clear();
         Debug.Log("Mortar cleared");
 
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        inRange = true;
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        inRange = false;
     }
 
 }//END

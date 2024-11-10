@@ -1,32 +1,47 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RecipeStand : MonoBehaviour
 {
-    private AlchemyManager alchemy;
-    [SerializeField] Mortar mortar;
-    [SerializeField] waterBoiler boiler;
-    public AlchemyRecipe currRecipe;
-    
+    private AlchemyRecipe recipe = null;
+    private InteractionManager interactions;
+    public bool inRange = false;
 
-    void Start()
+    private void Start()
     {
-        alchemy = FindObjectOfType<AlchemyManager>();
-
+        interactions = FindObjectOfType<InteractionManager>();
     }
 
-    void Update()
+    public bool IsRecipe(AlchemyRecipe _recipe)
     {
-        
+        return Equal.Equals(_recipe, recipe);
     }
 
-    void SetRecipe(AlchemyRecipe recipe)
+    //add item to mortar
+    public void SetRecipe(AlchemyRecipe _recipe)
     {
-        currRecipe = recipe;
+        recipe = _recipe;
+        Debug.Log("recipe" + recipe.recipeName + "added to Stand");
     }
 
-    public AlchemyRecipe GetCurrentRecipe => currRecipe;
+    public AlchemyRecipe GetRecipe => recipe;
 
+    public void ClearRecipe()
+    {
+        recipe = null;
+        Debug.Log("Stand cleared");
+    }
 
-}
+    private void OnTriggerEnter(Collider other)
+    {
+        inRange = true;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        inRange = false;
+    }
+
+}//END
