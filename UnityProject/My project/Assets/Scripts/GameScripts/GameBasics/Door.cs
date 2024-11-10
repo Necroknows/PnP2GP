@@ -50,7 +50,7 @@ public class Door : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(doorType == DoorType.doorNormal && !isOpen)
+        if(doorType == DoorType.doorNormal && !isOpen && other.CompareTag("Player"))
         {
             SwitchDoorState(true);
         }
@@ -60,7 +60,7 @@ public class Door : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         //closes door after a player passes through
-        if (other.GetComponent<PlayerController>() != null && isOpen)
+        if (other.GetComponent<PlayerController>() != null && isOpen && other.CompareTag("Player"))
         {
             SwitchDoorState(false);
         }
