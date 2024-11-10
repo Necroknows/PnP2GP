@@ -20,6 +20,13 @@ public class MainMenu : MonoBehaviour
     //list of scenes to load at start of game
     private List<AsyncOperation> scenesToLoad = new List<AsyncOperation>();
 
+    private void Start()
+    {
+        // make the cursor visible to interact with menus
+        Cursor.visible = true;
+        // keep the cursor in the play area 
+        Cursor.lockState = CursorLockMode.Confined;
+    }
 
     public void StartGame()
     {

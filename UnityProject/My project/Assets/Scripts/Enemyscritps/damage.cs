@@ -19,7 +19,7 @@ using UnityEngine;
 
 public class damage : MonoBehaviour
 {
-    [SerializeField] enum damageType { bullet, stationary, chaser, arrow, lobber, melee };  // Enum defining the various damage types
+    [SerializeField] enum damageType { bullet, followReticle, stationary, chaser, arrow, lobber, melee };  // Enum defining the various damage types
 
     // --- COMPONENT REFERENCES ---
     [SerializeField] damageType type;        // Current damage type of this object
@@ -66,6 +66,11 @@ public class damage : MonoBehaviour
             Vector3 lobberVelo = (playerDir.normalized * speed) + Vector3.up * vertVelo;
 
             rb.velocity = lobberVelo;
+            Destroy(gameObject, destroyTime);
+        }
+        else if (type == damageType.followReticle)
+        {
+            rb.velocity = transform.forward * speed;
             Destroy(gameObject, destroyTime);
         }
     }
@@ -166,6 +171,18 @@ public class damage : MonoBehaviour
         {
             rb.velocity = (GameManager.instance.player.transform.position - transform.position).normalized * speed;
             transform.LookAt(GameManager.instance.player.transform);
+        }
+        else if (type == damageType.followReticle)
+        {
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Vector3 spot = ray.GetPoint(1000); // Default far point if nothing is hit
+            if (Physics.Raycast(ray, out hit, 1100, LayerMask.GetMask("Player")))
+            {
+                spot = hit.point; // Update target point if something is hit
+            }
+            Vector3 targetDirection = spot - transform.position;
+            rb.velocity = targetDirection.normalized * speed;
         }
         if (GameManager.instance.playerScript.getHP() <= 0 && statDmgCoroutine != null)
         {
