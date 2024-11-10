@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AlchemyManager : MonoBehaviour
+public class AlchemyManager : MonoBehaviour, IInteractive
 {
     //make it a singleton, bc there's only one
     public static AlchemyManager instance;
@@ -24,7 +24,7 @@ public class AlchemyManager : MonoBehaviour
     public void Update()
     {
         //only process if player is holding item & clicking LMB
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetKeyUp(KeyCode.E))
         {
             Item selectedItem = InventoryManager.instance.GetSelectedItem();
 
@@ -148,4 +148,8 @@ public class AlchemyManager : MonoBehaviour
         return null;
     }
 
+    public void Interact()
+    {
+        throw new System.NotImplementedException();
+    }
 }//END

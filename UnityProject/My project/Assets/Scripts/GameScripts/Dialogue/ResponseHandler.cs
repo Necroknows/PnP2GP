@@ -9,16 +9,21 @@ public class ResponseHandler : MonoBehaviour
     [SerializeField] private RectTransform responseBox;
     [SerializeField] private RectTransform responseButtonTemplate;
     [SerializeField] private RectTransform responseContainer;
-    [SerializeField] private Inventory inventory;
+    private InventoryManager inventory;
     private DialogueManager dialogueManager;
-    private EventSystem eventSystem;
 
     List<GameObject> tempResponseButtons = new List<GameObject>();
 
     private void Start()
     {
-        dialogueManager = GetComponent<DialogueManager>();
-        eventSystem = FindObjectOfType<EventSystem>();
+        dialogueManager = FindObjectOfType<DialogueManager>();
+        inventory = FindObjectOfType<InventoryManager>();
+        responseBox.gameObject.SetActive(false);
+
+        if (inventory == null)
+        {
+            Debug.Log("Inventory not found");
+        }
     }
 
     public void ShowResponses(Response[] responses)
@@ -27,28 +32,7 @@ public class ResponseHandler : MonoBehaviour
         
         foreach (Response response in responses)
         {
-            bool hasItem = true;
-            if (response.thingsToCheck != null)
-            {
-                foreach (Item thing in response.thingsToCheck)
-                {
-                    if (!inventory.HasItem(thing))
-                    {
-                        hasItem = false;
-                    }
-                }
-            }
-            if (response.thingsToIgnore != null)
-            {
-                foreach (Item thing in response.thingsToIgnore)
-                {
-                    if (inventory.HasItem(thing))
-                    {
-                        hasItem = false;
-                    }
-                }
-            }
-            if (hasItem)
+            if (CheckForItems(response))
             {
                 GameObject responseButton = Instantiate(responseButtonTemplate.gameObject, responseContainer);
                 responseButton.gameObject.SetActive(true);
@@ -63,32 +47,15 @@ public class ResponseHandler : MonoBehaviour
 
         responseBox.sizeDelta = new Vector2(responseBox.sizeDelta.x, responseBoxHeight);
         responseBox.gameObject.SetActive(true);
-        EventSystem.current.SetSelectedGameObject(tempResponseButtons[0]);
+        if (tempResponseButtons.Count > 0)
+        {
+            EventSystem.current.SetSelectedGameObject(tempResponseButtons[0]);
+        }
     }
 
     private void OnPickedResponse(Response response)
     {
-        bool hasItem = true;
-        if (response.thingsToCheck != null)
-        {
-            foreach (Item thing in response.thingsToCheck)
-            {
-                if (!inventory.HasItem(thing))
-                {
-                    hasItem = false;
-                }
-            }
-        }
-        if (response.thingsToIgnore != null)
-        {
-            foreach (Item thing in response.thingsToIgnore)
-            {
-                if (inventory.HasItem(thing))
-                {
-                    hasItem = false;
-                }
-            }
-        }
+        bool hasItem = false;
         responseBox.gameObject.SetActive(false);
 
         foreach (GameObject responseButton in tempResponseButtons)
@@ -97,17 +64,59 @@ public class ResponseHandler : MonoBehaviour
         }
         tempResponseButtons.Clear();
 
+        if (CheckForItems(response))
+        {
+            hasItem = true;
+        }
+
         if (hasItem && response.DialogueTrue != null)
         {
             dialogueManager.StartDialogue(response.DialogueTrue);
         }
+
         else if (!hasItem && response.DialogueFalse != null)
         {
             dialogueManager.StartDialogue(response.DialogueFalse);
         }
+
         else
         {
             Debug.Log("No dialogue suitable for conversation outcome.");
         }
+
+    }
+
+    private bool CheckForItems(Response response)
+    {
+
+        if (response.thingsToCheck.Length > 0)
+        {
+            foreach (Item thing in response.thingsToCheck)
+            {
+                if (thing != null)
+                {
+                    Debug.Log("Checking Inventory for: " + thing.itemName);
+                    if (!inventory.HasItem(thing))
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+        if (response.thingsToIgnore.Length > 0)
+        {
+            foreach (Item thing in response.thingsToIgnore)
+            {
+                if (thing != null)
+                {
+                    Debug.Log("Checking Inventory for: " + thing.itemName);
+                    if (inventory.HasItem(thing))
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 }

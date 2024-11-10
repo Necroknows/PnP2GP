@@ -33,9 +33,12 @@ public class GameManager : MonoBehaviour
     public GameObject playerSpawnPOS;       // Player spawn position reference
     public GameObject playerStartPOS;      // Player spawn position reference
     public GameObject pumpkin;             // Example of a retrievable object (can be generalized later)
+    public DeathSpawnManager dSManager;
+    public DeathAI deathScript;
+    public GameObject death;
 
     public bool isPaused;                  // Tracks if the game is paused
-    private int enemyCount;                // Tracks remaining enemy count
+    public int enemyCount;                // Tracks remaining enemy count
     private int retrievableCount;          // Tracks remaining retrievable objects count
     private int playerScore;               // holds the players progress score. 
     private bool liveBoss = true;                 // game state bool 
@@ -47,9 +50,9 @@ public class GameManager : MonoBehaviour
 
     // --- DEATH NPC REFERENCES ---
     public GameObject deathPrefab;
-    public int enemiesToSpawnDeath = 5; //Can be adjusted to however enemies needed.
-    private bool isDeathSpawned = false; //Tracks if Death is spawned or not.
-    private GameObject deathInstance;
+    public int enemiesToSpawnDeath; //Can be adjusted to however enemies needed.
+    //private bool isDeathSpawned = false; //Tracks if Death is spawned or not.
+    //private GameObject deathInstance;
 
     
 
@@ -73,6 +76,8 @@ public class GameManager : MonoBehaviour
         playerScript = player.GetComponent<PlayerController>();
         playerSpawnPOS = GameObject.FindWithTag("PlayerSpawnPOS");
         playerStartPOS = GameObject.FindWithTag("PlayerStartPOS");
+        death = GameObject.FindWithTag("Death");
+        deathScript = death.GetComponent<DeathAI>();
 
         // Fill the list with all retrievable objects in the scene
         fillRetrievables();
@@ -81,36 +86,24 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if(!isDeathSpawned && enemyCount >= enemiesToSpawnDeath)
-        {
-            Debug.Log("Spawning Death..");
-            SpawnDeath();
-            isDeathSpawned = true;
-        }
-        if (isDeathSpawned) TrackPlayerWithDeath();
+        
     }
 
-    // --- Spawn DEATH NPC Method ---
-    private void SpawnDeath()
-    {
-        Vector3 spawnPosition = player.transform.position + new Vector3(10, 5, 10);
-        deathInstance = Instantiate(deathPrefab, spawnPosition, Quaternion.identity);
-    }
-
-    private void TrackPlayerWithDeath()
-    {
-        if(deathInstance != null)
-        {
-            deathController deathScript = deathInstance.GetComponent<deathController>();
-            deathScript.SetTarget(player.transform);
-        }
-    }
+   
 
     // --- ENEMY TRACKING: Updates the enemy count, triggers win condition if all enemies are defeated ---
     public void updateGameGoal(int amount)
     {
         enemyCount += amount;
-
+        if (amount <= 0)
+        { enemiesToSpawnDeath -= amount; }
+        if (amount < 0)
+        {
+            dSManager.IncreaseBarFillSpeed(); //increases speed of death awareness meter
+        }
+        
+        
+        
         // Check if all enemies are defeated
         if (!liveBoss)
         {

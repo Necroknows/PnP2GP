@@ -194,7 +194,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 225dbe2a79618e4409f4fc621dd3abb0, type: 2}
-  - {fileID: 2100000, guid: c12dba4db4b10a34ea85b03c5b9263e6, type: 2}
+  - {fileID: 2100000, guid: 6d57523d5f1e21e458e8ef1223573401, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -293,10 +293,9 @@ MonoBehaviour:
   HP: 3
   rotateSpeed: 15
   fieldOfView: 90
-  stoppingDistanceOriginal: 0
-  faces: {fileID: 11400000, guid: 8b8a7554fceb39841840f45a2d8da540, type: 2}
+  stoppingDistanceOriginal: 2
+  faces: {fileID: 11400000, guid: a731a7b562c314349bc2ef35e17ec4ba, type: 2}
   SmileBody: {fileID: 3421705117012888872}
-  currentState: 0
 --- !u!195 &2067463307045395659
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -329,7 +328,7 @@ Animator:
   m_GameObject: {fileID: 4372315222513111678}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: eb340672e17c0af4089e561b61cdc548, type: 3}
-  m_Controller: {fileID: 9100000, guid: 707b944f06051734793367fc0c69bc07, type: 2}
+  m_Controller: {fileID: 9100000, guid: c9ed2d0f53e497342bd21dc1996f5ca8, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 1
   m_ApplyRootMotion: 0

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59eaf85fd16c4704f84ff544d5d8a134, type: 3}
+  m_Name: NoThirdPotion
+  m_EditorClassIdentifier: 
+  nameNPC: The Wizard
+  dialogue:
+  - Listen, apprentice. I know it is terrifying out there, afterall I just fled for
+    my own life.
+  - But we need to make that final potion. Go and get the recipe from the graveyard
+    and come see me when the potion is complete.
+  responses:
+  - thingsToCheck: []
+    thingsToIgnore: []
+    responseText: Ofcourse. (I wasn't scared, you know)
+    dialogueTrue: {fileID: 11400000, guid: 6a2a2b1b441ba3a42a645a7112abec6a, type: 2}
+    dialogueFalse: {fileID: 0}

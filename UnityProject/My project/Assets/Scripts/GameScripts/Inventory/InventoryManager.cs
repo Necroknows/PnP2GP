@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager instance;
+    public static GameManager manager;
 
     public List<Item> Items = new List<Item>();
 
@@ -25,17 +26,22 @@ public class InventoryManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        manager = FindObjectOfType<GameManager>();
     }
 
     private void Update()
     {
-        if (Input.GetAxis("Mouse ScrollWheel") < 0f)
+        if (Input.GetKeyUp(KeyCode.Alpha1))
         {
             SelectNextItem();
         }
-        else if (Input.GetAxis("Mouse ScrollWheel") > 0f)
+        else if (Input.GetKeyUp(KeyCode.Alpha2))
         {
             SelectPrevItem();
+        }
+        else if (Input.GetKeyUp(KeyCode.Q) && Items[currentSelectedItem].itemType == Item.ItemType.Potion)
+        {
+            StartCoroutine(UsePotion());
         }
 
         HighlightSelected();        //visually indicates selected item
@@ -216,6 +222,7 @@ public class InventoryManager : MonoBehaviour
     {
         return Items.Contains(item);
     }
+
     private IEnumerator AnimateIcon(Sprite[] frames, Image itemIcon)
     {
         int currentFrame = 0;
@@ -227,4 +234,22 @@ public class InventoryManager : MonoBehaviour
             yield return new WaitForSeconds(0.1f); //adjust speed as needed
         }
     }
+
+    private IEnumerator UsePotion()
+    {
+        if (Items[currentSelectedItem].itemName == "HealthPotion")
+        {
+            manager.playerScript.setHPOrig(manager.playerScript.getHPOrig());
+        }
+        if (Items[currentSelectedItem].itemName == "DashPotion")
+        {
+            if (manager.playerScript.canDash == false)
+            {
+                manager.playerScript.canDash = true;
+            }
+            manager.playerScript.SetFuel(manager.playerScript.GetFuelMax());
+        }
+        yield break;
+    }
+
 }//END

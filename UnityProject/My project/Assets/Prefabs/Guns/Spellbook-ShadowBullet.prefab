@@ -29,9 +29,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5927704000643706460}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.38097447, y: 0.07418459, z: 0.24729623, w: 0.8878061}
+  m_LocalRotation: {x: -0.38097435, y: 0.07418121, z: 0.24729387, w: 0.8878071}
   m_LocalPosition: {x: 0.044326417, y: 0.706963, z: 5.5306096}
-  m_LocalScale: {x: 2.4407, y: 2.4407, z: 2.4407}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -48,10 +48,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6850585989e0167469be4ac61e6ee034, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupType: 3
+  pickupType: 2
   healthPickupAmount: 15
   ammoPickupAmount: 30
-  gun: {fileID: 0}
+  gun: {fileID: 11400000, guid: 576f145a2471e624698febfc42beff3c, type: 2}
   hoverHeight: 0.5
   hoverSpeed: 3
   hoverRange: 0.5
@@ -146,5 +146,5 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.3
+  m_Radius: 0.5
   m_Center: {x: 0.003789918, y: 0.038293175, z: 0.016120894}
