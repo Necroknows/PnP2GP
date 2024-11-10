@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour, IDamage
     // --- INTERACTION & INVENTORY ---
     //[SerializeField] float interactionRange;
     public LayerMask interactionLayer;
-    Inventory inventory = Inventory.instance;
+    InventoryManager inventory = InventoryManager.instance;
     public KeyCode interactKey = KeyCode.E;
     [SerializeField] GameObject objectToRetrieve;
 
@@ -84,7 +84,7 @@ public class PlayerController : MonoBehaviour, IDamage
         gunShotNoise.playOnAwake = false;   // Ensures audio does not play immediately, still make sure it is checked as false in audio component
         updatePlayerUI();      // Initialize player UI
         spawnPlayerAtStart();         // DropPlayer at SpawnPos
-        inventory = Inventory.instance; // Get the inventory instance
+        inventory = FindObjectOfType<InventoryManager>(); // Get the inventory instance
     }
     public void spawnPlayer()
     {
@@ -293,6 +293,16 @@ public class PlayerController : MonoBehaviour, IDamage
 
         if (HP <= 0)
         {
+            for (int i = 0; i < inventory.Items.Count; i++)
+            {
+                if (inventory.Items[i].itemType == Item.ItemType.Potion ||
+                    inventory.Items[i].itemType == Item.ItemType.Water ||
+                    inventory.Items[i].itemType == Item.ItemType.Herb)
+                {
+                    inventory.RemoveItem(inventory.Items[i]);
+                    i--;
+                }
+            }
             UIManager.Instance.ShowLoseScreen();  // Handle player death
         }
     }

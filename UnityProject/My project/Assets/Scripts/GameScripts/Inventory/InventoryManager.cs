@@ -134,7 +134,7 @@ public class InventoryManager : MonoBehaviour
             {
                 //set scale of selected item index
                 inventoryItemInstances[i].transform.localScale = (i == currentSelectedItem) ? highlightScale : defaultScale;
-                selectedItemName.text = Items[currentSelectedItem].itemName;
+                selectedItemName.text = Items[currentSelectedItem].itemName + " x" + Items[currentSelectedItem].GetStack;
             }
         }
     }
@@ -153,20 +153,20 @@ public class InventoryManager : MonoBehaviour
             currentSelectedItem = 0;
             inventoryUI.gameObject.SetActive(true);
         }
-        else if (HasItem(item))
+        else if (HasItem(item.itemName))
         {
             int index = 0;
             for (int i = 0; i < Items.Count; i++)
             {
-                if (Items[i] == item)
+                if (Items[i].itemName == item.itemName)
                 {
                     index = i;
                     break;
                 }
             }
+            Items[index].AddStack(1);
             Debug.Log("Adding item " + item.itemName + " to stack.");
-            Items.Add(item);
-            Debug.Log("Current stack: " + Items[index].objectsInStack);
+            Debug.Log("Current stack: " + Items[index].GetStack);
         }
         else
         {
@@ -178,7 +178,15 @@ public class InventoryManager : MonoBehaviour
 
     public void RemoveItem(Item item)
     {
-        Items.Remove(item);
+        if (item.GetStack > 1)
+        {
+            int sub = -1;
+            item.AddStack(sub);
+        }
+        else
+        {
+            Items.Remove(item);
+        }
         if (currentSelectedItem != 0)
         {
             currentSelectedItem--;
@@ -230,7 +238,7 @@ public class InventoryManager : MonoBehaviour
                 continue;
             }
 
-            itemName.text = item.itemName + " x" + item.objectsInStack;
+            itemName.text = item.itemName + " x" + item.GetStack;
             selectedItemName.text = itemName.text;
 
             //check if the item has animated frames
@@ -268,6 +276,18 @@ public class InventoryManager : MonoBehaviour
         return Items.Contains(item);
     }
 
+    public bool HasItem(string itemName)
+    { 
+        foreach (Item item in Items)
+        {
+            if (item.itemName == itemName)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private IEnumerator AnimateIcon(Sprite[] frames, Image itemIcon)
     {
         int currentFrame = 0;
@@ -303,10 +323,17 @@ public class InventoryManager : MonoBehaviour
         }
         else if (Items[currentSelectedItem].itemName == "Mana Potion")
         {
-            manager.playerScript.setAmmo(manager.playerScript.getAmmoMax());
-            RemoveItem(Items[currentSelectedItem]);
-            ListItems();
-            interactables.Interact("Ammo Refilled!\nPress E", KeyCode.E);
+            if (manager.playerScript.GetGunCurr() != null)
+            {
+                manager.playerScript.setAmmo(manager.playerScript.getAmmoMax());
+                RemoveItem(Items[currentSelectedItem]);
+                ListItems();
+                interactables.Interact("Ammo Refilled!\nPress E", KeyCode.E);
+            }
+            else
+            {
+                interactables.Interact("You need a spell book to use this potion!\nPress E", KeyCode.E);
+            }
         }
     }
 

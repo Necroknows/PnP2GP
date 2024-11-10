@@ -91,7 +91,7 @@ public class UIManager : MonoBehaviour
     
     public void UnpauseGame()
     { // return to original timescale
-        Time.timeScale = timescale;
+        Time.timeScale = 1;
         // cursor off 
         Cursor.visible = false;
         // Lock cursor 

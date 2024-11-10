@@ -67,7 +67,7 @@ public class ButtonFunctions : MonoBehaviour
         //scenesToLoad.Add(SceneManager.LoadSceneAsync("Village", LoadSceneMode.Additive));
 
         GameManager.instance.playerScript.spawnPlayer();
-        UIManager.Instance.UnpauseGame();
+        //UIManager.Instance.UnpauseGame();
     }
     public void MainMenu()
     {

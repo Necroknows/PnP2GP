@@ -16,7 +16,8 @@ public class Item : ScriptableObject
     public Sprite itemIcon; //Icon of the item
     public Sprite[] animatedIconFrames; //array of sprites for animated icon
     public float animationFrameRate = 2.5f; //frame rate of the animation
-    public int objectsInStack = 1;
+    public int SpawnWithStack = 1;
+    private int objectsInStack;
 
     public float hoverHeight = 0.5f;
     public float hoverSpeed = 3.0f;
@@ -32,8 +33,16 @@ public class Item : ScriptableObject
     {
         if(!plantItemIDs.Contains(itemID))
         {
+            objectsInStack = SpawnWithStack;
             plantItemIDs.Add(itemID);
         }
+    }
+
+    public int GetStack => objectsInStack;
+
+    public void AddStack(int stack)
+    {
+        objectsInStack += stack;
     }
 
     public enum  ItemType
