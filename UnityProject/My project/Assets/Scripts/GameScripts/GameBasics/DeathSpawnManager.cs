@@ -64,10 +64,19 @@ public class DeathSpawnManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        isPlayerExploring = false;
-        if(isDeathActive == true)
+        if (other.CompareTag("Player"))
         {
-            StartCoroutine(WaitToDespawn());
+            isPlayerExploring = false;
+            if (isDeathActive == true)
+            {
+                StartCoroutine(WaitToDespawn());
+            }
+        }
+        if (other.CompareTag("Death"))
+        {
+            GameManager.instance.death.SetActive(false);
+            
+            isDeathActive = false;
         }
     }
 
