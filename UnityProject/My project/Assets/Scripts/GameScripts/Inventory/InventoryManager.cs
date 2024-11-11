@@ -174,7 +174,10 @@ public class InventoryManager : MonoBehaviour
             Items.Add(item);
         }
         ListItems();        //update UI after adding items
-        QuestManager.instance.UpdateUIList();
+        if (QuestManager.instance.GetActiveQuest != null)
+        {
+            QuestManager.instance.UpdateUIList();
+        }
     }
 
     public void RemoveItem(Item item)

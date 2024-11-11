@@ -16,32 +16,27 @@ MonoBehaviour:
   dialogue:
   - Welcome back, young aprentice. What is your need?
   responses:
-  - thingsToCheck: []
-    thingsToIgnore: []
+  - requiredQuestsCompleted: []
     responseText: I need another lesson (Tutorial)
+    dialogueParent: {fileID: 11400000}
     dialogueTrue: {fileID: 11400000, guid: 2ba945aa0fc439249bc7b4c2567a88c0, type: 2}
     dialogueFalse: {fileID: 0}
-  - thingsToCheck:
-    - {fileID: 11400000, guid: 2a4dee248dd63414aadb88181a351424, type: 2}
-    thingsToIgnore:
-    - {fileID: 11400000, guid: ebdedfd52715a294ea00edaa3168ef48, type: 2}
+  - requiredQuestsCompleted:
+    - {fileID: 11400000, guid: 4da7cd8a0b23e084cba01685c66cb2dd, type: 2}
     responseText: I have the first potion.
+    dialogueParent: {fileID: 11400000}
     dialogueTrue: {fileID: 11400000, guid: 7b67e933cf252cd4198de263a25b7fdc, type: 2}
     dialogueFalse: {fileID: 11400000, guid: 32f10d724238ddf4cac4b162f1c89d25, type: 2}
-  - thingsToCheck:
-    - {fileID: 11400000, guid: ebdedfd52715a294ea00edaa3168ef48, type: 2}
-    - {fileID: 11400000, guid: 2a4dee248dd63414aadb88181a351424, type: 2}
-    thingsToIgnore:
-    - {fileID: 11400000, guid: 70bb46e5f2fd74940a8e1a8ad6655591, type: 2}
+  - requiredQuestsCompleted:
+    - {fileID: 11400000, guid: 4da7cd8a0b23e084cba01685c66cb2dd, type: 2}
     responseText: I have made the second potion.
+    dialogueParent: {fileID: 11400000}
     dialogueTrue: {fileID: 11400000, guid: 3b612a64ab0dece4bab3fc2f8c8cfbcb, type: 2}
     dialogueFalse: {fileID: 11400000, guid: 6cea9a15987eee047aa622962df80183, type: 2}
-  - thingsToCheck:
-    - {fileID: 11400000, guid: 70bb46e5f2fd74940a8e1a8ad6655591, type: 2}
-    - {fileID: 11400000, guid: ebdedfd52715a294ea00edaa3168ef48, type: 2}
-    - {fileID: 11400000, guid: 2a4dee248dd63414aadb88181a351424, type: 2}
-    thingsToIgnore:
-    - {fileID: 11400000, guid: 70bb46e5f2fd74940a8e1a8ad6655591, type: 2}
+  - requiredQuestsCompleted:
+    - {fileID: 11400000, guid: 4da7cd8a0b23e084cba01685c66cb2dd, type: 2}
     responseText: The final potion has been created.
+    dialogueParent: {fileID: 11400000}
     dialogueTrue: {fileID: 11400000, guid: f6ed2ed1432f67f4c90400361f91c87d, type: 2}
     dialogueFalse: {fileID: 11400000, guid: 0e7f2a208ef9bfd4cbfe8fe440b23613, type: 2}
+  questToGive: {fileID: 0}

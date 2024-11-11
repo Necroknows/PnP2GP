@@ -30,11 +30,10 @@ public class ResponseHandler : MonoBehaviour
     public void ShowResponses(Response[] responses)
     {
         float responseBoxHeight = 0;
-        itemsToRemove = dialogueManager.dialogueObject.questToGive.questCollectables;
 
         foreach (Response response in responses)
         {
-            if (CheckForItems(response))
+            if (CheckForQuests(response))
             {
                 GameObject responseButton = Instantiate(responseButtonTemplate.gameObject, responseContainer);
                 responseButton.gameObject.SetActive(true);
@@ -66,16 +65,22 @@ public class ResponseHandler : MonoBehaviour
         }
         tempResponseButtons.Clear();
 
-        if (CheckForItems(response))
+        if (QuestManager.instance.GetActiveQuest != null)
         {
-            hasItem = true;
+            if (QuestManager.instance.CheckQuestComplete())
+            {
+                hasItem = true;
+            }
         }
 
         if (hasItem && response.DialogueTrue != null)
         {
-            // Complete quest function here
+            QuestManager.instance.RemoveQuest();
             dialogueManager.StartDialogue(response.DialogueTrue);
-            // Give next quest function here
+        }
+        else if (response.DialogueTrue != null && response.DialogueFalse == null)
+        {
+            dialogueManager.StartDialogue(response.DialogueTrue);
         }
 
         else if (!hasItem && response.DialogueFalse != null)
@@ -90,31 +95,16 @@ public class ResponseHandler : MonoBehaviour
 
     }
 
-    private bool CheckForItems(Response response)
+    private bool CheckForQuests(Response response)
     {
-
-        if (itemsToRemove.Count > 0)
+        if (response.requiredQuestsCompleted.Length > 0)
         {
-            foreach (QuestItem thing in itemsToRemove)
+            foreach (QuestObject thing in response.requiredQuestsCompleted)
             {
                 if (thing != null)
                 {
-                    Debug.Log("Checking Inventory for: " + thing.item.itemName);
-                    if (!inventory.HasItem(thing.item))
-                    {
-                        return false;
-                    }
-                }
-            }
-        }
-        if (itemsToRemove.Count > 0)
-        {
-            foreach (QuestItem thing in itemsToRemove)
-            {
-                if (thing != null)
-                {
-                    Debug.Log("Checking Inventory for: " + thing.item.itemName);
-                    if (inventory.HasItem(thing.item))
+                    Debug.Log("Checking Completed Quests for: " + thing.GetQuestName());
+                    if (!thing.GetQuestCompleted())
                     {
                         return false;
                     }
