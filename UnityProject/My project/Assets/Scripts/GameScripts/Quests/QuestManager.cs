@@ -62,12 +62,6 @@ public class QuestManager : MonoBehaviour
         int hasAllItems = 0; //number of questitems that are in player inventory
 
         for (int eachItemQ = 0; eachItemQ < questItems.Count; eachItemQ++)
-
-
-
-
-
-
         {
             itemText.text += questItems[eachItemQ].GetItemName() + "\n";
             needsAmount = questItems[eachItemQ].GetNumToRetrieve();
@@ -75,28 +69,16 @@ public class QuestManager : MonoBehaviour
             //checks between the quest list and the inventory list for each item and number of items needed
             for (int eachItemI = 0; eachItemI < InventoryManager.instance.Items.Count; eachItemI++)
             {
-
-
-
                 if (questItems[eachItemQ].GetItemName() == InventoryManager.instance.Items[eachItemI].itemName)
 
                 {
                     hasItem = true;
                     hasAmount = InventoryManager.instance.Items[eachItemI].GetStack;
-
-
-
-
-
-
-
-
-
                     if (needsAmount >= hasAmount && hasAmount > 0)
                     {
                         needsAmount = needsAmount - hasAmount;
 
-                        itemAmount.text += needsAmount + "\n";
+                        itemAmount.text += needsAmount + 1 + "\n";
                     }
                     else
                     {

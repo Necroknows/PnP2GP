@@ -49,6 +49,7 @@ public class DialogueManager : MonoBehaviour
         textSourceAudio.loop = false;
         textSourceAudio.clip = textSound;
         textSpeedOriginal = textSpeed;
+        instance.gameObject.SetActive(true);
     }
 
     private void Update()
@@ -133,6 +134,11 @@ public class DialogueManager : MonoBehaviour
         anim.SetBool("IsOpen", false);
         controller.enabled = true;
         hUD.SetActive(true);
+        if (dialogueObject.isWinDialogue)
+        {
+            UIManager.Instance.ShowWinScreen();
+            DialogueManager.instance.gameObject.SetActive(false);
+        }
     }
 
     IEnumerator TypeLine(string line)

@@ -10,18 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59eaf85fd16c4704f84ff544d5d8a134, type: 3}
-  m_Name: NoThirdPotion
+  m_Name: FinalSetOfItems
   m_EditorClassIdentifier: 
   nameNPC: The Wizard
   dialogue:
-  - Listen, apprentice. I know it is terrifying out there, afterall I just fled for
-    my own life.
-  - But we need to make that final potion. Go and get the recipe from the graveyard
-    and come see me when the potion is complete.
+  - Grand job my friend!
+  - I now have everything I need.
+  - You may relax and enjoy a bit of rest.
+  - It's only a matter of time before I'm in need of more materials
   responses:
   - requiredQuestsCompleted: []
-    responseText: Ofcourse. (I wasn't scared, you know)
+    responseText: Thanks! See you later!
     dialogueParent: {fileID: 11400000}
-    dialogueTrue: {fileID: 11400000, guid: 6a2a2b1b441ba3a42a645a7112abec6a, type: 2}
+    dialogueTrue: {fileID: 0}
     dialogueFalse: {fileID: 0}
   questToGive: {fileID: 0}
+  isWinDialogue: 1

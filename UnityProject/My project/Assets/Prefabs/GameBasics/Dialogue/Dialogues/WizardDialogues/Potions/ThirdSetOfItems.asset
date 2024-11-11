@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59eaf85fd16c4704f84ff544d5d8a134, type: 3}
-  m_Name: SecondPotion
+  m_Name: ThirdSetOfItems
   m_EditorClassIdentifier: 
   nameNPC: The Wizard
   dialogue:
-  - Well done apprentice! We are almost done with this dreaded curse!
-  - Now, while you were out making that potion, I went out myself and tried to get
-    the ingredients for the final potion.
+  - 'Well done apprentice! We are almost done '
+  - Now, while you were out fetching those materials, I went out myself and tried
+    to get the ingredients for the final potion.
   - Alas, I was no match for those monstrosities. Makes me wonder how you haven't
     perished out there.
-  - Anyways, I dropped the recipe for the third potion while fleeing graveyard. You'll
-    find it there.
-  - Swiftly, apprentice. We are almost done.
+  - Anyways, I dropped the last items I needed so you will have to get them.
+  - Swiftly, apprentice. I almost have everything.
   responses:
   - requiredQuestsCompleted: []
     responseText: You can count on me!
     dialogueParent: {fileID: 11400000}
     dialogueTrue: {fileID: 11400000, guid: 6a2a2b1b441ba3a42a645a7112abec6a, type: 2}
     dialogueFalse: {fileID: 0}
-  questToGive: {fileID: 0}
+  questToGive: {fileID: 11400000, guid: a4d431c0312743d43b433419e644a6fe, type: 2}
+  isWinDialogue: 0

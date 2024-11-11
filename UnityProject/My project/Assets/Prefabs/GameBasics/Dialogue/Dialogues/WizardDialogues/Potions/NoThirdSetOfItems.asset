@@ -10,15 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59eaf85fd16c4704f84ff544d5d8a134, type: 3}
-  m_Name: FirstPotion
+  m_Name: NoThirdSetOfItems
   m_EditorClassIdentifier: 
   nameNPC: The Wizard
   dialogue:
-  - Ahh, a wounderful start apprentice. I have the next recipe ready for you to peruse.
-  - Come see me again when you have made the second potion.
+  - You do? Could it possibly be in that empty bottle of yours?
+  - First make the potion, then come see me.
+  - Remember, water in the Boiler and the herb in the Mortar. Then mix them together
+    and come see me.
   responses:
   - requiredQuestsCompleted: []
-    responseText: Yes sir!
+    responseText: (But I didn't forget)
     dialogueParent: {fileID: 11400000}
     dialogueTrue: {fileID: 11400000, guid: 6a2a2b1b441ba3a42a645a7112abec6a, type: 2}
     dialogueFalse: {fileID: 0}

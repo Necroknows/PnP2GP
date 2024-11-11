@@ -93,6 +93,7 @@ public class ResponseHandler : MonoBehaviour
         else
         {
             Debug.Log("No dialogue suitable for conversation outcome.");
+            dialogueManager.EndDialogue();
         }
 
     }

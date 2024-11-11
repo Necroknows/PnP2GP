@@ -61,7 +61,10 @@ public class DialogueTrigger : MonoBehaviour
         if (other.GetComponent<PlayerController>() == controller)
         {
             playerInRange = false;
-            manager.EndDialogue();
+            if (DialogueManager.instance.anim.GetBool("IsOpen"))
+            {
+                manager.EndDialogue();
+            }
             interactions.StopInteract();
         }
     }

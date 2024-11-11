@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f36bf83cc412744f91fa9e8c324efd0, type: 3}
-  m_Name: Herb1x3
+  m_Script: {fileID: 11500000, guid: 17b85b0b4b15fc64aad25026fff68585, type: 3}
+  m_Name: Quest 3
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: c0e1672b75e40774fbf34c53eba27d5a, type: 2}
-  SpawnWithAmountToRetrive: 2
+  questName: The Deluge
+  questCollectables:
+  - {fileID: 11400000, guid: 70dbb1cf63e03fb4f91ea75956b46870, type: 2}
