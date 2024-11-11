@@ -285,7 +285,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.25340304, z: -0, w: -0.9673608}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3750722861990556781}
@@ -337,6 +337,7 @@ MonoBehaviour:
   interactKey: 101
   objectToRetrieve: {fileID: 0}
   pushDir: {x: 0, y: 0, z: 0}
+  canDash: 0
   carryPosition: {fileID: 305810287369939846}
 --- !u!143 &4985625575012694083
 CharacterController:
@@ -424,7 +425,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -617,8 +618,8 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
+  far clip plane: 70
+  field of view: 50
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -911,6 +912,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: TorchLight
       objectReference: {fileID: 0}
+    - target: {fileID: 2799760188196726075, guid: 792292e0535f200499aacb4424675cc0, type: 3}
+      propertyPath: m_Range
+      value: 16.039314
+      objectReference: {fileID: 0}
+    - target: {fileID: 2799760188196726075, guid: 792292e0535f200499aacb4424675cc0, type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8502254708355123256, guid: 792292e0535f200499aacb4424675cc0, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.7044
@@ -950,6 +959,18 @@ PrefabInstance:
     - target: {fileID: 8502254708355123256, guid: 792292e0535f200499aacb4424675cc0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 22.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 9012135898600438987, guid: 792292e0535f200499aacb4424675cc0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.133
+      objectReference: {fileID: 0}
+    - target: {fileID: 9012135898600438987, guid: 792292e0535f200499aacb4424675cc0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.528
+      objectReference: {fileID: 0}
+    - target: {fileID: 9012135898600438987, guid: 792292e0535f200499aacb4424675cc0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.035
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
