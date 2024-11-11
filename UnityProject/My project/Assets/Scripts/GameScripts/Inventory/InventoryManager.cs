@@ -49,7 +49,7 @@ public class InventoryManager : MonoBehaviour
         }
 
         HighlightSelected();        //visually indicates selected item
-        
+
         CheckForRecipeBook();       //if recipe book item is selected...
 
     }
@@ -57,10 +57,10 @@ public class InventoryManager : MonoBehaviour
     private void CheckForRecipeBook()
     {
         //check if recipebookUI.instance is available
-        if(RecipeBookUI.instance == null)
+        if (RecipeBookUI.instance == null)
         {
             RecipeBookUI.instance = FindObjectOfType<RecipeBookUI>();
-            if(RecipeBookUI.instance == null)
+            if (RecipeBookUI.instance == null)
             {
                 Debug.LogWarning("RecipeBookUI.instance is STILL Null & may not have been initialized.");
                 return;
@@ -102,7 +102,7 @@ public class InventoryManager : MonoBehaviour
 
     public Item GetSelectedItem()
     {
-        if(Items.Count > 0 && currentSelectedItem >= 0 && currentSelectedItem < Items.Count)
+        if (Items.Count > 0 && currentSelectedItem >= 0 && currentSelectedItem < Items.Count)
         {
             return Items[currentSelectedItem];
         }
@@ -174,7 +174,10 @@ public class InventoryManager : MonoBehaviour
             Items.Add(item);
         }
         ListItems();        //update UI after adding items
-        QuestManager.instance.UpdateUIList();
+        if (QuestManager.instance.GetActiveQuest != null)
+        {
+            QuestManager.instance.UpdateUIList();
+        }
     }
 
     public void RemoveItem(Item item)
@@ -183,12 +186,12 @@ public class InventoryManager : MonoBehaviour
         {
             int sub = -1;
             item.AddStack(sub);
-            
+
         }
         else
         {
             Items.Remove(item);
-            
+
         }
         if (currentSelectedItem != 0)
         {
@@ -246,7 +249,7 @@ public class InventoryManager : MonoBehaviour
             selectedItemName.text = itemName.text;
 
             //check if the item has animated frames
-            if(item.animatedIconFrames != null && item.animatedIconFrames.Length > 0)
+            if (item.animatedIconFrames != null && item.animatedIconFrames.Length > 0)
             {
                 //start coroutine to handle animation for this item
                 StartCoroutine(AnimateIcon(item.animatedIconFrames, itemIcon));
@@ -255,7 +258,7 @@ public class InventoryManager : MonoBehaviour
             {
                 itemIcon.sprite = item.itemIcon;
             }
-            
+
             Debug.Log("Added item to UI " + item.itemName);
         }
 
@@ -281,7 +284,7 @@ public class InventoryManager : MonoBehaviour
     }
 
     public bool HasItem(string itemName)
-    { 
+    {
         foreach (Item item in Items)
         {
             if (item.itemName == itemName)

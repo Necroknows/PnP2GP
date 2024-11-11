@@ -102,12 +102,16 @@ public class DialogueManager : MonoBehaviour
                 responseHandler.ShowResponses(dialogueObject.Responses);
                 isShowingResponses = true;
             }
+            if (dialogueObject.questToGive != null)
+            {
+                QuestManager.instance.GiveQuest(dialogueObject.questToGive);
+            }
         }
         else if (lines.Count == 0)
         {
             if (dialogueObject.questToGive != null)
             {
-                // Give Quest here
+                QuestManager.instance.GiveQuest(dialogueObject.questToGive);
             }
             EndDialogue();
             return;

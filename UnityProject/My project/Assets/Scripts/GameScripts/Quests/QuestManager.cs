@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -19,7 +20,10 @@ public class QuestManager : MonoBehaviour
 
     bool HasAllQuestItems;
 
-
+    private void Awake()
+    {
+        instance = this;
+    }
 
     public void Start()
     {
@@ -44,6 +48,7 @@ public class QuestManager : MonoBehaviour
             questObject = qObject;
             questName.text = questObject.GetQuestName();
             questItems = questObject.GetList();
+            UpdateUIList();
         }
     }
 
@@ -58,6 +63,12 @@ public class QuestManager : MonoBehaviour
         int hasAllItems = 0; //number of questitems that are in player inventory
 
         for (int eachItemQ = 0; eachItemQ < questItems.Count; eachItemQ++)
+
+
+
+
+
+
         {
             itemText.text += questItems[eachItemQ].GetItemName() + "\n";
             needsAmount = questItems[eachItemQ].GetNumToRetrieve();
@@ -66,10 +77,20 @@ public class QuestManager : MonoBehaviour
             for (int eachItemI = 0; eachItemI < InventoryManager.instance.Items.Count; eachItemI++)
             {
 
+
+
                 if (questItems[eachItemQ].GetItemName() == InventoryManager.instance.Items[eachItemI].itemName)
+
                 {
                     hasItem = true;
                     hasAmount = InventoryManager.instance.Items[eachItemI].GetStack;
+
+
+
+
+
+
+
 
 
                     if (needsAmount >= hasAmount && hasAmount > 0)
@@ -106,7 +127,7 @@ public class QuestManager : MonoBehaviour
 
     public bool CheckQuestComplete()
     {
-        
+
         if (HasAllQuestItems)
         {
             for (int eachItemQ = 0; eachItemQ < questItems.Count; eachItemQ++)
@@ -129,7 +150,14 @@ public class QuestManager : MonoBehaviour
 
     public void RemoveQuest()
     {
-        questObject.SetQuestComplete();
+        if (questObject != null)
+        {
+            questObject.SetQuestComplete();
+        }
+        questName.text = string.Empty;
+        questItems = null;
         questObject = null;
     }
+
+    public QuestObject GetActiveQuest => questObject;
 }

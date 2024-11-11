@@ -1167,6 +1167,18 @@ PrefabInstance:
       propertyPath: dSManager
       value: 
       objectReference: {fileID: 772246151}
+    - target: {fileID: 2198909849103530542, guid: e5b4de8ec8584254cb7b0cac392543de, type: 3}
+      propertyPath: itemText
+      value: 
+      objectReference: {fileID: 8759657995141321549}
+    - target: {fileID: 2198909849103530542, guid: e5b4de8ec8584254cb7b0cac392543de, type: 3}
+      propertyPath: questName
+      value: 
+      objectReference: {fileID: 1369261302}
+    - target: {fileID: 2198909849103530542, guid: e5b4de8ec8584254cb7b0cac392543de, type: 3}
+      propertyPath: itemAmount
+      value: 
+      objectReference: {fileID: 7883292450097613857}
     - target: {fileID: 3558179347403248007, guid: e5b4de8ec8584254cb7b0cac392543de, type: 3}
       propertyPath: m_Name
       value: UI
@@ -1258,9 +1270,6 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 8400213860936569668, guid: e5b4de8ec8584254cb7b0cac392543de, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1502484534}
     - targetCorrespondingSourceObject: {fileID: 1775183475988470002, guid: e5b4de8ec8584254cb7b0cac392543de, type: 3}
       insertIndex: -1
       addedObject: {fileID: 987524852}
@@ -1271,63 +1280,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1775183475988470002, guid: e5b4de8ec8584254cb7b0cac392543de, type: 3}
   m_PrefabInstance: {fileID: 1466280968}
   m_PrefabAsset: {fileID: 0}
---- !u!224 &1466280970 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8400213860936569668, guid: e5b4de8ec8584254cb7b0cac392543de, type: 3}
-  m_PrefabInstance: {fileID: 1466280968}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1502484533
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1502484534}
-  - component: {fileID: 1502484535}
-  m_Layer: 5
-  m_Name: QuestManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1502484534
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1502484533}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1466280970}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1502484535
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1502484533}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8d443dbc1cacc84c92b33c2c21f58d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  questName: {fileID: 1369261302}
-  itemText: {fileID: 8759657995141321549}
-  itemAmount: {fileID: 7883292450097613857}
-  questObject: {fileID: 11400000, guid: 4da7cd8a0b23e084cba01685c66cb2dd, type: 2}
 --- !u!1 &1505949417
 GameObject:
   m_ObjectHideFlags: 0
