@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 514463218306846566}
   - component: {fileID: 541311417558665977}
   - component: {fileID: 6784515369685618773}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: DeathIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,7 +169,6 @@ MonoBehaviour:
   swipeRange: 7
   swipeDamage: 5
   swipeCooldown: 2
-  enemiesToSpawnDeath: 3
   minionPrefab: {fileID: 4031029967229502505, guid: d5df0aa5e8261d940a89efbea075df54, type: 3}
   maxMinions: 3
   minionSpawnInterval: 5
