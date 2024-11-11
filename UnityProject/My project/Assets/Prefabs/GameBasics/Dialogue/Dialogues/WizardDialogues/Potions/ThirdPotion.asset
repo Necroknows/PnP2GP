@@ -23,9 +23,8 @@ MonoBehaviour:
     areas.)
   - (As for the reward, It is a new book type that is still in development.)
   responses:
-  - requiredQuestsCompleted: []
+  - thingsToCheck: []
+    thingsToIgnore: []
     responseText: Thanks! See you later!
-    dialogueParent: {fileID: 11400000}
     dialogueTrue: {fileID: 11400000, guid: 6a2a2b1b441ba3a42a645a7112abec6a, type: 2}
     dialogueFalse: {fileID: 0}
-  questToGive: {fileID: 0}

@@ -30,14 +30,13 @@ MonoBehaviour:
     next.
   - I think that wraps up the lesson. Tell me, were you listening this time?
   responses:
-  - requiredQuestsCompleted: []
+  - thingsToCheck: []
+    thingsToIgnore: []
     responseText: Of course I was! Goodbye.
-    dialogueParent: {fileID: 11400000}
     dialogueTrue: {fileID: 11400000, guid: 6a2a2b1b441ba3a42a645a7112abec6a, type: 2}
     dialogueFalse: {fileID: 0}
-  - requiredQuestsCompleted: []
+  - thingsToCheck: []
+    thingsToIgnore: []
     responseText: Uhh... Not really? Hehe...
-    dialogueParent: {fileID: 11400000}
     dialogueTrue: {fileID: 11400000}
     dialogueFalse: {fileID: 0}
-  questToGive: {fileID: 11400000, guid: 4da7cd8a0b23e084cba01685c66cb2dd, type: 2}

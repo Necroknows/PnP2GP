@@ -10,16 +10,9 @@ public class QuestObject : ScriptableObject
     [SerializeField] string questName;
 
     [SerializeField] public List<QuestItem> questCollectables = new List<QuestItem>();
-    bool isQuestCompleted = false;
+    bool isQuestCompleted;
 
-    private void OnEnable()
-    {
-        if (isQuestCompleted)
-        {
-            isQuestCompleted = false;
-        }
-    }
-
+    
     public string GetQuestName()
     {
         return questName;

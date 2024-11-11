@@ -7,13 +7,7 @@ using UnityEngine;
 public class QuestItem : ScriptableObject
 {
     [SerializeField] public Item item;
-    [SerializeField] int SpawnWithAmountToRetrive;
-    int numToRetrieve;
-
-    private void OnEnable()
-    {
-        numToRetrieve = SpawnWithAmountToRetrive;
-    }
+    [SerializeField] int numToRetrieve;
 
     public int GetNumToRetrieve()
     {

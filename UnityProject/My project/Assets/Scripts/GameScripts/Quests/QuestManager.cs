@@ -19,10 +19,7 @@ public class QuestManager : MonoBehaviour
 
     bool HasAllQuestItems;
 
-    private void Awake()
-    {
-        instance = this;
-    }
+
 
     public void Start()
     {
@@ -47,7 +44,6 @@ public class QuestManager : MonoBehaviour
             questObject = qObject;
             questName.text = questObject.GetQuestName();
             questItems = questObject.GetList();
-            UpdateUIList();
         }
     }
 
@@ -61,43 +57,43 @@ public class QuestManager : MonoBehaviour
         bool hasItem = false;
         int hasAllItems = 0; //number of questitems that are in player inventory
 
-            for (int eachItemQ = 0; eachItemQ < questItems.Count; eachItemQ++)
+        for (int eachItemQ = 0; eachItemQ < questItems.Count; eachItemQ++)
+        {
+            itemText.text += questItems[eachItemQ].GetItemName() + "\n";
+            needsAmount = questItems[eachItemQ].GetNumToRetrieve();
+
+            //checks between the quest list and the inventory list for each item and number of items needed
+            for (int eachItemI = 0; eachItemI < InventoryManager.instance.Items.Count; eachItemI++)
             {
-                itemText.text += questItems[eachItemQ].GetItemName() + "\n";
-                needsAmount = questItems[eachItemQ].GetNumToRetrieve();
 
-                //checks between the quest list and the inventory list for each item and number of items needed
-                for (int eachItemI = 0; eachItemI < InventoryManager.instance.Items.Count; eachItemI++)
+                if (questItems[eachItemQ].GetItemName() == InventoryManager.instance.Items[eachItemI].itemName)
                 {
+                    hasItem = true;
+                    hasAmount = InventoryManager.instance.Items[eachItemI].GetStack;
 
-                    if (questItems[eachItemQ].GetItemName() == InventoryManager.instance.Items[eachItemI].itemName)
+
+                    if (needsAmount >= hasAmount && hasAmount > 0)
                     {
-                        hasItem = true;
-                        hasAmount = InventoryManager.instance.Items[eachItemI].GetStack;
+                        needsAmount = needsAmount - hasAmount;
 
-
-                        if (needsAmount >= hasAmount && hasAmount > 0)
-                        {
-                            needsAmount = needsAmount - hasAmount;
-
-                            itemAmount.text += needsAmount + "\n";
-                        }
-                        else
-                        {
-                            hasAllItems++; //adds to the has all items for each stack complete
-                            itemAmount.text += "X" + "\n";
-                        }
-
+                        itemAmount.text += needsAmount + "\n";
+                    }
+                    else
+                    {
+                        hasAllItems++; //adds to the has all items for each stack complete
+                        itemAmount.text += "X" + "\n";
                     }
 
+                }
 
-                }
-                if (!hasItem)
-                {
-                    itemAmount.text += needsAmount + "\n";
-                    HasAllQuestItems = false;
-                }
-                hasItem = false;
+
+            }
+            if (!hasItem)
+            {
+                itemAmount.text += needsAmount + "\n";
+                HasAllQuestItems = false;
+            }
+            hasItem = false;
 
         }
         //checks if the player has all the quest items
@@ -133,14 +129,7 @@ public class QuestManager : MonoBehaviour
 
     public void RemoveQuest()
     {
-        if (questObject != null)
-        {
-            questObject.SetQuestComplete();
-        }
-        questName.text = string.Empty;
-        questItems = null;
+        questObject.SetQuestComplete();
         questObject = null;
     }
-
-    public QuestObject GetActiveQuest => questObject;
 }
