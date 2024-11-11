@@ -1,4 +1,3 @@
-
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -43,7 +42,7 @@ public class QuestManager : MonoBehaviour
 
     public void GiveQuest(QuestObject qObject)
     {
-        if (questObject == null)
+        if (questObject == null && !qObject.GetQuestCompleted())
         {
             questObject = qObject;
             questName.text = questObject.GetQuestName();
