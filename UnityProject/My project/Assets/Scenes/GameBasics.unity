@@ -228,6 +228,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2513610731545503641, guid: 6fe77b0ff36476b4295e2a9c7cc6b0bf, type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2513610731545503641, guid: 6fe77b0ff36476b4295e2a9c7cc6b0bf, type: 3}
+      propertyPath: sprintMod
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3616332790315929847, guid: 6fe77b0ff36476b4295e2a9c7cc6b0bf, type: 3}
       propertyPath: m_CullingMask.m_Bits
       value: 32255
@@ -1533,6 +1541,10 @@ PrefabInstance:
     - target: {fileID: 673589979719269352, guid: 3c441a04b5208bc4aa5aded5f7f6c434, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3699203619467156405, guid: 3c441a04b5208bc4aa5aded5f7f6c434, type: 3}
+      propertyPath: speed
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7587721211321522686, guid: 3c441a04b5208bc4aa5aded5f7f6c434, type: 3}
       propertyPath: m_Name
