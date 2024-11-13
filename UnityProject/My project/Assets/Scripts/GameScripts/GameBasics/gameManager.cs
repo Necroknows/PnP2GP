@@ -42,6 +42,8 @@ public class GameManager : MonoBehaviour
     private int retrievableCount;          // Tracks remaining retrievable objects count
     private int playerScore;               // holds the players progress score. 
     private bool liveBoss = true;                 // game state bool 
+    private Vector3 checkpointPOS;         // References to checkpointPOS / PlayerHealth.
+    private int checkpointPlayerHealth;
     
     //private bool miniGoal;
 
@@ -81,6 +83,8 @@ public class GameManager : MonoBehaviour
 
         // Fill the list with all retrievable objects in the scene
         fillRetrievables();
+
+        SetCheckpoint(playerStartPOS.transform.position, playerScript.getHP());
     }
 
 
@@ -154,6 +158,20 @@ public class GameManager : MonoBehaviour
     public void ToggleBoss()
     {
         liveBoss = !liveBoss;
+    }
+
+    // --- CHECKPOINTR MANAGEMENT ---
+    public void SetCheckpoint(Vector3 position, int playerHealth)
+    {
+        checkpointPOS = position;
+        checkpointPlayerHealth = playerHealth;
+    }
+
+    public void LoadCheckpointData()
+    {
+        player.transform.position = checkpointPOS; //Teleports plyaer to checkpoint.
+        playerScript.setHP(checkpointPlayerHealth); //Reference sets HP to what it was at checkpoint.\
+        Debug.Log("Checkpoint Loaded!");
     }
     //public int GetPlayerScore()
     //{

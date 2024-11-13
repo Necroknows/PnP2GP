@@ -113,6 +113,11 @@ public class UIManager : MonoBehaviour
         // fills per fraction of health 
         playerHpBar.fillAmount = healthFraction;
     }
+
+    public void UpdateAmmoCount(int ammo)
+    {
+        ammoCountText.text = ammo.ToString(); //Separate method to update ammo count on respawn.
+    }
     
     public void DeathSpawnBar()
     {
@@ -178,7 +183,11 @@ public class UIManager : MonoBehaviour
         }
     }
    
-
+    public void checkpointUILoad(int ammo, float healthFraction)
+    {
+        UpdateAmmoCount(ammo);
+        UpdatePlayerHealthBar(healthFraction);
+    }
    
 }
 //END

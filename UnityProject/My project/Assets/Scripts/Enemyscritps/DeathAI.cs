@@ -14,6 +14,7 @@ public class DeathAI : MonoBehaviour
 
     // --- MINION STATS ---
     public GameObject minionPrefab;
+    public Transform spawnPoint;
     public int maxMinions = 3;
     private List<GameObject> activeMinions = new List<GameObject>();
     public float minionSpawnInterval = 5f;
@@ -47,7 +48,7 @@ public class DeathAI : MonoBehaviour
     public void ActivateDeathAI()
     {
         isActivated = true;
-        lastSwipeTime = Time.time;
+        lastSwipeTime = Time.time - swipeCooldown;
         nextMinionSpawnTime = Time.time;
         gameObject.SetActive(true);
     }
@@ -72,7 +73,7 @@ public class DeathAI : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player") && Time.time >= lastSwipeTime + swipeCooldown)
+        if(other.CompareTag("Player") && isActivated && Time.time >= lastSwipeTime + swipeCooldown)
         {
             PlayerController playerController = other.GetComponent<PlayerController>();
             if(playerController != null)
@@ -120,7 +121,9 @@ public class DeathAI : MonoBehaviour
         spawnPosition.y = transform.position.y;
         GameObject minion = Instantiate(minionPrefab, spawnPosition, Quaternion.identity);
         activeMinions.Add(minion);
-        StartCoroutine(RemoveMinionFromList(minion, 20f));
+
+        float lifeTime = 20f;
+        StartCoroutine(RemoveMinionFromList(minion, lifeTime));
     }
 
     private IEnumerator RemoveMinionFromList(GameObject minion, float lifeTime)
