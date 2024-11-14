@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6838951666373487742
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3066048644307299202}
+  m_Layer: 6
+  m_Name: minionSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3066048644307299202
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6838951666373487742}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 673589979719269352}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7587721211321522686
 GameObject:
   m_ObjectHideFlags: 0
@@ -36,6 +67,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 203394541039389269}
+  - {fileID: 3066048644307299202}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &585553785795181827
@@ -64,7 +96,7 @@ MonoBehaviour:
   swipeDamage: 5
   swipeCooldown: 2
   minionPrefab: {fileID: 4031029967229502505, guid: d5df0aa5e8261d940a89efbea075df54, type: 3}
-  spawnPoint: {fileID: 0}
+  minionSpawnPoint: {fileID: 3066048644307299202}
   maxMinions: 3
   minionSpawnInterval: 5
 --- !u!114 &3699203619467156405

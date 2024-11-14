@@ -14,7 +14,7 @@ public class DeathAI : MonoBehaviour
 
     // --- MINION STATS ---
     public GameObject minionPrefab;
-    public Transform spawnPoint;
+    public Transform minionSpawnPoint;
     public int maxMinions = 3;
     private List<GameObject> activeMinions = new List<GameObject>();
     public float minionSpawnInterval = 5f;
@@ -25,7 +25,7 @@ public class DeathAI : MonoBehaviour
     private void Start()
     {
         isActivated = false;
-        gameObject.SetActive(false); //Deactivate Death until kill requirement met.
+        gameObject.SetActive(false); //Deactivate Death until meter requirement met.
         if(player ==null)
         {
             player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -33,6 +33,10 @@ public class DeathAI : MonoBehaviour
         if (agent == null)
         {
             agent = GetComponent<NavMeshAgent>();
+        }
+        if(minionSpawnPoint == null)
+        {
+            Debug.LogError("minionSpawnPoint not assigned in Inspector.");
         }
     }
 
@@ -108,6 +112,7 @@ public class DeathAI : MonoBehaviour
     {
         if(Time.time >= nextMinionSpawnTime && activeMinions.Count < maxMinions)
         {
+            Debug.LogError("Spawning Minion...");
             SpawnMinion();
             nextMinionSpawnTime = Time.time + minionSpawnInterval;
         }
@@ -117,8 +122,8 @@ public class DeathAI : MonoBehaviour
     {
         if (activeMinions.Count >= maxMinions) return;
 
-        Vector3 spawnPosition = transform.position + Random.insideUnitSphere * 1.5f;
-        spawnPosition.y = transform.position.y;
+        Vector3 spawnPosition = minionSpawnPoint.position + Random.insideUnitSphere * 1.5f;
+        spawnPosition.y = minionSpawnPoint.position.y;
         GameObject minion = Instantiate(minionPrefab, spawnPosition, Quaternion.identity);
         activeMinions.Add(minion);
 
@@ -137,9 +142,11 @@ public class DeathAI : MonoBehaviour
     }
 
     private void OnDrawGizmosSelected()
-    {
+    {//Draws a wire sphere for DeathAI swipe visual.
         Gizmos.color = Color.red;
-
         Gizmos.DrawWireSphere(transform.position, swipeRange);
+        //Visualizes the minioin Spawn for debugging.
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(minionSpawnPoint.position, 1.5f);
     }
 }

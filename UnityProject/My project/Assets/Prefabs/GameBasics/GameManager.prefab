@@ -49,12 +49,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5198133842c8b514095d2727a8096825, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHpBar: {fileID: 0}
   flashDamageScreen: {fileID: 0}
   player: {fileID: 2313998321423092805, guid: 6fe77b0ff36476b4295e2a9c7cc6b0bf, type: 3}
   playerScript: {fileID: 0}
+  playerSpawnPOS: {fileID: 0}
+  playerStartPOS: {fileID: 0}
   pumpkin: {fileID: 0}
+  dSManager: {fileID: 0}
+  deathScript: {fileID: 0}
+  death: {fileID: 0}
+  minionSpawnPoint: {fileID: 0}
   isPaused: 0
+  enemyCount: 0
+  deathPrefab: {fileID: 0}
+  enemiesToSpawnDeath: 0
 --- !u!114 &4248845012510350366
 MonoBehaviour:
   m_ObjectHideFlags: 0

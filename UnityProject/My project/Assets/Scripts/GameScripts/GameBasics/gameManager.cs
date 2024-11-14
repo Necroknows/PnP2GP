@@ -33,9 +33,6 @@ public class GameManager : MonoBehaviour
     public GameObject playerSpawnPOS;       // Player spawn position reference
     public GameObject playerStartPOS;      // Player spawn position reference
     public GameObject pumpkin;             // Example of a retrievable object (can be generalized later)
-    public DeathSpawnManager dSManager;
-    public DeathAI deathScript;
-    public GameObject death;
 
     public bool isPaused;                  // Tracks if the game is paused
     public int enemyCount;                // Tracks remaining enemy count
@@ -51,6 +48,11 @@ public class GameManager : MonoBehaviour
     List<RetrievableObjects> retrievableObjects = new List<RetrievableObjects>();
 
     // --- DEATH NPC REFERENCES ---
+    public DeathSpawnManager dSManager;
+    public DeathAI deathScript;
+    public GameObject death;
+    public Transform minionSpawnPoint;
+    public GameObject minionPrefab;
     public GameObject deathPrefab;
     public int enemiesToSpawnDeath; //Can be adjusted to however enemies needed.
     //private bool isDeathSpawned = false; //Tracks if Death is spawned or not.
