@@ -13,6 +13,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
     [SerializeField] GameObject deathSpawnWarning;
+    [SerializeField] GameObject infoContainer;
+    [SerializeField] GameObject hUD;
     [SerializeField] TMP_Text ammoCountText;
     
    
@@ -87,6 +89,8 @@ public class UIManager : MonoBehaviour
         isPaused = true;
         menuActive = menuPause;
         menuActive.SetActive(true);
+        hUD.SetActive(false);
+        infoContainer.SetActive(false);
     }
     
     public void UnpauseGame()
@@ -103,6 +107,9 @@ public class UIManager : MonoBehaviour
             menuActive.SetActive(false);
             menuActive = null;
         }
+        hUD.SetActive(true);
+        infoContainer.SetActive(true);
+        playerCont.enabled = true;
     }
 
     
