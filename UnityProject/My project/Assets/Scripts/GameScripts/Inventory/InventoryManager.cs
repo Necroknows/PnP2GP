@@ -127,14 +127,20 @@ public class InventoryManager : MonoBehaviour
     public void HighlightSelected()
     {
         //loop thru item instances in UI and set scale
-        for (int i = 0; i < inventoryItemInstances.Count; i++)
+        if (Items != null && Items.Count > 0)
         {
-            //if item is instanced
-            if (inventoryItemInstances[i] != null)
+            for (int i = 0; i < inventoryItemInstances.Count; i++)
             {
-                //set scale of selected item index
-                inventoryItemInstances[i].transform.localScale = (i == currentSelectedItem) ? highlightScale : defaultScale;
-                selectedItemName.text = Items[currentSelectedItem].itemName + " x" + Items[currentSelectedItem].GetStack;
+                //if item is instanced
+                if (inventoryItemInstances[i] != null)
+                {
+                    //set scale of selected item index
+                    inventoryItemInstances[i].transform.localScale = (i == currentSelectedItem) ? highlightScale : defaultScale;
+                    if (currentSelectedItem >= 0 && currentSelectedItem < Items.Count)
+                    {
+                        selectedItemName.text = Items[currentSelectedItem].itemName + " x" + Items[currentSelectedItem].GetStack;
+                    }
+                }
             }
         }
     }
@@ -203,6 +209,7 @@ public class InventoryManager : MonoBehaviour
             inventoryUI.gameObject.SetActive(false);
         }
         ListItems();        //update UI after adding items
+        Debug.Log("Item: " + item.itemName + " has been removed from player inventory");
         if (QuestManager.instance.GetActiveQuest != null)
         {
             QuestManager.instance.UpdateUIList();

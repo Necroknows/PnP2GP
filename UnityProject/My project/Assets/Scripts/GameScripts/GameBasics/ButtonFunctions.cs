@@ -67,6 +67,7 @@ public class ButtonFunctions : MonoBehaviour
         //scenesToLoad.Add(SceneManager.LoadSceneAsync("Village", LoadSceneMode.Additive));
 
         GameManager.instance.playerScript.spawnPlayer();
+        GameManager.instance.playerScript.DropAllItems();
     }
     public void MainMenu()
     {

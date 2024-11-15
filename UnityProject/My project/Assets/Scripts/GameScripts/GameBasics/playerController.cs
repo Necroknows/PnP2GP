@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour, IDamage
 
     //[SerializeField] float interactionRange;
     public LayerMask interactionLayer;
-    InventoryManager inventory = InventoryManager.instance;
+    InventoryManager inventory;
     public KeyCode interactKey = KeyCode.E;
     [SerializeField] GameObject objectToRetrieve;
     public QuestLog QuestLog = null;
@@ -96,6 +96,7 @@ public class PlayerController : MonoBehaviour, IDamage
         updatePlayerUI();      // Initialize player UI
         spawnPlayerAtStart();         // DropPlayer at SpawnPos
         QuestLog = this.AddComponent<QuestLog>();
+        inventory = InventoryManager.instance;
         canDash = false;
         shieldUp = true;
     }
@@ -318,7 +319,6 @@ public class PlayerController : MonoBehaviour, IDamage
 
         if (HP <= 0)
         {
-            DropAllItems();
             UIManager.Instance.ShowLoseScreen();  // Handle player death
         }
     }
@@ -329,11 +329,10 @@ public class PlayerController : MonoBehaviour, IDamage
         {
             for (int i = 0; i < inventory.Items.Count; i++)
             {
-                if (inventory.Items[i].itemType == Item.ItemType.Potion ||
-                    inventory.Items[i].itemType == Item.ItemType.Water ||
-                    inventory.Items[i].itemType == Item.ItemType.Herb)
+                if (inventory.Items[i].itemID != inventory.recipeBookItemID)
                 {
-                    inventory.Items[i].AddStack(inventory.Items[i].GetStack * -1);
+                    inventory.RemoveItem(inventory.Items[i]);
+                    i--;
                 }
             }
         }

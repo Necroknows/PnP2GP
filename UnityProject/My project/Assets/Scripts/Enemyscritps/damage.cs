@@ -128,7 +128,7 @@ public class damage : MonoBehaviour
                     dmg.takeDamage(damageAmount, Vector3.zero);
                 }
 
-                if (type == damageType.bullet || type == damageType.chaser || type == damageType.lobber)
+                if (type == damageType.bullet || type == damageType.chaser || type == damageType.lobber || type == damageType.arrow)
                 {
                     Destroy(gameObject);  // Destroy object after applying damage
                 }
