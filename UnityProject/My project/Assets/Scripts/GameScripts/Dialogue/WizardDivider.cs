@@ -9,6 +9,7 @@ public class WizardDivider : MonoBehaviour
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Transform[] waypoints;
     [SerializeField] float stopTime;
+    [SerializeField] Animator anim;
 
     bool isRoaming;
     bool playerInRange;
@@ -34,6 +35,7 @@ public class WizardDivider : MonoBehaviour
 
     private void Update()
     {
+        anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
         // On interaction, stops the player and makes them face the NPC they are talking to
         if (playerInRange && Input.GetKeyUp(KeyCode.E) && manager.anim.GetBool("IsOpen") == false)
         {
@@ -45,6 +47,7 @@ public class WizardDivider : MonoBehaviour
         }
         else if (!isRoaming)
         {
+            
             someCO = StartCoroutine(Roaming());
         }
     }
@@ -64,6 +67,7 @@ public class WizardDivider : MonoBehaviour
 
     public void TriggerDialogue()
     {
+        anim.SetTrigger("Talk");
         manager.StartDialogue(greeting);
     }
 
@@ -81,6 +85,7 @@ public class WizardDivider : MonoBehaviour
     {
         if (other.GetComponent<PlayerController>())
         {
+            anim.SetTrigger("StopTalking");
             playerInRange = false;
             StartCoroutine(manager.EndDialogue());
             interactions.StopInteract();

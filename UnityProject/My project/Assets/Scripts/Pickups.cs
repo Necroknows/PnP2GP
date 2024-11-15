@@ -174,7 +174,7 @@ public class Pickups : MonoBehaviour
     }
     public void OnTriggerExit(Collider other)
     {
-
+        if(other.CompareTag("Player"))
         UIManager.Instance.CloseMenu();// Clear the help text when the player leaves range 
     }
 

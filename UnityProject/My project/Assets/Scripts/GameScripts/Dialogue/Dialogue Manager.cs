@@ -146,6 +146,7 @@ public class DialogueManager : MonoBehaviour
             instance.gameObject.SetActive(false);
             UIManager.Instance.ShowWinScreen();
         }
+        
     }
 
     IEnumerator TypeLine(string line)
