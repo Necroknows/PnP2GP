@@ -94,22 +94,29 @@ public class UIManager : MonoBehaviour
     }
     
     public void UnpauseGame()
-    { // return to original timescale
-        Time.timeScale = 1;
-        // cursor off 
-        Cursor.visible = false;
-        // Lock cursor 
-        Cursor.lockState = CursorLockMode.Locked;
-        // toggle pause state on
-        isPaused = false;
-        if (menuActive != null)
+    {
+        if (isPaused)
         {
-            menuActive.SetActive(false);
-            menuActive = null;
+            // return to original timescale
+            Time.timeScale = 1;
+            // cursor off 
+            Cursor.visible = false;
+            // Lock cursor 
+            Cursor.lockState = CursorLockMode.Locked;
+            // toggle pause state on
+            isPaused = false;
+            if (menuActive != null)
+            {
+                menuActive.SetActive(false);
+                menuActive = null;
+            }
+
+            if(hUD != null) hUD.SetActive(true);
+            if(infoContainer != null) infoContainer.SetActive(true);
+            if(playerCont != null) playerCont.enabled = true;
+
+            AudioListener.pause = false;
         }
-        hUD.SetActive(true);
-        infoContainer.SetActive(true);
-        playerCont.enabled = true;
     }
 
     

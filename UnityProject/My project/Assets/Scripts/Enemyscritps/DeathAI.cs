@@ -8,9 +8,11 @@ public class DeathAI : MonoBehaviour
     public Transform player;
     public NavMeshAgent agent;
     public float swipeRange = 2f;
+    public float rotationSpeed;
     public int swipeDamage = 5;
     public float swipeCooldown = 3f;
     private float lastSwipeTime = 0f;
+    private Animator animator;
 
     // --- MINION STATS ---
     public GameObject minionPrefab;
@@ -26,6 +28,7 @@ public class DeathAI : MonoBehaviour
     {
         isActivated = false;
         gameObject.SetActive(false); //Deactivate Death until meter requirement met.
+
         if(player ==null)
         {
             player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -38,6 +41,12 @@ public class DeathAI : MonoBehaviour
         {
             Debug.LogError("minionSpawnPoint not assigned in Inspector.");
         }
+
+        animator = GetComponentInChildren<Animator>();
+        if(animator != null)
+        {
+            animator.SetBool("isIdle", true);
+        }
     }
 
     private void Update()
@@ -45,6 +54,23 @@ public class DeathAI : MonoBehaviour
         if(isActivated)
         {
             FollowPlayer();
+            LookAtPlayer();
+
+            if (animator != null)
+            {
+                if (agent.velocity.sqrMagnitude > 0f)
+                {
+                    animator.SetBool("isIdle", false);
+                    animator.SetBool("isChasing", true);
+                }
+                else
+                {
+                    animator.SetBool("isIdle", true);
+                    animator.SetBool("isChasing", false);
+                }
+       
+            }
+
             HandleMinionSpawns();
         }
     }
@@ -68,10 +94,26 @@ public class DeathAI : MonoBehaviour
         if(Vector3.Distance(transform.position, player.position) > swipeRange)
         {
             agent.SetDestination(player.position);
+
+            Vector3 direction = (player.position - transform.position).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
         }
         else
         {
             agent.ResetPath();
+        }
+    }
+
+    private void LookAtPlayer()
+    {
+        if (player != null)
+        {
+            Vector3 directionToPlayer = player.transform.position - transform.position;
+            directionToPlayer.y = 0;
+
+            Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
         }
     }
 
