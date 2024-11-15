@@ -11,6 +11,7 @@ public class ResponseHandler : MonoBehaviour
     [SerializeField] private RectTransform responseContainer;
     private InventoryManager inventory;
     private DialogueManager dialogueManager;
+    private PlayerController playerScript;
 
     List<GameObject> tempResponseButtons = new List<GameObject>();
     List<QuestItem> itemsToRemove = new List<QuestItem>();
@@ -19,6 +20,7 @@ public class ResponseHandler : MonoBehaviour
     {
         dialogueManager = FindObjectOfType<DialogueManager>();
         inventory = FindObjectOfType<InventoryManager>();
+        playerScript = GameManager.instance.playerScript;
         responseBox.gameObject.SetActive(false);
 
         if (inventory == null)
@@ -68,13 +70,13 @@ public class ResponseHandler : MonoBehaviour
 
         if (QuestManager.instance.GetActiveQuest != null)
         {
-            if (QuestManager.instance.CheckQuestComplete())
+            if (QuestManager.instance.GetActiveQuest.readyToTurnIn)
             {
                 hasItem = true;
             }
         }
 
-        if (hasItem && response.DialogueTrue != null)
+        if (hasItem && response.DialogueTrue != null && !QuestManager.instance.GetActiveQuest.JustAccepted)
         {
             QuestManager.instance.RemoveQuest();
             dialogueManager.StartDialogue(response.DialogueTrue);
@@ -82,35 +84,39 @@ public class ResponseHandler : MonoBehaviour
         else if (response.DialogueTrue != null && response.DialogueFalse == null)
         {
             dialogueManager.StartDialogue(response.DialogueTrue);
-
         }
-
         else if (!hasItem && response.DialogueFalse != null)
         {
             dialogueManager.StartDialogue(response.DialogueFalse);
         }
-
         else
         {
             Debug.Log("No dialogue suitable for conversation outcome.");
-            dialogueManager.EndDialogue();
+            StartCoroutine(dialogueManager.EndDialogue());
         }
-
     }
 
     private bool CheckForQuests(Response response)
     {
-        if (response.requiredQuestsCompleted.Length > 0)
+        if (response.requiredQuestsCompleted != null && response.requiredQuestsCompleted.Length > 0)
         {
             foreach (QuestObject thing in response.requiredQuestsCompleted)
             {
-                if (thing != null)
+                Debug.Log("Checking if Quest: " + thing.GetQuestName + " has been completed");
+                if (!playerScript.QuestLog.QuestCheckIfCompleted(thing))
                 {
-                    Debug.Log("Checking Completed Quests for: " + thing.GetQuestName());
-                    if (!thing.GetQuestCompleted())
-                    {
-                        return false;
-                    }
+                    return false;
+                }
+            }
+        }
+        if (response.ignoreIfQuestsCompleted != null && response.ignoreIfQuestsCompleted.Length > 0)
+        {
+            foreach (QuestObject thing in response.ignoreIfQuestsCompleted)
+            {
+                Debug.Log("Checking if Quest: " + thing.GetQuestName + " has been completed");
+                if (playerScript.QuestLog.QuestCheckIfCompleted(thing))
+                {
+                    return false;
                 }
             }
         }

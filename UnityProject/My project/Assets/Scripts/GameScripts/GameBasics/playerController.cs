@@ -51,12 +51,13 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] GameObject muzzleFlash;
     [SerializeField] AudioSource gunShotNoise;      // Stores the sound for the gunshot
 
-    // --- INTERACTION & INVENTORY ---
+    // --- INTERACTION / INVENTORY / QUESTS ---
     //[SerializeField] float interactionRange;
     public LayerMask interactionLayer;
     InventoryManager inventory = InventoryManager.instance;
     public KeyCode interactKey = KeyCode.E;
     [SerializeField] GameObject objectToRetrieve;
+    public QuestLog QuestLog = null;
 
     // --- DYNAMIC STATE VARIABLES ---
     Vector3 moveDir;      // Direction of player movement
@@ -84,7 +85,7 @@ public class PlayerController : MonoBehaviour, IDamage
         gunShotNoise.playOnAwake = false;   // Ensures audio does not play immediately, still make sure it is checked as false in audio component
         updatePlayerUI();      // Initialize player UI
         spawnPlayerAtStart();         // DropPlayer at SpawnPos
-        inventory = FindObjectOfType<InventoryManager>(); // Get the inventory instance
+        QuestLog = this.AddComponent<QuestLog>();
     }
     public void spawnPlayer()
     {
@@ -300,14 +301,17 @@ public class PlayerController : MonoBehaviour, IDamage
 
     public void DropAllItems()
     {
-        for (int i = 0; i < inventory.Items.Count; i++)
+        if (inventory.Items.Count > 0)
         {
-            if (inventory.Items[i].itemType == Item.ItemType.Potion ||
-                inventory.Items[i].itemType == Item.ItemType.Water ||
-                inventory.Items[i].itemType == Item.ItemType.Herb)
+            for (int i = 0; i < inventory.Items.Count; i++)
             {
-                inventory.RemoveItem(inventory.Items[i]);
-                i--;
+                if (inventory.Items[i].itemType == Item.ItemType.Potion ||
+                    inventory.Items[i].itemType == Item.ItemType.Water ||
+                    inventory.Items[i].itemType == Item.ItemType.Herb)
+                {
+                    inventory.RemoveItem(inventory.Items[i]);
+                    i--;
+                }
             }
         }
     }

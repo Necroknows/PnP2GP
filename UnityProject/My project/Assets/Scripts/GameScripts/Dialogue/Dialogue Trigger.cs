@@ -63,7 +63,7 @@ public class DialogueTrigger : MonoBehaviour
             playerInRange = false;
             if (DialogueManager.instance.anim.GetBool("IsOpen"))
             {
-                manager.EndDialogue();
+                StartCoroutine(manager.EndDialogue());
             }
             interactions.StopInteract();
         }

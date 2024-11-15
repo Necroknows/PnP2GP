@@ -105,6 +105,7 @@ public class DialogueManager : MonoBehaviour
             }
             if (dialogueObject.questToGive != null)
             {
+                dialogueObject.questToGive.SetJustAccepted(true);
                 QuestManager.instance.GiveQuest(dialogueObject.questToGive);
             }
         }
@@ -112,9 +113,10 @@ public class DialogueManager : MonoBehaviour
         {
             if (dialogueObject.questToGive != null)
             {
+                dialogueObject.questToGive.SetJustAccepted(true);
                 QuestManager.instance.GiveQuest(dialogueObject.questToGive);
             }
-            EndDialogue();
+            StartCoroutine(EndDialogue());
             return;
         }
         else
@@ -127,17 +129,22 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    public void EndDialogue()
+    public IEnumerator EndDialogue()
     {
         Debug.Log("End of conversation.");
+        if (QuestManager.instance.GetActiveQuest != null && QuestManager.instance.GetActiveQuest.JustAccepted)
+        {
+            QuestManager.instance.GetActiveQuest.SetJustAccepted(false);
+        }
         StopAllCoroutines();
         anim.SetBool("IsOpen", false);
         controller.enabled = true;
         hUD.SetActive(true);
-        if (dialogueObject.isWinDialogue)
+        yield return new WaitForSeconds(1);
+        if (dialogueObject != null && dialogueObject.isWinDialogue)
         {
+            instance.gameObject.SetActive(false);
             UIManager.Instance.ShowWinScreen();
-            DialogueManager.instance.gameObject.SetActive(false);
         }
     }
 

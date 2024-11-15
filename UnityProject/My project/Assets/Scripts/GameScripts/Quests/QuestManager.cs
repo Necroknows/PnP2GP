@@ -12,12 +12,13 @@ public class QuestManager : MonoBehaviour
     [SerializeField] TMP_Text questName;
     [SerializeField] TMP_Text itemText;
     [SerializeField] TMP_Text itemAmount;
-    [SerializeField] QuestObject questObject;
+    [SerializeField] QuestObject activeQuest;
+    PlayerController playerScript;
 
+    List<QuestItem> activeQuestCollectables = new List<QuestItem>();
 
-    List<QuestItem> questItems = new List<QuestItem>();
-
-    bool HasAllQuestItems;
+    bool hasAllQuestItems;
+    public bool HasAllQuestItems => hasAllQuestItems;
 
     private void Awake()
     {
@@ -28,117 +29,86 @@ public class QuestManager : MonoBehaviour
     {
         //set the name of the quest, the list of items to collect
         questName.text = "Speak with Wizard";
-
+        playerScript = GameManager.instance.playerScript;
         UpdateUIList();
-
-
-
     }
 
     public void Update()
     {
-
+        if (Input.GetKeyUp(KeyCode.Y))
+        {
+            playerScript.QuestLog.QuestActiveNext();
+        }
+        else if (Input.GetKeyUp(KeyCode.T))
+        {
+            playerScript.QuestLog.QuestActivePrev();
+        }
     }
 
     public void GiveQuest(QuestObject qObject)
     {
-        if (questObject == null && !qObject.GetQuestCompleted())
+        if (qObject != null && qObject.GetQuestState == QuestObject.QuestState.Inactive)
         {
-            questObject = qObject;
-            questName.text = questObject.GetQuestName();
-            questItems = questObject.GetList();
+            hasAllQuestItems = false;
+            qObject.readyToTurnIn = false;
+            qObject.SetQuestState(QuestObject.QuestState.Inactive);
+            playerScript.QuestLog.QuestAccept(qObject);
             UpdateUIList();
+            Debug.Log("Giving Quest: " + qObject.GetQuestName);
+        }
+        else
+        {
+            Debug.Log("Quest: " + qObject.GetQuestName + " has already started");
         }
     }
-
-
+   
+    
     public void UpdateUIList()
     {
-        itemText.text = ""; //resets text
-        itemAmount.text = "";
-        int hasAmount;
-        int needsAmount;
-        bool hasItem = false;
-        int hasAllItems = 0; //number of questitems that are in player inventory
-
-        for (int eachItemQ = 0; eachItemQ < questItems.Count; eachItemQ++)
+        if (playerScript != null && playerScript.QuestLog != null && playerScript.QuestLog.GetActiveQuest != null)
         {
-            itemText.text += questItems[eachItemQ].GetItemName() + "\n";
-            needsAmount = questItems[eachItemQ].GetNumToRetrieve();
+            activeQuest = playerScript.QuestLog.GetActiveQuest;
+        }
+        if (activeQuest != null)
+        {
+            questName.text = activeQuest.GetQuestName;
+            itemText.text = ""; //resets text
+            itemAmount.text = "";
+            int hasAllItems = 0; //number of questitems that are in player inventory
 
-            //checks between the quest list and the inventory list for each item and number of items needed
-            for (int eachItemI = 0; eachItemI < InventoryManager.instance.Items.Count; eachItemI++)
+            foreach (QuestItem collectable in activeQuest.GetQuestCollectables)
             {
-                if (questItems[eachItemQ].GetItemName() == InventoryManager.instance.Items[eachItemI].itemName)
+                itemText.text += collectable.GetItemName + "\n";
 
+                //checks if the item numToRetrieve is fufilled 
+                if (collectable.IsComplete)
                 {
-                    hasItem = true;
-                    hasAmount = InventoryManager.instance.Items[eachItemI].GetStack;
-                    if (needsAmount >= hasAmount && hasAmount > 0)
-                    {
-                        needsAmount = needsAmount - hasAmount;
-
-                        itemAmount.text += needsAmount + 1 + "\n";
-                    }
-                    else
-                    {
-                        hasAllItems++; //adds to the has all items for each stack complete
-                        itemAmount.text += "X" + "\n";
-                    }
-
+                    hasAllItems++; //adds to the has all items for each stack complete
+                    itemAmount.text += "X" + "\n";
                 }
-
-
-            }
-            if (!hasItem)
-            {
-                itemAmount.text += needsAmount + "\n";
-                HasAllQuestItems = false;
-            }
-            hasItem = false;
-
-        }
-        //checks if the player has all the quest items
-        if (hasAllItems == questItems.Count)
-        {
-            HasAllQuestItems = true;
-        }
-
-    }
-
-    public bool CheckQuestComplete()
-    {
-
-        if (HasAllQuestItems)
-        {
-            for (int eachItemQ = 0; eachItemQ < questItems.Count; eachItemQ++)
-            {
-                for (int eachItemI = 0; eachItemI < InventoryManager.instance.Items.Count; eachItemI++)
+                else
                 {
-
-                    if (questItems[eachItemQ].GetItemName() == InventoryManager.instance.Items[eachItemI].itemName)
-                    {
-                        questItems[eachItemQ].DecrementNumToRetrieve();
-                        InventoryManager.instance.RemoveItem(InventoryManager.instance.Items[eachItemI]);
-                    }
+                    itemAmount.text += (collectable.GetNumToRetrieve - collectable.GetNumObtained) + "\n";
                 }
             }
-            return true;
         }
-        return false;
-
+        else
+        {
+            Debug.Log("activeQuest was null.");
+        }
     }
+
 
     public void RemoveQuest()
     {
-        if (questObject != null)
+        if (activeQuest.readyToTurnIn)
         {
-            questObject.SetQuestComplete();
+            playerScript.QuestLog.QuestComplete(activeQuest);
         }
         questName.text = string.Empty;
-        questItems = null;
-        questObject = null;
+        activeQuestCollectables = null;
+        activeQuest = null;
     }
 
-    public QuestObject GetActiveQuest => questObject;
+    public QuestObject GetActiveQuest => activeQuest;
 }

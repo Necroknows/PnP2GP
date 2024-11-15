@@ -82,7 +82,7 @@ public class WizardDivider : MonoBehaviour
         if (other.GetComponent<PlayerController>())
         {
             playerInRange = false;
-            manager.EndDialogue();
+            StartCoroutine(manager.EndDialogue());
             interactions.StopInteract();
         }
     }

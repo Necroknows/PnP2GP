@@ -10,18 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59eaf85fd16c4704f84ff544d5d8a134, type: 3}
-  m_Name: NoThirdSetOfItems
+  m_Name: NoQuest3Items
   m_EditorClassIdentifier: 
   nameNPC: The Wizard
   dialogue:
-  - You do? Could it possibly be in that empty bottle of yours?
-  - First make the potion, then come see me.
-  - Remember, water in the Boiler and the herb in the Mortar. Then mix them together
-    and come see me.
+  - Listen, apprentice. I know it is terrifying out there, afterall I just fled for
+    my own life.
+  - But I need those last remaining Materials.
+  - Come see me again when you have them
   responses:
   - requiredQuestsCompleted: []
-    responseText: (But I didn't forget)
+    ignoreIfQuestsCompleted: []
+    responseText: Ofcourse. (I wasn't scared, you know)
     dialogueParent: {fileID: 11400000}
     dialogueTrue: {fileID: 11400000, guid: 6a2a2b1b441ba3a42a645a7112abec6a, type: 2}
     dialogueFalse: {fileID: 0}
-  questToGive: {fileID: 0}
+  questToGive: {fileID: 11400000, guid: a4d431c0312743d43b433419e644a6fe, type: 2}
+  isWinDialogue: 0

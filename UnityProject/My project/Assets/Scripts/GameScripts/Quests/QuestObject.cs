@@ -10,32 +10,38 @@ public class QuestObject : ScriptableObject
     [SerializeField] string questName;
 
     [SerializeField] public List<QuestItem> questCollectables = new List<QuestItem>();
-    bool isQuestCompleted = false;
+    QuestState state = QuestState.Inactive;
+    bool justAccepted;
+    public bool readyToTurnIn;
 
     private void OnEnable()
     {
-        if (isQuestCompleted)
-        {
-            isQuestCompleted = false;
-        }
+        state = QuestState.Inactive;
+        readyToTurnIn = false;
     }
 
+    public string GetQuestName => questName;
 
-    public string GetQuestName()
+    public List<QuestItem> GetQuestCollectables => questCollectables;
+
+    public QuestState GetQuestState => state;
+
+    public bool JustAccepted => justAccepted;
+
+    public void SetJustAccepted(bool tf)
     {
-        return questName;
-    }
-    public List<QuestItem> GetList()
-    {
-        return questCollectables;
+        justAccepted = tf;
     }
 
-    public void SetQuestComplete()
+    public void SetQuestState(QuestState _state)
     {
-        isQuestCompleted = true;
+        state = _state;
     }
-    public bool GetQuestCompleted()
+
+    public enum QuestState
     {
-        return isQuestCompleted;
+        Inactive,
+        Accepted,
+        Completed
     }
 }

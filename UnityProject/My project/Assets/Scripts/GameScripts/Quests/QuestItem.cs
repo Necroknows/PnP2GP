@@ -8,30 +8,44 @@ public class QuestItem : ScriptableObject
 {
     [SerializeField] public Item item;
     [SerializeField] int SpawnWithAmountToRetrive;
+    int numObtained;
     int numToRetrieve;
+    bool complete;
 
     private void OnEnable()
     {
         numToRetrieve = SpawnWithAmountToRetrive;
+        numObtained = 0;
+        complete = false;
     }
 
-    public int GetNumToRetrieve()
+    public int GetNumToRetrieve => numToRetrieve;
+
+    public int GetNumObtained => numObtained;
+
+    public string GetItemName => item.itemName;
+
+    public Item GetItem => item;
+
+    public bool IsComplete => complete;
+
+    public void Complete()
     {
-        return numToRetrieve;
+        complete = true;
     }
 
-    public string GetItemName()
+    public void SetNumObtained(int num)
     {
-        return item.itemName;
+        numObtained = num;
     }
 
-    public Item GetItem()
+    public void IncrementNumObtained()
     {
-        return item;
+        numObtained++;
     }
 
-    public void DecrementNumToRetrieve()
+    public void DecrementNumObtained()
     {
-        numToRetrieve--;
+        numObtained--;
     }
 }
