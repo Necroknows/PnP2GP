@@ -71,6 +71,7 @@ public class PlayerController : MonoBehaviour, IDamage
     Vector3 moveDir;      // Direction of player movement
     Vector3 playerVel;    // Player's velocity including vertical movement and push force
     public Vector3 pushDir; // Direction and force of any external push applied to the player
+    public float Speed = 5f;
 
     [Header("MISC VARIABLES")]
 

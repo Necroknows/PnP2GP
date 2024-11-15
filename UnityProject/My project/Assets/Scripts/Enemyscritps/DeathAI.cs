@@ -22,6 +22,13 @@ public class DeathAI : MonoBehaviour
     public float minionSpawnInterval = 5f;
     private float nextMinionSpawnTime = 0f;
 
+    // --- SPEEED INCREASE OVER TIME ---
+    private float targetSpeed; //Referencing player speed.
+    private float speedChangeRate = 0.1f; //Gradually increases Death's speed over time.
+    public float maxSpeed = 10f;
+    private float currentSpeed;
+
+    private PlayerController playerController;
     private bool isActivated = false;
 
     private void Start()
@@ -47,6 +54,12 @@ public class DeathAI : MonoBehaviour
         {
             animator.SetBool("isIdle", true);
         }
+
+        playerController = player.GetComponent<PlayerController>();
+        targetSpeed = playerController != null ? playerController.Speed : 2.5f;
+        //Starts Death's speed equal to player at start.
+        currentSpeed = targetSpeed;
+        agent.speed = currentSpeed;
     }
 
     private void Update()
@@ -55,6 +68,7 @@ public class DeathAI : MonoBehaviour
         {
             FollowPlayer();
             LookAtPlayer();
+            UpdateSpeedOverTime();
 
             if (animator != null)
             {
@@ -70,7 +84,6 @@ public class DeathAI : MonoBehaviour
                 }
        
             }
-
             HandleMinionSpawns();
         }
     }
@@ -150,11 +163,19 @@ public class DeathAI : MonoBehaviour
         }
     }
 
+    private void UpdateSpeedOverTime()
+    {
+        if(currentSpeed < maxSpeed)
+        {
+            currentSpeed += speedChangeRate * Time.deltaTime;
+            agent.speed = currentSpeed;
+        }
+    }
+
     private void HandleMinionSpawns()
     {
         if(Time.time >= nextMinionSpawnTime && activeMinions.Count < maxMinions)
         {
-            Debug.LogError("Spawning Minion...");
             SpawnMinion();
             nextMinionSpawnTime = Time.time + minionSpawnInterval;
         }
