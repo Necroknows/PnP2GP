@@ -322,9 +322,9 @@ public class InventoryManager : MonoBehaviour
         }
         else if (Items[currentSelectedItem].itemName == "Dash Potion" && manager.playerScript.GetFuel() != manager.playerScript.GetFuelMax())
         {
-            if (manager.playerScript.canDash == false)
+            if (manager.playerScript.GetCanDash == false)
             {
-                manager.playerScript.canDash = true;
+                manager.playerScript.SetCanDash(true);
                 interactables.Interact("Press left Control while jumping to use a midair dash.", KeyCode.LeftControl);
             }
             manager.playerScript.SetFuel(manager.playerScript.GetFuelMax());

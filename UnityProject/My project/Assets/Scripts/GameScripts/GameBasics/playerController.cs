@@ -22,13 +22,16 @@ using UnityEngine.Animations;
 
 public class PlayerController : MonoBehaviour, IDamage
 {
-    // --- COMPONENT REFERENCES ---
+    [Header("COMPONENT REFERENCES")]
+
     [SerializeField] CharacterController controller;  // Reference to the CharacterController for player movement
     [SerializeField] LayerMask ignoreMask;            // Mask to ignore certain layers during raycast
     [SerializeField] Transform shootPos;              // The position from which bullets are fired
     [SerializeField] GameObject bullet;               // Prefab for the bullet object
+    [SerializeField] GameObject shieldVisual;
 
-    // --- PLAYER STATS AND MOVEMENT ---
+    [Header("PLAYER STATS AND MOVEMENT")]
+
     [SerializeField] int speed;          // Player movement speed
     [SerializeField] int sprintMod;      // Speed multiplier when sprinting
     [SerializeField] int jumpMax;        // Maximum number of jumps allowed
@@ -40,9 +43,12 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] int AmmoMax;        // Maximum ammo capacity
     [SerializeField] float fuel;         // Jetpack fuel amount
     [SerializeField] float fuelmax;        // Maximum fuel amount for jetpack
+    [SerializeField] float shieldRegenTime;  // Time before shield comes back
     //[SerializeField] float hoverSpeed;    // for item hover 
     //[SerializeField] float hoverRange;
-    // --- WEAPON STATS AND SHOOTING ---
+
+    [Header("WEAPON STATS AND SHOOTING")]
+
     [SerializeField] List<GunStats> gunList = new List<GunStats>();
     [SerializeField] float shootRate;    // Rate of fire (time between shots)
     [SerializeField] int shootDist;      // Maximum shooting distance
@@ -51,7 +57,8 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] GameObject muzzleFlash;
     [SerializeField] AudioSource gunShotNoise;      // Stores the sound for the gunshot
 
-    // --- INTERACTION / INVENTORY / QUESTS ---
+    [Header ("INTERACTION / INVENTORY / QUESTS")]
+
     //[SerializeField] float interactionRange;
     public LayerMask interactionLayer;
     InventoryManager inventory = InventoryManager.instance;
@@ -59,19 +66,22 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] GameObject objectToRetrieve;
     public QuestLog QuestLog = null;
 
-    // --- DYNAMIC STATE VARIABLES ---
+    [Header("DYNAMIC STATE VARIABLES")]
+
     Vector3 moveDir;      // Direction of player movement
     Vector3 playerVel;    // Player's velocity including vertical movement and push force
     public Vector3 pushDir; // Direction and force of any external push applied to the player
 
-    // --- MISC VARIABLES ---
+    [Header("MISC VARIABLES")]
+
     int HPOrig;           // Original player health at start
     int SelectGunPos;     // Hold the Current weapon postion in list for proper cycling 
     int jumpCount;        // Number of jumps the player has made
     /*bool isSprinting;*/     // Is the player currently sprinting          //// future use ... make sure to uncomment in Sprint()
     bool isShooting;      // Is the player currently shooting
     bool isjumping;       // Is the player currently jumping
-    public bool canDash;
+    bool shieldUp; // to check if the shield is active
+    bool canDash;
 
     public Transform carryPosition;
     private bool hasObject;
@@ -86,12 +96,15 @@ public class PlayerController : MonoBehaviour, IDamage
         updatePlayerUI();      // Initialize player UI
         spawnPlayerAtStart();         // DropPlayer at SpawnPos
         QuestLog = this.AddComponent<QuestLog>();
+        canDash = false;
+        shieldUp = true;
     }
     public void spawnPlayer()
     {
         controller.enabled = false;
         transform.position = GameManager.instance.playerSpawnPOS.transform.position;
         controller.enabled = true;
+        shieldUp = true;
         HP = HPOrig;
         fuel = 0;
         UIManager.Instance.UpdatePlayerHealthBar(HP);
@@ -282,10 +295,21 @@ public class PlayerController : MonoBehaviour, IDamage
     // Handle player taking damage and apply a push force
     public void takeDamage(int amount, Vector3 Dir)
     {
-        HP -= amount;
-        updatePlayerUI();
-        StartCoroutine(flashDamage());
-
+        if (shieldUp)
+        {
+            shieldUp = false;
+            if (shieldVisual != null)
+            {
+                shieldVisual.SetActive(false);
+                StartCoroutine(RegenShield());
+            }
+        }
+        else
+        {
+            HP -= amount;
+            updatePlayerUI();
+            StartCoroutine(flashDamage());
+        }
         // Apply the push force to the player's velocity
         if (Dir != Vector3.zero)
         {
@@ -309,10 +333,19 @@ public class PlayerController : MonoBehaviour, IDamage
                     inventory.Items[i].itemType == Item.ItemType.Water ||
                     inventory.Items[i].itemType == Item.ItemType.Herb)
                 {
-                    inventory.RemoveItem(inventory.Items[i]);
-                    i--;
+                    inventory.Items[i].AddStack(inventory.Items[i].GetStack * -1);
                 }
             }
+        }
+    }
+
+    IEnumerator RegenShield()
+    {
+        yield return new WaitForSeconds(shieldRegenTime);
+        if (!shieldUp && shieldVisual != null)
+        {
+            shieldVisual.SetActive(true);
+            shieldUp = true;
         }
     }
 
@@ -356,6 +389,13 @@ public class PlayerController : MonoBehaviour, IDamage
     public int getAmmoMax()
     {
         return (SelectGunPos >= 0 && SelectGunPos < gunList.Count) ? gunList[SelectGunPos].ammoMax : 0;
+    }
+
+    public bool GetCanDash => canDash;
+
+    public void SetCanDash(bool _canDash)
+    {
+        canDash = _canDash;
     }
 
     public void setHP(int amount)
