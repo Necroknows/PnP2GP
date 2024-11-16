@@ -33,6 +33,7 @@ public class CheckPoint : MonoBehaviour
         if (other.CompareTag("Player") && transform.position != GameManager.instance.playerSpawnPOS.transform.position)
         {
             GameManager.instance.playerSpawnPOS.transform.position = transform.position;
+            SavedPlayerState.instance.SaveCurrState();
             StartCoroutine(FlashColor());
         }
     }

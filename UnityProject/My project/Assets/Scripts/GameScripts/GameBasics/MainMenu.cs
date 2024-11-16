@@ -12,6 +12,7 @@ public class MainMenu : MonoBehaviour
     public GameObject optionsMenu;
     //the loading screen with progress bar
     public GameObject loadingScreen;
+    public Camera menuCamera;
     public Image loadingBar;
 
     //this is a scene that contains the player, UI, GameManager, and the Directional light
@@ -86,15 +87,24 @@ public class MainMenu : MonoBehaviour
     IEnumerator LoadingScreen()
     {
         float progress = 0;
+        //fills progress bar as each scene loads
         for (int i = 0; i < scenesToLoad.Count; i++)
         {
             while (!scenesToLoad[i].isDone)
             {
+                //if(i == 1)
+                //{
+                //    menuCamera.enabled = false;
+                //}
                 progress += scenesToLoad[i].progress;
                 loadingBar.fillAmount = progress / scenesToLoad.Count;
+
                 yield return null;
             }
         }
+        
+
+
     }
 
 }

@@ -33,9 +33,13 @@ public class ButtonFunctions : MonoBehaviour
         //    }
         //}
         //scenesToLoad.Add(SceneManager.LoadSceneAsync("Village", LoadSceneMode.Additive));
-
+        SceneManager.UnloadSceneAsync("Village");
+        SceneManager.LoadSceneAsync("Village", LoadSceneMode.Additive);
+        GameManager.instance.playerSpawnPOS.transform.position = GameManager.instance.playerStartPOS.transform.position;
         GameManager.instance.playerScript.spawnPlayerAtStart();
-        GameManager.instance.playerScript.DropAllItems();
+        InventoryManager.instance.Items.Clear();
+        InventoryManager.instance.ListItems();
+        DeathSpawnManager.instance.ResetMeter();
     }
     public void nextLevel()
     {
@@ -65,9 +69,15 @@ public class ButtonFunctions : MonoBehaviour
 
         ////needs to be updated for the check point level to be the spawn location
         //scenesToLoad.Add(SceneManager.LoadSceneAsync("Village", LoadSceneMode.Additive));
-
+        SavedPlayerState.instance.LoadLastSavedState();
         GameManager.instance.playerScript.spawnPlayer();
-        GameManager.instance.playerScript.DropAllItems();
+
+    }
+
+    public void RespawnAfterDeath()
+    {
+        SavedPlayerState.instance.DeathLoadState();
+        GameManager.instance.playerScript.spawnPlayerAtStart();
     }
     public void MainMenu()
     {

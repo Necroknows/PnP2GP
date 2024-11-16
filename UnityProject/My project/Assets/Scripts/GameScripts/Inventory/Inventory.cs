@@ -28,7 +28,7 @@ public class Inventory : MonoBehaviour
         List<T> itemsOfType = new List<T>();
         foreach (Item item in items)
         {
-            if(item is T specificItem)
+            if (item is T specificItem)
             {
                 itemsOfType.Add(specificItem);
             }
@@ -38,7 +38,7 @@ public class Inventory : MonoBehaviour
 
     public void RemoveItem(Item item)
     {
-        if(items.Contains(item))
+        if (items.Contains(item))
         {
             items.Remove(item);
             Debug.Log($"{item.itemName} removed from inventory");
@@ -52,6 +52,14 @@ public class Inventory : MonoBehaviour
     public bool HasItem(Item item)
     {
         return items.Contains(item);
+    }
+
+    public void ClearInventory()
+    {
+        if(items.Count > 0)
+        {
+            items.Clear();
+        }
     }
 
 

@@ -13,6 +13,8 @@ using UnityEngine.AI;
 
 public class DeathSpawnManager : MonoBehaviour
 {
+    public static DeathSpawnManager instance;
+
     [SerializeField]GameObject deathPrefab;
     PlayerController playerController;
     GameObject player;
@@ -36,7 +38,10 @@ public class DeathSpawnManager : MonoBehaviour
 
     private bool isDeathSpawned = false; //Tracks if Death is spawned or not.
     //private GameObject deathInstance;
-
+    private void Awake()
+    {
+        instance = this;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -211,6 +216,20 @@ public class DeathSpawnManager : MonoBehaviour
     public float GetCurrentFillAmount()
     {
         return fillAmount;
+    }
+
+    public void SetFillAmount(float amount)
+    {
+        fillAmount = amount;
+    }
+
+    public void ResetMeter()
+    {
+        fillAmount = 0;
+        GameManager.instance.death.SetActive(false);
+        isWaitingToDespawn = false;
+        isDeathActive = false;
+
     }
 
 }

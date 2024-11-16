@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -352,6 +353,14 @@ public class InventoryManager : MonoBehaviour
                 interactables.Interact("You need a spell book to use this potion!\nPress E", KeyCode.E);
             }
         }
-    }
 
+        
+    }
+    public void ClearInventory()
+    {
+        if (Items.Count > 0)
+        {
+            Items.RemoveRange(0, Items.Count);
+        }
+    }
 }//END
