@@ -41,7 +41,7 @@ public class AlchemyManager : MonoBehaviour
                 //check if interacting with boiler
                 if(IsPointerOverObject(waterBoiler.gameObject))
                 {
-                    interactables.Interact("Press Q to place Item into the Boiler", KeyCode.Q);
+                    interactables.Interact("Press Q to place Liquid into the Boiler", KeyCode.Q);
                     if (Input.GetKeyUp(KeyCode.Q))
                     {
                         interactables.StopInteract();
@@ -51,7 +51,7 @@ public class AlchemyManager : MonoBehaviour
                 //check if interacting with mortar
                 else if (IsPointerOverObject(mortar.gameObject))
                 {
-                    interactables.Interact("Press Q to place Item into the Mortar", KeyCode.Q);
+                    interactables.Interact("Press Q to place Material into the Mortar", KeyCode.Q);
                     if (Input.GetKeyUp(KeyCode.Q))
                     {
                         interactables.StopInteract();
