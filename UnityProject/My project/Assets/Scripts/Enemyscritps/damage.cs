@@ -15,15 +15,19 @@
  */
 
 using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class damage : MonoBehaviour
 {
-    [SerializeField] enum damageType { bullet, followReticle, stationary, chaser, arrow, lobber, melee };  // Enum defining the various damage types
+    [SerializeField] enum damageType { bullet, followReticle, stationary, chaser, arrow, lobber, laser, melee };  // Enum defining the various damage types
 
     // --- COMPONENT REFERENCES ---
     [SerializeField] damageType type;        // Current damage type of this object
     [SerializeField] Rigidbody rb;           // Rigidbody component for movement physics
+    [SerializeField] ParticleSystem laserBullet;
+    List<ParticleCollisionEvent> collisionEvents = new List<ParticleCollisionEvent>();
 
     // --- DAMAGE PROPERTIES ---
     [SerializeField] int damageAmount;       // The amount of damage dealt
@@ -71,6 +75,12 @@ public class damage : MonoBehaviour
         else if (type == damageType.followReticle)
         {
             rb.velocity = transform.forward * speed;
+            Destroy(gameObject, destroyTime);
+        }
+        else if (type == damageType.laser)
+        {
+            laserBullet = this.GetComponent<ParticleSystem>();
+            laserBullet.Play();
             Destroy(gameObject, destroyTime);
         }
     }
@@ -134,6 +144,33 @@ public class damage : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void OnParticleCollision(GameObject other)
+    {
+        if (hitEffect != null)
+        {
+            StartCoroutine(ShowHit());
+
+        }
+
+        IDamage dmg = other.GetComponent<IDamage>();
+
+        if (dmg != null)
+        {
+            Vector3 targetPOS = GameManager.instance.player.transform.position;
+            Vector3 playerDir = (targetPOS - transform.position);
+
+            if (force > 0)
+            {
+                dmg.takeDamage(damageAmount, playerDir * force);
+            }
+            else
+            {
+                dmg.takeDamage(damageAmount, Vector3.zero);
+            }
+        }
+
     }
 
     // Stop stationary damage when player exits the damage field
