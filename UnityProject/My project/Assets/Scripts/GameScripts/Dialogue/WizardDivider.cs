@@ -29,13 +29,20 @@ public class WizardDivider : MonoBehaviour
         playerInRange = false;
         manager = FindObjectOfType<DialogueManager>();
         interactions = FindObjectOfType<InteractionManager>();
-        prompt = "Press E To Speak With " + greeting.nameNPC;
+        prompt = "Press E To Speak With " + greeting.nameNPC + "\n (E - advance dialouge, W/A - select response, Space - accept response, Left Shift - speed up dialogue)";
         currWaypoint = 0;
     }
 
     private void Update()
     {
-        anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
+        if (agent.velocity.normalized.magnitude > .5)
+        {
+            anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
+        }
+        else
+        {
+            anim.SetFloat("Speed", 0.0f);
+        }
         // On interaction, stops the player and makes them face the NPC they are talking to
         if (playerInRange && Input.GetKeyUp(KeyCode.E) && manager.anim.GetBool("IsOpen") == false)
         {
