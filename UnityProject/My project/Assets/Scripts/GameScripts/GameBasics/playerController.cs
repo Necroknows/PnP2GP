@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] GameObject muzzleFlash;
     [SerializeField] AudioSource gunShotNoise;      // Stores the sound for the gunshot
 
-    [Header ("INTERACTION / INVENTORY / QUESTS")]
+    [Header("INTERACTION / INVENTORY / QUESTS")]
 
     //[SerializeField] float interactionRange;
     public LayerMask interactionLayer;
@@ -203,7 +203,7 @@ public class PlayerController : MonoBehaviour, IDamage
         {
             if (Input.GetKeyUp(KeyCode.LeftControl))
             {
-                pushDir = (Input.GetAxis("Vertical") * transform.forward * (jumpSpeed * 2)) + 
+                pushDir = (Input.GetAxis("Vertical") * transform.forward * (jumpSpeed * 2)) +
                           (Input.GetAxis("Horizontal") * transform.right * (jumpSpeed * 2)) +
                           new Vector3(0, jumpSpeed * 2, 0);  // Apply velocity for Dash
                 fuel -= 1;   // Reduce fuel on Dash
@@ -258,7 +258,7 @@ public class PlayerController : MonoBehaviour, IDamage
             {
                 targetPoint = hit.point; // Update target point if something is hit
             }
-            
+
 
             // Calculate the direction from the shoot position to the target point
             Vector3 direction = (targetPoint - shootPos.position).normalized;
@@ -407,8 +407,8 @@ public class PlayerController : MonoBehaviour, IDamage
         }
     }
 
-    public void setHPOrig(int amount) 
-    { 
+    public void setHPOrig(int amount)
+    {
         HPOrig = amount;
     }
 
@@ -495,23 +495,55 @@ public class PlayerController : MonoBehaviour, IDamage
         }
     }
 
-/*    private void OnTriggerEnter(Collider other)
+    public void ClearGunList()
     {
-        if (other.CompareTag("Retrievable") && objectToRetrieve == null)
-        {
-            objectToRetrieve = other.gameObject;        //assigns detected object to objectToRetrieve
-            Debug.Log("Object Entered: " + objectToRetrieve.name);
-        }
+        gunList.Clear();
     }
 
-    private void OnTriggerExit(Collider other)
+    public int GetAmmoForGun(GunStats gun)
     {
-        if (other.CompareTag("Retrievable") && objectToRetrieve == other.gameObject)
+        for(int eachGun = 0; eachGun < gunList.Count; eachGun++)
         {
-            Debug.Log("Object Exited " + objectToRetrieve.name);
-            objectToRetrieve = null;    //resets oTR to null if player leaves range
+            if (gunList[eachGun] == gun)
+            {
+                return gunList[eachGun].GetCurrAmmo();
+            }
+            
         }
-    }*/
+        return 0;
+    }
+
+    public void SetAmmoForGun(GunStats gun)
+    {
+        for (int eachGun = 0; eachGun < gunList.Count; eachGun++)
+        {
+            if (gunList[eachGun] == gun)
+            {
+               gunList[eachGun].SetCurrAmmo(gun.GetCurrAmmo());
+                break;
+            }
+
+        }
+   
+    }
+
+    /*    private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Retrievable") && objectToRetrieve == null)
+            {
+                objectToRetrieve = other.gameObject;        //assigns detected object to objectToRetrieve
+                Debug.Log("Object Entered: " + objectToRetrieve.name);
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.CompareTag("Retrievable") && objectToRetrieve == other.gameObject)
+            {
+                Debug.Log("Object Exited " + objectToRetrieve.name);
+                objectToRetrieve = null;    //resets oTR to null if player leaves range
+            }
+        }*/
 
     //IEnumerator ItemBounce()
     //{
