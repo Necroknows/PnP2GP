@@ -69,7 +69,10 @@ public class ButtonFunctions : MonoBehaviour
     public void MainMenu()
     {
         SceneManager.LoadScene(0);
-        UIManager.Instance.UnpauseGame();
+        if (UIManager.Instance != null)
+        {
+            UIManager.Instance.UnpauseGame();
+        }
     }
 
     public void quit()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject infoContainer;
     [SerializeField] GameObject hUD;
     [SerializeField] TMP_Text ammoCountText;
+    [SerializeField] GameObject OpeningScene;
+
+    Animation anim;
     
    
     //public GameObject goalUI;
@@ -32,6 +36,8 @@ public class UIManager : MonoBehaviour
     public Image playerHpBar;
     public Image playerFuelBar;
     public bool isPaused;
+    bool isOpeningActive;
+    bool isWinMenuActive;
 
     float timescale;
     // Start is called before the first frame update
@@ -43,6 +49,7 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         playerCont=FindObjectOfType<PlayerController>();
+        StartOpeningScene();
     }
 
     // Update is called once per frame
@@ -61,7 +68,10 @@ public class UIManager : MonoBehaviour
                 UnpauseGame();
             }
         }
-        
+        if(Input.GetKey(KeyCode.Space) && isOpeningActive)
+        {
+            CloseOpeningScene();
+        }
         
         if(playerCont !=null)
         {
@@ -74,6 +84,36 @@ public class UIManager : MonoBehaviour
         
         //Death awareness update
         DeathSpawnBar();
+    }
+
+    void StartOpeningScene()
+    {
+        timescale = Time.timeScale;
+        //set current timescale to 0
+        Time.timeScale = 0;
+        // make the cursor visible to interact with menus
+        Cursor.visible = true;
+        // keep the cursor in the play area 
+        Cursor.lockState = CursorLockMode.Confined;
+        isOpeningActive = true;
+        OpeningScene.SetActive(true);
+        menuActive = OpeningScene;
+    }
+
+    public void CloseOpeningScene()
+    {
+        // return to original timescale
+        Time.timeScale = 1;
+        // cursor off 
+        Cursor.visible = false;
+        // Lock cursor 
+        Cursor.lockState = CursorLockMode.Locked;
+        // toggle pause state on
+        menuActive = null;
+        OpeningScene.SetActive(false);
+        hUD.SetActive(true);
+        isPaused = false;
+        isOpeningActive = false;
     }
     public void PauseGame()
     {
@@ -159,17 +199,7 @@ public class UIManager : MonoBehaviour
     
     public void ShowWinScreen()
     {
-        // pause game 
-        PauseGame();
-        // you win 
-        if (menuActive != null)
-        {
-            menuActive.SetActive(false);
-            menuActive = null;
-        }
-
-        menuActive = menuWin;
-        menuActive.SetActive(true);
+        SceneManager.LoadScene("Credits");
 
     }
     

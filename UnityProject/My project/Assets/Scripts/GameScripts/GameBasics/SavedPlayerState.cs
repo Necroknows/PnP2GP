@@ -18,6 +18,11 @@ public class SavedPlayerState : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        
+    }
+
+    private void Start()
+    {
         savedHP = GameManager.instance.playerScript.getHPOrig();
     }
 

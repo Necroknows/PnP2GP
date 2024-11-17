@@ -36,11 +36,12 @@ public class RecipeBookUI : MonoBehaviour
         }
 
         recipeBookPanel.SetActive(false);
-        recipes = AlchemyManager.instance.recipes;  //accesses recipes from AlchemyManager.cs
+        //recipes = AlchemyManager.instance.recipes;  //accesses recipes from AlchemyManager.cs
     }
 
     private void Start()
     {
+        recipes = AlchemyManager.instance.recipes;
         Debug.Log("RecipeBookUI Start()");
     }
 
