@@ -52,7 +52,11 @@ public class enemyGhostAI : MonoBehaviour, IDamage
     //gets the position and rotation of an object
     Vector3 modelSwitchPos;
     Quaternion modelSwitchRot;
-   // Vector3 startingPos;
+    // Vector3 startingPos;
+
+    //Spawn Effects
+    public GameObject spawnEffectPrefab;
+    public Vector3 effectOffset = new Vector3(0, 0, 0);
 
     //used to replace stopping distance for roaming vs going to player
     float stoppingDisOrig;
@@ -70,6 +74,7 @@ public class enemyGhostAI : MonoBehaviour, IDamage
     // Start is called before the first frame update
     void Start()
     {
+        SpawnEffect();
         colorOrig = model.material.color;
         GameManager.instance.updateGameGoal(1);
         startingPoint = transform.position;
@@ -319,4 +324,13 @@ public class enemyGhostAI : MonoBehaviour, IDamage
         model.material.color = colorOrig;
     }
 
+    private void SpawnEffect()
+    {
+        if(spawnEffectPrefab != null)
+        {
+            GameObject effect = Instantiate(spawnEffectPrefab, transform.position + effectOffset, Quaternion.identity, transform);
+
+            Destroy(effect, 2f);
+        }
+    }
 }

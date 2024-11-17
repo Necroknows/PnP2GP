@@ -110,7 +110,7 @@ public class UIManager : MonoBehaviour
                 menuActive.SetActive(false);
                 menuActive = null;
             }
-
+ 
             if(hUD != null) hUD.SetActive(true);
             if(infoContainer != null) infoContainer.SetActive(true);
             if(playerCont != null) playerCont.enabled = true;

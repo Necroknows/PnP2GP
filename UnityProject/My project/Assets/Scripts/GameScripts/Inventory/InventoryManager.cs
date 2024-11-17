@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
+//using static UnityEditor.Progress;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -44,9 +44,15 @@ public class InventoryManager : MonoBehaviour
         {
             SelectPrevItem();
         }
-        else if (Input.GetKeyUp(KeyCode.Q) && Items[currentSelectedItem].itemType == Item.ItemType.Potion)
+        else if (Input.GetKeyUp(KeyCode.Q))
         {
-            UsePotion();
+            if(currentSelectedItem >= 0 && currentSelectedItem < Items.Count && Items[currentSelectedItem] != null)
+            {
+                if (Items[currentSelectedItem].itemType == Item.ItemType.Potion)
+                {
+                    UsePotion();
+                }
+            }
         }
 
         HighlightSelected();        //visually indicates selected item
