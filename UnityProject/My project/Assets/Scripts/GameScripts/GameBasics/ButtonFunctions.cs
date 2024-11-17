@@ -20,27 +20,27 @@ public class ButtonFunctions : MonoBehaviour
         UIManager.Instance.UnpauseGame();
     }
 
-    public void restart()
-    {
-        //if (SceneManager.sceneCount > 0)
-        //{
-        //    for (int i = 0; i < SceneManager.sceneCount; i++)
-        //    {
-        //        if(SceneManager.GetSceneAt(i).isLoaded == true && 
-        //            SceneManager.GetSceneByName(gameBasics) != SceneManager.GetSceneAt(i))
-        //        SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(i));
-        //    }
-        //}
-        //scenesToLoad.Add(SceneManager.LoadSceneAsync("Village", LoadSceneMode.Additive));
-        SceneManager.UnloadSceneAsync("Village");
-        SceneManager.LoadSceneAsync("Village", LoadSceneMode.Additive); //resets the Village scene
-        GameManager.instance.playerSpawnPOS.transform.position = GameManager.instance.playerStartPOS.transform.position; //resets the respawn to the start
-        GameManager.instance.playerScript.spawnPlayerAtStart();
-        InventoryManager.instance.Items.Clear(); //clears inventory
-        GameManager.instance.playerScript.ClearGunList();//clears gunList
-        InventoryManager.instance.ListItems(); //resets the inventory visuals
-        DeathSpawnManager.instance.ResetMeter(); //resets death
-    }
+    //public void restart()
+    //{
+    //    //if (SceneManager.sceneCount > 0)
+    //    //{
+    //    //    for (int i = 0; i < SceneManager.sceneCount; i++)
+    //    //    {
+    //    //        if(SceneManager.GetSceneAt(i).isLoaded == true && 
+    //    //            SceneManager.GetSceneByName(gameBasics) != SceneManager.GetSceneAt(i))
+    //    //        SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(i));
+    //    //    }
+    //    //}
+    //    //scenesToLoad.Add(SceneManager.LoadSceneAsync("Village", LoadSceneMode.Additive));
+    //    SceneManager.UnloadSceneAsync("Village");
+    //    SceneManager.LoadSceneAsync("Village", LoadSceneMode.Additive); //resets the Village scene
+    //    GameManager.instance.playerSpawnPOS.transform.position = GameManager.instance.playerStartPOS.transform.position; //resets the respawn to the start
+    //    GameManager.instance.playerScript.spawnPlayerAtStart();
+    //    InventoryManager.instance.Items.Clear(); //clears inventory
+    //    GameManager.instance.playerScript.ClearGunList();//clears gunList
+    //    InventoryManager.instance.ListItems(); //resets the inventory visuals
+    //    DeathSpawnManager.instance.ResetMeter(); //resets death
+    //}
     public void nextLevel()
     {
     sceneIndexCurr = SceneManager.GetActiveScene().buildIndex; // get the index of the current scene

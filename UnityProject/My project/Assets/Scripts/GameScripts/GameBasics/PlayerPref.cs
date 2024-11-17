@@ -16,7 +16,7 @@ public class PlayerPref : MonoBehaviour
     }
     private void Start()
     {
-        mouseSens = 1;
+        mouseSens = 500;
     }
 
     public void SetMouseSense(float amount)

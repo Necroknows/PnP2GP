@@ -90,7 +90,10 @@ public class SavedPlayerState : MonoBehaviour
         GameManager.instance.playerSpawnPOS.transform.position = GameManager.instance.playerStartPOS.transform.position; //sets the spawn position to start
 
         DeathSpawnManager.instance.ResetMeter(); //resets the meter and despawns death
-
+        for (int i = 0; i < savedGuns.Count; i++)
+        {
+            savedGuns[i].ammoCur = savedGuns[i].ammoMax;
+        }
     }
     public void LoadLastSavedState()
     {
