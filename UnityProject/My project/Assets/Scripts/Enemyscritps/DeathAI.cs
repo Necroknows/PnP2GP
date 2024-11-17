@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class DeathAI : MonoBehaviour
 {   // --- DEATH STATS ---
+
     public Transform player;
     public NavMeshAgent agent;
     public float swipeRange = 2f;
@@ -12,7 +14,7 @@ public class DeathAI : MonoBehaviour
     public int swipeDamage = 5;
     public float swipeCooldown = 3f;
     private float lastSwipeTime = 0f;
-    private Animator animator;
+    [SerializeField] Animator animator;
 
     // --- MINION STATS ---
     public GameObject minionPrefab;
@@ -24,7 +26,7 @@ public class DeathAI : MonoBehaviour
 
     // --- SPEEED INCREASE OVER TIME ---
     private float targetSpeed; //Referencing player speed.
-    private float speedChangeRate = 0.1f; //Gradually increases Death's speed over time.
+    //private float speedChangeRate = 0.1f; //Gradually increases Death's speed over time.
     public float maxSpeed = 10f;
     private float currentSpeed;
 
@@ -49,43 +51,28 @@ public class DeathAI : MonoBehaviour
             Debug.LogError("minionSpawnPoint not assigned in Inspector.");
         }
 
-        animator = GetComponentInChildren<Animator>();
-        if(animator != null)
-        {
-            animator.SetBool("isIdle", true);
-        }
-
         playerController = player.GetComponent<PlayerController>();
         targetSpeed = playerController != null ? playerController.Speed : 2.5f;
         //Starts Death's speed equal to player at start.
-        currentSpeed = targetSpeed;
-        agent.speed = currentSpeed;
+        //currentSpeed = targetSpeed;
+        //agent.speed = currentSpeed;
     }
 
     private void Update()
     {
-        if(isActivated)
-        {
-            FollowPlayer();
-            LookAtPlayer();
-            UpdateSpeedOverTime();
+        FollowPlayer();
+        //LookAtPlayer();
+        //UpdateSpeedOverTime();
 
-            if (animator != null)
-            {
-                if (agent.velocity.sqrMagnitude > 0f)
-                {
-                    animator.SetBool("isIdle", false);
-                    animator.SetBool("isChasing", true);
-                }
-                else
-                {
-                    animator.SetBool("isIdle", true);
-                    animator.SetBool("isChasing", false);
-                }
-       
-            }
-            HandleMinionSpawns();
+        if (agent.velocity.normalized.magnitude > .5)
+        {
+            animator.SetFloat("Speed", agent.velocity.normalized.magnitude);
         }
+        else
+        {
+            animator.SetFloat("Speed", 0.0f);
+        }
+        //HandleMinionSpawns();
     }
     //Activation and Deactivation for toggling Death depending on where the player is eventually..
     public void ActivateDeathAI()
@@ -104,31 +91,32 @@ public class DeathAI : MonoBehaviour
 
     private void FollowPlayer()
     {
-        if(Vector3.Distance(transform.position, player.position) > swipeRange)
-        {
-            agent.SetDestination(player.position);
+        //    if(Vector3.Distance(transform.position, player.position) > swipeRange)
+        //    {
+        agent.SetDestination(player.position);
 
-            Vector3 direction = (player.position - transform.position).normalized;
-            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
-        }
-        else
-        {
-            agent.ResetPath();
-        }
+        //Vector3 direction = (player.position - transform.position).normalized;
+        //Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        //transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+        this.gameObject.transform.LookAt(player.position);
+        //}
+        //else
+        //{
+        //    agent.ResetPath();
+        //}
     }
 
-    private void LookAtPlayer()
-    {
-        if (player != null)
-        {
-            Vector3 directionToPlayer = player.transform.position - transform.position;
-            directionToPlayer.y = 0;
+    //private void LookAtPlayer()
+    //{
+    //    if (player != null)
+    //    {
+    //        Vector3 directionToPlayer = player.transform.position - transform.position;
+    //        directionToPlayer.y = 0;
 
-            Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
-        }
-    }
+    //        Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
+    //        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+    //    }
+    //}
 
     private void OnTriggerEnter(Collider other)
     {
@@ -163,14 +151,14 @@ public class DeathAI : MonoBehaviour
         }
     }
 
-    private void UpdateSpeedOverTime()
-    {
-        if(currentSpeed < maxSpeed)
-        {
-            currentSpeed += speedChangeRate * Time.deltaTime;
-            agent.speed = currentSpeed;
-        }
-    }
+    //private void UpdateSpeedOverTime()
+    //{
+    //    if(currentSpeed < maxSpeed)
+    //    {
+    //        currentSpeed += speedChangeRate * Time.deltaTime;
+    //        agent.speed = currentSpeed;
+    //    }
+    //}
 
     private void HandleMinionSpawns()
     {

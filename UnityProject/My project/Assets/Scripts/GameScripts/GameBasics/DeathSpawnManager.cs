@@ -131,7 +131,7 @@ public class DeathSpawnManager : MonoBehaviour
         {
             yield return new WaitForSeconds(1f);
             SpawnDeath();
-            TrackPlayerWithDeath();
+            //TrackPlayerWithDeath();
         }
 
 
@@ -195,21 +195,21 @@ public class DeathSpawnManager : MonoBehaviour
             spawnPos = hit.position;
         }
         
-        GameManager.instance.death.transform.position = spawnPos;
+        GameManager.instance.death.transform.position = spawnPos + new Vector3(0,1,0);
         GameManager.instance.death.SetActive(true);
         isDeathActive = true;
         
         
     }
 
-    private void TrackPlayerWithDeath()
-    {
-        if (GameManager.instance.death.activeInHierarchy)
-        {
+    //private void TrackPlayerWithDeath()
+    //{
+    //    if (GameManager.instance.death.activeInHierarchy)
+    //    {
             
-            GameManager.instance.death.GetComponent<deathController>().SetTarget(GameManager.instance.player.transform);
-        }
-    }
+    //        GameManager.instance.death.GetComponent<deathController>().SetTarget(GameManager.instance.player.transform);
+    //    }
+    //}
 
     public float GetCurrentFillAmount()
     {
