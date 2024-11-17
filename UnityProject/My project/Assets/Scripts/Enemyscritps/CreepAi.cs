@@ -33,8 +33,13 @@ public class NewEnemyAI : MonoBehaviour, IDamage
     private Vector3 startingPos;
     private GameManager gameManager;
 
+    //Spawn Effects
+    public GameObject spawnEffectPrefab;
+    public Vector3 effectOffset = new Vector3(0, 0, 0);
+
     private void Start()
     {
+        SpawnEffect();
         Claw.SetActive(false);
         startingPos = transform.position;
         gameManager = GameManager.instance;
@@ -174,5 +179,15 @@ public class NewEnemyAI : MonoBehaviour, IDamage
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player")) playerInRange = false;
+    }
+
+    private void SpawnEffect()
+    {
+        if (spawnEffectPrefab != null)
+        {
+            GameObject effect = Instantiate(spawnEffectPrefab, transform.position + effectOffset, Quaternion.identity, transform);
+
+            Destroy(effect, 2f);
+        }
     }
 }
