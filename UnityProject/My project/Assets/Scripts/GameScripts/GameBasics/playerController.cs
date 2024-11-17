@@ -421,18 +421,32 @@ public class PlayerController : MonoBehaviour, IDamage
         }
     }
 
+    public void SetGuns(List<GunStats> guns)
+    {
+        gunList.AddRange(guns);
+        WeaponSwap();
+    }
+
     public void getGunStats(GunStats gun)
     {
         // Set the stats for shooting
-        gunList.Add(gun);
+        if (!gunList.Contains(gun))
+        {
+            gunList.Add(gun);
 
-        SelectGunPos = gunList.Count - 1;
-        shootRate = gun.shootRate;
-        shootDist = gun.shootDist;
-        bullet = gun.bullet;
+            SelectGunPos = gunList.Count - 1;
+            shootRate = gun.shootRate;
+            shootDist = gun.shootDist;
+            bullet = gun.bullet;
 
-        gunModel.GetComponent<MeshFilter>().sharedMesh = gun.gunModel.GetComponent<MeshFilter>().sharedMesh;
-        gunModel.GetComponent<MeshRenderer>().sharedMaterial = gun.gunModel.GetComponent<MeshRenderer>().sharedMaterial;
+            gunModel.GetComponent<MeshFilter>().sharedMesh = gun.gunModel.GetComponent<MeshFilter>().sharedMesh;
+            gunModel.GetComponent<MeshRenderer>().sharedMaterial = gun.gunModel.GetComponent<MeshRenderer>().sharedMaterial;
+        }
+        else
+        {
+            SelectGunPos = gunList.IndexOf(gun);
+            setAmmo(getAmmoMax());
+        }
 
 
     }
