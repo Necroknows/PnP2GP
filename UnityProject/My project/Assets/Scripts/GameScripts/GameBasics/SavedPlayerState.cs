@@ -8,7 +8,8 @@ public class SavedPlayerState : MonoBehaviour
     public static SavedPlayerState instance;
     // Start is called before the first frame update
     List<Item> savedItems = new List<Item>();
-    public List<GunStats> savedGuns = new List<GunStats>();
+    List<GunStats> savedGuns = new List<GunStats>();
+    List<int> savedAmmo = new List<int>();
 
     float meterfill;
 
@@ -26,25 +27,32 @@ public class SavedPlayerState : MonoBehaviour
         savedItems.Clear();
         savedGuns.Clear();
         //holds them in the instance list for loading later
-        for (int eachItem = 0; eachItem < InventoryManager.instance.Items.Count; eachItem++)
-        {
-            if (InventoryManager.instance.Items[eachItem] != null)
-            { 
-                savedItems.Add(InventoryManager.instance.Items[eachItem]); 
-            }
-        }
+        //for (int eachItem = 0; eachItem < InventoryManager.instance.Items.Count; eachItem++)
+        //{
+        //    if (InventoryManager.instance.Items[eachItem] != null)
+        //    {
+        //        savedItems.Add(InventoryManager.instance.Items[eachItem]);
+        //    }
+        //}
+        savedItems.AddRange(InventoryManager.instance.Items);
         //saves the players HP
         savedHP = GameManager.instance.playerScript.getHP();
         meterfill = DeathSpawnManager.instance.GetCurrentFillAmount();
 
-        List<GunStats> playerGuns = new List<GunStats>();
-        playerGuns = GameManager.instance.playerScript.GetGuns();
-        for(int eachGun = 0; eachGun < playerGuns.Count; eachGun++)
+        //List<GunStats> playerGuns = new List<GunStats>();
+        //playerGuns = GameManager.instance.playerScript.GetGuns();
+        //for(int eachGun = 0; eachGun < playerGuns.Count; eachGun++)
+        //{
+        //    if (playerGuns[eachGun] != null)
+        //    {
+        //        savedGuns.Add(playerGuns[eachGun]);
+        //    }
+        //}
+        savedGuns.AddRange(GameManager.instance.playerScript.GetGuns());
+
+        for (int i = 0; i < savedGuns.Count; i++)
         {
-            if (playerGuns[eachGun] != null)
-            {
-                savedGuns.Add(playerGuns[eachGun]);
-            }
+            savedAmmo.Add(savedGuns[i].GetCurrAmmo());
         }
 
     }
@@ -52,22 +60,28 @@ public class SavedPlayerState : MonoBehaviour
     public void DeathLoadState()
     {
         InventoryManager.instance.ClearInventory();
+        GameManager.instance.playerScript.ClearGunList();
 
         //resets inventory to last checkpoint (or save) except ingredients items
-        for (int eachItem = 0; eachItem < savedItems.Count; eachItem++)
+        //for (int eachItem = 0; eachItem < savedItems.Count; eachItem++)
+        //{
+        //    if (savedItems[eachItem].itemType == Item.ItemType.Potion || savedItems[eachItem].itemType == Item.ItemType.Weapon)
+        //    {
+        //        InventoryManager.instance.AddItem(savedItems[eachItem]);
+        //    }
+
+        //}
+        InventoryManager.instance.Items.AddRange(savedItems);
+
+        //for (int eachGun = 0; eachGun < savedGuns.Count; eachGun++)
+        //{
+        //    GameManager.instance.playerScript.SetAmmoForGun(savedGuns[eachGun]);
+        //}
+        GameManager.instance.playerScript.SetGuns(savedGuns);
+        for (int i = 0; i < savedGuns.Count; i++)
         {
-            if (savedItems[eachItem].itemType == Item.ItemType.Potion || savedItems[eachItem].itemType == Item.ItemType.Weapon)
-            {
-                InventoryManager.instance.AddItem(savedItems[eachItem]);
-            }
-
+            GameManager.instance.playerScript.GetGuns()[i].SetCurrAmmo(savedAmmo[i]);
         }
-
-        for (int eachGun = 0; eachGun < savedGuns.Count; eachGun++)
-        {
-            GameManager.instance.playerScript.SetAmmoForGun(savedGuns[eachGun]);
-        }
-
 
         InventoryManager.instance.ListItems();
         //sets the savedHP to the HP orig
@@ -82,18 +96,24 @@ public class SavedPlayerState : MonoBehaviour
     {
         InventoryManager.instance.ClearInventory();
         //resets inventory to last checkpoint (or save) except ingredients items
-        for (int eachItem = 0; eachItem < savedItems.Count; eachItem++)
-        {
-            InventoryManager.instance.AddItem(savedItems[eachItem]);
-        }
+        //for (int eachItem = 0; eachItem < savedItems.Count; eachItem++)
+        //{
+        //    InventoryManager.instance.AddItem(savedItems[eachItem]);
+        //}
+        InventoryManager.instance.Items.AddRange(savedItems);
         InventoryManager.instance.ListItems();
         GameManager.instance.playerScript.setHP(savedHP);
         DeathSpawnManager.instance.SetFillAmount(meterfill);
 
         //sets the current ammo for each gun
-        for (int eachGun = 0; eachGun < savedGuns.Count; eachGun++)
+        //for (int eachGun = 0; eachGun < savedGuns.Count; eachGun++)
+        //{
+        //    GameManager.instance.playerScript.SetAmmoForGun(savedGuns[eachGun]);
+        //}
+        GameManager.instance.playerScript.SetGuns(savedGuns);
+        for (int i = 0; i < savedGuns.Count; i++)
         {
-            GameManager.instance.playerScript.SetAmmoForGun(savedGuns[eachGun]);
+            GameManager.instance.playerScript.GetGuns()[i].SetCurrAmmo(savedAmmo[i]);
         }
     }
 
