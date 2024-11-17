@@ -18,5 +18,13 @@ public class GunStats : ScriptableObject
     public AudioClip[] shootSound;
     public float shootVol;
 
+    public void SetCurrAmmo(int amount)
+    {
+        ammoCur = amount;
+    }
 
+    public int GetCurrAmmo()
+    {
+        return ammoCur;
+    }
 }

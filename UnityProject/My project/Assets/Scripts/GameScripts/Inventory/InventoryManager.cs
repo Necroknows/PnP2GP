@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 //using static UnityEditor.Progress;
 
+
 public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager instance;
