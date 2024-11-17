@@ -28,7 +28,9 @@ public class QuestManager : MonoBehaviour
     public void Start()
     {
         //set the name of the quest, the list of items to collect
-        questName.text = "Speak with Wizard";
+        questName.text = "Speak with Witch";
+        itemText.text = " ";
+        itemAmount.text = " ";
         playerScript = GameManager.instance.playerScript;
         UpdateUIList();
     }

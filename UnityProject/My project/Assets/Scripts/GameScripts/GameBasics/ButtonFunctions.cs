@@ -75,6 +75,15 @@ public class ButtonFunctions : MonoBehaviour
         }
     }
 
+    public void PlayCredits()
+    {
+        SceneManager.LoadScene(14);
+        if (UIManager.Instance != null)
+        {
+            UIManager.Instance.UnpauseGame();
+        }
+    }
+
     public void quit()
 {
 #if UNITY_EDITOR

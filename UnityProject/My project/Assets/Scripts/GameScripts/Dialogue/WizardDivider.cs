@@ -44,7 +44,7 @@ public class WizardDivider : MonoBehaviour
             anim.SetFloat("Speed", 0.0f);
         }
         // On interaction, stops the player and makes them face the NPC they are talking to
-        if (playerInRange && Input.GetKeyUp(KeyCode.E) && manager.anim.GetBool("IsOpen") == false)
+        if (playerInRange && Input.GetKeyDown(KeyCode.E) && manager.anim.GetBool("IsOpen") == false)
         {
             agent.isStopped = true;
             this.transform.LookAt(controller.transform.position);

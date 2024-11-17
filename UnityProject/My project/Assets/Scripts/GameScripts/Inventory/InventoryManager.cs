@@ -68,7 +68,7 @@ public class InventoryManager : MonoBehaviour
             RecipeBookUI.instance = FindObjectOfType<RecipeBookUI>();
             if (RecipeBookUI.instance == null)
             {
-                Debug.LogWarning("RecipeBookUI.instance is STILL Null & may not have been initialized.");
+                //Debug.LogWarning("RecipeBookUI.instance is STILL Null & may not have been initialized.");
                 return;
             }
         }
