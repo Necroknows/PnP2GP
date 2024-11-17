@@ -27,6 +27,7 @@ public class MainMenu : MonoBehaviour
         Cursor.visible = true;
         // keep the cursor in the play area 
         Cursor.lockState = CursorLockMode.Confined;
+        SceneManager.LoadSceneAsync("PlayerPref", LoadSceneMode.Additive);
     }
 
     public void StartGame()

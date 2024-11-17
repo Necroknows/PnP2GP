@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
 
-    [SerializeField] int sens;
+    //[SerializeField] int sens;
     [SerializeField] int lockVertMin, lockVertMax;
     [SerializeField] bool invertY;
 
@@ -22,8 +22,8 @@ public class CameraController : MonoBehaviour
     void Update()
     {
         //get input
-        float mouseY = Input.GetAxis("Mouse Y") * sens * Time.deltaTime;
-        float mouseX = Input.GetAxis("Mouse X") * sens * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * PlayerPref.instance.mouseSens * Time.deltaTime;
+        float mouseX = Input.GetAxis("Mouse X") * PlayerPref.instance.mouseSens * Time.deltaTime;
         //rotation of the camera
         if (invertY)
         {
