@@ -50,11 +50,11 @@ public class WizardDivider : MonoBehaviour
             this.transform.LookAt(controller.transform.position);
             controller.enabled = false;
             TriggerDialogue();
-            playerInRange = false;
+            anim.SetBool("IsTalking", true);
         }
         else if (!isRoaming)
         {
-            
+            anim.SetBool("IsTalking", false);
             someCO = StartCoroutine(Roaming());
         }
     }
@@ -74,7 +74,6 @@ public class WizardDivider : MonoBehaviour
 
     public void TriggerDialogue()
     {
-        anim.SetTrigger("Talk");
         manager.StartDialogue(greeting);
     }
 
@@ -92,7 +91,7 @@ public class WizardDivider : MonoBehaviour
     {
         if (other.GetComponent<PlayerController>())
         {
-            anim.SetTrigger("StopTalking");
+            anim.SetBool("IsTalking", false);
             playerInRange = false;
             StartCoroutine(manager.EndDialogue());
             interactions.StopInteract();

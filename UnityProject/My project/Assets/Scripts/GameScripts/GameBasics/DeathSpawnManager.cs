@@ -34,9 +34,7 @@ public class DeathSpawnManager : MonoBehaviour
     bool isPlayerExploring;
     bool isBarFillBusy;
     public bool isDeathActive;
-    public bool isWaitingToDespawn;
-
-    private bool isDeathSpawned = false; //Tracks if Death is spawned or not.
+    public bool isWaitingToDespawn; //Tracks if Death is spawned or not.
     //private GameObject deathInstance;
     private void Awake()
     {

@@ -10,7 +10,6 @@ public class ButtonFunctions : MonoBehaviour
 
     // --- Scene Loading --- 
     //this is a scene that contains the player, UI, GameManager, and the Directional light
-    private string gameBasics = "GameBasics";
 
     //list of scenes to load at start of game
     private List<AsyncOperation> scenesToLoad = new List<AsyncOperation>();
