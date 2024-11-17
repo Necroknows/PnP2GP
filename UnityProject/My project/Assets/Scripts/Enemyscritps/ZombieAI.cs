@@ -45,10 +45,13 @@ public class ZombieAI : MonoBehaviour, IDamage
     Color colorOrig;              // Original color of the enemy's material
     Coroutine someCO;             // Reference to active roaming coroutine
     public bool isBoss;           // switching boss on and off for zombie 
+    public GameObject spawnEffectPrefab; //Zombie Spawn Effect
+    public Vector3 effectOffset = new Vector3(0, 0, 0);
 
     // Initialize the enemy state
     void Start()
     {
+        SpawnEffect();
         colorOrig = model.material.color;
         GameManager.instance.updateGameGoal(1); // Register this enemy with the game goal
         startingPos = transform.position;       // Store the starting position for roaming
@@ -208,6 +211,16 @@ public class ZombieAI : MonoBehaviour, IDamage
         {
             playerInRange = false;
             agent.stoppingDistance = 0; // Reset stopping distance when player leaves
+        }
+    }
+
+    private void SpawnEffect()
+    {
+        if (spawnEffectPrefab != null)
+        {
+            GameObject effect = Instantiate(spawnEffectPrefab, transform.position + effectOffset, Quaternion.identity, transform);
+
+            Destroy(effect, 2f);
         }
     }
 }
