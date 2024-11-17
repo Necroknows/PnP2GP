@@ -1395,6 +1395,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 113801503947562768, guid: e5b4de8ec8584254cb7b0cac392543de, type: 3}
+      propertyPath: recipeImages.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 113801503947562768, guid: e5b4de8ec8584254cb7b0cac392543de, type: 3}
+      propertyPath: recipeImages.Array.data[0]
+      value: 
+      objectReference: {fileID: 462641525, guid: 946cedb714e439441a497655585076ab, type: 3}
+    - target: {fileID: 113801503947562768, guid: e5b4de8ec8584254cb7b0cac392543de, type: 3}
+      propertyPath: recipeImages.Array.data[1]
+      value: 
+      objectReference: {fileID: -1026480165, guid: 946cedb714e439441a497655585076ab, type: 3}
+    - target: {fileID: 113801503947562768, guid: e5b4de8ec8584254cb7b0cac392543de, type: 3}
+      propertyPath: recipeImages.Array.data[2]
+      value: 
+      objectReference: {fileID: -588479333, guid: 946cedb714e439441a497655585076ab, type: 3}
+    - target: {fileID: 113801503947562768, guid: e5b4de8ec8584254cb7b0cac392543de, type: 3}
+      propertyPath: recipeImages.Array.data[3]
+      value: 
+      objectReference: {fileID: 710409042, guid: 946cedb714e439441a497655585076ab, type: 3}
     - target: {fileID: 698983507229840643, guid: e5b4de8ec8584254cb7b0cac392543de, type: 3}
       propertyPath: dSManager
       value: 
@@ -1406,6 +1426,10 @@ PrefabInstance:
     - target: {fileID: 3558179347403248007, guid: e5b4de8ec8584254cb7b0cac392543de, type: 3}
       propertyPath: m_Name
       value: UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 6600872677000992034, guid: e5b4de8ec8584254cb7b0cac392543de, type: 3}
+      propertyPath: m_Color.a
+      value: 0.9411765
       objectReference: {fileID: 0}
     - target: {fileID: 7079812504232385278, guid: e5b4de8ec8584254cb7b0cac392543de, type: 3}
       propertyPath: m_Pivot.x

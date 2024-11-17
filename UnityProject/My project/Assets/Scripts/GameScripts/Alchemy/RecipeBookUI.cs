@@ -114,7 +114,7 @@ public class RecipeBookUI : MonoBehaviour
 
     public void NextPage()
     {
-        if (currentPage < recipes.Count - 1)
+        if (currentPage < recipes.Count)
         {
             currentPage++;
             ShowPage(currentPage);
