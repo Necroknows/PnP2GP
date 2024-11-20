@@ -10,20 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59eaf85fd16c4704f84ff544d5d8a134, type: 3}
-  m_Name: Quest2Items
+  m_Name: NoQuest3Items
   m_EditorClassIdentifier: 
-  nameNPC: The Wizard
+  nameNPC: The Witch
   dialogue:
-  - 'Well done apprentice! We are almost done '
-  - Now, while you were out fetching those materials, I went out myself and tried
-    to get the ingredients for the final potion.
-  - Alas, I was no match for those monstrosities. Makes me wonder how you haven't
-    perished out there.
-  - Anyways, I dropped the last items I needed so you will have to get them.
-  - Swiftly, apprentice. I almost have everything.
+  - Listen, apprentice. I know it is terrifying out there, afterall I just fled for
+    my own life.
+  - But I need those last remaining Materials.
+  - Come see me again when you have them
   responses:
   - requiredQuestsCompleted: []
-    responseText: You can count on me!
+    ignoreIfQuestsCompleted: []
+    responseText: Ofcourse. (I wasn't scared, you know)
     dialogueParent: {fileID: 11400000}
     dialogueTrue: {fileID: 11400000, guid: 6a2a2b1b441ba3a42a645a7112abec6a, type: 2}
     dialogueFalse: {fileID: 0}

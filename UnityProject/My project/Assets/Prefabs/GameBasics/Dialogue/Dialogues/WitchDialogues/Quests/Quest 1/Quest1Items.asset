@@ -10,19 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59eaf85fd16c4704f84ff544d5d8a134, type: 3}
-  m_Name: Quest3Items
+  m_Name: Quest1Items
   m_EditorClassIdentifier: 
-  nameNPC: The Wizard
+  nameNPC: The Witch
   dialogue:
-  - Grand job my friend!
-  - I now have everything I need.
-  - You may relax and enjoy a bit of rest.
-  - It's only a matter of time before I'm in need of more materials
+  - Ahh, a wounderful start apprentice. I have the next quest ready for you.
+  - Come see me again when you have the required Oregano.
   responses:
   - requiredQuestsCompleted: []
-    responseText: Thanks! See you later!
+    ignoreIfQuestsCompleted: []
+    responseText: Yes sir!
     dialogueParent: {fileID: 11400000}
-    dialogueTrue: {fileID: 0}
+    dialogueTrue: {fileID: 11400000, guid: 6a2a2b1b441ba3a42a645a7112abec6a, type: 2}
     dialogueFalse: {fileID: 0}
-  questToGive: {fileID: 0}
-  isWinDialogue: 1
+  questToGive: {fileID: 11400000, guid: c56431fdf30f0c6499083a26bdbc4658, type: 2}
+  isWinDialogue: 0

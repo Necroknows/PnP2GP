@@ -92,24 +92,24 @@ public class RecipeBookUI : MonoBehaviour
         Debug.Log($"recipeImageDisplay assigned: {recipeImageDisplay != null}");
         Debug.Log($"ShowPage called w/ pageIndex: {pageIndex}");
         Debug.Log($"recipeImages.Count: {recipeImages.Count}");
-        
+
 
 
         if (recipeImages == null || recipeImages.Count == 0)
         {
             Debug.LogWarning("No recipe images assigned");
-            return;
         }
-        if (pageIndex < 0 || pageIndex >= recipeImages.Count)
+        else if (pageIndex < 0 || pageIndex >= recipeImages.Count)
         {
             Debug.LogWarning($"Invalid pageIndex: {pageIndex}. recipeImages.Count: {recipeImages.Count}");
-            return;
         }
+        else
+        {
+            //set display to show selected image
+            recipeImageDisplay.sprite = recipeImages[pageIndex];
 
-        //set display to show selected image
-        recipeImageDisplay.sprite = recipeImages[pageIndex];
-
-        AlchemyRecipe recipe = recipes[pageIndex];
+            AlchemyRecipe recipe = recipes[pageIndex];
+        }
     }
 
     public void NextPage()

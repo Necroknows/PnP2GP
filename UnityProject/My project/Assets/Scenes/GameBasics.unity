@@ -1492,6 +1492,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
+    - target: {fileID: 5423587188510459859, guid: e5b4de8ec8584254cb7b0cac392543de, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 250
+      objectReference: {fileID: 0}
     - target: {fileID: 6600872677000992034, guid: e5b4de8ec8584254cb7b0cac392543de, type: 3}
       propertyPath: m_Color.a
       value: 0.9411765
@@ -1575,6 +1579,20 @@ PrefabInstance:
     - target: {fileID: 7079812504232385278, guid: e5b4de8ec8584254cb7b0cac392543de, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8793508584920410618, guid: e5b4de8ec8584254cb7b0cac392543de, type: 3}
+      propertyPath: m_text
+      value: 'Press Backspace To Leave
+
+        Press Space To Continue'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8793508584920410618, guid: e5b4de8ec8584254cb7b0cac392543de, type: 3}
+      propertyPath: m_fontSize
+      value: 22.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 8793508584920410618, guid: e5b4de8ec8584254cb7b0cac392543de, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

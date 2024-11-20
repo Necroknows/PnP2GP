@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59eaf85fd16c4704f84ff544d5d8a134, type: 3}
-  m_Name: Quest1Items
+  m_Name: NoQuest2Items
   m_EditorClassIdentifier: 
-  nameNPC: The Wizard
+  nameNPC: The Witch
   dialogue:
-  - Ahh, a wounderful start apprentice. I have the next quest ready for you.
-  - Come see me again when you have the required Oregano.
+  - Did you forget what you needed?
+  - I need Oregano, apprentice. O-R-E-G-A-N-O.
+  - Bring me however much you can find.
   responses:
   - requiredQuestsCompleted: []
     ignoreIfQuestsCompleted: []
-    responseText: Yes sir!
+    responseText: (But I didn't forget)
     dialogueParent: {fileID: 11400000}
     dialogueTrue: {fileID: 11400000, guid: 6a2a2b1b441ba3a42a645a7112abec6a, type: 2}
     dialogueFalse: {fileID: 0}

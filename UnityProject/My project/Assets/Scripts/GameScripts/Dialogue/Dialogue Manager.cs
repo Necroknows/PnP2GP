@@ -55,13 +55,13 @@ public class DialogueManager : MonoBehaviour
     private void Update()
     {
         // If the player presses Backspace while the dialogue is open, close it and free the player
-        if (anim.GetBool("IsOpen") == true && Input.GetKeyUp(KeyCode.E))
+        if (anim.GetBool("IsOpen") == true && Input.GetKeyUp(KeyCode.Space))
         {
             DisplayNextSentence();
         }
         else if (anim.GetBool("IsOpen") == true && Input.GetKeyUp(KeyCode.Backspace))
         {
-            EndDialogue();
+            StartCoroutine(EndDialogue());
         }
         else if (Input.GetKey(KeyCode.LeftShift))
         {
@@ -136,6 +136,7 @@ public class DialogueManager : MonoBehaviour
         {
             QuestManager.instance.GetActiveQuest.SetJustAccepted(false);
         }
+        responseHandler.DestroyResponses();
         StopAllCoroutines();
         anim.SetBool("IsOpen", false);
         controller.enabled = true;

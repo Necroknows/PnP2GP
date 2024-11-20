@@ -60,13 +60,8 @@ public class ResponseHandler : MonoBehaviour
     private void OnPickedResponse(Response response)
     {
         bool hasItem = false;
-        responseBox.gameObject.SetActive(false);
 
-        foreach (GameObject responseButton in tempResponseButtons)
-        {
-            Destroy(responseButton);
-        }
-        tempResponseButtons.Clear();
+        DestroyResponses();
 
         if (QuestManager.instance.GetActiveQuest != null)
         {
@@ -94,6 +89,17 @@ public class ResponseHandler : MonoBehaviour
             Debug.Log("No dialogue suitable for conversation outcome.");
             StartCoroutine(dialogueManager.EndDialogue());
         }
+    }
+
+    public void DestroyResponses()
+    {
+        responseBox.gameObject.SetActive(false);
+
+        foreach (GameObject responseButton in tempResponseButtons)
+        {
+            Destroy(responseButton);
+        }
+        tempResponseButtons.Clear();
     }
 
     private bool CheckForQuests(Response response)
