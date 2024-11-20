@@ -297,6 +297,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 635829974570422123, guid: 6fe77b0ff36476b4295e2a9c7cc6b0bf, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 635829974570422123, guid: 6fe77b0ff36476b4295e2a9c7cc6b0bf, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2313998321423092805, guid: 6fe77b0ff36476b4295e2a9c7cc6b0bf, type: 3}
       propertyPath: m_Name
       value: Player
@@ -328,6 +336,14 @@ PrefabInstance:
     - target: {fileID: 4026484596575094739, guid: 6fe77b0ff36476b4295e2a9c7cc6b0bf, type: 3}
       propertyPath: m_LocalPosition.y
       value: 3.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 4293851330264314655, guid: 6fe77b0ff36476b4295e2a9c7cc6b0bf, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.325
+      objectReference: {fileID: 0}
+    - target: {fileID: 4293851330264314655, guid: 6fe77b0ff36476b4295e2a9c7cc6b0bf, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.236
       objectReference: {fileID: 0}
     - target: {fileID: 5471500360984425012, guid: 6fe77b0ff36476b4295e2a9c7cc6b0bf, type: 3}
       propertyPath: m_Layer
@@ -1272,7 +1288,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 7d8ce3d7a95f5bf41a4a1de3925beeb2, type: 3}
     - target: {fileID: 1221467939794040427, guid: f52dc5ce551b7d049b89714600f840a3, type: 3}
       propertyPath: volumeForAreaMusic0To1
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5053875894332879153, guid: f52dc5ce551b7d049b89714600f840a3, type: 3}
       propertyPath: m_Name
