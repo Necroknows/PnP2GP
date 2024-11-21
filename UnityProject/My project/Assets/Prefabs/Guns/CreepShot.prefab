@@ -51,12 +51,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 4
   rb: {fileID: -4732318286488135269}
+  laserBullet: {fileID: 0}
   damageAmount: 1
   speed: 15
   destroyTime: 0
   damageInterval: 0
   force: 2
-  hitEffect: {fileID: 0}
+  hitEffect: {fileID: 4642848129145531053, guid: 3138a83bedbd6ad4481ba0b061da2eb6, type: 3}
   isRichochet: 0
 --- !u!33 &2536463882795737895
 MeshFilter:

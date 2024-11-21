@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class NewEnemyAI : MonoBehaviour, IDamage
 {
@@ -13,6 +14,7 @@ public class NewEnemyAI : MonoBehaviour, IDamage
 
 
     [SerializeField] private int HP;
+    [SerializeField] private int maxHP;
     [SerializeField] private int rotateSpeed;
     [SerializeField] private int viewAngle;
     [SerializeField] private int roamDist;
@@ -36,10 +38,13 @@ public class NewEnemyAI : MonoBehaviour, IDamage
     //Spawn Effects
     public GameObject spawnEffectPrefab;
     public Vector3 effectOffset = new Vector3(0, 0, 0);
+    public Image healthBarForeground;
 
     private void Start()
     {
+        HP = maxHP;
         SpawnEffect();
+        UpdateHealthBar();
         Claw.SetActive(false);
         startingPos = transform.position;
         gameManager = GameManager.instance;
@@ -152,8 +157,15 @@ public class NewEnemyAI : MonoBehaviour, IDamage
     public void takeDamage(int amount, Vector3 Dir)
     {
         HP -= amount;
+        UpdateHealthBar();
         StartCoroutine(flashRed());
         if (HP <= 0) StartCoroutine(death());
+    }
+
+    private void UpdateHealthBar()
+    {
+        float healthPercent = (float)HP / maxHP;
+        healthBarForeground.fillAmount = healthPercent;
     }
 
     private IEnumerator flashRed()
