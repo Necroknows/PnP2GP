@@ -95,10 +95,10 @@ public class DeathAI : MonoBehaviour
         //    {
         agent.SetDestination(player.position);
 
-        //Vector3 direction = (player.position - transform.position).normalized;
-        //Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-        //transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
-        this.gameObject.transform.LookAt(player.position);
+        Vector3 direction = (player.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+        //this.gameObject.transform.LookAt(player.position);
         //}
         //else
         //{
