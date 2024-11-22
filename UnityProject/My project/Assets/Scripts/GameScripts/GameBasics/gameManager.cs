@@ -89,6 +89,10 @@ public class GameManager : MonoBehaviour
         //SetCheckpoint(playerStartPOS.transform.position);
     }
 
+    private void Start()
+    {
+        dSManager = FindObjectOfType<DeathSpawnManager>();
+    }
 
     void Update()
     {

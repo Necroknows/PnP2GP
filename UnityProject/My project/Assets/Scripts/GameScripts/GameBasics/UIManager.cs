@@ -175,19 +175,17 @@ public class UIManager : MonoBehaviour
     
     public void DeathSpawnBar()
     {
+            //fill bar based on the percentage between the two
 
-        //fill bar based on the percentage between the two
-        
-        //update the bar to the percentage
-        deathBar.fillAmount = GameManager.instance.dSManager.GetCurrentFillAmount();
-        if(deathBar.fillAmount == 1 && !deathSpawnWarning.activeInHierarchy)
-        {
-            deathSpawnWarning.SetActive(true);
-        }
-        else if(deathBar.fillAmount < 1 && deathSpawnWarning.activeInHierarchy)
-        { deathSpawnWarning.SetActive(false) ;}
+            //update the bar to the percentage
+            deathBar.fillAmount = GameManager.instance.dSManager.GetCurrentFillAmount();
+            if (deathBar.fillAmount == 1 && !deathSpawnWarning.activeInHierarchy)
+            {
+                deathSpawnWarning.SetActive(true);
+            }
+            else if (deathBar.fillAmount < 1 && deathSpawnWarning.activeInHierarchy)
+            { deathSpawnWarning.SetActive(false); }
 
-        
     }
 
     public void UpdatePlayerFuelBar(float fuelFraction)

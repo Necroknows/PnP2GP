@@ -467,13 +467,15 @@ public class PlayerController : MonoBehaviour, IDamage
 
     void WeaponSwap()
     {
+        if (gunList.Count > 0)
+        {
+            shootRate = gunList[SelectGunPos].shootRate;
+            shootDist = gunList[SelectGunPos].shootDist;
+            bullet = gunList[SelectGunPos].bullet;
 
-        shootRate = gunList[SelectGunPos].shootRate;
-        shootDist = gunList[SelectGunPos].shootDist;
-        bullet = gunList[SelectGunPos].bullet;
-
-        gunModel.GetComponent<MeshFilter>().sharedMesh = gunList[SelectGunPos].gunModel.GetComponent<MeshFilter>().sharedMesh;
-        gunModel.GetComponent<MeshRenderer>().sharedMaterial = gunList[SelectGunPos].gunModel.GetComponent<MeshRenderer>().sharedMaterial;
+            gunModel.GetComponent<MeshFilter>().sharedMesh = gunList[SelectGunPos].gunModel.GetComponent<MeshFilter>().sharedMesh;
+            gunModel.GetComponent<MeshRenderer>().sharedMaterial = gunList[SelectGunPos].gunModel.GetComponent<MeshRenderer>().sharedMaterial;
+        }
     }
 
     public List<GunStats> GetGuns()
