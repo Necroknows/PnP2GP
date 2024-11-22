@@ -29,6 +29,8 @@ public class DialogueManager : MonoBehaviour
     private ResponseHandler responseHandler;
     public DialogueObject dialogueObject;
     private bool isShowingResponses;
+    private Coroutine typer = null;
+    private string line;
 
     public Animator anim;
 
@@ -119,13 +121,17 @@ public class DialogueManager : MonoBehaviour
             StartCoroutine(EndDialogue());
             return;
         }
+        else if (typer != null)
+        {
+            StopCoroutine(typer);
+            lineText.text = line;
+        }
         else
         {
-            string line = lines.Dequeue();
+            line = lines.Dequeue();
             StopAllCoroutines();
             lineText.text = string.Empty;
-            StartCoroutine(TypeLine(line));
-            //lineText.text = line;
+            typer = StartCoroutine(TypeLine(line));
         }
     }
 
