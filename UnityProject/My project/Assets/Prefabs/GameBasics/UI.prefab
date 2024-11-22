@@ -4670,7 +4670,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2958467415586123211}
-  - component: {fileID: 113801503947562768}
   - component: {fileID: 3806589796937179236}
   - component: {fileID: 3407094746730119160}
   m_Layer: 5
@@ -4700,28 +4699,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &113801503947562768
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3172385506543537634}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fa7163a9e619b74580437e7b704d2fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  recipeImages:
-  - {fileID: 8643279136976631828, guid: f2117bf8336808848b9bfcfbdf80c8e7, type: 3}
-  - {fileID: 21300000, guid: 4e23df182c50d7b46845653fcb1abc3d, type: 3}
-  - {fileID: 21300000, guid: 57c9d08a17c0b6b47880f7312176c0fa, type: 3}
-  - {fileID: 21300000, guid: 90181a2d0331ebd46916610a84157952, type: 3}
-  recipeImageDisplay: {fileID: 6600872677000992034}
-  recipeBookPanel: {fileID: 3172385506543537634}
-  isShowing: 0
-  currentPage: 0
-  recipes: []
 --- !u!222 &3806589796937179236
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5825,6 +5802,64 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!1 &3697756354076487385
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7138646479817796181}
+  - component: {fileID: 5155237231315965632}
+  m_Layer: 5
+  m_Name: RecipeUIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7138646479817796181
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3697756354076487385}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8400213860936569668}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5155237231315965632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3697756354076487385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fa7163a9e619b74580437e7b704d2fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recipeImages:
+  - {fileID: 8643279136976631828, guid: f2117bf8336808848b9bfcfbdf80c8e7, type: 3}
+  - {fileID: 21300000, guid: 4e23df182c50d7b46845653fcb1abc3d, type: 3}
+  - {fileID: 21300000, guid: 57c9d08a17c0b6b47880f7312176c0fa, type: 3}
+  - {fileID: 21300000, guid: 90181a2d0331ebd46916610a84157952, type: 3}
+  recipeImageDisplay: {fileID: 6600872677000992034}
+  recipeBookPanel: {fileID: 3172385506543537634}
+  isShowing: 0
+  currentPage: 0
+  recipes: []
 --- !u!1 &3731580913300320614
 GameObject:
   m_ObjectHideFlags: 0
@@ -8252,6 +8287,7 @@ RectTransform:
   - {fileID: 649852002776606367}
   - {fileID: 8793508789685832897}
   - {fileID: 277824967632914160}
+  - {fileID: 7138646479817796181}
   m_Father: {fileID: 7079812504232385278}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}

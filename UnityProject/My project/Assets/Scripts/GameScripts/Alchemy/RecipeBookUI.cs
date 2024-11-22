@@ -109,7 +109,7 @@ public class RecipeBookUI : MonoBehaviour
         {
             Debug.LogWarning($"Invalid pageIndex: {pageIndex}. recipeImages.Count: {recipeImages.Count}");
         }
-        else
+        else if (recipeImages[pageIndex] != null && recipes != null && recipes[pageIndex] != null)
         {
             //set display to show selected image
             recipeImageDisplay.sprite = recipeImages[pageIndex];
