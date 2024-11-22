@@ -294,7 +294,7 @@ MonoBehaviour:
   HP: 1
   rotateSpeed: 15
   fieldOfView: 90
-  stoppingDistanceOriginal: 2
+  stoppingDistanceOriginal: 1
   faces: {fileID: 11400000, guid: a731a7b562c314349bc2ef35e17ec4ba, type: 2}
   SmileBody: {fileID: 3421705117012888872}
 --- !u!195 &2067463307045395659
@@ -311,7 +311,7 @@ NavMeshAgent:
   m_Acceleration: 30
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 2
+  m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1

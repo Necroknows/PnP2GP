@@ -20,6 +20,8 @@ public class RecipeBookUI : MonoBehaviour
     public int currentPage;
     public List<AlchemyRecipe> recipes; //list of recipes from AlchemyManager
 
+    private bool justGrabbed = false;
+
     //public UI_Image recipeImage;
 
     private void Awake()
@@ -57,6 +59,10 @@ public class RecipeBookUI : MonoBehaviour
         //only allow page cycling if book is open
         if (recipeBookPanel.activeSelf)
         {
+            if (justGrabbed)
+            {
+                InteractionManager.instance.Interact("Use the arrow keys to scroll through the recipies.\n(Press E to close)", KeyCode.E);
+            }
             if (Input.GetButtonDown("ArrowRight"))
             {
                 Debug.Log("ArrowRight(right) pressed - calling NextPage()");

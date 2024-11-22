@@ -29,7 +29,7 @@ public class WizardDivider : MonoBehaviour
         playerInRange = false;
         manager = FindObjectOfType<DialogueManager>();
         interactions = FindObjectOfType<InteractionManager>();
-        prompt = "Press E To Speak With " + greeting.nameNPC + "\n (E - advance dialouge, W/A - select response, Space - accept response, Left Shift - speed up dialogue)";
+        prompt = "Press E To Speak With " + greeting.nameNPC + "\n (Space - accept response/advance dialouge, W/A - select response, Left Shift - speed up dialogue)";
         currWaypoint = 0;
     }
 
