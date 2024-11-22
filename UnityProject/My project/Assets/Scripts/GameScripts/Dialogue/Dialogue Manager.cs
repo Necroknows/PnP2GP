@@ -124,6 +124,7 @@ public class DialogueManager : MonoBehaviour
         else if (typer != null)
         {
             StopCoroutine(typer);
+            typer = null;
             lineText.text = line;
         }
         else
@@ -164,5 +165,6 @@ public class DialogueManager : MonoBehaviour
             textSourceAudio.Play();
             yield return new WaitForSeconds(textSpeed);
         }
+        yield return null;
     }
 }
