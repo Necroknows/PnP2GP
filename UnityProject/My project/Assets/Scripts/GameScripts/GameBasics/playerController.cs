@@ -159,10 +159,6 @@ public class PlayerController : MonoBehaviour, IDamage
         }
     }*/
 
-    Item GetSelectedHerb()
-    {
-        return Inventory.instance.GetItems().Find(item => item.itemType == Item.ItemType.Herb);
-    }
 
     void movement()
     {

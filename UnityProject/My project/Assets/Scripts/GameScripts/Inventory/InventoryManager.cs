@@ -238,63 +238,70 @@ public class InventoryManager : MonoBehaviour
         }
         inventoryItemInstances.Clear();
 
-        //create UI elements for each item in inventory
-        foreach (var item in Items)
+        if (Items.Count > 0)
         {
-            if (item == null || item.itemIcon == null)
+            //create UI elements for each item in inventory
+            foreach (var item in Items)
             {
-                Debug.LogError("Item or Item Icon is null for Item" + (item != null ? item.itemName : "null"));
-                continue;
+                if (item == null || item.itemIcon == null)
+                {
+                    Debug.LogError("Item or Item Icon is null for Item" + (item != null ? item.itemName : "null"));
+                    continue;
+                }
+
+                GameObject obj = Instantiate(InventoryItem, ItemContent);
+                inventoryItemInstances.Add(obj);    //track this instance for highlighting
+
+                var itemName = obj.transform.Find("itemName")?.GetComponent<TextMeshProUGUI>();
+                var itemIcon = obj.transform.Find("itemIcon")?.GetComponent<Image>();
+
+                if (itemName == null)
+                {
+                    Debug.LogError("Failed to find itemName in inventoryItem prefab");
+                    continue;
+                }
+                if (itemIcon == null)
+                {
+                    Debug.LogError("Failed to find itemIcon in inventoryItem prefab");
+                    continue;
+                }
+
+                itemName.text = item.itemName + " x" + item.GetStack;
+                selectedItemName.text = itemName.text;
+
+                //check if the item has animated frames
+                if (item.animatedIconFrames != null && item.animatedIconFrames.Length > 0)
+                {
+                    //start coroutine to handle animation for this item
+                    StartCoroutine(AnimateIcon(item.animatedIconFrames, itemIcon));
+                }
+                else
+                {
+                    itemIcon.sprite = item.itemIcon;
+                }
+
+                Debug.Log("Added item to UI " + item.itemName);
             }
 
-            GameObject obj = Instantiate(InventoryItem, ItemContent);
-            inventoryItemInstances.Add(obj);    //track this instance for highlighting
-
-            var itemName = obj.transform.Find("itemName")?.GetComponent<TextMeshProUGUI>();
-            var itemIcon = obj.transform.Find("itemIcon")?.GetComponent<Image>();
-
-            if (itemName == null)
+            //check itemcontent and inventoryitem are set
+            if (ItemContent == null)
             {
-                Debug.LogError("Failed to find itemName in inventoryItem prefab");
-                continue;
-            }
-            if (itemIcon == null)
-            {
-                Debug.LogError("Failed to find itemIcon in inventoryItem prefab");
-                continue;
+                Debug.LogError("ItemContent not set in InventoryManager");
+                return;
             }
 
-            itemName.text = item.itemName + " x" + item.GetStack;
-            selectedItemName.text = itemName.text;
-
-            //check if the item has animated frames
-            if (item.animatedIconFrames != null && item.animatedIconFrames.Length > 0)
+            if (InventoryItem == null)
             {
-                //start coroutine to handle animation for this item
-                StartCoroutine(AnimateIcon(item.animatedIconFrames, itemIcon));
-            }
-            else
-            {
-                itemIcon.sprite = item.itemIcon;
+                Debug.LogError("InventoryItem not set in InventoryManager");
+                return;
             }
 
-            Debug.Log("Added item to UI " + item.itemName);
+            HighlightSelected();
         }
-
-        //check itemcontent and inventoryitem are set
-        if (ItemContent == null)
+        else
         {
-            Debug.LogError("ItemContent not set in InventoryManager");
-            return;
+            inventoryUI.gameObject.SetActive(false);
         }
-
-        if (InventoryItem == null)
-        {
-            Debug.LogError("InventoryItem not set in InventoryManager");
-            return;
-        }
-
-        HighlightSelected();
     }
 
     public bool HasItem(Item item)

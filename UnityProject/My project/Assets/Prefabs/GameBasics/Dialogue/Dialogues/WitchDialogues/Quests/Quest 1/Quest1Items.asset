@@ -14,12 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameNPC: The Witch
   dialogue:
-  - Ahh, a wounderful start apprentice. I have the next quest ready for you.
-  - Come see me again when you have the required Oregano.
+  - Ahh, theres my book! Now I can see what we need to stop this curse.
+  - Lets see... It seems we are going to need a Health Potion.
+  - You know how to make one, correct? If not consult the recipe book on the shelf
+    in your home.
+  - Once you've made it, come to me so we can get on with the other task.
   responses:
   - requiredQuestsCompleted: []
     ignoreIfQuestsCompleted: []
-    responseText: Yes sir!
+    responseText: Yes Mam!
     dialogueParent: {fileID: 11400000}
     dialogueTrue: {fileID: 11400000, guid: 6a2a2b1b441ba3a42a645a7112abec6a, type: 2}
     dialogueFalse: {fileID: 0}

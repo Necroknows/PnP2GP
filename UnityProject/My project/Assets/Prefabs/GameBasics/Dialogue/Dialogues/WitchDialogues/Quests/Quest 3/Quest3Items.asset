@@ -14,14 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameNPC: The Witch
   dialogue:
-  - Grand job my friend!
-  - I now have everything I need.
-  - You may relax and enjoy a bit of rest.
-  - It's only a matter of time before I'm in need of more materials
+  - Grand job my friend! I now have everything I need.
+  - You may relax and enjoy a bit of rest... IN YOUR GRAVE!!!
   responses:
   - requiredQuestsCompleted: []
     ignoreIfQuestsCompleted: []
-    responseText: Thanks! See you later!
+    responseText: NOOOOO!!!
     dialogueParent: {fileID: 11400000}
     dialogueTrue: {fileID: 0}
     dialogueFalse: {fileID: 0}
