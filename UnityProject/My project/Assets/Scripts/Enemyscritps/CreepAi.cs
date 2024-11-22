@@ -45,7 +45,7 @@ public class NewEnemyAI : MonoBehaviour, IDamage
         HP = maxHP;
         SpawnEffect();
         UpdateHealthBar();
-        Claw.SetActive(false);
+        //Claw.SetActive(false);
         startingPos = transform.position;
         gameManager = GameManager.instance;
         gameManager.updateGameGoal(1); // Register with game goal
@@ -137,12 +137,12 @@ public class NewEnemyAI : MonoBehaviour, IDamage
     private IEnumerator ClawAttack()
     {
 
-        Claw.SetActive(true);
+        //Claw.SetActive(true);
 
         ani.SetTrigger("ClawAttackTrigger");
         yield return new WaitForSeconds(attackCooldown);
         isAttacking = false;
-        Claw.SetActive(false);
+        //Claw.SetActive(false);
     }
 
     private IEnumerator MouthAttack()

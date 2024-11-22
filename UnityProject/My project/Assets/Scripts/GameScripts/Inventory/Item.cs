@@ -42,6 +42,11 @@ public class Item : ScriptableObject
 
     public string GetItemName => itemName;
 
+    public void SetStack(int _stack)
+    {
+        objectsInStack = _stack;
+    }
+
     public void AddStack(int stack)
     {
         objectsInStack += stack;

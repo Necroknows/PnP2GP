@@ -163,6 +163,7 @@ public class InventoryManager : MonoBehaviour
             Debug.Log("Adding item " + item.itemName + " and setting it as the currently held item.");
             Items.Add(item);
             currentSelectedItem = 0;
+            Items[currentSelectedItem].SetStack(1);
             inventoryUI.gameObject.SetActive(true);
         }
         else if (HasItem(item.itemName))
@@ -184,6 +185,8 @@ public class InventoryManager : MonoBehaviour
         {
             Debug.Log("Adding item " + item.itemName);
             Items.Add(item);
+            int index = Items.IndexOf(item);
+            Items[index].SetStack(1);
         }
         ListItems();        //update UI after adding items
         if (QuestManager.instance.GetActiveQuest != null)
