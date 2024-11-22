@@ -84,6 +84,21 @@ public class ButtonFunctions : MonoBehaviour
         }
     }
 
+    public void Back()
+    {
+        UIManager.Instance.Back();
+    }
+
+    public void OptionsMenu()
+    {
+        UIManager.Instance.OptionsForGame();
+    }
+
+    public void HowToCraftMenu()
+    {
+        UIManager.Instance.HowToCraft();
+    }
+
     public void quit()
 {
 #if UNITY_EDITOR

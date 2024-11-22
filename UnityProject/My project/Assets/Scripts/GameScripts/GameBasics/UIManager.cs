@@ -13,6 +13,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
+    [SerializeField] GameObject menuOptions;
+    [SerializeField] GameObject menuHowTo;
     [SerializeField] GameObject deathSpawnWarning;
     [SerializeField] GameObject infoContainer;
     [SerializeField] GameObject hUD;
@@ -158,9 +160,29 @@ public class UIManager : MonoBehaviour
             AudioListener.pause = false;
         }
     }
+     public void OptionsForGame()
+    {
+        menuActive.SetActive(false);
+        menuActive = menuOptions;
+        menuActive.SetActive(true);
 
-    
-    
+    }
+
+    public void Back()
+    {
+        menuActive.SetActive(false);
+        menuActive = menuPause;
+        menuActive.SetActive(true);
+    }
+
+    public void HowToCraft()
+    {
+        menuActive.SetActive(false);
+        menuActive = menuHowTo;
+        menuActive.SetActive(true);
+    }
+
+
     public void UpdatePlayerHealthBar(float healthFraction)
     {
         healthFraction = Mathf.Clamp01(GameManager.instance.playerScript.getHP()/ GameManager.instance.playerScript.getHPOrig());
