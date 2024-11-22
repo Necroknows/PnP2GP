@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class enemyGhostAI : MonoBehaviour, IDamage
 {
@@ -26,6 +27,7 @@ public class enemyGhostAI : MonoBehaviour, IDamage
 
     //ghost HP
     [SerializeField] int HP;
+    [SerializeField] int maxHP;
     //how many dashes to do in a sequence
     [SerializeField] int numOfShield;
     //how long to wait between dashes in a sequence
@@ -57,6 +59,7 @@ public class enemyGhostAI : MonoBehaviour, IDamage
     //Spawn Effects
     public GameObject spawnEffectPrefab;
     public Vector3 effectOffset = new Vector3(0, 0, 0);
+    public Image healthBarForeground;
 
     //used to replace stopping distance for roaming vs going to player
     float stoppingDisOrig;
@@ -297,6 +300,13 @@ public class enemyGhostAI : MonoBehaviour, IDamage
             StartCoroutine(Death());
            
         }
+        UpdateHealthBar();
+    }
+
+    private void UpdateHealthBar()
+    {
+        float healthPercent = (float)HP / maxHP;
+        healthBarForeground.fillAmount = healthPercent;
     }
 
     IEnumerator Death()

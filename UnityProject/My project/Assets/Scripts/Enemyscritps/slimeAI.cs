@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine;
 using Unity.VisualScripting;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class EnemyAI : MonoBehaviour, IDamage
 {
@@ -17,6 +18,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     [SerializeField] int roamPauseTime;
 
     [SerializeField] int HP;
+    [SerializeField] int maxHP;
     [SerializeField] int rotateSpeed;
     [SerializeField] int fieldOfView;
 
@@ -38,6 +40,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     private Material faceMaterial;
     private Texture faceOriginal;
     public GameObject SmileBody;
+    public Image healthBarForeground;
 
 
     // Start is called before the first frame update
@@ -157,6 +160,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     public void takeDamage(int amount, Vector3 Dir)
     {
         HP -= amount;
+        UpdateHealthBar();
 
         if (someCo != null)
         {
@@ -173,6 +177,12 @@ public class EnemyAI : MonoBehaviour, IDamage
         {
             StartCoroutine(Dead());
         }
+    }
+
+    private void UpdateHealthBar()
+    {
+        float healthPercent = (float)HP / maxHP;
+        healthBarForeground.fillAmount = healthPercent;
     }
 
     IEnumerator Damaged()

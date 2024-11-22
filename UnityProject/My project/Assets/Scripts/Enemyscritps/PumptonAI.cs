@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 // * Pumpton the Pumpkin.
 public class PumptonAI : MonoBehaviour, IDamage
@@ -11,6 +12,7 @@ public class PumptonAI : MonoBehaviour, IDamage
     [SerializeField] Transform shootPOS;
     //HP & Dmg
     [SerializeField] int HP;
+    [SerializeField] int maxHP;
     [SerializeField] int dmgToPlayer;
     [SerializeField] int dmgFromPlayer;
     //Shooting Parameters
@@ -28,11 +30,13 @@ public class PumptonAI : MonoBehaviour, IDamage
     private bool canShoot = true;
     private Color colorOrig;
     private float shootTimer = 0f;
+    public Image healthBarForeground;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        HP = maxHP;
         colorOrig = model.material.color;
         GameManager.instance.updateGameGoal(1);
     }
@@ -100,7 +104,7 @@ public class PumptonAI : MonoBehaviour, IDamage
 
     private void OnTriggerEnter(Collider other)
     {
-       
+
         if (other.CompareTag("Player"))
         {
             playerInRange = true;
@@ -133,7 +137,7 @@ public class PumptonAI : MonoBehaviour, IDamage
 
     IEnumerator beginChargedShot()
     {
-        if(!isChargingShot)//Check prevents the charged shot from spam firing.
+        if (!isChargingShot)//Check prevents the charged shot from spam firing.
         {
             isChargingShot = true;
             yield return new WaitForSeconds(chargedDuration);
@@ -145,7 +149,7 @@ public class PumptonAI : MonoBehaviour, IDamage
             {//Sets shoot direction.
                 bulletRb.AddForce(Vector3.forward * chargedShotForce, ForceMode.Impulse);
             }
-           
+
             yield return new WaitForSeconds(delayAfterAttack);
             //CD Reset
             canShoot = false;
@@ -172,6 +176,7 @@ public class PumptonAI : MonoBehaviour, IDamage
     public void takeDamage(int amount, Vector3 Dir)
     {
         HP -= amount;
+        UpdateHealthBar();
         Debug.Log("Pumpton took damage! HP: " + HP);
         StartCoroutine(flashColor());
 
@@ -181,5 +186,12 @@ public class PumptonAI : MonoBehaviour, IDamage
             GameManager.instance.updateGameGoal(-1);
             Destroy(gameObject);
         }
+    }
+
+
+    private void UpdateHealthBar()
+    {
+        float healthPercent = (float)HP / maxHP;
+        healthBarForeground.fillAmount = healthPercent;
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class ZombieAI : MonoBehaviour, IDamage
 {// --- COMPONENT REFERENCES ---
@@ -15,6 +16,7 @@ public class ZombieAI : MonoBehaviour, IDamage
     // --- ENEMY STATS AND CONFIGURATIONS ---
     // Basic attributes for the enemy's behavior and stats
     [SerializeField] int HP;              // Enemy health
+    [SerializeField] int maxHP;           // MaxHP
     [SerializeField] int rotateSpeed;     // Rotation speed for turning towards the player
     [SerializeField] int viewAngle;       // Field of view angle for enemy vision
     [SerializeField] int roamDist;        // Maximum distance enemy can roam
@@ -47,10 +49,12 @@ public class ZombieAI : MonoBehaviour, IDamage
     public bool isBoss;           // switching boss on and off for zombie 
     public GameObject spawnEffectPrefab; //Zombie Spawn Effect
     public Vector3 effectOffset = new Vector3(0, 0, 0);
+    public Image healthBarForeground;
 
     // Initialize the enemy state
     void Start()
     {
+        HP = maxHP;
         SpawnEffect();
         colorOrig = model.material.color;
         GameManager.instance.updateGameGoal(1); // Register this enemy with the game goal
@@ -144,6 +148,7 @@ public class ZombieAI : MonoBehaviour, IDamage
         if (this != null)
         {
             HP -= amount;
+            UpdateHealthBar();
 
             StartCoroutine(flashRed()); // Flash red when taking damage
             ani.SetTrigger("dmgTrigger");
@@ -163,6 +168,12 @@ public class ZombieAI : MonoBehaviour, IDamage
             }
 
         }
+    }
+
+    private void UpdateHealthBar()
+    {
+        float healthPercent = (float)HP / maxHP;
+        healthBarForeground.fillAmount = healthPercent;
     }
 
     IEnumerator death()
