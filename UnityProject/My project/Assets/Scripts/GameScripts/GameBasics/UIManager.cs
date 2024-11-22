@@ -68,7 +68,7 @@ public class UIManager : MonoBehaviour
                 UnpauseGame();
             }
         }
-        if(Input.GetKey(KeyCode.Space) && isOpeningActive)
+        if(Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.Mouse0) && isOpeningActive)
         {
             CloseOpeningScene();
         }
