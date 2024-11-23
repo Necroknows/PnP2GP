@@ -11,13 +11,14 @@ public class MouseSensitivity : MonoBehaviour
 
 private void Start()
     {
-        msSlider.value = PlayerPref.instance.mouseSens/200;
+        msSlider.value = PlayerPref.instance.mouseSens /1000;
+        setSense();
         
     }
     public void setSense()
     {
         
-            mouseSens = msSlider.value * 200 ;
+            mouseSens = msSlider.value * 1000 ;
 
         
         PlayerPref.instance.SetMouseSense(mouseSens);

@@ -13,10 +13,11 @@ public class PlayerPref : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        mouseSens = 200;
     }
     private void Start()
     {
-        mouseSens = 100;
+        
     }
 
     public void SetMouseSense(float amount)
