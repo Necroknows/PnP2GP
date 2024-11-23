@@ -25,7 +25,9 @@ MonoBehaviour:
     dialogueFalse: {fileID: 0}
   - requiredQuestsCompleted: []
     ignoreIfQuestsCompleted:
+    - {fileID: 11400000, guid: 4da7cd8a0b23e084cba01685c66cb2dd, type: 2}
     - {fileID: 11400000, guid: c56431fdf30f0c6499083a26bdbc4658, type: 2}
+    - {fileID: 11400000, guid: a4d431c0312743d43b433419e644a6fe, type: 2}
     responseText: Quest 1
     dialogueParent: {fileID: 11400000}
     dialogueTrue: {fileID: 11400000, guid: 7b67e933cf252cd4198de263a25b7fdc, type: 2}
@@ -33,6 +35,7 @@ MonoBehaviour:
   - requiredQuestsCompleted:
     - {fileID: 11400000, guid: 4da7cd8a0b23e084cba01685c66cb2dd, type: 2}
     ignoreIfQuestsCompleted:
+    - {fileID: 11400000, guid: c56431fdf30f0c6499083a26bdbc4658, type: 2}
     - {fileID: 11400000, guid: a4d431c0312743d43b433419e644a6fe, type: 2}
     responseText: Quest 2
     dialogueParent: {fileID: 11400000}
