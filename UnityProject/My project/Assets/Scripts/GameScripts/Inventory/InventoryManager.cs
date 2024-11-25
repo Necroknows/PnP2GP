@@ -82,7 +82,7 @@ public class InventoryManager : MonoBehaviour
             //check if recipe book item is selected in inventory
             if (selectedItem != null && !RecipeBookUI.instance.isShowing && (selectedItem.itemID == recipeBookItemID && Input.GetKeyUp(KeyCode.Q)))
             {
-                Debug.Log("Recipe Book selected - calling ShowRecipeBook");
+                //Debug.Log("Recipe Book selected - calling ShowRecipeBook");
 
                 //show recipe book if selected is the recipe book
                 RecipeBookUI.instance.ShowRecipeBook();
@@ -94,7 +94,7 @@ public class InventoryManager : MonoBehaviour
                 //hide recipe book if any other item is selected
                 RecipeBookUI.instance.HideRecipeBook();
             }
-            else if (Items.Count == 1 && Input.GetKeyUp(KeyCode.Q))
+            else if (RecipeBookUI.instance.isShowing && Input.GetKeyUp(KeyCode.Q))
             {
                 RecipeBookUI.instance.HideRecipeBook();
             }
@@ -155,44 +155,44 @@ public class InventoryManager : MonoBehaviour
     {
         if (item == null)
         {
-            Debug.LogError("Attempted to add null item to inventory");
+            //Debug.LogError("Attempted to add null item to inventory");
             return;
         }
-        if (Items.Count == 0)
-        {
-            Debug.Log("Adding item " + item.itemName + " and setting it as the currently held item.");
-            Items.Add(item);
-            currentSelectedItem = 0;
-            Items[currentSelectedItem].SetStack(1);
-            inventoryUI.gameObject.SetActive(true);
-        }
-        else if (HasItem(item.itemName))
-        {
-            int index = 0;
-            for (int i = 0; i < Items.Count; i++)
+            if (Items.Count == 0)
             {
-                if (Items[i].itemName == item.itemName)
-                {
-                    index = i;
-                    break;
-                }
+                //Debug.Log("Adding item " + item.itemName + " and setting it as the currently held item.");
+                Items.Add(item);
+                currentSelectedItem = 0;
+                Items[currentSelectedItem].SetStack(1);
+                inventoryUI.gameObject.SetActive(true);
             }
-            Items[index].AddStack(1);
-            Debug.Log("Adding item " + item.itemName + " to stack.");
-            Debug.Log("Current stack: " + Items[index].GetStack);
-        }
-        else
-        {
-            Debug.Log("Adding item " + item.itemName);
-            Items.Add(item);
-            int index = Items.IndexOf(item);
-            Items[index].SetStack(1);
-        }
-        ListItems();        //update UI after adding items
-        if (QuestManager.instance.GetActiveQuest != null)
-        {
-            QuestManager.instance.UpdateUIList();
-        }
+            else if (HasItem(item.itemName))
+            {
+                int index = 0;
+                for (int i = 0; i < Items.Count; i++)
+                {
+                    if (Items[i].itemName == item.itemName)
+                    {
+                        index = i;
+                        break;
+                    }
+                }
+                Items[index].AddStack(1);
+                //Debug.Log("Adding item " + item.itemName + " to stack.");
+                //Debug.Log("Current stack: " + Items[index].GetStack);
+            }
+            else
+            {
+                //Debug.Log("Adding item " + item.itemName);
+                Items.Add(item);
+                int index = Items.IndexOf(item);
+                Items[index].SetStack(1);
+            }
+            ListItems();        //update UI after adding items
+            if (QuestManager.instance.GetActiveQuest != null)
+            {
+                QuestManager.instance.UpdateUIList();
+            }
     }
 
     public void RemoveItem(Item item)
@@ -218,7 +218,7 @@ public class InventoryManager : MonoBehaviour
             inventoryUI.gameObject.SetActive(false);
         }
         ListItems();        //update UI after adding items
-        Debug.Log("Item: " + item.itemName + " has been removed from player inventory");
+        //Debug.Log("Item: " + item.itemName + " has been removed from player inventory");
         if (QuestManager.instance.GetActiveQuest != null)
         {
             QuestManager.instance.UpdateUIList();
@@ -245,7 +245,7 @@ public class InventoryManager : MonoBehaviour
             {
                 if (item == null || item.itemIcon == null)
                 {
-                    Debug.LogError("Item or Item Icon is null for Item" + (item != null ? item.itemName : "null"));
+                    //Debug.LogError("Item or Item Icon is null for Item" + (item != null ? item.itemName : "null"));
                     continue;
                 }
 
@@ -257,12 +257,12 @@ public class InventoryManager : MonoBehaviour
 
                 if (itemName == null)
                 {
-                    Debug.LogError("Failed to find itemName in inventoryItem prefab");
+                    //Debug.LogError("Failed to find itemName in inventoryItem prefab");
                     continue;
                 }
                 if (itemIcon == null)
                 {
-                    Debug.LogError("Failed to find itemIcon in inventoryItem prefab");
+                    //Debug.LogError("Failed to find itemIcon in inventoryItem prefab");
                     continue;
                 }
 
@@ -280,19 +280,19 @@ public class InventoryManager : MonoBehaviour
                     itemIcon.sprite = item.itemIcon;
                 }
 
-                Debug.Log("Added item to UI " + item.itemName);
+                //Debug.Log("Added item to UI " + item.itemName);
             }
 
             //check itemcontent and inventoryitem are set
             if (ItemContent == null)
             {
-                Debug.LogError("ItemContent not set in InventoryManager");
+                //Debug.LogError("ItemContent not set in InventoryManager");
                 return;
             }
 
             if (InventoryItem == null)
             {
-                Debug.LogError("InventoryItem not set in InventoryManager");
+                //Debug.LogError("InventoryItem not set in InventoryManager");
                 return;
             }
 

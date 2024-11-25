@@ -59,7 +59,7 @@ public class UIManager : MonoBehaviour
     {// on esc key 
         if (Input.GetButtonDown("Cancel"))
         {
-            Debug.Log("Escape key pressed");
+            //Debug.Log("Escape key pressed");
             // if no menu
             if (menuActive == null)
             {

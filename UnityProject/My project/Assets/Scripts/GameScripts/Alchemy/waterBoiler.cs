@@ -22,19 +22,19 @@ public class waterBoiler : MonoBehaviour
     public void RemoveItem(Item item)
     {
         itemsInBoiler.Remove(item);
-        Debug.Log(item.itemName + "removed from Boiler");
+        //Debug.Log(item.itemName + "removed from Boiler");
     }
 
     public void AddItem(Item item)
     {
         itemsInBoiler.Add(item);
-        Debug.Log(item.itemName + "added to Boiler");
+        //Debug.Log(item.itemName + "added to Boiler");
     }
 
     public void ClearItems()
     {
         itemsInBoiler.Clear();
-        Debug.Log("Boiler cleared");
+        //Debug.Log("Boiler cleared");
     }
 
 }//END

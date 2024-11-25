@@ -22,20 +22,20 @@ public class Mortar : MonoBehaviour
     public void RemoveItem(Item item)
     {
         itemsInMortar.Remove(item);
-        Debug.Log(item.itemName + "removed from Mortar");
+        //Debug.Log(item.itemName + "removed from Mortar");
     }
 
     //add item to mortar
     public void AddItem(Item item)
     {
         itemsInMortar.Add(item);
-        Debug.Log(item.itemName + "added to Mortar");
+        //Debug.Log(item.itemName + "added to Mortar");
     }
 
     public void ClearItems()
     {
         itemsInMortar.Clear();
-        Debug.Log("Mortar cleared");
+        //Debug.Log("Mortar cleared");
 
     }
 

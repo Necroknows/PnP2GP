@@ -25,11 +25,11 @@ public class QuestLog : MonoBehaviour
             {
                 return true;
             }
-            Debug.Log("Quest: " +  obj.GetQuestName + " was not found in questsCompleted list or was not marked as completed.");
+            //Debug.Log("Quest: " +  obj.GetQuestName + " was not found in questsCompleted list or was not marked as completed.");
         }
         else
         {
-            Debug.Log("questsToGive is null.");
+            //Debug.Log("questsToGive is null.");
         }
         return false;
     }
@@ -42,11 +42,11 @@ public class QuestLog : MonoBehaviour
             {
                 return true;
             }
-            Debug.Log("Quest: " + obj.GetQuestName + " was not found in questsActive or was not marked as Active.");
+            //Debug.Log("Quest: " + obj.GetQuestName + " was not found in questsActive or was not marked as Active.");
         }
         else
         {
-            Debug.Log("questsToGive is null.");
+            //Debug.Log("questsToGive is null.");
         }
         return false;
     }
@@ -65,7 +65,7 @@ public class QuestLog : MonoBehaviour
         }
         else
         {
-            Debug.Log("questsToGive is null.");
+            //Debug.Log("questsToGive is null.");
         }
         return false;
     }
@@ -90,11 +90,11 @@ public class QuestLog : MonoBehaviour
                 if (obj.GetQuestState == QuestObject.QuestState.Accepted)
                 {
                     obj.SetQuestState(QuestObject.QuestState.Completed);
-                    Debug.Log("Quest: " + obj.GetQuestName + " is now complete.");
+                    //Debug.Log("Quest: " + obj.GetQuestName + " is now complete.");
                 }
                 else
                 {
-                    Debug.Log("Quest: " + obj.GetQuestName + " is already completed.");
+                    //Debug.Log("Quest: " + obj.GetQuestName + " is already completed.");
                 }
                 if (!questsCompleted.Contains(obj))
                 {
@@ -112,7 +112,7 @@ public class QuestLog : MonoBehaviour
 
             else if (obj.GetQuestState == QuestObject.QuestState.Inactive)
             {
-                Debug.Log("Quest: " + obj.GetQuestName + " has not been started.");
+                //Debug.Log("Quest: " + obj.GetQuestName + " has not been started.");
                 if (!questsToGive.Contains(obj))
                 {
                     questsToGive.Add(obj);
@@ -138,11 +138,11 @@ public class QuestLog : MonoBehaviour
                 if (obj.GetQuestState == QuestObject.QuestState.Inactive)
                 {
                     obj.SetQuestState(QuestObject.QuestState.Accepted);
-                    Debug.Log("Quest: " + obj.GetQuestName + " is now accepted.");
+                    //Debug.Log("Quest: " + obj.GetQuestName + " is now accepted.");
                 }
                 else
                 {
-                    Debug.Log("Quest: " + obj.GetQuestName + " is already accepted.");
+                    //Debug.Log("Quest: " + obj.GetQuestName + " is already accepted.");
                 }
                 if (questActive == null)
                 {
@@ -160,7 +160,7 @@ public class QuestLog : MonoBehaviour
 
             else if (obj.GetQuestState == QuestObject.QuestState.Completed)
             {
-                Debug.Log("Quest: " + obj.GetQuestName + " has already been completed.");
+                //Debug.Log("Quest: " + obj.GetQuestName + " has already been completed.");
             }
             //Set the active quest as the new quest
             QuestSetActive(obj);
@@ -207,7 +207,7 @@ public class QuestLog : MonoBehaviour
         }
         else
         {
-            Debug.Log("Null QuestObject passed to function QuestReadyToTurnIn().");
+            //Debug.Log("Null QuestObject passed to function QuestReadyToTurnIn().");
             obj.readyToTurnIn = false;
         }
     }
@@ -216,10 +216,10 @@ public class QuestLog : MonoBehaviour
     {
         if (obj != null)
         {
-            Debug.Log("Setting " + obj.GetQuestName + " as active quest.");
+            //Debug.Log("Setting " + obj.GetQuestName + " as active quest.");
             if (obj.GetQuestState == QuestObject.QuestState.Completed)
             {
-                Debug.Log("Quest: " + obj.GetQuestName + " has already been completed.");
+                //Debug.Log("Quest: " + obj.GetQuestName + " has already been completed.");
             }
             else
             {

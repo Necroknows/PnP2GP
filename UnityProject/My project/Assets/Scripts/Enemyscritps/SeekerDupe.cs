@@ -41,7 +41,7 @@ public class SeekerDupe : MonoBehaviour
             {
                 //move to retrievable object if found
                 agent.SetDestination(objectToRetrieve.transform.position);
-                Debug.Log("Object Found" + objectToRetrieve.name);
+                //Debug.Log("Object Found" + objectToRetrieve.name);
             }
             //if seeker has no object & doesn't see one, roam to find one
             else
@@ -55,12 +55,12 @@ public class SeekerDupe : MonoBehaviour
         {
             //carry retrievable object to drop off point
             agent.SetDestination(dropOffPoint.position);
-            Debug.Log("Taking Object To Drop Off" + objectToRetrieve.name);
+            //Debug.Log("Taking Object To Drop Off" + objectToRetrieve.name);
 
             if (agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending)
             {
                 DropOffObject();
-                Debug.Log("Object Dropped Off");
+                //Debug.Log("Object Dropped Off");
             }
         }
     }
@@ -83,7 +83,7 @@ public class SeekerDupe : MonoBehaviour
                 if (distanceToObject < detectionRange && !Physics.Raycast(transform.position, hitCollider.transform.position - transform.position, distanceToObject, obstacleMask))
                 {
                     objectToRetrieve = hitCollider.gameObject; //assign detected object to objectToRetrieve
-                    Debug.Log("Object Found: " + objectToRetrieve.name);
+                    //Debug.Log("Object Found: " + objectToRetrieve.name);
                     return true;
                 }
             }
@@ -115,7 +115,7 @@ public class SeekerDupe : MonoBehaviour
         if (other.CompareTag("Retrievable"))
         {
             objectToRetrieve = other.gameObject;        //assigns detected object to objectToRetrieve
-            Debug.Log("Object Entered: " + objectToRetrieve.name);
+            //Debug.Log("Object Entered: " + objectToRetrieve.name);
             PickUpObject();                             //automatically picks up object
         }
     }
@@ -127,7 +127,7 @@ public class SeekerDupe : MonoBehaviour
             objectToRetrieve.transform.SetParent(transform);        //parents object to seeker
             objectToRetrieve.transform.localPosition = carryPosition.localPosition; //sets carry position
             hasObject = true;                                       //updates carry status
-            Debug.Log("Object Retrieved" + objectToRetrieve.name);
+            //Debug.Log("Object Retrieved" + objectToRetrieve.name);
         }
     }
 
@@ -144,7 +144,7 @@ public class SeekerDupe : MonoBehaviour
             //we'll either update game goals for the enemy in game manager or UI manager
             //Waiting on Jesse to confirm which script to use
             //gameManager.instance.UpdateGameGoal();
-            Debug.Log("Object Dropped Off");
+            //Debug.Log("Object Dropped Off");
         }
     }
     bool IsGrounded(GameObject obj)

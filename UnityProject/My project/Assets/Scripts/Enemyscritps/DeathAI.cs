@@ -48,7 +48,7 @@ public class DeathAI : MonoBehaviour
         }
         if(minionSpawnPoint == null)
         {
-            Debug.LogError("minionSpawnPoint not assigned in Inspector.");
+            //Debug.LogError("minionSpawnPoint not assigned in Inspector.");
         }
 
         playerController = player.GetComponent<PlayerController>();

@@ -45,7 +45,7 @@ public class InteractionManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Prompt is empty");
+            //Debug.Log("Prompt is empty");
         }
         if (key != KeyCode.None)
         {
@@ -53,7 +53,7 @@ public class InteractionManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("No activation Key for prompt");
+            //Debug.Log("No activation Key for prompt");
         }
     }
 }

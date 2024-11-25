@@ -118,7 +118,7 @@ public class enemyGhostAI : MonoBehaviour, IDamage
     {
         playerDir = GameManager.instance.player.transform.position - headPos.position;
         angleToPlayer = Vector3.Angle(new Vector3(playerDir.x, 0, playerDir.z), transform.forward);
-        Debug.DrawRay(headPos.position, playerDir);
+        //Debug.DrawRay(headPos.position, playerDir);
 
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDir, out hit))

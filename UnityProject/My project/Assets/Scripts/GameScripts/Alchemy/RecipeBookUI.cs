@@ -26,7 +26,7 @@ public class RecipeBookUI : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("RecipeBookUI Awake()");
+        //Debug.Log("RecipeBookUI Awake()");
 
         if (instance == null)
         {
@@ -44,12 +44,12 @@ public class RecipeBookUI : MonoBehaviour
     private void Start()
     {
         recipes = AlchemyManager.instance.recipes;
-        Debug.Log("RecipeBookUI Start()");
+        //Debug.Log("RecipeBookUI Start()");
     }
 
     private void OnEnable()
     {
-        Debug.Log("RecipeBookUI OnEnable()");
+        //Debug.Log("RecipeBookUI OnEnable()");
     }
 
     private void Update()
@@ -65,12 +65,12 @@ public class RecipeBookUI : MonoBehaviour
             }
             if (Input.GetButtonDown("ArrowRight"))
             {
-                Debug.Log("ArrowRight(right) pressed - calling NextPage()");
+                //Debug.Log("ArrowRight(right) pressed - calling NextPage()");
                 NextPage();
             }
             else if (Input.GetButtonDown("ArrowLeft"))
             {
-                Debug.Log("ArrowLeft(left) pressed - calling PrevPage()");
+                //Debug.Log("ArrowLeft(left) pressed - calling PrevPage()");
                 PrevPage();
             }
         }
@@ -81,7 +81,7 @@ public class RecipeBookUI : MonoBehaviour
         recipeBookPanel.SetActive(true);
         currentPage = 0;
         ShowPage(currentPage);
-        Debug.Log("Recipe Book opened - current page set to 0");
+        //Debug.Log("Recipe Book opened - current page set to 0");
         isShowing = true;
     }
 
@@ -93,21 +93,21 @@ public class RecipeBookUI : MonoBehaviour
 
     public void ShowPage(int pageIndex)
     {
-        Debug.Log($"Recipe book panel active: {recipeBookPanel.activeSelf}");
-        Debug.Log($"Recipe image display active: {recipeImageDisplay.gameObject.activeSelf}");
-        Debug.Log($"recipeImageDisplay assigned: {recipeImageDisplay != null}");
-        Debug.Log($"ShowPage called w/ pageIndex: {pageIndex}");
-        Debug.Log($"recipeImages.Count: {recipeImages.Count}");
+        //Debug.Log($"Recipe book panel active: {recipeBookPanel.activeSelf}");
+        //Debug.Log($"Recipe image display active: {recipeImageDisplay.gameObject.activeSelf}");
+        //Debug.Log($"recipeImageDisplay assigned: {recipeImageDisplay != null}");
+        //Debug.Log($"ShowPage called w/ pageIndex: {pageIndex}");
+        //Debug.Log($"recipeImages.Count: {recipeImages.Count}");
 
 
 
         if (recipeImages == null || recipeImages.Count == 0)
         {
-            Debug.LogWarning("No recipe images assigned");
+            //Debug.LogWarning("No recipe images assigned");
         }
         else if (pageIndex < 0 || pageIndex >= recipeImages.Count)
         {
-            Debug.LogWarning($"Invalid pageIndex: {pageIndex}. recipeImages.Count: {recipeImages.Count}");
+            //Debug.LogWarning($"Invalid pageIndex: {pageIndex}. recipeImages.Count: {recipeImages.Count}");
         }
         else if (recipeImages[pageIndex] != null && recipes != null && recipes[pageIndex] != null)
         {

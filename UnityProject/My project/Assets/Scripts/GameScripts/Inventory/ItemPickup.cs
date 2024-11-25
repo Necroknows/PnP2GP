@@ -28,7 +28,7 @@ public class ItemPickup : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerInRange = true;
-            Debug.Log("Player in range of item" + item.itemName);
+            //Debug.Log("Player in range of item" + item.itemName);
             interactables.Interact("Press E to pick up " + item.itemName, KeyCode.E);
         }
     }
@@ -38,18 +38,18 @@ public class ItemPickup : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             isPlayerInRange = false;
-            Debug.Log("Player out of range of item" + item.itemName);
+            //Debug.Log("Player out of range of item" + item.itemName);
             interactables.StopInteract();
         }
     }
 
     public void Pickup()
     {
-        Debug.Log("Attempting item pick up" + item.itemName);
+        //Debug.Log("Attempting item pick up" + item.itemName);
 
         if(InventoryManager.instance == null)
         {
-            Debug.LogError("InventoryManager instance not found");
+            //Debug.LogError("InventoryManager instance not found");
             return;     //exit if InventoryManager instance is not found
         }
 
@@ -61,13 +61,13 @@ public class ItemPickup : MonoBehaviour
             InventoryManager.instance.AddItem(item);
            
 
-            Debug.Log("Item picked up" + item.itemName);
+            //Debug.Log("Item picked up" + item.itemName);
 
             Destroy(gameObject);
         }
         else
         {
-            Debug.Log("Item already picked up" + item.itemName);
+            //Debug.Log("Item already picked up" + item.itemName);
         }
     }
 }

@@ -94,19 +94,19 @@ public class AlchemyManager : MonoBehaviour
         {
             if (!mortar.HasItem(ingredient) && ingredient.itemType == Item.ItemType.Herb)
             {
-                Debug.Log("Missing ingredient " + ingredient.itemName);
+                //Debug.Log("Missing ingredient " + ingredient.itemName);
                 return false;
             }
             else if (!waterBoiler.HasItem(ingredient) && ingredient.itemType == Item.ItemType.Water)
             {
-                Debug.Log("Missing ingredient " + ingredient.itemName);
+                //Debug.Log("Missing ingredient " + ingredient.itemName);
                 return false;
             }
         }
 
         //add resulting item to inventory
         InventoryManager.instance.AddItem(recipe.result);
-        Debug.Log("Crafted " + recipe.result.itemName);
+        //Debug.Log("Crafted " + recipe.result.itemName);
 
         return true;
     }
@@ -129,7 +129,7 @@ public class AlchemyManager : MonoBehaviour
             {
                 mortarComponent.AddItem(item);
                 inventory.RemoveItem(item);
-                Debug.Log(item.itemName + "added to Mortar");
+                //Debug.Log(item.itemName + "added to Mortar");
                 return;
             }
         }
@@ -141,7 +141,7 @@ public class AlchemyManager : MonoBehaviour
             {
                 waterBoilerComponent.AddItem(item);
                 inventory.RemoveItem(item);
-                Debug.Log(item.itemName + "added to Boiler");
+                //Debug.Log(item.itemName + "added to Boiler");
             }
         }
     }
@@ -170,7 +170,7 @@ public class AlchemyManager : MonoBehaviour
             if (!checks.Contains(ingredient))
             {
                 canCraft = false;
-                Debug.Log("Invalid items for recipe");
+                //Debug.Log("Invalid items for recipe");
                 break;
             }
             checks.Remove(ingredient);
@@ -183,19 +183,19 @@ public class AlchemyManager : MonoBehaviour
             {
                 //attempt to craft based on recipe
                 InventoryManager.instance.AddItem(stand.GetRecipe.result);
-                Debug.Log("Potion crafted & added to inventory.");
+                //Debug.Log("Potion crafted & added to inventory.");
                 //clear objects after crafting
                 foreach (Item item in stand.GetRecipe.ingredients)
                 {
                     if (item != null && item.itemType == Item.ItemType.Water)
                     {
                         waterBoiler.RemoveItem(item);
-                        Debug.Log(item.itemName + "removed from waterBoiler.");
+                        //Debug.Log(item.itemName + "removed from waterBoiler.");
                     }
                     else if (item != null && item.itemType == Item.ItemType.Herb)
                     {
                         mortar.RemoveItem(item);
-                        Debug.Log(item.itemName + "removed from mortar.");
+                        //Debug.Log(item.itemName + "removed from mortar.");
                     }
                 }
                 if (waterBoiler.GetItems != null)
@@ -204,9 +204,9 @@ public class AlchemyManager : MonoBehaviour
                     {
                         Item temp = waterBoiler.GetItems[i];
                         InventoryManager.instance.AddItem(waterBoiler.GetItems[i]);
-                        Debug.Log(temp.itemName + "returned to player inventory.");
+                        //Debug.Log(temp.itemName + "returned to player inventory.");
                         waterBoiler.RemoveItem(waterBoiler.GetItems[i]);
-                        Debug.Log(temp.itemName + "removed from waterBoiler.");
+                        //Debug.Log(temp.itemName + "removed from waterBoiler.");
                         i--;
                     }
                 }
@@ -216,9 +216,9 @@ public class AlchemyManager : MonoBehaviour
                     {
                         Item temp = mortar.GetItems[i];
                         InventoryManager.instance.AddItem(mortar.GetItems[i]);
-                        Debug.Log(temp.itemName + "returned to player inventory.");
+                        //Debug.Log(temp.itemName + "returned to player inventory.");
                         mortar.RemoveItem(mortar.GetItems[i]);
-                        Debug.Log(temp.itemName + "removed from mortar.");
+                        //Debug.Log(temp.itemName + "removed from mortar.");
                         i--;
                     }
                 }
@@ -229,7 +229,7 @@ public class AlchemyManager : MonoBehaviour
             foreach (Item item in list)
             {
                 InventoryManager.instance.AddItem(item);
-                Debug.Log(item.itemName + " returned to player");
+                //Debug.Log(item.itemName + " returned to player");
             }
             waterBoiler.GetComponent<waterBoiler>().ClearItems();
             mortar.GetComponent<Mortar>().ClearItems();

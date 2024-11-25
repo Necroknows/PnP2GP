@@ -129,7 +129,7 @@ public class PlayerController : MonoBehaviour, IDamage
     void Update()
     {
         // Draw a debug ray to visualize shooting direction
-        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.red);
+        //Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.red);
 
         // Perform movement and sprinting logic if the game is not paused
         if (!UIManager.Instance.isPaused)

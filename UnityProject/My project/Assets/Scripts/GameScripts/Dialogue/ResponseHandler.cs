@@ -25,7 +25,7 @@ public class ResponseHandler : MonoBehaviour
 
         if (inventory == null)
         {
-            Debug.Log("Inventory not found");
+            //Debug.Log("Inventory not found");
         }
     }
 
@@ -86,7 +86,7 @@ public class ResponseHandler : MonoBehaviour
         }
         else
         {
-            Debug.Log("No dialogue suitable for conversation outcome.");
+            //Debug.Log("No dialogue suitable for conversation outcome.");
             StartCoroutine(dialogueManager.EndDialogue());
         }
     }
@@ -108,7 +108,7 @@ public class ResponseHandler : MonoBehaviour
         {
             foreach (QuestObject thing in response.requiredQuestsCompleted)
             {
-                Debug.Log("Checking if Quest: " + thing.GetQuestName + " has been completed");
+                //Debug.Log("Checking if Quest: " + thing.GetQuestName + " has been completed");
                 if (!playerScript.QuestLog.QuestCheckIfCompleted(thing))
                 {
                     return false;
@@ -119,7 +119,7 @@ public class ResponseHandler : MonoBehaviour
         {
             foreach (QuestObject thing in response.ignoreIfQuestsCompleted)
             {
-                Debug.Log("Checking if Quest: " + thing.GetQuestName + " has been completed");
+                //Debug.Log("Checking if Quest: " + thing.GetQuestName + " has been completed");
                 if (playerScript.QuestLog.QuestCheckIfCompleted(thing))
                 {
                     return false;

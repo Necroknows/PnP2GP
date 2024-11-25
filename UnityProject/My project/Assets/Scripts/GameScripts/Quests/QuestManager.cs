@@ -56,11 +56,11 @@ public class QuestManager : MonoBehaviour
             qObject.SetQuestState(QuestObject.QuestState.Inactive);
             playerScript.QuestLog.QuestAccept(qObject);
             UpdateUIList();
-            Debug.Log("Giving Quest: " + qObject.GetQuestName);
+            //Debug.Log("Giving Quest: " + qObject.GetQuestName);
         }
         else
         {
-            Debug.Log("Quest: " + qObject.GetQuestName + " has already started");
+            //Debug.Log("Quest: " + qObject.GetQuestName + " has already started");
         }
     }
    
@@ -96,7 +96,7 @@ public class QuestManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("activeQuest was null.");
+            //Debug.Log("activeQuest was null.");
         }
     }
 

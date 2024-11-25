@@ -77,7 +77,7 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(DialogueObject dialogue)
     {
-        Debug.Log("Starting conversation with " + dialogue.nameNPC);
+        //Debug.Log("Starting conversation with " + dialogue.nameNPC);
 
         hUD.SetActive(false);
         anim.SetBool("IsOpen", true);
@@ -138,7 +138,7 @@ public class DialogueManager : MonoBehaviour
 
     public IEnumerator EndDialogue()
     {
-        Debug.Log("End of conversation.");
+        //Debug.Log("End of conversation.");
         if (QuestManager.instance.GetActiveQuest != null && QuestManager.instance.GetActiveQuest.JustAccepted)
         {
             QuestManager.instance.GetActiveQuest.SetJustAccepted(false);

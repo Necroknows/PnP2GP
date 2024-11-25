@@ -23,7 +23,7 @@ public class RecipeStand : MonoBehaviour
     public void SetRecipe(AlchemyRecipe _recipe)
     {
         recipe = _recipe;
-        Debug.Log("recipe" + recipe.recipeName + "added to Stand");
+        //Debug.Log("recipe" + recipe.recipeName + "added to Stand");
     }
 
     public AlchemyRecipe GetRecipe => recipe;
@@ -31,7 +31,7 @@ public class RecipeStand : MonoBehaviour
     public void ClearRecipe()
     {
         recipe = null;
-        Debug.Log("Stand cleared");
+        //Debug.Log("Stand cleared");
     }
 
     private void OnTriggerEnter(Collider other)

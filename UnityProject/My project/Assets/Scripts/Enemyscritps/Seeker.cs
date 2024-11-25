@@ -60,7 +60,7 @@ public class Seeker : MonoBehaviour
             if (agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending)
             {
                 DropOffObject();
-                Debug.Log("Object Dropped Off");
+                //Debug.Log("Object Dropped Off");
             }
         }
     }
@@ -86,7 +86,7 @@ public class Seeker : MonoBehaviour
                     
                         objectToRetrieve = hitCollider.gameObject; //assign detected object to objectToRetrieve
                     
-                    Debug.Log("Object Found: " + objectToRetrieve.name);
+                    //Debug.Log("Object Found: " + objectToRetrieve.name);
                     return true;
                 }
             }
@@ -118,17 +118,17 @@ public class Seeker : MonoBehaviour
         if (other.CompareTag("Retrievable") && !hasObject)
         {
             objectToRetrieve = other.gameObject;  // assigns detected object to objectToRetrieve
-            Debug.Log("Object Entered: " + objectToRetrieve.name);
+            //Debug.Log("Object Entered: " + objectToRetrieve.name);
 
             // Check if objectToRetrieve is properly assigned
             if (objectToRetrieve != null)
             {
-                Debug.Log("Object Assigned Properly: " + objectToRetrieve.name);
+                //Debug.Log("Object Assigned Properly: " + objectToRetrieve.name);
                 PickUpObject();  // automatically picks up object
             }
             else
             {
-                Debug.Log("ObjectToRetrieve is NULL!");
+                //Debug.Log("ObjectToRetrieve is NULL!");
             }
         }
     }
@@ -140,7 +140,7 @@ public class Seeker : MonoBehaviour
             objectToRetrieve.transform.SetParent(transform);        //parents object to seeker
             objectToRetrieve.transform.localPosition = carryPosition.localPosition; //sets carry position
             hasObject = true;                                       //updates carry status
-            Debug.Log("Object Retrieved" + objectToRetrieve.name);
+            //Debug.Log("Object Retrieved" + objectToRetrieve.name);
         }
     }
 
@@ -157,7 +157,7 @@ public class Seeker : MonoBehaviour
             //we'll either update game goals for the enemy in game manager or UI manager
             //Waiting on Jesse to confirm which script to use
             //gameManager.instance.UpdateGameGoal();
-            Debug.Log("Object Dropped Off");
+            //Debug.Log("Object Dropped Off");
         }
     }
     

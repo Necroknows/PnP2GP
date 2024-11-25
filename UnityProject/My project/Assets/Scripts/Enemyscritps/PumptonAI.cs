@@ -84,8 +84,8 @@ public class PumptonAI : MonoBehaviour, IDamage
             transform.rotation = Quaternion.Lerp(transform.rotation, rot * Quaternion.Euler(0, 90, 0), Time.deltaTime * rotateSpeed);
         }
         //Debugging...
-        Debug.DrawLine(transform.position, transform.position + directionToPlayer * 5, Color.red);
-        Debug.DrawLine(transform.position, transform.position + transform.forward * 5, Color.green);
+        //Debug.DrawLine(transform.position, transform.position + directionToPlayer * 5, Color.red);
+        //Debug.DrawLine(transform.position, transform.position + transform.forward * 5, Color.green);
     }
 
     void PumptonShot(float shootForce)
