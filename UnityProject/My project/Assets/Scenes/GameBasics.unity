@@ -475,63 +475,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7720689943075398501, guid: 6fe77b0ff36476b4295e2a9c7cc6b0bf, type: 3}
   m_PrefabInstance: {fileID: 362276458}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &365923662
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 673589979719269352, guid: 3c441a04b5208bc4aa5aded5f7f6c434, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -54.725765
-      objectReference: {fileID: 0}
-    - target: {fileID: 673589979719269352, guid: 3c441a04b5208bc4aa5aded5f7f6c434, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.5539894
-      objectReference: {fileID: 0}
-    - target: {fileID: 673589979719269352, guid: 3c441a04b5208bc4aa5aded5f7f6c434, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 98.30862
-      objectReference: {fileID: 0}
-    - target: {fileID: 673589979719269352, guid: 3c441a04b5208bc4aa5aded5f7f6c434, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 673589979719269352, guid: 3c441a04b5208bc4aa5aded5f7f6c434, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 673589979719269352, guid: 3c441a04b5208bc4aa5aded5f7f6c434, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 673589979719269352, guid: 3c441a04b5208bc4aa5aded5f7f6c434, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 673589979719269352, guid: 3c441a04b5208bc4aa5aded5f7f6c434, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 673589979719269352, guid: 3c441a04b5208bc4aa5aded5f7f6c434, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 673589979719269352, guid: 3c441a04b5208bc4aa5aded5f7f6c434, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7587721211321522686, guid: 3c441a04b5208bc4aa5aded5f7f6c434, type: 3}
-      propertyPath: m_Name
-      value: DeathAI
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 3c441a04b5208bc4aa5aded5f7f6c434, type: 3}
 --- !u!1 &428547875
 GameObject:
   m_ObjectHideFlags: 0
@@ -1026,18 +969,6 @@ PrefabInstance:
       value: BookOfDeath
       objectReference: {fileID: 0}
     - target: {fileID: 5697136734385476331, guid: 268eddd44d6a4a94e8139a260182adbb, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5697136734385476331, guid: 268eddd44d6a4a94e8139a260182adbb, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5697136734385476331, guid: 268eddd44d6a4a94e8139a260182adbb, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5697136734385476331, guid: 268eddd44d6a4a94e8139a260182adbb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 20
       objectReference: {fileID: 0}
@@ -1075,10 +1006,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5697136734385476331, guid: 268eddd44d6a4a94e8139a260182adbb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5697136734385476331, guid: 268eddd44d6a4a94e8139a260182adbb, type: 3}
-      propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2822,7 +2749,6 @@ SceneRoots:
   - {fileID: 9080308391345667088}
   - {fileID: 1219610632}
   - {fileID: 5601513617858759325}
-  - {fileID: 365923662}
   - {fileID: 1095134200}
   - {fileID: 1611497545}
   - {fileID: 1069873866}

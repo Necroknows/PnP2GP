@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &6233234039430754247
 Transform:
@@ -50,7 +50,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &5686769919148507401
 Transform:
@@ -81,14 +81,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19c8a40c88452424a85bc373e754f422, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 2938329929716087778, guid: f3ad18a9e94c73b4fa5748593c3abd63, type: 3}
+  enemy: {fileID: 1209712669051443687, guid: 1f8babb473c4c884d8a4414058776952, type: 3}
   spawnPoint: {fileID: 6233234039430754247}
   model: {fileID: 2892303125938355034}
   modelSwitch: {fileID: 3712163943787679583, guid: 1459eacbc122a814fad23e27a46f96ba, type: 3}
   isUsingNewModel: 1
   spawnCount: 1
-  spawnRate: 2
-  HP: 5
+  spawnRate: 5
+  HP: 1
   indestructible: 0
   continousSpawning: 1
 --- !u!33 &1409405895169103209
